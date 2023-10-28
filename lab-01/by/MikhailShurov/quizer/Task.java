@@ -8,6 +8,7 @@ public interface Task {
      @return текст задания
      */
     String getText();
+    String getAnswer();
 
     /**
      * Проверяет ответ на задание и возвращает результат

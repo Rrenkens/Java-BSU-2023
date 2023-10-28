@@ -101,6 +101,8 @@ public class ExpressionTaskGenerator implements TaskGenerator {
         }
         return divisors;
     }
+
+//    ToDo implement this function
 //    /**
 //     * return задание типа {@link ExpressionTask}
 //     */

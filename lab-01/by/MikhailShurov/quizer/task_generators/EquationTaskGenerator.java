@@ -32,6 +32,7 @@ public class EquationTaskGenerator implements TaskGenerator {
     ) {
         this.minNumber = minNumber;
         this.maxNumber = maxNumber;
+
         if (generateSum) {
             operationsList.add('+');
         }
@@ -64,12 +65,19 @@ public class EquationTaskGenerator implements TaskGenerator {
         char selectedOperation = operationsList.get(random.nextInt(operationsList.size()));
         Task task = null;
 
+        if (maxNumber == 0 && minNumber == 0) {
+            throw new IllegalArgumentException("Invalid lower and upper bounds");
+        }
+
         if (selectedOperation == '/' && secondNumber == 0) {
             return generate();
         }
 
         if (xInFirstPosition) {
             if (selectedOperation == '/') {
+                if (firstNumber == 0) {
+                    return generate();
+                }
                 // n
                 String taskStr = "x/" + String.valueOf(firstNumber) + "=" + String.valueOf(secondNumber);
                 task = new TextTask(taskStr, String.valueOf(firstNumber * secondNumber));
@@ -120,7 +128,8 @@ public class EquationTaskGenerator implements TaskGenerator {
         }
         return divisors;
     }
-//    /**   //ToDo implement this function
+//      ToDo implement this function
+//    /**
 //     * return задание типа {@link EquationTask}
 //     */
 //    EquationTask generate() {
