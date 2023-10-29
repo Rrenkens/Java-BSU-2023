@@ -4,14 +4,13 @@ import by.lamposhka.quizer.TaskGenerator;
 import by.lamposhka.quizer.tasks.ExpressionTask;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
-class ExpressionTaskGenerator implements TaskGenerator {
-    private ArrayList<Operation> operators = new ArrayList<Operation>(4);
+public class ExpressionTaskGenerator implements TaskGenerator {
+    private final ArrayList<Operation> operators = new ArrayList<>(4);
     private final int minNumber;
     private final int maxNumber;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     private enum Operation {
         SUM,
@@ -29,7 +28,7 @@ class ExpressionTaskGenerator implements TaskGenerator {
      * @param generateDivision       разрешить генерацию с оператором /
      */
 
-    ExpressionTaskGenerator(
+    public ExpressionTaskGenerator(
             int minNumber,
             int maxNumber,
             boolean generateSum,
@@ -77,6 +76,9 @@ class ExpressionTaskGenerator implements TaskGenerator {
                 text = number1 + "*" + number2;
                 break;
             case DIVISION:
+                while (number2 == 0) {
+                    number2 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
+                }
                 answer = number1 / number2;
                 text = number1 + "/" + number2;
                 break;

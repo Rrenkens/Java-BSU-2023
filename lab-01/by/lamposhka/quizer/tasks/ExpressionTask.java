@@ -4,8 +4,8 @@ import by.lamposhka.quizer.Result;
 import by.lamposhka.quizer.Task;
 
 public class ExpressionTask implements Task {
-    private String text;
-    private int answer;
+    private final String text;
+    private final int answer; // is it supposed to be double, huh?
 
     //temporary constructor. enum to be added
     public ExpressionTask(
