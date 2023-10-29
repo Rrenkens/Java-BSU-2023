@@ -8,8 +8,8 @@ import by.lamposhka.quizer.Task;
  * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
  */
 class TextTask implements Task {
-    private String text;
-    private String answer;
+    private final String text;
+    private final String answer;
     /**
      * @param text   текст задания
      * @param answer ответ на задание
@@ -29,6 +29,9 @@ class TextTask implements Task {
 
     @Override
     public Result validate(String answer) {
+        if (answer.isEmpty()) {
+            return Result.INCORRECT_INPUT;
+        }
         if (this.answer.equals(answer)) {
             return Result.OK;
         }
