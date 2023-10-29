@@ -21,23 +21,26 @@ public class Quizer {
 
     public static void main(String[] args) {
         System.out.println("Введите название теста...");
+
         ExpressionTaskGenerator generator = new ExpressionTaskGenerator(0,
                 10, false, false, false, true);
+        Quiz quiz = new Quiz(generator, 10);
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String userAnswer = "";
-        for (int i = 0; i < 10; ++i) {
-            ExpressionTask task = generator.generate();
+
+        while (!quiz.isFinished()) {
+            Task task = quiz.nextTask();
             System.out.println(task.getText());
             try {
                 userAnswer = reader.readLine();
             }  catch (Exception e) {
                 System.out.println("exception");
             }
-
-            if (task.validate(userAnswer) == Result.OK) {
-                System.out.println("yep");
+            if (quiz.provideAnswer(userAnswer) == Result.INCORRECT_INPUT) {
+                System.out.println("Incorrect input");
             }
         }
-
+        System.out.println("Your mark: "  + quiz.getMark() + "%");
     }
 }
