@@ -47,7 +47,7 @@ class Quiz {
      */
     Result provideAnswer(String answer) {
         switch (tasks.get(currentTaskIndex).validate(answer)) {
-            case OK :
+            case OK:
                 break;
             case WRONG:
                 ++mistakesCount;
