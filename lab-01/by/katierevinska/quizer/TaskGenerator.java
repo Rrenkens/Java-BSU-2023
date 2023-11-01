@@ -9,12 +9,7 @@ public interface TaskGenerator {
      * @return задание
      * @see    Task
      */
-    enum Operation{
-        Sum,
-        Difference,
-        Multiplication,
-        Division
-    }
+
     Task generate() throws Exception;
 }
 

@@ -1,8 +1,10 @@
 package by.katierevinska.quizer;
 
-import by.katierevinska.quizer.task_generators.ExpressionTaskGenerator;
-import by.katierevinska.quizer.task_generators.EquationTaskGenerator;
+import by.katierevinska.quizer.task_generators.math_task_generators.ExpressionTaskGenerator;
+import by.katierevinska.quizer.task_generators.math_task_generators.EquationTaskGenerator;
+import by.katierevinska.quizer.tasks.math_tasks.MathTask;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,19 +17,20 @@ public class Main {
      */
     static Map<String, Quiz> getQuizMap() {
         Map<String, Quiz> quizMap = new HashMap<>();
+        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
         try {
             quizMap.put ("First Math test", new Quiz(new ExpressionTaskGenerator(0, 10,
-                    true, true, false, false), 5));
+                    operations), 5));
             quizMap.put ("Second Math test", new Quiz(new ExpressionTaskGenerator(-10, 10,
-                    true, true, false, false), 5));
+                    operations), 5));
             quizMap.put ("Optional Math test", new Quiz(new ExpressionTaskGenerator(-5, 10,
-                    false, false, true, true), 5));
+                    operations), 5));
             quizMap.put ("Level 2 First Math test", new Quiz(new EquationTaskGenerator(0, 15,//TODO another equal for double
-                    true, false, true, false), 10));
+                    operations), 10));
             quizMap.put ("Level 2 Fast Math test", new Quiz(new EquationTaskGenerator(-5, 10,
-                    false, true, false, true), 1));
+                    operations), 1));
             quizMap.put ("Level 2 Optional Math test", new Quiz(new EquationTaskGenerator(-7, 7,
-                  false, false, false, false), 0));
+                    operations), 0));
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }

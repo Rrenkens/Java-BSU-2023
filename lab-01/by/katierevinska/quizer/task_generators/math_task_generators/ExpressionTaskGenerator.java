@@ -3,7 +3,9 @@ package by.katierevinska.quizer.task_generators.math_task_generators;
 
 import by.katierevinska.quizer.TaskGenerator;
 import by.katierevinska.quizer.tasks.math_tasks.ExpressionTask;
+import by.katierevinska.quizer.tasks.math_tasks.MathTask;
 
+import java.util.EnumSet;
 import java.util.concurrent.ThreadLocalRandom;
 
 //Генерирует примеры вида `<num1><operator><num2>=<answer>`. Например, `2*5=?`.
@@ -19,44 +21,41 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
     private final int minNumber;
     private final int maxNumber;
 
-    Operation[] allowedOperations;
+    MathTask.Operation[] allowedOperations;
 
     public ExpressionTaskGenerator(
             int minNumber,
             int maxNumber,
-            boolean generateSum,
-            boolean generateDifference,
-            boolean generateMultiplication,
-            boolean generateDivision
+            EnumSet<MathTask.Operation> operations
     ) {
         this.minNumber = minNumber;
         this.maxNumber = maxNumber;
         int numberOfAllowedOperations = 0;
-        if(generateSum){
+        if(operations.contains(MathTask.Operation.Sum)){
             numberOfAllowedOperations++;
         }
-        if(generateDifference){
+        if(operations.contains(MathTask.Operation.Difference)){
             numberOfAllowedOperations++;
         }
-        if(generateMultiplication){
+        if(operations.contains(MathTask.Operation.Multiplication)){
             numberOfAllowedOperations++;
         }
-        if(generateDivision){
+        if(operations.contains(MathTask.Operation.Division)){
             numberOfAllowedOperations++;
         }
-        allowedOperations = new Operation[numberOfAllowedOperations];
+        allowedOperations = new MathTask.Operation[numberOfAllowedOperations];
         int pos = 0;
-        if(generateSum){
-            allowedOperations[pos++]=Operation.Sum;
+        if(operations.contains(MathTask.Operation.Sum)){
+            allowedOperations[pos++]= MathTask.Operation.Sum;
         }
-        if(generateDifference){
-            allowedOperations[pos++]=Operation.Difference;
+        if(operations.contains(MathTask.Operation.Difference)){
+            allowedOperations[pos++]= MathTask.Operation.Difference;
         }
-        if(generateMultiplication){
-            allowedOperations[pos++]=Operation.Multiplication;
+        if(operations.contains(MathTask.Operation.Multiplication)){
+            allowedOperations[pos++]= MathTask.Operation.Multiplication;
         }
-        if(generateDivision){
-            allowedOperations[pos]=Operation.Division;
+        if(operations.contains(MathTask.Operation.Division)){
+            allowedOperations[pos]= MathTask.Operation.Division;
         }
 
     }
@@ -74,28 +73,28 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
         int answer=0;
         int num1 = ThreadLocalRandom.current().nextInt(minNumber, maxNumber+1);
         int num2 = ThreadLocalRandom.current().nextInt(minNumber, maxNumber+1);
-        if(allowedOperations[randomNum] == Operation.Sum){
+        if(allowedOperations[randomNum] == MathTask.Operation.Sum){
             expression.append(num1)
                     .append('+')
                     .append(num2<0?"("+num2+")":num2)
                     .append("=?");
             answer = num1+num2;
         }
-        else if(allowedOperations[randomNum] == Operation.Difference){
+        else if(allowedOperations[randomNum] == MathTask.Operation.Difference){
             expression.append(num1)
                     .append('-')
                     .append(num2<0?"("+num2+")":num2)
                     .append("=?");
             answer =num1-num2;
         }
-        else if(allowedOperations[randomNum] == Operation.Multiplication){
+        else if(allowedOperations[randomNum] == MathTask.Operation.Multiplication){
             expression.append(num1)
                     .append('*')
                     .append(num2<0?"("+num2+")":num2)
                     .append("=?");
             answer = num1*num2;
         }
-        else if(allowedOperations[randomNum] == Operation.Division){
+        else if(allowedOperations[randomNum] == MathTask.Operation.Division){
 if(num2 == 0){
     num2 = ThreadLocalRandom.current().nextInt(1, maxNumber+1);
 }
