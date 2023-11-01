@@ -1,13 +1,13 @@
-package by.katierevinska.quizer.task_generators;
+package by.katierevinska.quizer.task_generators.math_task_generators;
 
 
 import by.katierevinska.quizer.TaskGenerator;
-import by.katierevinska.quizer.tasks.ExpressionTask;
+import by.katierevinska.quizer.tasks.math_tasks.ExpressionTask;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 //Генерирует примеры вида `<num1><operator><num2>=<answer>`. Например, `2*5=?`.
-public class ExpressionTaskGenerator implements TaskGenerator {
+public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
     /**
      * @param minNumber              минимальное число
      * @param maxNumber              максимальное число

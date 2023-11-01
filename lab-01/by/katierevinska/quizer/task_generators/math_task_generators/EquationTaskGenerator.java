@@ -1,8 +1,8 @@
-package by.katierevinska.quizer.task_generators;
+package by.katierevinska.quizer.task_generators.math_task_generators;
 
 import by.katierevinska.quizer.TaskGenerator;
-import by.katierevinska.quizer.tasks.EquationTask;
-import by.katierevinska.quizer.tasks.ExpressionTask;
+import by.katierevinska.quizer.tasks.math_tasks.EquationTask;
+import by.katierevinska.quizer.tasks.math_tasks.ExpressionTask;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 //        Генерирует уравнения вида `<num1><operator>x=<answer>` и `x<operator><num2>=<answer>`. Например, `x/2=6`.
 //
 //        ```java
-public class EquationTaskGenerator implements TaskGenerator {
+public class EquationTaskGenerator extends AbstractMathTaskGenerator {
     /**
      * @param minNumber              минимальное число
      * @param maxNumber              максимальное число
