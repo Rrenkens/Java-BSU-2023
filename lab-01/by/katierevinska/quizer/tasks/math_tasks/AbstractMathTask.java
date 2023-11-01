@@ -1,23 +1,10 @@
-package by.katierevinska.quizer.tasks;
+package by.katierevinska.quizer.tasks.math_tasks;
 
 import by.katierevinska.quizer.Result;
-import by.katierevinska.quizer.Task;
 
-import java.util.Objects;
-
-import static java.lang.Math.round;
-
-public class ExpressionTask implements Task {
+public abstract class AbstractMathTask implements MathTask {
     String text;
     String answer;
-
-    public ExpressionTask(
-            String text,
-            String answer
-    ) {
-        this.text = text;
-        this.answer = answer;
-    }
     @Override
     public String getText() {
         return text;
@@ -26,7 +13,7 @@ public class ExpressionTask implements Task {
     @Override
     public Result validate(String answer) {
         try {
-           double d = Double.parseDouble(answer);
+            double d = Double.parseDouble(answer);
         } catch (NumberFormatException nfe) {
             return Result.INCORRECT_INPUT;
         }
@@ -36,4 +23,3 @@ public class ExpressionTask implements Task {
         return Result.WRONG;
     }
 }
-
