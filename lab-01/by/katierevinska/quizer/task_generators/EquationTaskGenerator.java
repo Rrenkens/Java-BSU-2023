@@ -85,13 +85,13 @@ public class EquationTaskGenerator implements TaskGenerator {
             if(viewOfEquation == 0) {
                 if (allowedOperations[randomNum] == Operation.Sum) {
                     expression.append("?+")
-                            .append(num1)
+                            .append(num1<0?"("+num1+")":num1)
                             .append("=")
                             .append(num2);
                     answer = num2 - num1;
                 } else if (allowedOperations[randomNum] == Operation.Difference) {
                     expression.append("?-")
-                            .append(num1)
+                            .append(num1<0?"("+num1+")":num1)
                             .append("=")
                             .append(num2);
                     answer = num1 + num2;
@@ -104,7 +104,7 @@ public class EquationTaskGenerator implements TaskGenerator {
                         }
                     }
                     expression.append("?*")
-                            .append(num1)
+                            .append(num1<0?"("+num1+")":num1)
                             .append("=")
                             .append(num2);
                     answer = num2 / num1;
@@ -117,7 +117,7 @@ public class EquationTaskGenerator implements TaskGenerator {
                         }
                     }
                     expression.append("?/")
-                            .append(num1)
+                            .append(num1<0?"("+num1+")":num1)
                             .append("=")
                             .append(num2);
                     answer = num1 * num2;

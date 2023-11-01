@@ -77,21 +77,21 @@ public class ExpressionTaskGenerator implements TaskGenerator {
         if(allowedOperations[randomNum] == Operation.Sum){
             expression.append(num1)
                     .append('+')
-                    .append(num2)
+                    .append(num2<0?"("+num2+")":num2)
                     .append("=?");
             answer = num1+num2;
         }
         else if(allowedOperations[randomNum] == Operation.Difference){
             expression.append(num1)
                     .append('-')
-                    .append(num2)
+                    .append(num2<0?"("+num2+")":num2)
                     .append("=?");
             answer =num1-num2;
         }
         else if(allowedOperations[randomNum] == Operation.Multiplication){
             expression.append(num1)
                     .append('*')
-                    .append(num2)
+                    .append(num2<0?"("+num2+")":num2)
                     .append("=?");
             answer = num1*num2;
         }
@@ -101,7 +101,7 @@ if(num2 == 0){
 }
             expression.append(num1)
                     .append('/')
-                    .append(num2)
+                    .append(num2<0?"("+num2+")":num2)
                     .append("=?");
             answer = num1/num2;
         }

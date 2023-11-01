@@ -47,7 +47,7 @@ public class Main {
         Quiz quiz = quizMap.get(name);
         while(!quiz.isFinished()){
             System.out.println(quiz.nextTask().getText());
-            System.out.println("Введите ответ...");
+            System.out.println("Введите ответ(c точностью до одного знака после запятой при необходимости)...");
             Result result = quiz.provideAnswer(scanner.nextLine());
             if(result == Result.INCORRECT_INPUT) {
                 System.out.println("Некорректный ввод, попробуйте ещё раз...");
