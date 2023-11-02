@@ -4,6 +4,7 @@ import by.lamposhka.quizer.task_generators.ExpressionTaskGenerator;
 import by.lamposhka.quizer.tasks.ExpressionTask;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,28 +38,24 @@ public class Quizer {
     public static void main(String[] args) {
         System.out.println("Введите название теста...");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String quizName = "";
+        String quizName;
+        Quiz quiz;
         while (true) {
             try {
                 quizName = reader.readLine();
+                quiz = getQuizMap().get(quizName);
+                if (quiz == null) {
+                    throw new IllegalArgumentException(); // ???
+                }
                 break;
+            } catch (IOException e) {
+                System.out.println("Input error occurred. Try again.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Wrong quiz name. Try again.");
             } catch (Exception e) {
-                System.out.println("Input error occured.");
+                System.out.println("Unexpected error occurred. Try again.");
             }
         }
-
-
-
-        ExpressionTaskGenerator generator = new ExpressionTaskGenerator(
-                0,
-                10,
-                false,
-                false,
-                false,
-                true);
-        Quiz quiz = new Quiz(generator, 10);
-
-
         String userAnswer = "";
         while (!quiz.isFinished()) {
             Task task = quiz.nextTask();
@@ -66,7 +63,7 @@ public class Quizer {
             try {
                 userAnswer = reader.readLine();
             } catch (Exception e) {
-                System.out.println("exception");
+                System.out.println("Input error occurred.");
             }
             if (quiz.provideAnswer(userAnswer) == Result.INCORRECT_INPUT) {
                 System.out.println("Incorrect input");
