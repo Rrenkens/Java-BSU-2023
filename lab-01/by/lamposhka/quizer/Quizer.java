@@ -2,6 +2,7 @@ package by.lamposhka.quizer;
 
 import by.lamposhka.quizer.task_generators.EquationTaskGenerator;
 import by.lamposhka.quizer.task_generators.ExpressionTaskGenerator;
+import by.lamposhka.quizer.task_generators.GroupTaskGenerator;
 import by.lamposhka.quizer.tasks.ExpressionTask;
 
 import java.io.BufferedReader;
@@ -33,6 +34,24 @@ public class Quizer {
                 true,
                 true,
                 true), 4));
+
+        quizMap.put("COCKTEST", new Quiz(new GroupTaskGenerator(
+
+                new ExpressionTaskGenerator(
+                3,
+                20,
+                true,
+                true,
+                true,
+                true),
+
+                new EquationTaskGenerator(
+                1,
+                10,
+                true,
+                true,
+                true,
+                true)), 5));
         return quizMap;
     }
 
