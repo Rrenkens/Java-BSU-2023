@@ -3,6 +3,10 @@ package by.katierevinska.quizer.tasks.math_tasks;
 import by.katierevinska.quizer.Result;
 
 public abstract class AbstractMathTask implements MathTask {
+
+    public abstract static class Generator implements MathTask.Generator{
+    }
+
     String text;
     String answer;
     @Override

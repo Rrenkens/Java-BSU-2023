@@ -2,7 +2,7 @@ package by.katierevinska.quizer.task_generators;
 
 
 import by.katierevinska.quizer.Task;
-import by.katierevinska.quizer.TaskGenerator;
+import by.katierevinska.quizer.Task.Generator;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 //        `TaskGenerator`, который отдает задания из заранее заготовленного набора.
 //
 //        ```java
-public class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements Task.Generator {
     /**
      * Конструктор с переменным числом аргументов
      *

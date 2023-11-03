@@ -15,7 +15,7 @@ public class Quiz {
     private int Mark;
     private ArrayList<Task> test = new ArrayList<>();
 
-    Quiz(TaskGenerator generator, int taskCount) throws Exception {
+    Quiz(Task.Generator generator, int taskCount) throws Exception {
         if(taskCount == 0){
             throw new IllegalArgumentException("number of tasks should be more than 0");
         }

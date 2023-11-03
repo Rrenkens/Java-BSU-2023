@@ -1,7 +1,7 @@
 package by.katierevinska.quizer.task_generators;
 
 import by.katierevinska.quizer.Task;
-import by.katierevinska.quizer.TaskGenerator;
+import by.katierevinska.quizer.Task.Generator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,15 +13,15 @@ import java.util.Collection;
 //        `TaskGenerator`, который позволяет объединить несколько других `TaskGenerator`.
 //
 //        ```java
-class GroupTaskGenerator implements TaskGenerator {
+class GroupTaskGenerator implements Task.Generator {
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    ArrayList<TaskGenerator> generators = new ArrayList<>();
+    ArrayList<Task.Generator> generators = new ArrayList<>();
 
-    GroupTaskGenerator(TaskGenerator... generators) {
+    GroupTaskGenerator(Task.Generator... generators) {
         this.generators.addAll(Arrays.asList(generators));
     }
 
@@ -30,7 +30,7 @@ class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    GroupTaskGenerator(Collection<Task.Generator> generators) {
         this.generators.addAll(generators);
 
     }

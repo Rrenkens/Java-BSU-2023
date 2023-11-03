@@ -1,5 +1,16 @@
 package by.katierevinska.quizer;
 public interface Task {
+    public interface Generator {
+        /**
+         * Возвращает задание. При этом новый объект может не создаваться, если класс задания иммутабельный
+         *
+         * @return задание
+         * @see    Task
+         */
+
+        Task generate() throws Exception;
+    }
+
     /**
      @return текст задания
      */
