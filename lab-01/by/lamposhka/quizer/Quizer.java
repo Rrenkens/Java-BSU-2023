@@ -1,5 +1,6 @@
 package by.lamposhka.quizer;
 
+import by.lamposhka.quizer.task_generators.EquationTaskGenerator;
 import by.lamposhka.quizer.task_generators.ExpressionTaskGenerator;
 import by.lamposhka.quizer.tasks.ExpressionTask;
 
@@ -18,7 +19,7 @@ public class Quizer {
      */
     static Map<String, Quiz> getQuizMap() {
         Map<String, Quiz> quizMap = new HashMap<>();
-        quizMap.put("FUNNY TEST FOR STUPID PEOPLE", new Quiz(new ExpressionTaskGenerator(
+        quizMap.put("FUNNY TEST FOR STUPID PEOPLE", new Quiz(new EquationTaskGenerator(
                 1,
                 10,
                 true,
@@ -65,8 +66,11 @@ public class Quizer {
             } catch (Exception e) {
                 System.out.println("Input error occurred.");
             }
-            if (quiz.provideAnswer(userAnswer) == Result.INCORRECT_INPUT) {
+            Result result = quiz.provideAnswer(userAnswer);
+            if (result == Result.INCORRECT_INPUT) {
                 System.out.println("Incorrect input");
+            } else {
+                System.out.println(result.toString());
             }
         }
         System.out.println("Your mark: " + quiz.getMark() + "%");
