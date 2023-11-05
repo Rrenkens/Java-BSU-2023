@@ -1,6 +1,5 @@
 package by.lamposhka.quizer.task_generators;
 
-import by.lamposhka.quizer.TaskGenerator;
 import by.lamposhka.quizer.tasks.ExpressionTask;
 
 import java.util.ArrayList;

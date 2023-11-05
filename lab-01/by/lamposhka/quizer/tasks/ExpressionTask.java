@@ -1,13 +1,10 @@
 package by.lamposhka.quizer.tasks;
 
-import by.lamposhka.quizer.Result;
-import by.lamposhka.quizer.Task;
-
 public class ExpressionTask implements Task {
     private final String text;
     private final int answer; // is it supposed to be double, huh?
 
-    //temporary constructor. enum to be added
+    //enum to be added
     public ExpressionTask(
             String text,
             int answer

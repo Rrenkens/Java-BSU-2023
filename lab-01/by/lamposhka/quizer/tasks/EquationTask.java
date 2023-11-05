@@ -1,9 +1,5 @@
 package by.lamposhka.quizer.tasks;
 
-import by.lamposhka.quizer.Result;
-import by.lamposhka.quizer.Task;
-import by.lamposhka.quizer.task_generators.EquationTaskGenerator;
-
 public class EquationTask implements Task {
     private final String text;
     private final int answer;

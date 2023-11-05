@@ -1,4 +1,4 @@
-package by.lamposhka.quizer;
+package by.lamposhka.quizer.tasks;
 
 /**
  * Interface, который описывает одно задание

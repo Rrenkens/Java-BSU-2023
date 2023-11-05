@@ -1,8 +1,5 @@
 package by.lamposhka.quizer.tasks;
 
-import by.lamposhka.quizer.Result;
-import by.lamposhka.quizer.Task;
-
 /**
  * Задание с заранее заготовленным текстом.
  * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.

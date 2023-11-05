@@ -1,4 +1,6 @@
-package by.lamposhka.quizer;
+package by.lamposhka.quizer.task_generators;
+
+import by.lamposhka.quizer.tasks.Task;
 
 /**
  * Interface, который описывает один генератор заданий

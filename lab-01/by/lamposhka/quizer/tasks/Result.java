@@ -1,4 +1,4 @@
-package by.lamposhka.quizer;
+package by.lamposhka.quizer.tasks;
 
 /**
  * Enum, который описывает результат ответа на задание
