@@ -7,14 +7,14 @@ import by.lamposhka.quizer.Task;
  * Задание с заранее заготовленным текстом.
  * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
  */
-class TextTask implements Task {
+public class TextTask implements Task {
     private final String text;
     private final String answer;
     /**
      * @param text   текст задания
      * @param answer ответ на задание
      */
-    TextTask(
+    public TextTask(
             String text,
             String answer
     ) {

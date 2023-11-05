@@ -3,7 +3,10 @@ package by.lamposhka.quizer;
 import by.lamposhka.quizer.task_generators.EquationTaskGenerator;
 import by.lamposhka.quizer.task_generators.ExpressionTaskGenerator;
 import by.lamposhka.quizer.task_generators.GroupTaskGenerator;
+import by.lamposhka.quizer.task_generators.PoolTaskGenerator;
+import by.lamposhka.quizer.tasks.EquationTask;
 import by.lamposhka.quizer.tasks.ExpressionTask;
+import by.lamposhka.quizer.tasks.TextTask;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,6 +55,10 @@ public class Quizer {
                 true,
                 true,
                 true)), 5));
+        quizMap.put("TEST", new Quiz(new PoolTaskGenerator(
+                true,
+                new TextTask("what?", "yes"),
+                new EquationTask("3*3", 9)), 5));
         return quizMap;
     }
 
