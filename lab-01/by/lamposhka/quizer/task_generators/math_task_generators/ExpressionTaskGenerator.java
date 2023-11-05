@@ -1,22 +1,12 @@
-package by.lamposhka.quizer.task_generators;
+package by.lamposhka.quizer.task_generators.math_task_generators;
 
-import by.lamposhka.quizer.tasks.ExpressionTask;
+import by.lamposhka.quizer.task_generators.TaskGenerator;
+import by.lamposhka.quizer.tasks.math_tasks.ExpressionTask;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ExpressionTaskGenerator implements TaskGenerator {
-    private final ArrayList<Operation> operators = new ArrayList<>(4);
-    private final int minNumber;
-    private final int maxNumber;
-    private final Random random = new Random();
-
-    private enum Operation {
-        SUM,
-        DIFFERENCE,
-        MULTIPLICATION,
-        DIVISION
-    }
+public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
 
     /**
      * @param minNumber              минимальное число
@@ -35,20 +25,7 @@ public class ExpressionTaskGenerator implements TaskGenerator {
             boolean generateMultiplication,
             boolean generateDivision
     ) {
-        if (generateSum) {
-            operators.add(Operation.SUM);
-        }
-        if (generateDifference) {
-            operators.add(Operation.DIFFERENCE);
-        }
-        if (generateMultiplication) {
-            operators.add(Operation.MULTIPLICATION);
-        }
-        if (generateDivision) {
-            operators.add(Operation.DIVISION);
-        }
-        this.minNumber = minNumber;
-        this.maxNumber = maxNumber;
+        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
     }
 
     /**
@@ -57,11 +34,10 @@ public class ExpressionTaskGenerator implements TaskGenerator {
     public ExpressionTask generate() {
         String text;
         int answer;
-        int number1 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-        int number2 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-        int index = random.nextInt(operators.size());
+        int number1 = generateNum();
+        int number2 = generateNum();
 
-        switch (operators.get(index)) {
+        switch (generateOperator()) {
             case SUM :
                 answer = number1 + number2;
                 text = number1 + "+" + number2;
@@ -76,7 +52,7 @@ public class ExpressionTaskGenerator implements TaskGenerator {
                 break;
             case DIVISION:
                 while (number2 == 0) {
-                    number2 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
+                    number2 = generateNum();
                 }
                 answer = number1 / number2;
                 text = number1 + "/" + number2;

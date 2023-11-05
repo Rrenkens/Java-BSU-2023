@@ -1,11 +1,13 @@
-package by.lamposhka.quizer.tasks;
+package by.lamposhka.quizer.tasks.math_tasks;
 
-public class ExpressionTask implements Task {
+import by.lamposhka.quizer.tasks.Result;
+
+public abstract class AbstractMathTask implements MathTask {
     private final String text;
-    private final int answer; // is it supposed to be double, huh?
+    private final int answer;
 
     //enum to be added
-    public ExpressionTask(
+    AbstractMathTask(
             String text,
             int answer
     ) {

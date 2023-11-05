@@ -1,22 +1,13 @@
-package by.lamposhka.quizer.task_generators;
+package by.lamposhka.quizer.task_generators.math_task_generators;
 
-import by.lamposhka.quizer.tasks.EquationTask;
+import by.lamposhka.quizer.task_generators.TaskGenerator;
+import by.lamposhka.quizer.tasks.math_tasks.AbstractMathTask;
+import by.lamposhka.quizer.tasks.math_tasks.EquationTask;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class EquationTaskGenerator implements TaskGenerator {
-    private final ArrayList<EquationTaskGenerator.Operation> operators = new ArrayList<>(4);
-    private final int minNumber;
-    private final int maxNumber;
-    private final Random random = new Random();
-
-    private enum Operation {
-        SUM,
-        DIFFERENCE,
-        MULTIPLICATION,
-        DIVISION
-    }
+public class EquationTaskGenerator extends AbstractMathTaskGenerator {
 
     /**
      * @param minNumber              минимальное число
@@ -34,20 +25,7 @@ public class EquationTaskGenerator implements TaskGenerator {
             boolean generateMultiplication,
             boolean generateDivision
     ) {
-        this.minNumber = minNumber;
-        this.maxNumber = maxNumber;
-        if (generateSum) {
-            operators.add(EquationTaskGenerator.Operation.SUM);
-        }
-        if (generateDifference) {
-            operators.add(EquationTaskGenerator.Operation.DIFFERENCE);
-        }
-        if (generateMultiplication) {
-            operators.add(EquationTaskGenerator.Operation.MULTIPLICATION);
-        }
-        if (generateDivision) {
-            operators.add(EquationTaskGenerator.Operation.DIVISION);
-        }
+        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
     }
 
     /**
@@ -56,11 +34,10 @@ public class EquationTaskGenerator implements TaskGenerator {
     public EquationTask generate() {
         String text;
         int answer;
-        int number1 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-        int number2 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-        int index = random.nextInt(operators.size());
-        boolean xFirstPositionIndicator = random.nextBoolean();
-        switch (operators.get(index)) {
+        int number1 = generateNum();
+        int number2 = generateNum();
+        boolean xFirstPositionIndicator = generateVariablePositionIndicator();
+        switch (generateOperator()) {
             case SUM:
                 text = (xFirstPositionIndicator) ? "x + " + number1 + " = " + number2 : number1 + " + x" + " = " + number2;
                 answer = number2 - number1;

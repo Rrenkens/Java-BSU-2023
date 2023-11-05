@@ -1,10 +1,10 @@
 package by.lamposhka.quizer;
 
-import by.lamposhka.quizer.task_generators.EquationTaskGenerator;
-import by.lamposhka.quizer.task_generators.ExpressionTaskGenerator;
+import by.lamposhka.quizer.task_generators.math_task_generators.EquationTaskGenerator;
+import by.lamposhka.quizer.task_generators.math_task_generators.ExpressionTaskGenerator;
 import by.lamposhka.quizer.task_generators.GroupTaskGenerator;
 import by.lamposhka.quizer.task_generators.PoolTaskGenerator;
-import by.lamposhka.quizer.tasks.EquationTask;
+import by.lamposhka.quizer.tasks.math_tasks.EquationTask;
 import by.lamposhka.quizer.tasks.Result;
 import by.lamposhka.quizer.tasks.Task;
 import by.lamposhka.quizer.tasks.TextTask;
