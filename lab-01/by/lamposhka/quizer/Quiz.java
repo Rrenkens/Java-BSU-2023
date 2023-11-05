@@ -10,7 +10,7 @@ class Quiz {
     private int mistakesCount = 0;
     private int incorrectInputCount = 0;
     private int currentTaskIndex = 0;
-    private boolean taskSwitchIndicator = false;
+    private int lastValidatedTaskIndex = -1;
 
     /**
      * @param generator генератор заданий
@@ -29,11 +29,10 @@ class Quiz {
      */
     Task nextTask() {
         if (!isFinished()) {
-            if (taskSwitchIndicator) {
+            if (lastValidatedTaskIndex == currentTaskIndex) {
                 ++currentTaskIndex;
                 return tasks.get(currentTaskIndex); // :o
             } else {
-                taskSwitchIndicator = true;
                 return tasks.get(currentTaskIndex);
             }
         } else {
@@ -48,13 +47,14 @@ class Quiz {
     Result provideAnswer(String answer) {
         switch (tasks.get(currentTaskIndex).validate(answer)) {
             case OK:
+                ++lastValidatedTaskIndex;
                 break;
             case WRONG:
+                ++lastValidatedTaskIndex;
                 ++mistakesCount;
                 break;
             default:
-                ++incorrectInputCount;
-                taskSwitchIndicator = false;
+                ++incorrectInputCount;;
                 break;
         }
         return tasks.get(currentTaskIndex).validate(answer);
@@ -64,10 +64,10 @@ class Quiz {
      * @return завершен ли тест
      */
     public boolean isFinished() {
-        if (currentTaskIndex < tasks.size() - 1) {
-            return false;
+        if (lastValidatedTaskIndex == tasks.size() - 1) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
