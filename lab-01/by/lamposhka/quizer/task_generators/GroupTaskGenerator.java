@@ -2,13 +2,11 @@ package by.lamposhka.quizer.task_generators;
 
 import by.lamposhka.quizer.tasks.Task;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GroupTaskGenerator implements Task.Generator {
     private final ArrayList<Task.Generator> generators;
+
     /**
      * Конструктор с переменным числом аргументов
      *
@@ -24,34 +22,38 @@ public class GroupTaskGenerator implements Task.Generator {
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
     public GroupTaskGenerator(Collection<Task.Generator> generators) {
+        if (generators.isEmpty()) {
+            throw new IllegalArgumentException("Empty generator collection for group task generator.");
+        }
         this.generators = new ArrayList<Task.Generator>();
         this.generators.addAll(generators);
     }
 
     /**
-     *         Если этот генератор выбросил исключение в методе generate(), выбирается другой.
-     *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
+     * Если этот генератор выбросил исключение в методе generate(), выбирается другой.
+     * Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
-    public Task generate() { // Make generate() throw exceptions.
+    public Task generate() throws Exception { // Make generate() throw exceptions.
         Random random = new Random();
         boolean[] isThrowingExceptions = new boolean[generators.size()];
+        Arrays.fill(isThrowingExceptions, true);
         boolean noGeneratorsLeft;
         int index = 0;
-        while(true) {
+        while (true) {
             try {
                 index = random.nextInt(generators.size());
                 return generators.get(index).generate();
             } catch (Exception e) {
                 isThrowingExceptions[index] = true;
                 noGeneratorsLeft = true;
-                for (var i :isThrowingExceptions) {
+                for (var i : isThrowingExceptions) {
                     if (!i) {
                         noGeneratorsLeft = false;
                         break;
                     }
                 }
                 if (noGeneratorsLeft) {
-                    System.out.println("Unexpected error occurred.");
+                    throw new Exception("All generators are throwing exceptions.");
                 }
             }
         }

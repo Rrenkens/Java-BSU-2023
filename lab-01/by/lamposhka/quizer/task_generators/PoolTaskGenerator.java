@@ -34,6 +34,9 @@ public class PoolTaskGenerator implements Task.Generator {
             boolean allowDuplicate,
             Collection<Task> tasks
     ) {
+        if (tasks.isEmpty()) {
+            throw new IllegalArgumentException("Empty generator collection for pool task generator.");
+        }
         this.allowDuplicate = allowDuplicate;
         this.tasks = new ArrayList<Task>();
         this.tasks.addAll(tasks);

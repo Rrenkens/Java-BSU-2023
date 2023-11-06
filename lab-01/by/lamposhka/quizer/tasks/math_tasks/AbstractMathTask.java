@@ -1,6 +1,7 @@
 package by.lamposhka.quizer.tasks.math_tasks;
 
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Map;
@@ -14,20 +15,14 @@ public abstract class AbstractMathTask implements MathTask {
 
     protected AbstractMathTask(
             String text,
-            double answer
-    ) {
-        this.text = text;
-        this.answer = answer;
-        this.precision = 0;
-    }
-
-    protected AbstractMathTask(
-            String text,
             double answer,
             int precision
     ) {
         this.text = text;
         this.answer = answer;
+        if (precision < 0) {
+            throw new IllegalArgumentException("Precision should not be a negative number.");
+        }
         this.precision = precision;
     }
 
@@ -61,6 +56,15 @@ public abstract class AbstractMathTask implements MathTask {
                             double maxNumber,
                             int precision,
                             EnumSet<Operation> validOperations) {
+            if (minNumber > maxNumber) {
+                throw new IllegalArgumentException("MinNumber is bigger than MaxNumber.");
+            }
+            if (precision < 0) {
+                throw new IllegalArgumentException("Precision should not be a negative number.");
+            }
+            if (validOperations.isEmpty()) {
+                throw new IllegalArgumentException("There should be at least one operation allowed.");
+            }
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
             this.precision = precision;
@@ -105,7 +109,7 @@ public abstract class AbstractMathTask implements MathTask {
         }
 
         @Override
-        public abstract AbstractMathTask generate();
+        public abstract AbstractMathTask generate() throws Exception;
 
     }
 

@@ -15,7 +15,7 @@ public interface Task {
          * @return задание
          * @see Task
          */
-        Task generate();
+        Task generate() throws Exception;
     }
 
     /**

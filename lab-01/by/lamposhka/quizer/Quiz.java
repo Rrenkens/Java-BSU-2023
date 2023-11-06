@@ -17,7 +17,7 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    public Quiz(Task.Generator generator, int taskCount) {
+    public Quiz(Task.Generator generator, int taskCount) throws Exception {
         tasks = new ArrayList<>(taskCount);
         for (int i = 0; i < taskCount; ++i) {
             tasks.add(generator.generate());

@@ -7,7 +7,7 @@ import java.util.EnumSet;
 public class ExpressionTask extends AbstractMathTask {
 
     public ExpressionTask(String text, double answer) {
-        super(text, answer);
+        super(text, answer, 0);
     }
 
     public ExpressionTask(String text, double answer, int precision) {
@@ -42,7 +42,7 @@ public class ExpressionTask extends AbstractMathTask {
         /**
          * return задание типа {@link ExpressionTask}
          */
-        public ExpressionTask generate() {
+        public ExpressionTask generate() throws Exception {
             String text;
             double answer;
             double number1 = generateNum();
@@ -69,10 +69,9 @@ public class ExpressionTask extends AbstractMathTask {
                     text = number1 + "/" + number2;
                     break;
                 default:
-                    answer = number1;
-                    text = number1 + "";
+                    throw new Exception("No such operator.");
             }
-            return new ExpressionTask(text, castToPrecision(answer));
+            return new ExpressionTask(text, castToPrecision(answer), precision);
         }
     }
 }

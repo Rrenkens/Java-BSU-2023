@@ -22,18 +22,18 @@ public class Quizer {
      * ключ     - название теста {@link String}
      * значение - сам тест       {@link Quiz}
      */
-    static Map<String, Quiz> getQuizMap() {
+    static Map<String, Quiz> getQuizMap() throws Exception {
         Map<String, Quiz> quizMap = new HashMap<>();
         quizMap.put("FUNNY TEST FOR STUPID PEOPLE", new Quiz(new EquationTask.Generator(
                 1,
                 10,
                 EnumSet.allOf(MathTask.Operation.class)), 10));
         quizMap.put("300 BUCKS TEST", new Quiz(new ExpressionTask.Generator(
-                3,
+                2,
                 2,
                 EnumSet.allOf(MathTask.Operation.class)), 4));
 
-        quizMap.put("COCKTEST", new Quiz(new GroupTaskGenerator(
+        quizMap.put("NYATEST", new Quiz(new GroupTaskGenerator(
 
                 new ExpressionTask.Generator(
                         3,
@@ -58,10 +58,17 @@ public class Quizer {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String quizName;
         Quiz quiz;
+        Map<String, Quiz> map;
+        try {
+            map = getQuizMap();
+        } catch (Exception e) {
+            System.out.println("Map initialized with incorrect quiz's.");
+            return;
+        }
         while (true) {
             try {
                 quizName = reader.readLine();
-                quiz = getQuizMap().get(quizName);
+                quiz = map.get(quizName);
                 if (quiz == null) {
                     throw new IllegalArgumentException(); // ???
                 }
@@ -69,9 +76,10 @@ public class Quizer {
             } catch (IOException e) {
                 System.out.println("Input error occurred. Try again.");
             } catch (IllegalArgumentException e) {
-                System.out.println("Wrong quiz name. Try again.");
+                System.out.println("Wrong quiz name. Try again." + e.toString());
             } catch (Exception e) {
-                System.out.println("Unexpected error occurred. Try again.");
+                System.out.println("Unexpected error occurred" + e.toString());
+                return;
             }
         }
         String userAnswer = "";
