@@ -1,8 +1,6 @@
 package by.lamposhka.quizer;
 
-import by.lamposhka.quizer.task_generators.TaskGenerator;
 import by.lamposhka.quizer.tasks.Task;
-
 import java.util.ArrayList;
 
 /**
@@ -19,7 +17,7 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    public Quiz(TaskGenerator generator, int taskCount) {
+    public Quiz(Task.Generator generator, int taskCount) {
         tasks = new ArrayList<>(taskCount);
         for (int i = 0; i < taskCount; ++i) {
             tasks.add(generator.generate());
@@ -57,7 +55,8 @@ class Quiz {
                 ++mistakesCount;
                 break;
             default:
-                ++incorrectInputCount;;
+                ++incorrectInputCount;
+                ;
                 break;
         }
         return tasks.get(currentTaskIndex).validate(answer);

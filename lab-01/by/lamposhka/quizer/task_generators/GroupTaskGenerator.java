@@ -7,15 +7,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-public class GroupTaskGenerator implements TaskGenerator {
-    private final ArrayList<TaskGenerator> generators;
+public class GroupTaskGenerator implements Task.Generator {
+    private final ArrayList<Task.Generator> generators;
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    public GroupTaskGenerator(TaskGenerator... generators) {
-        this.generators = new ArrayList<TaskGenerator>(List.of(generators));
+    public GroupTaskGenerator(Task.Generator... generators) {
+        this.generators = new ArrayList<Task.Generator>(List.of(generators));
     }
 
     /**
@@ -23,8 +23,8 @@ public class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
-        this.generators = new ArrayList<TaskGenerator>();
+    public GroupTaskGenerator(Collection<Task.Generator> generators) {
+        this.generators = new ArrayList<Task.Generator>();
         this.generators.addAll(generators);
     }
 

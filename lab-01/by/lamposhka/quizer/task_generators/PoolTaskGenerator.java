@@ -4,7 +4,7 @@ import by.lamposhka.quizer.tasks.Task;
 
 import java.util.*;
 
-public class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements Task.Generator {
     private final boolean allowDuplicate;
     private final ArrayList<Task> tasks;
     private HashSet<Integer> generatedIndexes = new HashSet<>();

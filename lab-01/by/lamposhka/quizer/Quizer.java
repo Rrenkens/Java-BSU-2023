@@ -1,12 +1,11 @@
 package by.lamposhka.quizer;
 
-import by.lamposhka.quizer.task_generators.math_task_generators.EquationTaskGenerator;
-import by.lamposhka.quizer.task_generators.math_task_generators.ExpressionTaskGenerator;
 import by.lamposhka.quizer.task_generators.GroupTaskGenerator;
 import by.lamposhka.quizer.task_generators.PoolTaskGenerator;
 import by.lamposhka.quizer.tasks.math_tasks.EquationTask;
 import by.lamposhka.quizer.tasks.Task;
 import by.lamposhka.quizer.tasks.TextTask;
+import by.lamposhka.quizer.tasks.math_tasks.ExpressionTask;
 import by.lamposhka.quizer.tasks.math_tasks.MathTask;
 
 import java.io.BufferedReader;
@@ -25,23 +24,23 @@ public class Quizer {
      */
     static Map<String, Quiz> getQuizMap() {
         Map<String, Quiz> quizMap = new HashMap<>();
-        quizMap.put("FUNNY TEST FOR STUPID PEOPLE", new Quiz(new EquationTaskGenerator(
+        quizMap.put("FUNNY TEST FOR STUPID PEOPLE", new Quiz(new EquationTask.Generator(
                 1,
                 10,
                 EnumSet.allOf(MathTask.Operation.class)), 10));
-        quizMap.put("300 BUCKS TEST", new Quiz(new ExpressionTaskGenerator(
+        quizMap.put("300 BUCKS TEST", new Quiz(new ExpressionTask.Generator(
                 3,
                 20,
                 EnumSet.allOf(MathTask.Operation.class)), 4));
 
         quizMap.put("COCKTEST", new Quiz(new GroupTaskGenerator(
 
-                new ExpressionTaskGenerator(
+                new ExpressionTask.Generator(
                         3,
                         20,
                         EnumSet.allOf(MathTask.Operation.class)),
 
-                new EquationTaskGenerator(
+                new EquationTask.Generator(
                         1,
                         10, EnumSet.allOf(MathTask.Operation.class))), 5));
 

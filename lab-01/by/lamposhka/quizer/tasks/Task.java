@@ -6,6 +6,19 @@ package by.lamposhka.quizer.tasks;
 public interface Task {
 
     /**
+     * Interface, который описывает один генератор заданий
+     */
+    interface Generator {
+        /**
+         * Возвращает задание. При этом новый объект может не создаваться, если класс задания иммутабельный
+         *
+         * @return задание
+         * @see Task
+         */
+        Task generate();
+    }
+
+    /**
      * Enum, который описывает результат ответа на задание
      */
     enum Result {
@@ -15,16 +28,16 @@ public interface Task {
     }
 
     /**
-     @return текст задания
+     * @return текст задания
      */
     String getText();
 
     /**
      * Проверяет ответ на задание и возвращает результат
      *
-     * @param  answer ответ на задание
-     * @return        результат ответа
-     * @see           Result
+     * @param answer ответ на задание
+     * @return результат ответа
+     * @see Result
      */
     Result validate(String answer);
 }
