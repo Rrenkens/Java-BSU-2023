@@ -1,7 +1,6 @@
 package by.Lenson423.quizer.task_generators;
 
 import by.Lenson423.quizer.Task;
-import by.Lenson423.quizer.Task;
 import by.Lenson423.quizer.exceptions.CantGenerateTask;
 
 import java.util.*;
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class PoolTaskGenerator implements Task.Generator {
     private final boolean allowDuplicate;
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Конструктор с переменным числом аргументов
@@ -44,7 +43,7 @@ public class PoolTaskGenerator implements Task.Generator {
      * @return случайная задача из списка
      */
     public Task generate() throws CantGenerateTask {
-        if (tasks.isEmpty()){
+        if (tasks.isEmpty()) {
             throw new CantGenerateTask("Empty array with tasks");
         }
         int randomIndex = ThreadLocalRandom.current().nextInt(0, tasks.size());

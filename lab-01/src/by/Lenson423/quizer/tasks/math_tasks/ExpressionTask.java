@@ -8,30 +8,30 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ExpressionTask extends AbstractMathTask {
     public ExpressionTask(double num1, Operation operation, double num2, int precision) {
-        super(num1, operation, num2, precision);
         this.precision = precision;
         DecimalFormat decimalFormat = new DecimalFormat("#." + "#".repeat(precision));
         switch (operation) {
             case SUM -> {
                 this.expression = decimalFormat.format(num1) + "+" + decimalFormat.format(num2) + "=?";
-                result = (num1 + num2) * Math.pow(10, precision);
+                result = num1 + num2;
             }
             case DIFFERENCE -> {
                 this.expression = decimalFormat.format(num1) + "-" + decimalFormat.format(num2) + "=?";
-                result = (num1 - num2) * Math.pow(10, precision);
+                result = num1 - num2;
             }
             case MULTIPLICATION -> {
                 this.expression = decimalFormat.format(num1) + "*" + decimalFormat.format(num2) + "=?";
-                result = num1 * num2 * Math.pow(10, precision);
+                result = num1 * num2;
             }
             case DIVISION -> {
                 if (num2 == 0) {
                     throw new ArithmeticException("Divisible by 0");
                 }
                 this.expression = decimalFormat.format(num1) + "/" + decimalFormat.format(num2) + "=?";
-                result = num1 / num2 * Math.pow(10, precision);
+                result = num1 / num2;
             }
         }
+        result *= Math.pow(10, precision);
     }
 
     public static class Generator extends AbstractMathTask.Generator<ExpressionTask> {

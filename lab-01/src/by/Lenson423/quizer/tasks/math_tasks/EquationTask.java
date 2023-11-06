@@ -9,7 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EquationTask extends AbstractMathTask {
     public EquationTask(double num1, Operation operation, double answer, int precision) {
-        super(num1, operation, answer, precision);
         this.precision = precision;
         int leftOrRight = ThreadLocalRandom.current().nextInt(0, 2);
         DecimalFormat decimalFormat;
@@ -23,11 +22,11 @@ public class EquationTask extends AbstractMathTask {
             switch (operation) {
                 case SUM -> {
                     this.expression = "x+" + decimalFormat.format(num1) + "=" + decimalFormat.format(answer);
-                    result = (answer - num1) * Math.pow(10, precision);
+                    result = answer - num1;
                 }
                 case DIFFERENCE -> {
                     this.expression = "x-" + decimalFormat.format(num1) + "=" + decimalFormat.format(answer);
-                    result = (answer + num1) * Math.pow(10, precision);
+                    result = answer + num1;
                 }
                 case MULTIPLICATION -> {
                     if (num1 == 0 & answer != 0) {
@@ -37,25 +36,25 @@ public class EquationTask extends AbstractMathTask {
                         throw new ArithmeticException("inf count of roots");
                     }
                     this.expression = "x*" + decimalFormat.format(num1) + "=" + decimalFormat.format(answer);
-                    result = answer / num1 * Math.pow(10, precision);
+                    result = answer / num1;
                 }
                 case DIVISION -> {
                     if (num1 == 0) {
                         throw new ArithmeticException("Division by 0");
                     }
                     this.expression = "x/" + decimalFormat.format(num1) + "=" + decimalFormat.format(answer);
-                    result = answer * num1 * Math.pow(10, precision);
+                    result = answer * num1;
                 }
             }
         } else if (leftOrRight == 1) {
             switch (operation) {
                 case SUM -> {
                     this.expression = decimalFormat.format(num1) + "+x=" + decimalFormat.format(answer);
-                    result = (answer - num1) * Math.pow(10, precision);
+                    result = answer - num1;
                 }
                 case DIFFERENCE -> {
                     this.expression = decimalFormat.format(num1) + "-x=" + decimalFormat.format(answer);
-                    result = (num1 - answer) * Math.pow(10, precision);
+                    result = num1 - answer;
                 }
                 case MULTIPLICATION -> {
                     if (num1 == 0 & answer != 0) {
@@ -65,18 +64,18 @@ public class EquationTask extends AbstractMathTask {
                         throw new ArithmeticException("inf count of roots");
                     }
                     this.expression = decimalFormat.format(num1) + "*x=" + decimalFormat.format(answer);
-                    result = answer / num1 * Math.pow(10, precision);
+                    result = answer / num1;
                 }
                 case DIVISION -> {
                     if (answer == 0 & num1 != 0) {
                         throw new ArithmeticException("No roots");
                     }
                     this.expression = decimalFormat.format(num1) + "/x=" + decimalFormat.format(answer);
-                    result = num1 / answer * Math.pow(10, precision);
+                    result = num1 / answer;
                 }
             }
         }
-
+        result *= Math.pow(10, precision);
     }
 
     public static class Generator extends AbstractMathTask.Generator<EquationTask> {

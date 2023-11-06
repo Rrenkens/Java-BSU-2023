@@ -14,12 +14,9 @@ public abstract class AbstractMathTask implements MathTask {
 
     protected int precision;
 
-    AbstractMathTask(double num1, Operation operation, double num2, double precision) {
-    }
-
     @Override
     public String getText() {
-        return expression;
+        return expression + " P.S. Dull the answer, using maximum precision from the task ";
     }
 
     @Override
@@ -31,10 +28,6 @@ public abstract class AbstractMathTask implements MathTask {
             return Result.INCORRECT_INPUT;
         }
         int diff = (int) (tmp * Math.pow(10, precision) - result);
-        System.out.println(diff);
-        System.out.println(tmp * Math.pow(10, precision));
-        System.out.println(result);
-        //return (Math.abs(tmp - result) < Math.pow(10, -1 * Generator.getPrecision() - 1)) ? Result.OK : Result.WRONG;
         return (diff == 0) ? Result.OK : Result.WRONG;
     }
 
@@ -111,7 +104,7 @@ public abstract class AbstractMathTask implements MathTask {
             }
             if (minNumber == maxNumber & minNumber == 0
                     & !(operations.contains(Operation.SUM) | operations.contains(Operation.DIFFERENCE))) {
-                throw new CantGenerateTask("Cant't generate Task");
+                throw new CantGenerateTask("Can't generate Task");
             }
             try {
                 return returnPositive();

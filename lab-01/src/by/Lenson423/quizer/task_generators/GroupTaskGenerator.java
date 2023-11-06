@@ -1,7 +1,6 @@
 package by.Lenson423.quizer.task_generators;
 
 import by.Lenson423.quizer.Task;
-import by.Lenson423.quizer.Task;
 
 import java.util.*;
 import java.util.stream.Collectors;
