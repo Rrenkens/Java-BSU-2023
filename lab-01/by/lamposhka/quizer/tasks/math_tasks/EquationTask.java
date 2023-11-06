@@ -1,25 +1,40 @@
 package by.lamposhka.quizer.tasks.math_tasks;
+
 import by.lamposhka.quizer.tasks.math_tasks.AbstractMathTask;
 
 import java.util.EnumSet;
 
 public class EquationTask extends AbstractMathTask {
-    public EquationTask(String text, int answer) {
+    public EquationTask(String text, double answer) {
         super(text, answer);
     }
+
+    public EquationTask(String text, double answer, int precision) {
+        super(text, answer, precision);
+    }
+
     public static class Generator extends AbstractMathTask.Generator {
 
         /**
-         * @param minNumber  минимальное число
-         * @param maxNumber  максимальное число
+         * @param minNumber       минимальное число
+         * @param maxNumber       максимальное число
          * @param validOperations {@link EnumSet} с допустимыми операциями
          */
         public Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
                 EnumSet<MathTask.Operation> validOperations
         ) {
-            super(minNumber, maxNumber, validOperations);
+            super(minNumber, maxNumber, 0, validOperations);
+        }
+
+        public Generator(
+                double minNumber,
+                double maxNumber,
+                int precision,
+                EnumSet<MathTask.Operation> validOperations
+        ) {
+            super(minNumber, maxNumber, precision, validOperations);
         }
 
         /**
@@ -27,9 +42,9 @@ public class EquationTask extends AbstractMathTask {
          */
         public EquationTask generate() {
             String text;
-            int answer;
-            int number1 = generateNum();
-            int number2 = generateNum();
+            double answer;
+            double number1 = generateNum();
+            double number2 = generateNum();
             boolean xFirstPositionIndicator = generateVariablePositionIndicator();
             switch (generateOperator()) {
                 case SUM:
@@ -53,8 +68,7 @@ public class EquationTask extends AbstractMathTask {
                     answer = number1;
                     break;
             }
-
-            return new EquationTask(text, answer);
+            return new EquationTask(text, castToPrecision(answer), precision);
         }
     }
 }

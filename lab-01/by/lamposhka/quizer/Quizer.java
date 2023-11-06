@@ -30,7 +30,7 @@ public class Quizer {
                 EnumSet.allOf(MathTask.Operation.class)), 10));
         quizMap.put("300 BUCKS TEST", new Quiz(new ExpressionTask.Generator(
                 3,
-                20,
+                2,
                 EnumSet.allOf(MathTask.Operation.class)), 4));
 
         quizMap.put("COCKTEST", new Quiz(new GroupTaskGenerator(
@@ -38,11 +38,13 @@ public class Quizer {
                 new ExpressionTask.Generator(
                         3,
                         20,
+                        2,
                         EnumSet.allOf(MathTask.Operation.class)),
 
                 new EquationTask.Generator(
                         1,
-                        10, EnumSet.allOf(MathTask.Operation.class))), 5));
+                        10,
+                        2, EnumSet.allOf(MathTask.Operation.class))), 5));
 
         quizMap.put("TEST", new Quiz(new PoolTaskGenerator(
                 true,

@@ -3,18 +3,32 @@ package by.lamposhka.quizer.tasks.math_tasks;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.Map;
 import java.util.Random;
+
 
 public abstract class AbstractMathTask implements MathTask {
     private final String text;
-    private final int answer;
+    private final double answer;
+    private final int precision;
 
     protected AbstractMathTask(
             String text,
-            int answer
+            double answer
     ) {
         this.text = text;
         this.answer = answer;
+        this.precision = 0;
+    }
+
+    protected AbstractMathTask(
+            String text,
+            double answer,
+            int precision
+    ) {
+        this.text = text;
+        this.answer = answer;
+        this.precision = precision;
     }
 
     @Override
@@ -24,13 +38,13 @@ public abstract class AbstractMathTask implements MathTask {
 
     @Override
     public Result validate(String answer) {
-        int intAnswer;
+        double doubleAnswer;
         try {
-            intAnswer = Integer.parseInt(answer);
+            doubleAnswer = Double.parseDouble(answer);
         } catch (NumberFormatException nfe) {
             return Result.INCORRECT_INPUT;
         }
-        if (this.answer == intAnswer) {
+        if (Math.abs(this.answer - doubleAnswer) < Math.pow(10, -1 * precision)) { //org.apache.commons.math3.util.Precision
             return Result.OK;
         }
         return Result.WRONG;
@@ -38,15 +52,18 @@ public abstract class AbstractMathTask implements MathTask {
 
     public static abstract class Generator implements MathTask.Generator {
         private final ArrayList<Operation> operators = new ArrayList<>(4);
-        private final int minNumber;
-        private final int maxNumber;
+        private final double minNumber;
+        private final double maxNumber;
         private final Random random = new Random();
+        protected final int precision;
 
-        protected Generator(int minNumber,
-                            int maxNumber,
+        protected Generator(double minNumber,
+                            double maxNumber,
+                            int precision,
                             EnumSet<Operation> validOperations) {
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
+            this.precision = precision;
             if (validOperations.contains(MathTask.Operation.SUM)) {
                 operators.add(MathTask.Operation.SUM);
             }
@@ -61,8 +78,8 @@ public abstract class AbstractMathTask implements MathTask {
             }
         }
 
-        protected int generateNum() {
-            return random.nextInt(maxNumber) + minNumber;
+        protected double generateNum() {
+            return Math.floor((random.nextDouble(maxNumber) + minNumber) * Math.pow(10, precision)) / Math.pow(10, precision);
         }
 
         protected MathTask.Operation generateOperator() {
@@ -73,13 +90,17 @@ public abstract class AbstractMathTask implements MathTask {
             return random.nextBoolean();
         }
 
+        protected double castToPrecision(double num) {
+            return Math.floor(num * Math.pow(10, precision)) / Math.pow(10, precision);
+        }
+
         @Override
-        public int getMinNumber() {
+        public double getMinNumber() {
             return minNumber;
         }
 
         @Override
-        public int getMaxNumber() {
+        public double getMaxNumber() {
             return maxNumber;
         }
 

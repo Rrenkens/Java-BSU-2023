@@ -6,8 +6,12 @@ import java.util.EnumSet;
 
 public class ExpressionTask extends AbstractMathTask {
 
-    public ExpressionTask(String text, int answer) {
+    public ExpressionTask(String text, double answer) {
         super(text, answer);
+    }
+
+    public ExpressionTask(String text, double answer, int precision) {
+        super(text, answer, precision);
     }
 
     public static class Generator extends AbstractMathTask.Generator {
@@ -19,11 +23,20 @@ public class ExpressionTask extends AbstractMathTask {
          */
 
         public Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
                 EnumSet<MathTask.Operation> validOperations
         ) {
-            super(minNumber, maxNumber, validOperations);
+            this(minNumber, maxNumber, 0, validOperations);
+        }
+
+        public Generator(
+                double minNumber,
+                double maxNumber,
+                int precision,
+                EnumSet<MathTask.Operation> validOperations
+        ) {
+            super(minNumber, maxNumber, precision, validOperations);
         }
 
         /**
@@ -31,9 +44,9 @@ public class ExpressionTask extends AbstractMathTask {
          */
         public ExpressionTask generate() {
             String text;
-            int answer;
-            int number1 = generateNum();
-            int number2 = generateNum();
+            double answer;
+            double number1 = generateNum();
+            double number2 = generateNum();
 
             switch (generateOperator()) {
                 case SUM:
@@ -59,7 +72,7 @@ public class ExpressionTask extends AbstractMathTask {
                     answer = number1;
                     text = number1 + "";
             }
-            return new ExpressionTask(text, answer);
+            return new ExpressionTask(text, castToPrecision(answer));
         }
     }
 }

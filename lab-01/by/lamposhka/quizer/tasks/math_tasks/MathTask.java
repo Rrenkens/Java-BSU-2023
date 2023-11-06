@@ -12,14 +12,14 @@ public interface MathTask extends Task {
 
     interface Generator extends Task.Generator {
 
-        int getMinNumber(); // получить минимальное число
+        double getMinNumber(); // получить минимальное число
 
-        int getMaxNumber(); // получить максимальное число
+        double getMaxNumber(); // получить максимальное число
 
         /**
          * @return разница между максимальным и минимальным возможным числом
          */
-        default int getDiffNumber() {
+        default double getDiffNumber() {
             return getMaxNumber() - getMinNumber();
         }
     }
