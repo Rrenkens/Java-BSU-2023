@@ -5,13 +5,14 @@ import by.lamposhka.quizer.task_generators.math_task_generators.ExpressionTaskGe
 import by.lamposhka.quizer.task_generators.GroupTaskGenerator;
 import by.lamposhka.quizer.task_generators.PoolTaskGenerator;
 import by.lamposhka.quizer.tasks.math_tasks.EquationTask;
-import by.lamposhka.quizer.tasks.Result;
 import by.lamposhka.quizer.tasks.Task;
 import by.lamposhka.quizer.tasks.TextTask;
+import by.lamposhka.quizer.tasks.math_tasks.MathTask;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,35 +28,23 @@ public class Quizer {
         quizMap.put("FUNNY TEST FOR STUPID PEOPLE", new Quiz(new EquationTaskGenerator(
                 1,
                 10,
-                true,
-                true,
-                true,
-                true), 10));
+                EnumSet.allOf(MathTask.Operation.class)), 10));
         quizMap.put("300 BUCKS TEST", new Quiz(new ExpressionTaskGenerator(
                 3,
                 20,
-                true,
-                true,
-                true,
-                true), 4));
+                EnumSet.allOf(MathTask.Operation.class)), 4));
 
         quizMap.put("COCKTEST", new Quiz(new GroupTaskGenerator(
 
                 new ExpressionTaskGenerator(
-                3,
-                20,
-                true,
-                true,
-                true,
-                true),
+                        3,
+                        20,
+                        EnumSet.allOf(MathTask.Operation.class)),
 
                 new EquationTaskGenerator(
-                1,
-                10,
-                true,
-                true,
-                true,
-                true)), 5));
+                        1,
+                        10, EnumSet.allOf(MathTask.Operation.class))), 5));
+
         quizMap.put("TEST", new Quiz(new PoolTaskGenerator(
                 true,
                 new TextTask("what?", "yes"),
@@ -93,8 +82,8 @@ public class Quizer {
             } catch (Exception e) {
                 System.out.println("Input error occurred.");
             }
-            Result result = quiz.provideAnswer(userAnswer);
-            if (result == Result.INCORRECT_INPUT) {
+            Task.Result result = quiz.provideAnswer(userAnswer);
+            if (result == Task.Result.INCORRECT_INPUT) {
                 System.out.println("Incorrect input");
             } else {
                 System.out.println(result.toString());

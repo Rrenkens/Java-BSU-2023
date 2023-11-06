@@ -1,6 +1,5 @@
 package by.lamposhka.quizer.tasks.math_tasks;
 
-import by.lamposhka.quizer.tasks.Result;
 
 public abstract class AbstractMathTask implements MathTask {
     private final String text;

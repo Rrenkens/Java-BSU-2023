@@ -2,42 +2,34 @@ package by.lamposhka.quizer.task_generators.math_task_generators;
 
 import by.lamposhka.quizer.task_generators.TaskGenerator;
 import by.lamposhka.quizer.tasks.math_tasks.AbstractMathTask;
+import by.lamposhka.quizer.tasks.math_tasks.MathTask;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Random;
 
 public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
-    private final ArrayList<AbstractMathTaskGenerator.Operation> operators = new ArrayList<>(4);
+    private final ArrayList<MathTask.Operation> operators = new ArrayList<>(4);
     private final int minNumber;
     private final int maxNumber;
     private final Random random = new Random();
 
-    protected enum Operation {
-        SUM,
-        DIFFERENCE,
-        MULTIPLICATION,
-        DIVISION
-    }
-
-    AbstractMathTaskGenerator( int minNumber,
-                               int maxNumber,
-                               boolean generateSum,
-                               boolean generateDifference,
-                               boolean generateMultiplication,
-                               boolean generateDivision) {
+    AbstractMathTaskGenerator(int minNumber,
+                              int maxNumber,
+                              EnumSet<MathTask.Operation> validOperations) {
         this.minNumber = minNumber;
         this.maxNumber = maxNumber;
-        if (generateSum) {
-            operators.add(AbstractMathTaskGenerator.Operation.SUM);
+        if (validOperations.contains(MathTask.Operation.SUM)) {
+            operators.add(MathTask.Operation.SUM);
         }
-        if (generateDifference) {
-            operators.add(AbstractMathTaskGenerator.Operation.DIFFERENCE);
+        if (validOperations.contains(MathTask.Operation.DIFFERENCE)) {
+            operators.add(MathTask.Operation.DIFFERENCE);
         }
-        if (generateMultiplication) {
-            operators.add(AbstractMathTaskGenerator.Operation.MULTIPLICATION);
+        if (validOperations.contains(MathTask.Operation.MULTIPLICATION)) {
+            operators.add(MathTask.Operation.MULTIPLICATION);
         }
-        if (generateDivision) {
-            operators.add(AbstractMathTaskGenerator.Operation.DIVISION);
+        if (validOperations.contains(MathTask.Operation.DIVISION)) {
+            operators.add(MathTask.Operation.DIVISION);
         }
     }
 
@@ -45,7 +37,7 @@ public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
         return random.nextInt(maxNumber) + minNumber;
     }
 
-    protected Operation generateOperator() {
+    protected MathTask.Operation generateOperator() {
         return operators.get(random.nextInt(operators.size()));
     }
 

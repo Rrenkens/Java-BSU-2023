@@ -2,30 +2,26 @@ package by.lamposhka.quizer.task_generators.math_task_generators;
 
 import by.lamposhka.quizer.task_generators.TaskGenerator;
 import by.lamposhka.quizer.tasks.math_tasks.ExpressionTask;
+import by.lamposhka.quizer.tasks.math_tasks.MathTask;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Random;
 
 public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
 
     /**
-     * @param minNumber              минимальное число
-     * @param maxNumber              максимальное число
-     * @param generateSum            разрешить генерацию с оператором +
-     * @param generateDifference     разрешить генерацию с оператором -
-     * @param generateMultiplication разрешить генерацию с оператором *
-     * @param generateDivision       разрешить генерацию с оператором /
+     * @param minNumber       минимальное число
+     * @param maxNumber       максимальное число
+     * @param validOperations {@link EnumSet} с допустимыми операциями
      */
 
     public ExpressionTaskGenerator(
             int minNumber,
             int maxNumber,
-            boolean generateSum,
-            boolean generateDifference,
-            boolean generateMultiplication,
-            boolean generateDivision
+            EnumSet<MathTask.Operation> validOperations
     ) {
-        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
+        super(minNumber, maxNumber, validOperations);
     }
 
     /**
@@ -38,7 +34,7 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
         int number2 = generateNum();
 
         switch (generateOperator()) {
-            case SUM :
+            case SUM:
                 answer = number1 + number2;
                 text = number1 + "+" + number2;
                 break;

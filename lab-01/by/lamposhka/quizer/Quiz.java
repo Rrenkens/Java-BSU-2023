@@ -1,7 +1,6 @@
 package by.lamposhka.quizer;
 
 import by.lamposhka.quizer.task_generators.TaskGenerator;
-import by.lamposhka.quizer.tasks.Result;
 import by.lamposhka.quizer.tasks.Task;
 
 import java.util.ArrayList;
@@ -45,10 +44,10 @@ class Quiz {
     }
 
     /**
-     * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных
+     * Предоставить ответ ученика. Если результат {@link Task.Result#INCORRECT_INPUT}, то счетчик неправильных
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
-    Result provideAnswer(String answer) {
+    Task.Result provideAnswer(String answer) {
         switch (tasks.get(currentTaskIndex).validate(answer)) {
             case OK:
                 ++lastValidatedTaskIndex;
