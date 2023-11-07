@@ -1,27 +1,23 @@
-package by.busskov.quizer.task_generators;
+package by.busskov.quizer.task_generators.math_task_generators;
 
 import by.busskov.quizer.Operation;
-import by.busskov.quizer.TaskGenerator;
-import by.busskov.quizer.tasks.ExpressionTask;
+import by.busskov.quizer.Task;
+import by.busskov.quizer.tasks.math_tasks.ExpressionMathTask;
 
 import java.util.EnumSet;
 import java.util.Random;
 
-public class ExpressionTaskGenerator implements TaskGenerator {
-    public ExpressionTaskGenerator(
+public class ExpressionMathTaskGenerator extends AbstractMathTaskGenerator {
+    public ExpressionMathTaskGenerator(
             int minNumber,
             int maxNumber,
             EnumSet<Operation> availableOperations
     ) {
-        if (minNumber > maxNumber) {
-            throw new IllegalArgumentException("min number is greater than max number");
-        }
-        this.minNumber = minNumber;
-        this.maxNumber = maxNumber;
-        this.availableOperations = EnumSet.copyOf(availableOperations);
+        super(minNumber, maxNumber, availableOperations);
     }
+
     @Override
-    public ExpressionTask generate() {
+    public ExpressionMathTask generate() {
         Random random = new Random();
         int firstNumber = random.nextInt(maxNumber - minNumber + 1) + minNumber;
         int secondNumber = random.nextInt(maxNumber - minNumber + 1) + minNumber;
@@ -51,11 +47,7 @@ public class ExpressionTaskGenerator implements TaskGenerator {
             }
             default -> throw new IllegalArgumentException("Invalid operation!");
         };
-        return new ExpressionTask(condition, answer);
+        return new ExpressionMathTask(condition, answer, 1e-3);
     }
-
-    private final int minNumber;
-    private final int maxNumber;
-    private final EnumSet<Operation> availableOperations;
-
 }
+//TODO remove hardcode precision from return

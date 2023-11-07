@@ -26,7 +26,7 @@ public class PoolTaskGenerator implements TaskGenerator {
         }
     }
 
-    //----TODO---- allowDuplicate
+    //TODO allowDuplicate
     @Override
     public Task generate() {
         Random random = new Random();
