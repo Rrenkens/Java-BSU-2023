@@ -3,8 +3,7 @@ package by.busskov.quizer.task_generators;
 import by.busskov.quizer.Task;
 import by.busskov.quizer.TaskGenerator;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 public class GroupTaskGenerator implements TaskGenerator {
     public GroupTaskGenerator(TaskGenerator... generators) {
@@ -21,15 +20,18 @@ public class GroupTaskGenerator implements TaskGenerator {
 
     @Override
     public Task generate() {
-        for (TaskGenerator generator : generators) {
+        Random random = new Random();
+        ArrayList<TaskGenerator> generatorsCopy = new ArrayList<>(List.of(generators));
+        while (!generatorsCopy.isEmpty()) {
+            int index = random.nextInt(generatorsCopy.size());
             try {
-                return generator.generate();
+                return generatorsCopy.get(index).generate();
             } catch (Throwable exception) {
-                // try next generator
+                generatorsCopy.remove(index);
             }
         }
         throw new IllegalStateException("All generators threw exceptions");
     }
 
-    TaskGenerator[] generators;
+    private final TaskGenerator[] generators;
 }
