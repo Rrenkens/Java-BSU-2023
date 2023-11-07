@@ -1,26 +1,12 @@
 package by.busskov.quizer;
 
 public class Quiz {
-    private TaskGenerator generator;
-    private int taskCount;
-    private int currentTaskNumber = 0;
-
-    private Task currentTask = null;
-
-    private int wrongAnswerNumber = 0;
-
-    private int incorrectInputAnswerNumber = 0;
-
-    private int correctAnswerNumber = 0;
-
-    private boolean incorrectInput = false;
-
-    Quiz(TaskGenerator generator, int taskCount) {
+    public Quiz(TaskGenerator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
     }
 
-    Task nextTask() {
+    public Task nextTask() {
         if (currentTaskNumber >= taskCount) {
             throw new IllegalStateException("Out of tasks");
         }
@@ -32,7 +18,7 @@ public class Quiz {
         return currentTask;
     }
 
-    Result provideAnswer(String answer) {
+    public Result provideAnswer(String answer) {
         Result result = currentTask.validate(answer);
         incorrectInput = false;
         if (result.equals(Result.WRONG)) {
@@ -46,26 +32,35 @@ public class Quiz {
         return currentTask.validate(answer);
     }
 
-    boolean isFinished() {
+    public boolean isFinished() {
         return currentTaskNumber + 1 == taskCount;
     }
 
-    int getCorrectAnswerNumber() {
+    public int getCorrectAnswerNumber() {
         return correctAnswerNumber;
     }
 
-    int getWrongAnswerNumber() {
+    public int getWrongAnswerNumber() {
         return wrongAnswerNumber;
     }
 
-    int getIncorrectInputAnswerNumber() {
+    public int getIncorrectInputAnswerNumber() {
         return incorrectInputAnswerNumber;
     }
 
-    double getMark() {
+    public double getMark() {
         if (!isFinished()) {
             throw new IllegalStateException("Test isn't completed");
         }
         return (double) correctAnswerNumber / taskCount;
     }
+
+    private final TaskGenerator generator;
+    private final int taskCount;
+    private int currentTaskNumber = 0;
+    private Task currentTask = null;
+    private int wrongAnswerNumber = 0;
+    private int incorrectInputAnswerNumber = 0;
+    private int correctAnswerNumber = 0;
+    private boolean incorrectInput = false;
 }

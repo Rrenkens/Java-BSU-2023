@@ -24,7 +24,7 @@ public class Quizer {
         System.out.println("Total mark: " + quiz.getMark());
     }
 
-    static Map<String, Quiz> getQuizMap() {
+    public static Map<String, Quiz> getQuizMap() {
         return new HashMap<String, Quiz>();
     }
 }
