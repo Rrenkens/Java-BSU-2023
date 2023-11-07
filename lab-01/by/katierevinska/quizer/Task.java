@@ -8,7 +8,7 @@ public interface Task {
          * @see    Task
          */
 
-        Task generate() throws Exception;
+        Task generate() ;
     }
 
     /**

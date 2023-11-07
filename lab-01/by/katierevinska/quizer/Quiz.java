@@ -1,6 +1,8 @@
 package by.katierevinska.quizer;
+import by.katierevinska.quizer.exceptions.QuizFinishedException;
+import by.katierevinska.quizer.exceptions.QuizNotFinishedException;
+
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Quiz {
     /**
@@ -12,10 +14,10 @@ public class Quiz {
     private int correctAnswerNumber=0;
     private int wrongAnswerNumber=0;
     private int incorrectInputNumber=0;
-    private int Mark;
+    private double mark;
     private ArrayList<Task> test = new ArrayList<>();
 
-    Quiz(Task.Generator generator, int taskCount) throws Exception {
+    Quiz(Task.Generator generator, int taskCount) {
         if(taskCount == 0){
             throw new IllegalArgumentException("number of tasks should be more than 0");
         }
@@ -31,8 +33,8 @@ public class Quiz {
      * @see Task
      */
     Task nextTask() {
-        if(isFinished()){//TODO ok?
-            return null;
+        if (isFinished()) {
+            throw new QuizFinishedException("Test already finished , you can't get nextTask");
         }
         return test.get(currentIndex);
     }
@@ -89,6 +91,10 @@ public class Quiz {
      *         Оценка выставляется только в конце!
      */
     double getMark() {
-        return ((double)correctAnswerNumber)/taskCount;//TODO can i make it simpler
+        if (!isFinished()) {
+            throw new QuizNotFinishedException("Test doesn't finished yet, you can't get mark");
+        }
+        mark = ((double)correctAnswerNumber)/taskCount;
+        return mark;
     }
 }

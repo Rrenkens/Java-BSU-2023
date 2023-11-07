@@ -4,9 +4,15 @@ import by.katierevinska.quizer.Result;
 import by.katierevinska.quizer.Task;
 
 public interface MathTask extends Task {
+
     public interface Generator extends Task.Generator {
+        double getMinNumber();
+        double getMaxNumber();
+        default double getDiffNumber(){
+            return getMaxNumber()-getMinNumber();
+        }
         @Override
-        Task generate() throws Exception;
+        Task generate() ;//TODO not throw
     }
 
     enum Operation{
