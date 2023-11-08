@@ -1,13 +1,12 @@
 package by.busskov.quizer.task_generators;
 
 import by.busskov.quizer.Task;
-import by.busskov.quizer.TaskGenerator;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
-public class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements Task.Generator {
     public PoolTaskGenerator(
             boolean allowDuplicate,
             Task... tasks

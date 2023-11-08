@@ -1,7 +1,7 @@
 package by.busskov.quizer;
 
 public class Quiz {
-    public Quiz(TaskGenerator generator, int taskCount) {
+    public Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
     }
@@ -55,7 +55,7 @@ public class Quiz {
         return (double) correctAnswerNumber / taskCount;
     }
 
-    private final TaskGenerator generator;
+    private final Task.Generator generator;
     private final int taskCount;
     private int currentTaskNumber = 0;
     private Task currentTask = null;
