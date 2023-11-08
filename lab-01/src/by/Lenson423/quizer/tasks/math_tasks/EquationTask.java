@@ -9,6 +9,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EquationTask extends AbstractMathTask {
     public EquationTask(double num1, Operation operation, double answer, int precision) {
+        if (precision < 0){
+            throw new IllegalArgumentException("Invalid precision");
+        }
         this.precision = precision;
         int leftOrRight = ThreadLocalRandom.current().nextInt(0, 2);
         DecimalFormat decimalFormat;

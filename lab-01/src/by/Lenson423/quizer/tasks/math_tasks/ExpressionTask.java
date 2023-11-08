@@ -8,8 +8,16 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ExpressionTask extends AbstractMathTask {
     public ExpressionTask(double num1, Operation operation, double num2, int precision) {
+        if (precision < 0){
+            throw new IllegalArgumentException("Invalid precision");
+        }
         this.precision = precision;
-        DecimalFormat decimalFormat = new DecimalFormat("#." + "#".repeat(precision));
+        DecimalFormat decimalFormat;
+        if (precision > 0) {
+            decimalFormat = new DecimalFormat("#." + "#".repeat(precision));
+        } else {
+            decimalFormat = new DecimalFormat("#");
+        }
         switch (operation) {
             case SUM -> {
                 this.expression = decimalFormat.format(num1) + "+" + decimalFormat.format(num2) + "=?";
