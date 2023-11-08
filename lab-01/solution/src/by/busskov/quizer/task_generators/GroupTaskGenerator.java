@@ -10,7 +10,7 @@ public class GroupTaskGenerator implements TaskGenerator {
         this.generators = Arrays.copyOf(generators, generators.length);
     }
 
-    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    public GroupTaskGenerator(Collection<? extends TaskGenerator> generators) {
         Object[] array = generators.toArray();
         this.generators = new TaskGenerator[array.length];
         for (int i = 0; i < array.length; ++i) {

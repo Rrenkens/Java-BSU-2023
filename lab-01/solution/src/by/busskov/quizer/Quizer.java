@@ -1,8 +1,6 @@
 package by.busskov.quizer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Quizer {
     public static void main(String[] args) {

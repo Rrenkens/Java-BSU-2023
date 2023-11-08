@@ -29,7 +29,7 @@ public class Quiz {
         } else {
             ++correctAnswerNumber;
         }
-        return currentTask.validate(answer);
+        return result;
     }
 
     public boolean isFinished() {

@@ -8,6 +8,9 @@ public abstract class AbstractMathTask implements MathTask {
             double answer,
             double precision
     ) {
+        if (precision < 0) {
+            throw new IllegalArgumentException("Precision cannot be negative");
+        }
         this.condition = condition;
         this.answer = answer;
         this.precision = precision;

@@ -17,7 +17,7 @@ public class PoolTaskGenerator implements TaskGenerator {
 
     public PoolTaskGenerator(
             boolean allowDuplicate,
-            Collection<Task> tasks
+            Collection<? extends Task> tasks
     ) {
         Object[] array = tasks.toArray();
         this.tasks = new Task[array.length];
