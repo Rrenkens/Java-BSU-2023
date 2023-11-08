@@ -26,8 +26,8 @@ public abstract class AbstractMathTask implements MathTask {
         }
     }
 
-    String text;
-    String answer;
+    protected String text;
+    protected String answer;
 
     @Override
     public String getText() {

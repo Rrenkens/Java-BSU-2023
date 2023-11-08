@@ -27,7 +27,7 @@ public class ExpressionTask extends AbstractMathTask {
         private final double maxNumber;
         private final int precision;
         
-        MathTask.Operation[] allowedOperations;
+        private MathTask.Operation[] allowedOperations;
 
         public Generator(
                 double minNumber,

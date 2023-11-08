@@ -19,7 +19,7 @@ class GroupTaskGenerator implements Task.Generator {
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    ArrayList<Task.Generator> generators = new ArrayList<>();
+    private ArrayList<Task.Generator> generators = new ArrayList<>();
 
     GroupTaskGenerator(Task.Generator... generators) {
         this.generators.addAll(Arrays.asList(generators));

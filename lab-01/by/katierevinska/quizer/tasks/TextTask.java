@@ -3,6 +3,7 @@ package by.katierevinska.quizer.tasks;
 import by.katierevinska.quizer.Result;
 import by.katierevinska.quizer.Task;
 import by.katierevinska.quizer.task_generators.PoolTaskGenerator;
+import by.katierevinska.quizer.tasks.math_tasks.AbstractMathTask;
 
 /**
  * Задание с заранее заготовленным текстом.
@@ -13,8 +14,8 @@ public class TextTask implements Task {
      * @param text   текст задания
      * @param answer ответ на задание
      */
-    String text;
-    String answer;
+    private final String text;
+    private final String answer;
 
     TextTask(
             String text,
