@@ -40,13 +40,12 @@ class ExpressionTaskGenerator implements TaskGenerator {
         int num1 = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
         int num2 = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
         Character operator = permittedSymbols.get((int) (Math.random() * permittedSymbols.size()));
-        String result;
+        double result = Double.NaN;
         switch (operator) {
-            case '+' -> result = Integer.toString(num1 + num2);
-            case '-' -> result = Integer.toString(num1 - num2);
-            case '*' -> result = Integer.toString(num1 * num2);
-            case '/' -> result = num1 + "/" + num2;
-            default -> result = "";
+            case '+' -> result = num1 + num2;
+            case '-' -> result = num1 - num2;
+            case '*' -> result = num1 * num2;
+            case '/' -> result = (double) num1 / num2;
         }
         return new ExpressionTask("" + num1 + operator + num2 + "=?", result);
     }

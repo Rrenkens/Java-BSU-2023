@@ -22,14 +22,13 @@ public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
         int num = generateInteger(getMinNumber(), getMaxNumber());
         int answer = generateInteger(getMinNumber(), getMaxNumber());
         Character operator = permittedSymbols.get(generateInteger(0, permittedSymbols.size()));
-        String result;
+        double result = Double.NaN;
         boolean reverse = Math.random() > 0.5; // reverse is num<op>x=answer
         switch (operator) {
-            case '+' -> result = Integer.toString(answer - num);
-            case '-' -> result = reverse ? Integer.toString(num - answer) : Integer.toString(num + answer);
-            case '*' -> result = answer + "/" + num;
-            case '/' -> result = reverse ? num + "/" + answer : Integer.toString(num * answer);
-            default -> result = "";
+            case '+' -> result = answer - num;
+            case '-' -> result = reverse ? num - answer : num + answer;
+            case '*' -> result = (double) answer / num;
+            case '/' -> result = reverse ? (double) num / answer : num * answer;
         }
         return new EquationTask("" + (reverse ? num : "x") + operator +
                 (reverse ? "x" : num) + "=" + answer, result);

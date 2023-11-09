@@ -3,9 +3,11 @@ package by.Lexus_FAMCS.quizer.tasks.math_tasks;
 import by.Lexus_FAMCS.quizer.Result;
 
 public abstract class AbstractMathTask implements MathTask {
+    protected final double eps = 1e-6;
+    protected double div = 1000;
     private String text;
-    private String result;
-    AbstractMathTask(String text, String result) {
+    protected double result;
+    AbstractMathTask(String text, double result) {
         this.text = text;
         this.result = result;
     }
@@ -16,6 +18,12 @@ public abstract class AbstractMathTask implements MathTask {
 
     @Override
     public Result validate(String answer) {
-        return result.equals(answer) ? Result.OK : Result.WRONG;
+        double ans;
+        try {
+            ans = Double.parseDouble(answer);
+        } catch (NumberFormatException exc) {
+            return Result.INCORRECT_INPUT;
+        }
+        return Math.abs(Math.round(result * div) / div - ans) < eps ? Result.OK : Result.WRONG ;
     }
 }

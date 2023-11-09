@@ -19,14 +19,13 @@ public class ExpressionMathTaskGenerator extends AbstractMathTaskGenerator {
     public ExpressionTask generate() {
         int num1 = generateInteger(getMinNumber(), getMaxNumber());
         int num2 = generateInteger(getMinNumber(), getMaxNumber());
-        Character operator = permittedSymbols.get(generateInteger(0, permittedSymbols.size()));
-        String result;
+        Character operator = permittedSymbols.get((int) (Math.random() * permittedSymbols.size()));
+        double result = Double.NaN;
         switch (operator) {
-            case '+' -> result = Integer.toString(num1 + num2);
-            case '-' -> result = Integer.toString(num1 - num2);
-            case '*' -> result = Integer.toString(num1 * num2);
-            case '/' -> result = num1 + "/" + num2;
-            default -> result = "";
+            case '+' -> result = num1 + num2;
+            case '-' -> result = num1 - num2;
+            case '*' -> result = num1 * num2;
+            case '/' -> result = (double) num1 / num2;
         }
         return new ExpressionTask("" + num1 + operator + num2 + "=?", result);
     }
