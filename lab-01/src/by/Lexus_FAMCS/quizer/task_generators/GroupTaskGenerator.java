@@ -36,14 +36,16 @@ class GroupTaskGenerator implements TaskGenerator {
         int num = (int) (Math.random() * taskGens.size());
         TaskGenerator taskGen;
         RuntimeException exception = new RuntimeException();
+        Task res = null;
         for (int i = 0, size = taskGens.size(); i < size; ++i) {
             taskGen = taskGens.get((num + i) % size);
             try {
-                return taskGen.generate();
+                res = taskGen.generate();
             } catch (Exception exc) {
                 if (i == size - 1) throw exception;
                 exception.addSuppressed(exc);
             }
         }
+        return res;
     }
 }

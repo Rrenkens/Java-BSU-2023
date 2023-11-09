@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements TaskGenerator {
     Set<Task> tasks = new HashSet<>();
     /**
      * Конструктор с переменным числом аргументов
