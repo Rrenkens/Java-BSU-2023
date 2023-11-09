@@ -2,19 +2,22 @@ package by.busskov.quizer.tasks.math_tasks;
 
 import by.busskov.quizer.exceptions.InvalidConditionException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.EnumSet;
 import java.util.Random;
 
 public class EquationMathTask extends AbstractMathTask {
     public static class Generator extends AbstractMathTask.Generator {
         public Generator(
-                int minNumber,
-                int maxNumber,
-                EnumSet<Operation> availableOperations
+                double minNumber,
+                double maxNumber,
+                EnumSet<Operation> availableOperations,
+                int precision
         ) {
-            super(minNumber, maxNumber, availableOperations);
-            if (minNumber == 0
-            && maxNumber == 0
+            super(minNumber, maxNumber, availableOperations, precision);
+            if (Math.abs(minNumber) < Math.pow(10, -precision)
+            && Math.abs(maxNumber) < Math.pow(10, -precision)
             && !availableOperations.contains(Operation.SUM)
             && !availableOperations.contains(Operation.DIFFERENCE)) {
                 throw new IllegalArgumentException("Not possible to generate a valid task");
@@ -24,8 +27,12 @@ public class EquationMathTask extends AbstractMathTask {
         @Override
         public EquationMathTask generate() {
             Random random = new Random();
-            int number = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-            int result = random.nextInt(maxNumber - minNumber + 1) + minNumber;
+
+            double rawNumber = random.nextDouble() * getDiffNumber() + minNumber;
+            double rawResult = random.nextDouble() * getDiffNumber() + minNumber;
+
+            BigDecimal number = new BigDecimal(rawNumber).setScale(precision, RoundingMode.DOWN);
+            BigDecimal result = new BigDecimal(rawResult).setScale(precision, RoundingMode.DOWN);
 
             Object[] operations = availableOperations.toArray();
             int randomIndex = random.nextInt(operations.length);
@@ -39,57 +46,60 @@ public class EquationMathTask extends AbstractMathTask {
 
             int xPosition = random.nextInt(2);
             String condition;
-            double answer;
 
             if (xPosition == 0) {
                 condition = 'x'
                         + operationChar
-                        + Integer.toString(number);
+                        + number.toString();
             } else {
-                condition = Integer.toString(number)
+                condition = number.toString()
                         + operationChar
                         + 'x';
             }
-            condition += '=' + result;
+            condition += '=' + result.toString();
 
-            answer = switch (operation) {
-                case DIFFERENCE -> {
-                    if (xPosition == 0) {
-                        yield result + number;
-                    } else {
-                        yield number - result;
-                    }
-                }
-                case MULTIPLICATION -> {
-                    if (number == 0) {
-                        throw new InvalidConditionException(
-                                "Number in equation with multiplication can't be 0"
-                        );
-                    }
-                    yield (double) result / number;
-                }
-                case DIVISION -> {
-                    if (xPosition == 0) {
-                        if (number == 0) {
-                            throw new InvalidConditionException("Division by 0");
-                        }
-                        yield result * number;
-                    } else {
-                        if (number == 0 || result == 0) {
-                            throw new InvalidConditionException(
-                                    "Number and result can't be 0 in equation with division"
-                            );
-                        }
-                        yield (double) number / result;
-                    }
-                }
-                case SUM -> result - number;
-            };
-            return new EquationMathTask(condition, answer, 1e-3);
+            double answer = getAnswer(number, result, xPosition, operation);
+            return new EquationMathTask(condition, answer, Math.pow(10, -precision));
         }
     }
-//TODO remove hardcode precision from return
 
+    private static double getAnswer(BigDecimal bigNumber, BigDecimal bigResult, int xPosition, Operation operation) {
+        double number = bigNumber.doubleValue();
+        double result = bigResult.doubleValue();
+        return switch (operation) {
+            case DIFFERENCE -> {
+                if (xPosition == 0) {
+                    yield result + number;
+                } else {
+                    yield number - result;
+                }
+            }
+            case MULTIPLICATION -> {
+                if (number == 0) {
+                    throw new InvalidConditionException(
+                            "Number in equation with multiplication can't be 0"
+                    );
+                }
+                yield (double) result / number;
+            }
+            case DIVISION -> {
+                if (xPosition == 0) {
+                    if (number == 0) {
+                        throw new InvalidConditionException("Division by 0");
+                    }
+                    yield result * number;
+                } else {
+                    if (number == 0 || result == 0) {
+                        throw new InvalidConditionException(
+                                "Number and result can't be 0 in equation with division"
+                        );
+                    }
+                    yield (double) number / result;
+                }
+            }
+            case SUM -> result - number;
+        };
+    }
     public EquationMathTask(
             String condition,
             double answer,

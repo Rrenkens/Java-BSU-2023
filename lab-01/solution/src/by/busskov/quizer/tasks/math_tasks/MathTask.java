@@ -10,9 +10,9 @@ public interface MathTask extends Task {
         DIVISION
     }
     public interface Generator extends Task.Generator {
-        int getMinNumber();
-        int getMaxNumber();
-        default int getDiffNumber() {
+        double getMinNumber();
+        double getMaxNumber();
+        default double getDiffNumber() {
             return getMaxNumber() - getMinNumber();
         }
     }

@@ -7,9 +7,10 @@ import java.util.EnumSet;
 public abstract class AbstractMathTask implements MathTask {
     public static abstract class Generator implements MathTask.Generator {
         public Generator(
-                int minNumber,
-                int maxNumber,
-                EnumSet<Operation> availableOperations
+                double minNumber,
+                double maxNumber,
+                EnumSet<Operation> availableOperations,
+                int precision
         ) {
             if (minNumber > maxNumber) {
                 throw new IllegalArgumentException("Min number is greater than max number");
@@ -17,24 +18,29 @@ public abstract class AbstractMathTask implements MathTask {
             if (availableOperations.isEmpty()) {
                 throw new IllegalArgumentException("There is no available operations for generator");
             }
+            if (precision < 0) {
+                throw new IllegalArgumentException("Precision can't be positive");
+            }
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
             this.availableOperations = EnumSet.copyOf(availableOperations);
+            this.precision = precision;
         }
 
         @Override
-        public int getMinNumber() {
+        public double getMinNumber() {
             return minNumber;
         }
 
         @Override
-        public int getMaxNumber() {
+        public double getMaxNumber() {
             return maxNumber;
         }
 
-        protected final int minNumber;
-        protected final int maxNumber;
+        protected final double minNumber;
+        protected final double maxNumber;
         protected final EnumSet<Operation> availableOperations;
+        protected final int precision;
     }
 
     public AbstractMathTask(
