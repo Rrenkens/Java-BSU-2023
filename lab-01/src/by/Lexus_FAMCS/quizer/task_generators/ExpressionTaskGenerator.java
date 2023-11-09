@@ -39,7 +39,7 @@ class ExpressionTaskGenerator implements TaskGenerator {
     public ExpressionTask generate() {
         int num1 = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
         int num2 = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
-        Character operator = permittedSymbols.get((int) (Math.random() * (permittedSymbols.size() + 1)));
+        Character operator = permittedSymbols.get((int) (Math.random() * permittedSymbols.size()));
         String result;
         switch (operator) {
             case '+' -> result = Integer.toString(num1 + num2);
@@ -48,8 +48,6 @@ class ExpressionTaskGenerator implements TaskGenerator {
             case '/' -> result = num1 + "/" + num2;
             default -> result = "";
         }
-        return new ExpressionTask("" + num1 +
-                permittedSymbols.get((int) (Math.random() * (permittedSymbols.size() + 1))) +
-                num2 + "=?", result);
+        return new ExpressionTask("" + num1 + operator + num2 + "=?", result);
     }
 }

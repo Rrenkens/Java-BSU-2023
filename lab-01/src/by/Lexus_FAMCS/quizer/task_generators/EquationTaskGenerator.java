@@ -40,7 +40,7 @@ class EquationTaskGenerator implements TaskGenerator {
     public EquationTask generate() {
         int num = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
         int answer = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
-        Character operator = permittedSymbols.get((int) (Math.random() * (permittedSymbols.size() + 1)));
+        Character operator = permittedSymbols.get((int) (Math.random() * permittedSymbols.size()));
         String result;
         boolean reverse = Math.random() > 0.5; // reverse is num<op>x=answer
         switch (operator) {
@@ -50,8 +50,7 @@ class EquationTaskGenerator implements TaskGenerator {
             case '/' -> result = reverse ? num + "/" + answer : Integer.toString(num * answer);
             default -> result = "";
         }
-        return new EquationTask("" + (reverse ? num : "x") +
-                permittedSymbols.get((int) (Math.random() * (permittedSymbols.size() + 1))) +
+        return new EquationTask("" + (reverse ? num : "x") + operator +
                 (reverse ? "x" : num) + "=" + answer, result);
     }
 }
