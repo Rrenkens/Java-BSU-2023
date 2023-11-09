@@ -4,8 +4,10 @@ import by.Lexus_FAMCS.quizer.Result;
 
 public class ExpressionTask implements Task {
     String text;
-    public ExpressionTask(String text) {
+    String result;
+    public ExpressionTask(String text, String result) {
         this.text = text;
+        this.result = result;
     }
     @Override
     public String getText() {
@@ -14,6 +16,6 @@ public class ExpressionTask implements Task {
 
     @Override
     public Result validate(String answer) {
-        return text.equals(answer) ? Result.OK : Result.WRONG;
+        return result.equals(answer) ? Result.OK : Result.WRONG;
     }
 }

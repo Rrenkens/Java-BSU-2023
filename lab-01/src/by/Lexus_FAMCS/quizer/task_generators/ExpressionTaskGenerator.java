@@ -37,10 +37,19 @@ class ExpressionTaskGenerator implements TaskGenerator {
      * return задание типа {@link ExpressionTask}
      */
     public ExpressionTask generate() {
-        String num1 = Integer.toString((int) (Math.random() * (maxNumber - minNumber + 1) + minNumber));
-        String num2 = Integer.toString((int) (Math.random() * (maxNumber - minNumber + 1) + minNumber));
-        return new ExpressionTask(num1 +
+        int num1 = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
+        int num2 = (int) (Math.random() * (maxNumber - minNumber + 1) + minNumber);
+        Character operator = permittedSymbols.get((int) (Math.random() * (permittedSymbols.size() + 1)));
+        String result;
+        switch (operator) {
+            case '+' -> result = Integer.toString(num1 + num2);
+            case '-' -> result = Integer.toString(num1 - num2);
+            case '*' -> result = Integer.toString(num1 * num2);
+            case '/' -> result = num1 + "/" + num2;
+            default -> result = "";
+        }
+        return new ExpressionTask("" + num1 +
                 permittedSymbols.get((int) (Math.random() * (permittedSymbols.size() + 1))) +
-                num2);
+                num2 + "=?", result);
     }
 }
