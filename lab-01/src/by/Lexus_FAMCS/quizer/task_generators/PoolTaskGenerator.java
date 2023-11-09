@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class PoolTaskGenerator implements TaskGenerator {
     private Set<Task> tasks = new HashSet<>();
-    PoolTaskGenerator(
+    public PoolTaskGenerator(
             boolean allowDuplicate,
             Task... tasks
     ) {

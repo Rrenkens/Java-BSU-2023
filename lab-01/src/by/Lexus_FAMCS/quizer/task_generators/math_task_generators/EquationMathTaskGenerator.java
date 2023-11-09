@@ -27,8 +27,8 @@ public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
         switch (operator) {
             case '+' -> result = answer - num;
             case '-' -> result = reverse ? num - answer : num + answer;
-            case '*' -> result = (double) answer / num;
-            case '/' -> result = reverse ? (double) num / answer : num * answer;
+            case '*' -> result = generateResultOfDivision(answer, num);
+            case '/' -> result = reverse ? generateResultOfDivision(num, answer) : num * answer;
         }
         return new EquationTask("" + (reverse ? num : "x") + operator +
                 (reverse ? "x" : num) + "=" + answer, result);

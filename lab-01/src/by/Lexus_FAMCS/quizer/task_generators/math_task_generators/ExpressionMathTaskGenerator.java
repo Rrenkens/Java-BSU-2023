@@ -25,7 +25,7 @@ public class ExpressionMathTaskGenerator extends AbstractMathTaskGenerator {
             case '+' -> result = num1 + num2;
             case '-' -> result = num1 - num2;
             case '*' -> result = num1 * num2;
-            case '/' -> result = (double) num1 / num2;
+            case '/' -> result = generateResultOfDivision(num1, num2);
         }
         return new ExpressionTask("" + num1 + operator + num2 + "=?", result);
     }

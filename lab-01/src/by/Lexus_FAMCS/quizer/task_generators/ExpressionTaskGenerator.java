@@ -5,7 +5,7 @@ import by.Lexus_FAMCS.quizer.tasks.ExpressionTask;
 import java.lang.reflect.Array;
 import java.util.*;
 
-class ExpressionTaskGenerator implements TaskGenerator {
+public class ExpressionTaskGenerator implements TaskGenerator {
     private int minNumber;
     private int maxNumber;
     private List<Character> permittedSymbols = new ArrayList<>();
@@ -17,7 +17,7 @@ class ExpressionTaskGenerator implements TaskGenerator {
      * @param generateMultiplication разрешить генерацию с оператором *
      * @param generateDivision       разрешить генерацию с оператором /
      */
-    ExpressionTaskGenerator(
+    public ExpressionTaskGenerator(
             int minNumber,
             int maxNumber,
             boolean generateSum,
@@ -33,6 +33,17 @@ class ExpressionTaskGenerator implements TaskGenerator {
         if (generateDivision) permittedSymbols.add('/');
     }
 
+    private double generateResultOfDivision(int a, int b) {
+        if (b == 0) {
+            if (permittedSymbols.size() == 1 && maxNumber == 0 && minNumber == 0) {
+                throw new ArithmeticException("Incorrect test!!!");
+            }
+            b += maxNumber >= 1 ? 1 : -1;
+        }
+        return (double) a / b;
+    }
+
+
     /**
      * return задание типа {@link ExpressionTask}
      */
@@ -45,7 +56,7 @@ class ExpressionTaskGenerator implements TaskGenerator {
             case '+' -> result = num1 + num2;
             case '-' -> result = num1 - num2;
             case '*' -> result = num1 * num2;
-            case '/' -> result = (double) num1 / num2;
+            case '/' -> result = generateResultOfDivision(num1, num2);
         }
         return new ExpressionTask("" + num1 + operator + num2 + "=?", result);
     }

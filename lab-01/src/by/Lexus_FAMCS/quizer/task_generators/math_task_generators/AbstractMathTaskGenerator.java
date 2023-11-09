@@ -48,6 +48,16 @@ public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
         return maxNumber - minNumber;
     }
 
+    protected double generateResultOfDivision(int a, int b) {
+        if (b == 0) {
+            if (permittedSymbols.size() == 1 && getMaxNumber() == 0 && getMinNumber() == 0) {
+                throw new ArithmeticException("Incorrect test!!!");
+            }
+            b += getMaxNumber() >= 1 ? 1 : -1;
+        }
+        return (double) a / b;
+    }
+
     public int generateInteger(int a, int b) {
         return (int) (Math.random() * (b - a + 1) + a);
     }

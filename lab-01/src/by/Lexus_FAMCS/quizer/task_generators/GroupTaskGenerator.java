@@ -7,14 +7,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements TaskGenerator {
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
     private List<TaskGenerator> taskGens = new ArrayList<>();
-    GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupTaskGenerator(TaskGenerator... generators) {
         taskGens.addAll(Arrays.asList(generators));
     }
 
@@ -23,7 +23,7 @@ class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
         taskGens.addAll(generators);
     }
 
