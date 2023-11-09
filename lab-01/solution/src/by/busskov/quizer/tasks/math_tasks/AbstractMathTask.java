@@ -1,6 +1,5 @@
 package by.busskov.quizer.tasks.math_tasks;
 
-import by.busskov.quizer.Operation;
 import by.busskov.quizer.Result;
 
 import java.util.EnumSet;
@@ -13,7 +12,10 @@ public abstract class AbstractMathTask implements MathTask {
                 EnumSet<Operation> availableOperations
         ) {
             if (minNumber > maxNumber) {
-                throw new IllegalArgumentException("min number is greater than max number");
+                throw new IllegalArgumentException("Min number is greater than max number");
+            }
+            if (availableOperations.isEmpty()) {
+                throw new IllegalArgumentException("There is no available operations for generator");
             }
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;

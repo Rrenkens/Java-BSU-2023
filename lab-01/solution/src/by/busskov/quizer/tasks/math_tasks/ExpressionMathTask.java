@@ -1,6 +1,6 @@
 package by.busskov.quizer.tasks.math_tasks;
 
-import by.busskov.quizer.Operation;
+import by.busskov.quizer.exceptions.InvalidConditionException;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -13,6 +13,12 @@ public class ExpressionMathTask extends AbstractMathTask {
                 EnumSet<Operation> availableOperations
         ) {
             super(minNumber, maxNumber, availableOperations);
+            if (minNumber == 0
+            && maxNumber == 0
+            && availableOperations.size() == 1
+            && availableOperations.contains(Operation.DIVISION)) {
+                throw new IllegalArgumentException("Not possible to generate a valid task");
+            }
         }
 
         @Override
@@ -21,9 +27,6 @@ public class ExpressionMathTask extends AbstractMathTask {
             int firstNumber = random.nextInt(maxNumber - minNumber + 1) + minNumber;
             int secondNumber = random.nextInt(maxNumber - minNumber + 1) + minNumber;
 
-            if (availableOperations.isEmpty()) {
-                throw new IllegalArgumentException("Cannot generate with empty EnumSet");
-            }
             Object[] operations = availableOperations.toArray();
             int randomIndex = random.nextInt(operations.length);
             Operation operation = (Operation) operations[randomIndex];
@@ -35,16 +38,15 @@ public class ExpressionMathTask extends AbstractMathTask {
                 case DIVISION -> '/';
             } + secondNumber + "=?";
             double answer = switch (operation) {
-                case SUM -> firstNumber + secondNumber;
                 case DIFFERENCE -> firstNumber - secondNumber;
                 case MULTIPLICATION -> firstNumber * secondNumber;
                 case DIVISION -> {
                     if (secondNumber == 0) {
-                        throw new IllegalStateException("Division by 0");
+                        throw new InvalidConditionException("Division by 0");
                     }
                     yield (double) firstNumber / secondNumber;
                 }
-                default -> throw new IllegalArgumentException("Invalid operation!");
+                case SUM -> firstNumber + secondNumber;
             };
             return new ExpressionMathTask(condition, answer, 1e-3);
         }

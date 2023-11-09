@@ -1,6 +1,8 @@
 package by.busskov.quizer.task_generators;
 
 import by.busskov.quizer.Task;
+import by.busskov.quizer.exceptions.AllGeneratorsFailedException;
+import by.busskov.quizer.exceptions.GenerateException;
 
 import java.util.*;
 
@@ -25,11 +27,11 @@ public class GroupTaskGenerator implements Task.Generator {
             int index = random.nextInt(generatorsCopy.size());
             try {
                 return generatorsCopy.get(index).generate();
-            } catch (Throwable exception) {
+            } catch (GenerateException exception) {
                 generatorsCopy.remove(index);
             }
         }
-        throw new IllegalStateException("All generators threw exceptions");
+        throw new AllGeneratorsFailedException("All generators threw exceptions");
     }
 
     private final Task.Generator[] generators;

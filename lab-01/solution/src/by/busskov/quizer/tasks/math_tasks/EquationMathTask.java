@@ -1,6 +1,6 @@
 package by.busskov.quizer.tasks.math_tasks;
 
-import by.busskov.quizer.Operation;
+import by.busskov.quizer.exceptions.InvalidConditionException;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -13,6 +13,12 @@ public class EquationMathTask extends AbstractMathTask {
                 EnumSet<Operation> availableOperations
         ) {
             super(minNumber, maxNumber, availableOperations);
+            if (minNumber == 0
+            && maxNumber == 0
+            && !availableOperations.contains(Operation.SUM)
+            && !availableOperations.contains(Operation.DIFFERENCE)) {
+                throw new IllegalArgumentException("Not possible to generate a valid task");
+            }
         }
 
         @Override
@@ -21,9 +27,6 @@ public class EquationMathTask extends AbstractMathTask {
             int number = random.nextInt(maxNumber - minNumber + 1) + minNumber;
             int result = random.nextInt(maxNumber - minNumber + 1) + minNumber;
 
-            if (availableOperations.isEmpty()) {
-                throw new IllegalArgumentException("Cannot generate with empty EnumSet");
-            }
             Object[] operations = availableOperations.toArray();
             int randomIndex = random.nextInt(operations.length);
             Operation operation = (Operation) operations[randomIndex];
@@ -50,7 +53,6 @@ public class EquationMathTask extends AbstractMathTask {
             condition += '=' + result;
 
             answer = switch (operation) {
-                case SUM -> result - number;
                 case DIFFERENCE -> {
                     if (xPosition == 0) {
                         yield result + number;
@@ -60,24 +62,28 @@ public class EquationMathTask extends AbstractMathTask {
                 }
                 case MULTIPLICATION -> {
                     if (number == 0) {
-                        throw new IllegalStateException("Number in equation can't be 0");
+                        throw new InvalidConditionException(
+                                "Number in equation with multiplication can't be 0"
+                        );
                     }
                     yield (double) result / number;
                 }
                 case DIVISION -> {
                     if (xPosition == 0) {
                         if (number == 0) {
-                            throw new IllegalStateException("Division by 0");
+                            throw new InvalidConditionException("Division by 0");
                         }
                         yield result * number;
                     } else {
                         if (number == 0 || result == 0) {
-                            throw new IllegalStateException("0 in division in equation");
+                            throw new InvalidConditionException(
+                                    "Number and result can't be 0 in equation with division"
+                            );
                         }
                         yield (double) number / result;
                     }
                 }
-                default -> throw new IllegalArgumentException("Invalid operation!");
+                case SUM -> result - number;
             };
             return new EquationMathTask(condition, answer, 1e-3);
         }

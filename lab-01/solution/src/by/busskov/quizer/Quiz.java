@@ -1,5 +1,9 @@
 package by.busskov.quizer;
 
+import by.busskov.quizer.exceptions.GenerateException;
+import by.busskov.quizer.exceptions.OutOfTasksException;
+import by.busskov.quizer.exceptions.QuizNotFinishedException;
+
 public class Quiz {
     public Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
@@ -8,13 +12,20 @@ public class Quiz {
 
     public Task nextTask() {
         if (currentTaskNumber >= taskCount) {
-            throw new IllegalStateException("Out of tasks");
+            throw new OutOfTasksException("There is no available tasks");
         }
         if (incorrectInput) {
             return currentTask;
         }
         ++currentTaskNumber;
-        currentTask = generator.generate();
+        boolean exceptionThrown = true;
+        while (exceptionThrown) {
+            try {
+                currentTask = generator.generate();
+                exceptionThrown = false;
+            } catch (GenerateException ignored) {
+            }
+        }
         return currentTask;
     }
 
@@ -48,9 +59,9 @@ public class Quiz {
         return incorrectInputAnswerNumber;
     }
 
-    public double getMark() {
+    public double getMark() throws QuizNotFinishedException {
         if (!isFinished()) {
-            throw new IllegalStateException("Test isn't completed");
+            throw new QuizNotFinishedException("Test isn't completed");
         }
         return (double) correctAnswerNumber / taskCount;
     }

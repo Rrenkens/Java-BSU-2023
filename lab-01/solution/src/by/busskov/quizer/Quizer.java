@@ -19,7 +19,7 @@ public class Quizer {
         System.out.println("Number of correct answers: " + quiz.getCorrectAnswerNumber());
         System.out.println("Number of wrong answers: " + quiz.getWrongAnswerNumber());
         System.out.println("Number of incorrect inputs: " + quiz.getIncorrectInputAnswerNumber());
-        System.out.println("Total mark: " + quiz.getMark());
+        // System.out.println("Total mark: " + quiz.getMark());
     }
 
     public static Map<String, Quiz> getQuizMap() {
