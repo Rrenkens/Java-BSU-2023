@@ -1,7 +1,6 @@
 package by.katierevinska.quizer.task_generators;
 
 import by.katierevinska.quizer.Task;
-import by.katierevinska.quizer.Task.Generator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +12,7 @@ import java.util.Collection;
 //        `TaskGenerator`, который позволяет объединить несколько других `TaskGenerator`.
 //
 //        ```java
-class GroupTaskGenerator implements Task.Generator {
+public class GroupTaskGenerator implements Task.Generator {
     /**
      * Конструктор с переменным числом аргументов
      *
@@ -21,7 +20,7 @@ class GroupTaskGenerator implements Task.Generator {
      */
     private ArrayList<Task.Generator> generators = new ArrayList<>();
 
-    GroupTaskGenerator(Task.Generator... generators) {
+    public GroupTaskGenerator(Task.Generator... generators) {
         this.generators.addAll(Arrays.asList(generators));
     }
 
@@ -40,18 +39,12 @@ class GroupTaskGenerator implements Task.Generator {
      *         Если этот генератор выбросил исключение в методе generate(), выбирается другой.
      *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
-    public Task generate() {
-        boolean flag = false;
-        int i = 0;
-
-        while(!(i==generators.size())){
-            try{
-                return generators.get(i).generate();
+    public Task generate(){
+        for (Task.Generator generator : generators) {
+            try {
+                return generator.generate();
+            } catch (Exception ignored) {
             }
-            catch (Exception e){
-                i++;
-            }
-
         }
         throw new IllegalArgumentException("can't generate any task");
     }

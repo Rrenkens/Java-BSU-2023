@@ -1,7 +1,5 @@
 package by.katierevinska.quizer.tasks.math_tasks;
 
-import by.katierevinska.quizer.Result;
-import by.katierevinska.quizer.Task;
 import by.katierevinska.quizer.exceptions.NoOperationsAllowedException;
 
 
@@ -105,8 +103,8 @@ public class EquationTask extends AbstractMathTask {
             int randomNum = ThreadLocalRandom.current().nextInt(0, allowedOperations.length);//TODO can be fasterx
             StringBuilder expression = new StringBuilder();
             double answer=0;
-            String num1 = generatingDoubleWithPrecision( minNumber, maxNumber, precision);
-            String num2 = generatingDoubleWithPrecision( minNumber, maxNumber, precision);
+            double num1 = generatingDoubleWithPrecision( minNumber, maxNumber, precision);
+            double num2 = generatingDoubleWithPrecision( minNumber, maxNumber, precision);
             double viewOfEquation = ThreadLocalRandom.current().nextDouble(0, 2);
             if(viewOfEquation == 0) {
                 if (allowedOperations[randomNum] == MathTask.Operation.Sum) {
@@ -114,13 +112,13 @@ public class EquationTask extends AbstractMathTask {
                             .append(formationWithBracket(num1))
                             .append("=")
                             .append(num2);
-                    answer = Double.parseDouble(num2) - Double.parseDouble(num1);
+                    answer = num2 - num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Difference) {
                     expression.append("x-")
                             .append(formationWithBracket(num1))
                             .append("=")
                             .append(num2);
-                    answer = Double.parseDouble(num2) + Double.parseDouble(num1);
+                    answer = num2 + num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Multiplication) {
                     if(Objects.equals(num1, "0")){
                         num1 = generationWithout0(minNumber, maxNumber, precision);
@@ -129,7 +127,7 @@ public class EquationTask extends AbstractMathTask {
                             .append(formationWithBracket(num1))
                             .append("=")
                             .append(num2);
-                    answer = Double.parseDouble(num2) / Double.parseDouble(num1);
+                    answer = num2 / num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Division) {
                     if(Objects.equals(num1, "0")){
                         num1 = generationWithout0(minNumber, maxNumber, precision);
@@ -138,19 +136,19 @@ public class EquationTask extends AbstractMathTask {
                             .append(formationWithBracket(num1))
                             .append("=")
                             .append(num2);
-                    answer = Double.parseDouble(num1) * Double.parseDouble(num2);
+                    answer =num1 * num2;
                 }
             }else{
                 if (allowedOperations[randomNum] == MathTask.Operation.Sum) {
                     expression.append(num1)
                             .append("+x=")
                             .append(num2);
-                    answer = Double.parseDouble(num2) - Double.parseDouble(num1);
+                    answer = num2 - num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Difference) {
                     expression.append(num1)
                             .append("-x=")
                             .append(num2);
-                    answer = Double.parseDouble(num1) - Double.parseDouble(num2);
+                    answer = num1 - num2;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Multiplication) {
                     if(Objects.equals(num1, "0")){
                         num1=generationWithout0(minNumber, maxNumber, precision);
@@ -158,7 +156,7 @@ public class EquationTask extends AbstractMathTask {
                     expression.append(num1)
                             .append("*x=")
                             .append(num2);
-                    answer = Double.parseDouble(num2) / Double.parseDouble(num1);
+                    answer = num2 / num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Division) {
                     if(Objects.equals(num1, "0")){
                         num1=generationWithout0(minNumber, maxNumber, precision);
@@ -169,10 +167,10 @@ public class EquationTask extends AbstractMathTask {
                     expression.append(num1)
                             .append("/x=")
                             .append(num2);
-                    answer = Double.parseDouble(num1) / Double.parseDouble(num2);
+                    answer = num1 / num2;
                 }
             }
-            return new EquationTask(expression.toString(), String.format("%."+precision +"f", num1));
+            return new EquationTask(expression.toString(), String.format("%."+precision +"f", answer));
         }
     }
     public EquationTask(
