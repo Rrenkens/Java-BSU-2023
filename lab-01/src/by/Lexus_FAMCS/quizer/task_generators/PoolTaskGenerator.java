@@ -7,13 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PoolTaskGenerator implements TaskGenerator {
-    Set<Task> tasks = new HashSet<>();
-    /**
-     * Конструктор с переменным числом аргументов
-     *
-     * @param allowDuplicate разрешить повторения
-     * @param tasks          задания, которые в конструктор передаются через запятую
-     */
+    private Set<Task> tasks = new HashSet<>();
     PoolTaskGenerator(
             boolean allowDuplicate,
             Task... tasks
@@ -22,13 +16,6 @@ public class PoolTaskGenerator implements TaskGenerator {
             if (allowDuplicate || !this.tasks.contains(task)) this.tasks.add(task);
         }
     }
-
-    /**
-     * Конструктор, который принимает коллекцию заданий
-     *
-     * @param allowDuplicate разрешить повторения
-     * @param tasks          задания, которые передаются в конструктор в Collection (например, {@link LinkedList})
-     */
     PoolTaskGenerator(
             boolean allowDuplicate,
             Collection<Task> tasks

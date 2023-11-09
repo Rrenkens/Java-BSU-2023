@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
-    int minNumber;
-    int maxNumber;
-    List<Character> permittedSymbols = new ArrayList<>();
+    private int minNumber;
+    private int maxNumber;
+    protected List<Character> permittedSymbols = new ArrayList<>();
     /**
      * @param minNumber              минимальное число
      * @param maxNumber              максимальное число

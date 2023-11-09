@@ -3,8 +3,8 @@ package by.Lexus_FAMCS.quizer.tasks.math_tasks;
 import by.Lexus_FAMCS.quizer.Result;
 
 public abstract class AbstractMathTask implements MathTask {
-    String text;
-    String result;
+    private String text;
+    private String result;
     AbstractMathTask(String text, String result) {
         this.text = text;
         this.result = result;

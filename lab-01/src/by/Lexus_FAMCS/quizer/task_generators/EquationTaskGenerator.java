@@ -7,9 +7,9 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 class EquationTaskGenerator implements TaskGenerator {
-    int minNumber;
-    int maxNumber;
-    List<Character> permittedSymbols = new ArrayList<>();
+    private int minNumber;
+    private int maxNumber;
+    private List<Character> permittedSymbols = new ArrayList<>();
     /**
      * @param minNumber              минимальное число
      * @param maxNumber              максимальное число

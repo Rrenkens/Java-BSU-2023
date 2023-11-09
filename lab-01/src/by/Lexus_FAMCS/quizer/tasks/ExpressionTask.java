@@ -3,8 +3,8 @@ package by.Lexus_FAMCS.quizer.tasks;
 import by.Lexus_FAMCS.quizer.Result;
 
 public class ExpressionTask implements Task {
-    String text;
-    String result;
+    private String text;
+    private String result;
     public ExpressionTask(String text, String result) {
         this.text = text;
         this.result = result;
