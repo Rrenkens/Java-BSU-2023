@@ -1,8 +1,10 @@
 package by.Lexus_FAMCS.quizer.task_generators.math_task_generators;
 
 import by.Lexus_FAMCS.quizer.tasks.Task;
+import by.Lexus_FAMCS.quizer.tasks.math_tasks.MathTask;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
@@ -17,20 +19,17 @@ public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
      * @param generateMultiplication разрешить генерацию с оператором *
      * @param generateDivision       разрешить генерацию с оператором /
      */
-    AbstractMathTaskGenerator(
+    public AbstractMathTaskGenerator(
             int minNumber,
             int maxNumber,
-            boolean generateSum,
-            boolean generateDifference,
-            boolean generateMultiplication,
-            boolean generateDivision
+            EnumSet<MathTask.Operation> operations
     ) {
         this.maxNumber = maxNumber;
         this.minNumber = minNumber;
-        if (generateSum) permittedSymbols.add('+');
-        if (generateDifference) permittedSymbols.add('-');
-        if (generateMultiplication) permittedSymbols.add('*');
-        if (generateDivision) permittedSymbols.add('/');
+        if (operations.contains(MathTask.Operation.SUM)) permittedSymbols.add('+');
+        if (operations.contains(MathTask.Operation.SUB)) permittedSymbols.add('-');
+        if (operations.contains(MathTask.Operation.MULT)) permittedSymbols.add('*');
+        if (operations.contains(MathTask.Operation.DIV)) permittedSymbols.add('/');
     }
 
     @Override

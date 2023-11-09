@@ -1,16 +1,17 @@
 package by.Lexus_FAMCS.quizer.task_generators.math_task_generators;
 
 import by.Lexus_FAMCS.quizer.tasks.ExpressionTask;
+import by.Lexus_FAMCS.quizer.tasks.math_tasks.MathTask;
+
+import java.util.EnumSet;
+
 public class ExpressionMathTaskGenerator extends AbstractMathTaskGenerator {
-    ExpressionMathTaskGenerator(
+    public ExpressionMathTaskGenerator(
             int minNumber,
             int maxNumber,
-            boolean generateSum,
-            boolean generateDifference,
-            boolean generateMultiplication,
-            boolean generateDivision
+            EnumSet<MathTask.Operation> operations
     ) {
-        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
+        super(minNumber, maxNumber, operations);
     }
 
     /**

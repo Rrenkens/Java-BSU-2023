@@ -1,6 +1,7 @@
 package by.Lexus_FAMCS.quizer.task_generators;
 
 import by.Lexus_FAMCS.quizer.tasks.ExpressionTask;
+import by.Lexus_FAMCS.quizer.tasks.math_tasks.MathTask;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -20,17 +21,14 @@ public class ExpressionTaskGenerator implements TaskGenerator {
     public ExpressionTaskGenerator(
             int minNumber,
             int maxNumber,
-            boolean generateSum,
-            boolean generateDifference,
-            boolean generateMultiplication,
-            boolean generateDivision
+            EnumSet<MathTask.Operation> operations
     ) {
         this.maxNumber = maxNumber;
         this.minNumber = minNumber;
-        if (generateSum) permittedSymbols.add('+');
-        if (generateDifference) permittedSymbols.add('-');
-        if (generateMultiplication) permittedSymbols.add('*');
-        if (generateDivision) permittedSymbols.add('/');
+        if (operations.contains(MathTask.Operation.SUM)) permittedSymbols.add('+');
+        if (operations.contains(MathTask.Operation.SUB)) permittedSymbols.add('-');
+        if (operations.contains(MathTask.Operation.MULT)) permittedSymbols.add('*');
+        if (operations.contains(MathTask.Operation.DIV)) permittedSymbols.add('/');
     }
 
     private double generateResultOfDivision(int a, int b) {

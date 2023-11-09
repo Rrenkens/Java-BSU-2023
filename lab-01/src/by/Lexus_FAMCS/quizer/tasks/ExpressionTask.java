@@ -2,8 +2,6 @@ package by.Lexus_FAMCS.quizer.tasks;
 
 import by.Lexus_FAMCS.quizer.Result;
 
-import java.util.Arrays;
-
 public class ExpressionTask implements Task {
     private final double eps = 1e-6;
     private String text;
