@@ -6,6 +6,9 @@ import by.Lexus_FAMCS.quizer.Result;
  * Interface, который описывает одно задание
  */
 public interface Task {
+    public interface Generator {
+        Task generate();
+    }
     /**
      @return текст задания
      */

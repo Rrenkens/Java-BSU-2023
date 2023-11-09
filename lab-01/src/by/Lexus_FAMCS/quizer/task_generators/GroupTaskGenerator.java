@@ -7,14 +7,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements Task.Generator {
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    private List<TaskGenerator> taskGens = new ArrayList<>();
-    public GroupTaskGenerator(TaskGenerator... generators) {
+    private List<Task.Generator> taskGens = new ArrayList<>();
+    public GroupTaskGenerator(Task.Generator... generators) {
         taskGens.addAll(Arrays.asList(generators));
     }
 
@@ -23,7 +23,7 @@ public class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    public GroupTaskGenerator(Collection<Task.Generator> generators) {
         taskGens.addAll(generators);
     }
 
@@ -34,7 +34,7 @@ public class GroupTaskGenerator implements TaskGenerator {
      */
     public Task generate() {
         int num = (int) (Math.random() * taskGens.size());
-        TaskGenerator taskGen;
+        Task.Generator taskGen;
         RuntimeException exception = new RuntimeException();
         Task res = null;
         for (int i = 0, size = taskGens.size(); i < size; ++i) {

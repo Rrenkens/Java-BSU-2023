@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator {
     private Set<Task> tasks = new HashSet<>();
     public PoolTaskGenerator(
             boolean allowDuplicate,
