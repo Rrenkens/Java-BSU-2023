@@ -7,22 +7,27 @@ public interface MathTask extends Task {
 
     public interface Generator extends Task.Generator {
         double getMinNumber();
+
         double getMaxNumber();
-        default double getDiffNumber(){
-            return getMaxNumber()-getMinNumber();
+
+        default double getDiffNumber() {
+            return getMaxNumber() - getMinNumber();
         }
+
         @Override
-        Task generate() ;//TODO not throw
+        Task generate();
     }
 
-    enum Operation{
+    enum Operation {
         Sum,
         Difference,
         Multiplication,
         Division
     }
+
     @Override
     String getText();
+
     @Override
     Result validate(String answer);
 }

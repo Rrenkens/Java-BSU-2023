@@ -2,17 +2,11 @@ package by.katierevinska.quizer.tasks;
 
 import by.katierevinska.quizer.Result;
 import by.katierevinska.quizer.Task;
-import by.katierevinska.quizer.task_generators.PoolTaskGenerator;
 
-/**
- * Задание с заранее заготовленным текстом.
- * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.//TODO
- */
+import java.util.Objects;
+
 public class TextTask implements Task {
-    /**
-     * @param text   текст задания
-     * @param answer ответ на задание
-     */
+
     private final String text;
     private final String answer;
 
@@ -31,11 +25,10 @@ public class TextTask implements Task {
 
     @Override
     public Result validate(String answer) {
-        if(answer == this.answer){
+        if (Objects.equals(answer, this.answer)) {
             return Result.OK;
         }
         return Result.WRONG;
-        //TODO do I need to invalid answer?
     }
 
     // ...
