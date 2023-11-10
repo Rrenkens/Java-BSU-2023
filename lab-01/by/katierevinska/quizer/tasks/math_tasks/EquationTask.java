@@ -133,7 +133,6 @@ public class EquationTask extends AbstractMathTask {
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Multiplication) {
                     if (Objects.equals(num1, 0.0)) {
                         num1 = generationWithout0(minNumber, maxNumber, precision);
-                        System.out.println(num1);
                     }
                     expression.append(num1)
                             .append("*x=")
@@ -142,11 +141,9 @@ public class EquationTask extends AbstractMathTask {
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Division) {
                     if (Objects.equals(num1, 0.0)) {
                         num1 = generationWithout0(minNumber, maxNumber, precision);
-                        System.out.println(num1);
                     }
                     if (Objects.equals(num2, 0.0)) {
                         num2 = generationWithout0(minNumber, maxNumber, precision);
-                        System.out.println(num2);
                     }
                     expression.append(num1)
                             .append("/x=")

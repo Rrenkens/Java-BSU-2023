@@ -107,7 +107,7 @@ public class ExpressionTask extends AbstractMathTask {
                         .append("=?");
                 answer = num1 * num2;
             } else if (allowedOperations[randomNum] == MathTask.Operation.Division) {
-                if (Objects.equals(num2, 0)) {
+                if (Objects.equals(num2, 0.0)) {
                     num2 = generationWithout0(minNumber, maxNumber, precision);
                 }
                 expression.append(num1)
