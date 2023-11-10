@@ -20,11 +20,7 @@ public class TextTask implements Task {
     @Override
     public Result validate(Answer answer) {
         String studentAnswer;
-        if (answer.isNumeric()) {
-            studentAnswer = Double.toString(answer.getNum());
-        } else {
-            studentAnswer = answer.getText();
-        }
+        studentAnswer = answer.getText();
         if (studentAnswer.equals(this.answer)) {
             return Result.OK;
         } else {

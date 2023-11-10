@@ -1,16 +1,16 @@
 package by.rycbaryana.quizer;
 
 public class Answer {
-    private String textAnswer;
+    private final String textAnswer;
     private double numAnswer;
     private boolean isNumeric = false;
 
     public Answer(String answer) {
+        textAnswer = answer;
         try {
             numAnswer = Double.parseDouble(answer);
             isNumeric = true;
-        } catch (NumberFormatException e) {
-            textAnswer = answer;
+        } catch (NumberFormatException ignored) {
         }
     }
 
