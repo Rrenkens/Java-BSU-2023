@@ -5,6 +5,7 @@ import by.Lexus_FAMCS.quizer.task_generators.PoolTaskGenerator;
 import by.Lexus_FAMCS.quizer.tasks.EquationTask;
 import by.Lexus_FAMCS.quizer.tasks.ExpressionTask;
 import by.Lexus_FAMCS.quizer.tasks.Task;
+import by.Lexus_FAMCS.quizer.tasks.TextTask;
 import by.Lexus_FAMCS.quizer.tasks.math_tasks.*;
 
 import java.util.EnumSet;
@@ -96,7 +97,12 @@ public class Main {
         var task4 = gen1.generate();
         tests.put("TestByPoolTaskGenerator_4_-10-10_all_1", new Quiz( // генерирует 0.0/x=-1.0
                 new PoolTaskGenerator(false, task1, task2, task1, task4, task4, task4, task3), 6));
-
+        tests.put("TextTestCreatedByPoolTaskGenerator_4", new Quiz(
+           new PoolTaskGenerator(false,
+                   new TextTask("yes?", "yes"),
+                   new TextTask("no?", "no"),
+                   new TextTask("What color is the sun?", "yellow"),
+                   new TextTask("What grade I will get for this laba?", "10")), 10));
 
         return tests;
     }
