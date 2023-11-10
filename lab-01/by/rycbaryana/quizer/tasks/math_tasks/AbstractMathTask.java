@@ -33,7 +33,7 @@ abstract class AbstractMathTask implements MathTask {
                 throw new IllegalArgumentException("Min > max");
             }
             if (allowed.isEmpty()) {
-                throw  new IllegalArgumentException("No allowed operations");
+                throw new IllegalArgumentException("No allowed operations");
             }
         }
 
@@ -45,11 +45,8 @@ abstract class AbstractMathTask implements MathTask {
             if (min > max) {
                 throw new IllegalArgumentException("Min > max");
             }
-            if (allowed.isEmpty()) {
-                throw  new IllegalArgumentException("No allowed operations");
-            }
-            if (precision <= 0) {
-                throw new IllegalArgumentException("Precision must be a positive number");
+            if (precision < 0) {
+                throw new IllegalArgumentException("Precision must be a non-negative number");
             }
         }
 
@@ -67,7 +64,7 @@ abstract class AbstractMathTask implements MathTask {
 
         public double generateNumber() {
             if (precision == 0) {
-                return random.nextInt((int)min, (int) max + 1);
+                return random.nextInt((int) min, (int) max + 1);
             } else {
                 return random.nextDouble(min, max);
             }
@@ -80,18 +77,11 @@ abstract class AbstractMathTask implements MathTask {
 
     double applyOperation(double lhs, double rhs, Operation operation) {
         return switch (operation) {
-            case SUM -> {
-                yield lhs + rhs;
-            }
-            case SUB -> {
-                yield lhs - rhs;
-            }
-            case DIV -> {
-                yield lhs / rhs;
-            }
-            case MULT -> {
-                yield lhs * rhs;
-            }
+            case SUM -> lhs + rhs;
+            case SUB -> lhs - rhs;
+            case DIV -> lhs / rhs;
+            case MULT -> lhs * rhs;
+
         };
     }
 }

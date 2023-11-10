@@ -24,10 +24,16 @@ public class EquationTask extends AbstractMathTask {
     public static class Generator extends AbstractMathTask.Generator {
         public Generator(EnumSet<Operation> allowed, double min, double max) {
             super(allowed, min, max);
+            if (allowed.isEmpty()) {
+                throw new IllegalArgumentException("No allowed operations");
+            }
         }
 
         public Generator(EnumSet<Operation> allowed, double min, double max, int precision) {
             super(allowed, min, max, precision);
+            if (allowed.isEmpty()) {
+                throw new IllegalArgumentException("No allowed operations");
+            }
         }
 
         @Override
