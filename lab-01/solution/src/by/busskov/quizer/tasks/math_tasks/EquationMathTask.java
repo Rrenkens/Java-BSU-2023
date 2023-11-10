@@ -48,18 +48,18 @@ public class EquationMathTask extends AbstractMathTask {
             String condition;
 
             if (xPosition == 0) {
-                condition = 'x'
+                condition = "x"
                         + operationChar
                         + number.toString();
             } else {
                 condition = number.toString()
                         + operationChar
-                        + 'x';
+                        + "x";
             }
             condition += '=' + result.toString();
 
             double answer = getAnswer(number, result, xPosition, operation);
-            return new EquationMathTask(condition, answer, Math.pow(10, -precision));
+            return new EquationMathTask(condition, answer, Math.pow(10, -precision) / 2);
         }
     }
 

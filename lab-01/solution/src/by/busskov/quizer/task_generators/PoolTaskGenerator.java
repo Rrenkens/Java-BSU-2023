@@ -1,6 +1,7 @@
 package by.busskov.quizer.task_generators;
 
 import by.busskov.quizer.Task;
+import by.busskov.quizer.exceptions.NoAvailableTasksException;
 
 import java.util.*;
 
@@ -23,6 +24,9 @@ public class PoolTaskGenerator implements Task.Generator {
 
     @Override
     public Task generate() {
+        if (tasks.isEmpty()) {
+            throw new NoAvailableTasksException("PoolTaskGenerator out of tasks");
+        }
         Random random = new Random();
         int index = random.nextInt(tasks.size());
         Task task = tasks.get(index);

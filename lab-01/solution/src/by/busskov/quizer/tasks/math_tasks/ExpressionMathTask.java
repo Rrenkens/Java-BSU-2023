@@ -47,7 +47,7 @@ public class ExpressionMathTask extends AbstractMathTask {
             } + secondNumber + "=?";
 
             double answer = getAnswer(firstNumber, secondNumber, operation);
-            return new ExpressionMathTask(condition, answer, Math.pow(10, -precision));
+            return new ExpressionMathTask(condition, answer, Math.pow(10, -precision) / 2);
         }
     }
 

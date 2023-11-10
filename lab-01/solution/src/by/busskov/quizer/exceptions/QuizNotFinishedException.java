@@ -1,6 +1,6 @@
 package by.busskov.quizer.exceptions;
 
-public class QuizNotFinishedException extends Exception {
+public class QuizNotFinishedException extends RuntimeException {
     public QuizNotFinishedException() {
         super();
     }

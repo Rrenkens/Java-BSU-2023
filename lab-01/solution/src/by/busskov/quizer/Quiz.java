@@ -1,8 +1,8 @@
 package by.busskov.quizer;
 
 import by.busskov.quizer.exceptions.GenerateException;
-import by.busskov.quizer.exceptions.OutOfTasksException;
 import by.busskov.quizer.exceptions.QuizNotFinishedException;
+import by.busskov.quizer.exceptions.QuizOutOfTasksException;
 
 public class Quiz {
     public Quiz(Task.Generator generator, int taskCount) {
@@ -12,12 +12,11 @@ public class Quiz {
 
     public Task nextTask() {
         if (currentTaskNumber >= taskCount) {
-            throw new OutOfTasksException("There is no available tasks");
+            throw new QuizOutOfTasksException("There is no available tasks");
         }
         if (incorrectInput) {
             return currentTask;
         }
-        ++currentTaskNumber;
         boolean exceptionThrown = true;
         while (exceptionThrown) {
             try {
@@ -34,17 +33,19 @@ public class Quiz {
         incorrectInput = false;
         if (result.equals(Result.WRONG)) {
             ++wrongAnswerNumber;
+            ++currentTaskNumber;
         } else if (result.equals(Result.INCORRECT_INPUT)) {
             incorrectInput = true;
             ++incorrectInputAnswerNumber;
         } else {
             ++correctAnswerNumber;
+            ++currentTaskNumber;
         }
         return result;
     }
 
     public boolean isFinished() {
-        return currentTaskNumber + 1 == taskCount;
+        return currentTaskNumber + 1 > taskCount;
     }
 
     public int getCorrectAnswerNumber() {
@@ -59,7 +60,7 @@ public class Quiz {
         return incorrectInputAnswerNumber;
     }
 
-    public double getMark() throws QuizNotFinishedException {
+    public double getMark() {
         if (!isFinished()) {
             throw new QuizNotFinishedException("Test isn't completed");
         }
