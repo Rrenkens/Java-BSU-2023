@@ -16,14 +16,17 @@ abstract class AbstractMathTask implements Task {
     }
     static abstract class Generator implements MathTask.Generator {
         ArrayList<Character> operationsList = new ArrayList<>();
-        int minNumber;
-        int maxNumber;
+        double minNumber;
+        double maxNumber;
+        int precision;
 
         protected Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
+                int precision,
                 EnumSet<Operation> operations
         ) {
+            this.precision = precision;
 
             if (maxNumber < minNumber) {
                 throw new IllegalArgumentException("Value error: maxNumber < minNumber");
@@ -59,7 +62,7 @@ abstract class AbstractMathTask implements Task {
     @Override
     public Result validate(String answer) {
         String task = this.text;
-        boolean checkAnswerByCalculating = true; // true if 4/2=?
+        boolean checkAnswerByCalculating = true;
         Map<String, Integer> operations = new HashMap<>() {{
             put("/", 1);
             put("*", 1);
@@ -97,8 +100,8 @@ abstract class AbstractMathTask implements Task {
         }
 
         try {
-            int solution = checkAnswerByCalculating(Integer.parseInt(firstNum.toString()), Integer.parseInt(secondNum.toString()), task);
-            if (solution == Integer.parseInt(thirdNum.toString())) {
+            double solution = checkAnswerByCalculating(Double.parseDouble(firstNum.toString()), Double.parseDouble(secondNum.toString()), task);
+            if (Math.abs(solution - Double.parseDouble(thirdNum.toString())) < 0.0001) {
                 return Result.OK;
             } else {
                 return Result.WRONG;
@@ -108,7 +111,7 @@ abstract class AbstractMathTask implements Task {
         }
     }
 
-    private int checkAnswerByCalculating(int firstnum, int secondNum, String task) {
+    private double checkAnswerByCalculating(double firstnum, double secondNum, String task) {
         if (task.contains("*")) {
             return firstnum * secondNum;
         } else if (task.contains("/")) {

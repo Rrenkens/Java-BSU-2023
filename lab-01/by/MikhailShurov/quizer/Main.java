@@ -20,25 +20,25 @@ public class Main {
 
         //ToDo add some tests
         Quiz quiz;
-        EquationTask.Generator equationgGnerator1 = new EquationTask.Generator(-100, 100, allOperations);
+        EquationTask.Generator equationgGnerator1 = new EquationTask.Generator(-100, 100, 2, allOperations);
         quiz = new Quiz(equationgGnerator1, 10);
         quizMap.put("#1", quiz);
 
-        EquationTask.Generator equationgGnerator2 = new EquationTask.Generator(0, 1000, allOperations);
+        EquationTask.Generator equationgGnerator2 = new EquationTask.Generator(0, 1000, 2, allOperations);
         quiz = new Quiz(equationgGnerator2, 10);
         quizMap.put("#2", quiz);
 
-        EquationTask.Generator equationgGnerator3 = new EquationTask.Generator(-1, 1, allOperations);
+        EquationTask.Generator equationgGnerator3 = new EquationTask.Generator(-1, 1, 2, allOperations);
         quiz = new Quiz(equationgGnerator3, 10);
         quizMap.put("#3", quiz);
 
-        EquationTask.Generator equationgGnerator4 = new EquationTask.Generator(0, 0, allOperations);
+        EquationTask.Generator equationgGnerator4 = new EquationTask.Generator(0, 0, 2, allOperations);
         quiz = new Quiz(equationgGnerator4, 5);
         quizMap.put("#4", quiz);
 
-//        ExpressionTask.Generator exprressionGenerator1 = new ExpressionTask.Generator(-100, 100, allOperations);
-//        quiz = new Quiz(exprressionGenerator1, 10);
-//        quizMap.put("Simple equations", quiz);
+        ExpressionTask.Generator exprressionGenerator1 = new ExpressionTask.Generator(-100, 100, 0, allOperations);
+        quiz = new Quiz(exprressionGenerator1, 5);
+        quizMap.put("#5", quiz);
 //
 //        ExpressionTask.Generator exprressionGenerator2 = new ExpressionTask.Generator(0, 1000, allOperations);
 //        quiz = new Quiz(exprressionGenerator2, 10);

@@ -5,19 +5,19 @@ import by.MikhailShurov.quizer.Task;
 import by.MikhailShurov.quizer.tasks.math_tasks.MathTask.Operation;
 
 
+import java.io.FilterOutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class ExpressionTask extends AbstractMathTask {
-    String text;
-    String answer;
 
     public ExpressionTask(
             String text,
             String answer
     ) {
         super(text, answer);
-        this.text = text;
-        this.answer = answer;
     }
 
     @Override
@@ -32,44 +32,47 @@ public class ExpressionTask extends AbstractMathTask {
 
 
     public static class Generator extends AbstractMathTask.Generator {
-        /**
-         * @return
-         */
         @Override
         public double getMinNumber() {
             return minNumber;
         }
 
-        /**
-         * @return
-         */
         @Override
         public double getMaxNumber() {
             return maxNumber;
         }
 
-        int minNumber;
-        int maxNumber;
 
         public Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
+                int precision,
                 EnumSet<Operation> operations
         ) {
-            super(minNumber, maxNumber, operations);
+            super(minNumber, maxNumber, precision,  operations);
+            System.out.println(precision);
         }
 
         @Override
         public Task generate() {
             Random random = new Random();
+            DecimalFormat decimalFormat;
+            if (precision > 0) {
+                decimalFormat = new DecimalFormat("#." + "#".repeat(precision));
+            } else {
+                decimalFormat = new DecimalFormat("#");
+            }
 
-            int firstNumber = random.nextInt(minNumber, maxNumber + 1);
-            int secondNumber = random.nextInt(minNumber, maxNumber + 1);
-            // swap if secondNumber > firstNumber
+            double firstNumber = random.nextDouble(this.maxNumber - this.minNumber + 1) + this.minNumber;
+            firstNumber = Double.valueOf(decimalFormat.format(firstNumber));
+
+            double secondNumber = random.nextDouble(this.maxNumber - this.minNumber + 1) + this.minNumber;
+            secondNumber = Double.valueOf(decimalFormat.format(secondNumber));
+
             if (secondNumber > firstNumber) {
-                firstNumber = firstNumber ^ secondNumber;
-                secondNumber = firstNumber ^ secondNumber;
-                firstNumber = firstNumber ^ secondNumber;
+                double temp = firstNumber;
+                firstNumber = secondNumber;
+                secondNumber = temp;
             }
 
             int randomNumber = random.nextInt(2);
@@ -79,10 +82,15 @@ public class ExpressionTask extends AbstractMathTask {
 
             if (selectedOperation == '/') {
                 List<Integer> divisors = getDivisors(firstNumber);
-                int randomIndex = random.nextInt(divisors.size());
-                secondNumber = divisors.get(randomIndex);
-                String taskStr = String.valueOf(firstNumber) + "/" + String.valueOf(secondNumber) + "=?";
-                task = new ExpressionTask(taskStr, String.valueOf(firstNumber / secondNumber));
+                if (divisors != null) {
+                    int randomIndex = random.nextInt(divisors.size());
+                    secondNumber = divisors.get(randomIndex);
+                    String taskStr = String.valueOf(firstNumber) + "/" + String.valueOf(secondNumber) + "=?";
+                    task = new ExpressionTask(taskStr, String.valueOf(firstNumber / secondNumber));
+                } else {
+                    String taskStr = String.valueOf(firstNumber) + "/" + String.valueOf(secondNumber) + "=?";
+                    task = new ExpressionTask(taskStr, String.valueOf(firstNumber / secondNumber));
+                }
             } else {
                 String taskStr = String.valueOf(firstNumber) + selectedOperation + String.valueOf(secondNumber) + "=?";
                 task = new ExpressionTask(taskStr, String.valueOf(calculateSolution(firstNumber, secondNumber, selectedOperation)));
@@ -90,7 +98,24 @@ public class ExpressionTask extends AbstractMathTask {
             return task;
         }
 
-        private int calculateSolution(int firstNumber, int secondNumber, char operation) {
+        private static List<Integer> getDivisors(double number) {
+            if (number == (int)number) {
+                List<Integer> divisors = new ArrayList<>();
+                int absNumber = Math.abs((int)number); // Получаем модуль числа
+                for (int i = 1; i <= absNumber; i++) {
+                    if (absNumber % i == 0) {
+                        divisors.add(i);
+                        if (i != absNumber / i) {
+                            divisors.add(-i);
+                        }
+                    }
+                }
+                return divisors;
+            }
+            return null;
+        }
+
+        private double calculateSolution(double firstNumber, double secondNumber, char operation) {
             switch (operation) {
                 case '+':
                     return firstNumber + secondNumber;
@@ -101,20 +126,6 @@ public class ExpressionTask extends AbstractMathTask {
                 default:
                     throw new IllegalArgumentException("Invalid operator: " + operation);
             }
-        }
-
-        private static List<Integer> getDivisors(int number) {
-            List<Integer> divisors = new ArrayList<>();
-            int absNumber = Math.abs(number); // Получаем модуль числа
-            for (int i = 1; i <= absNumber; i++) {
-                if (absNumber % i == 0) {
-                    divisors.add(i);
-                    if (i != absNumber / i) {
-                        divisors.add(-i);
-                    }
-                }
-            }
-            return divisors;
         }
     }
 }

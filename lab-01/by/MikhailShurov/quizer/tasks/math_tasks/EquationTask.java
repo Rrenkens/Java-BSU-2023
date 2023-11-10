@@ -3,20 +3,17 @@ package by.MikhailShurov.quizer.tasks.math_tasks;
 import by.MikhailShurov.quizer.Result;
 import by.MikhailShurov.quizer.Task;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import by.MikhailShurov.quizer.tasks.math_tasks.MathTask.Operation;
 
 public class EquationTask extends AbstractMathTask {
-    String text;
-    String answer;
 
     public EquationTask(
             String text,
             String answer
     ) {
         super(text, answer);
-        this.text = text;
-        this.answer = answer;
     }
 
     /**
@@ -29,31 +26,37 @@ public class EquationTask extends AbstractMathTask {
 
     public static class Generator extends AbstractMathTask.Generator {
 
-
-//        /**
-//         * @param minNumber              минимальное число
-//         * @param maxNumber              максимальное число
-//         * @param EnumSet<Operation> op
-//         */
         public Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
+                int precision,
                 EnumSet<Operation> operations
         ) {
-            super(minNumber, maxNumber, operations);
+            super(minNumber, maxNumber, precision, operations);
         }
 
         @Override
         public EquationTask generate() {
             Random random = new Random();
+            DecimalFormat decimalFormat;
 
-            int firstNumber = random.nextInt(minNumber, maxNumber + 1);
-            int secondNumber = random.nextInt(minNumber, maxNumber + 1);
-            // swap if secondNumber > firstNumber
+            if (precision > 0) {
+                decimalFormat = new DecimalFormat("#." + "#".repeat(precision));
+            } else {
+                decimalFormat = new DecimalFormat("#");
+            }
+
+            double firstNumber = random.nextDouble(this.maxNumber - this.minNumber + 1) + this.minNumber;
+            firstNumber = Double.valueOf(decimalFormat.format(firstNumber));
+
+            double secondNumber = random.nextDouble(this.maxNumber - this.minNumber + 1) + this.minNumber;
+            secondNumber = Double.valueOf(decimalFormat.format(secondNumber));
+
+
             if (secondNumber > firstNumber) {
-                firstNumber = firstNumber ^ secondNumber;
-                secondNumber = firstNumber ^ secondNumber;
-                firstNumber = firstNumber ^ secondNumber;
+                double temp = firstNumber;
+                firstNumber = secondNumber;
+                secondNumber = temp;
             }
 
             int randomNumber = random.nextInt(2);
@@ -66,9 +69,6 @@ public class EquationTask extends AbstractMathTask {
             }
             if (xInFirstPosition) {
                 if (selectedOperation == '/') {
-                    if (maxNumber == 0 && minNumber == 0) {
-                        throw new IllegalArgumentException("Invalid lower and upper bounds");
-                    }
                     if (firstNumber == 0) {
                         return generate();
                     }
@@ -83,10 +83,17 @@ public class EquationTask extends AbstractMathTask {
             } else {
                 if (selectedOperation == '/') {
                     List<Integer> divisors = getDivisors(firstNumber);
-                    int randomIndex = random.nextInt(divisors.size());
-                    int answer = divisors.get(randomIndex);
-                    String taskStr = String.valueOf(firstNumber) + selectedOperation + "x=" + String.valueOf(answer);
-                    task = new EquationTask(taskStr, String.valueOf(firstNumber / answer));
+                    if (divisors != null) {
+                        int randomIndex = random.nextInt(divisors.size());
+                        int answer = divisors.get(randomIndex);
+                        String taskStr = String.valueOf(firstNumber) + selectedOperation + "x=" + String.valueOf(answer);
+                        task = new EquationTask(taskStr, String.valueOf(firstNumber / answer));
+                    } else {
+                        double answer = random.nextDouble(this.maxNumber - this.minNumber + 1) + this.minNumber;
+                        String taskStr = String.valueOf(firstNumber) + selectedOperation + "x=" + String.valueOf(answer);
+                        task = new EquationTask(taskStr, String.valueOf(firstNumber / answer));
+                    }
+
                 } else {
                     String taskStr = String.valueOf(firstNumber) + selectedOperation + "x=" + calculateSolution(firstNumber, secondNumber, selectedOperation);
                     // firstNumber, x = secondNumber, solution = <firstNumber><operation><secondNumber>
@@ -96,21 +103,24 @@ public class EquationTask extends AbstractMathTask {
             return task;
         }
 
-        private static List<Integer> getDivisors(int number) {
-            List<Integer> divisors = new ArrayList<>();
-            int absNumber = Math.abs(number); // Получаем модуль числа
-            for (int i = 1; i <= absNumber; i++) {
-                if (absNumber % i == 0) {
-                    divisors.add(i);
-                    if (i != absNumber / i) {
-                        divisors.add(-i);
+        private static List<Integer> getDivisors(double number) {
+            if (number == (int)number) {
+                List<Integer> divisors = new ArrayList<>();
+                int absNumber = Math.abs((int)number); // Получаем модуль числа
+                for (int i = 1; i <= absNumber; i++) {
+                    if (absNumber % i == 0) {
+                        divisors.add(i);
+                        if (i != absNumber / i) {
+                            divisors.add(-i);
+                        }
                     }
                 }
+                return divisors;
             }
-            return divisors;
+            return null;
         }
 
-        private int calculateSolution(int firstNumber, int secondNumber, char operation) {
+        private double calculateSolution(double firstNumber, double secondNumber, char operation) {
             switch (operation) {
                 case '+':
                     return firstNumber + secondNumber;
