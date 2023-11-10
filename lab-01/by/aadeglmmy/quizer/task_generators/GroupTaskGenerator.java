@@ -32,8 +32,7 @@ public class GroupTaskGenerator implements TaskGenerator {
     if (generators.isEmpty()) {
       throw new NoSuchElementException("No generators available in the group");
     }
-    this.generators = new ArrayList<>(generators.size());
-    this.generators.addAll(generators);
+    this.generators = generators;
 
     arePoolsAndGroupsUnique();
   }
