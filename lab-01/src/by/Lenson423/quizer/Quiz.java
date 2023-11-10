@@ -1,6 +1,7 @@
 package by.Lenson423.quizer;
 
 import by.Lenson423.quizer.exceptions.CantGenerateTask;
+import by.Lenson423.quizer.exceptions.NoTaskWasGeneratedException;
 import by.Lenson423.quizer.exceptions.QuizNotFinishedException;
 
 /**
@@ -42,6 +43,9 @@ class Quiz {
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
     Result provideAnswer(String answer) {
+        if (currentTask == null){
+            throw new NoTaskWasGeneratedException("Task wasn't generated yet");
+        }
         var tmp = currentTask.validate(answer);
         if (tmp == Result.OK) {
             correctAnswerNumber += 1;

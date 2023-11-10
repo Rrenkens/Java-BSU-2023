@@ -1,7 +1,7 @@
 package by.Lenson423.quizer.tasks.math_tasks;
 
-import by.Lenson423.quizer.Operation;
 import by.Lenson423.quizer.Result;
+import by.Lenson423.quizer.exceptions.CantCreateTaskWithoutOperations;
 import by.Lenson423.quizer.exceptions.CantGenerateTask;
 
 import java.util.EnumSet;
@@ -69,7 +69,7 @@ public abstract class AbstractMathTask implements MathTask {
                 throw new IllegalArgumentException("Min value > Max value");
             }
             if (operations.isEmpty()) {
-                throw new IllegalArgumentException("Empty set");
+                throw new CantCreateTaskWithoutOperations("Empty operations set");
             }
             this.operations.addAll(operations);
             if (precision < 0) {

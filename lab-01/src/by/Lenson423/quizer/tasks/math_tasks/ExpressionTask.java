@@ -1,7 +1,5 @@
 package by.Lenson423.quizer.tasks.math_tasks;
 
-import by.Lenson423.quizer.Operation;
-
 import java.text.DecimalFormat;
 import java.util.EnumSet;
 import java.util.concurrent.ThreadLocalRandom;
