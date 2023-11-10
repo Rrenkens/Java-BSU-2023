@@ -20,6 +20,14 @@ public class TextTask implements Task {
             String text,
             String answer
     ) {
+        if (text == null || answer == null) {
+            throw new IllegalArgumentException("One or two of the arguments is null");
+        }
+
+        if (text.isEmpty() || answer.isEmpty()) {
+            throw new IllegalArgumentException("One or two of the arguments is empty");
+        }
+
         this.text = text;
         this.answer = answer;
     }
@@ -31,6 +39,9 @@ public class TextTask implements Task {
 
     @Override
     public Result validate(String answer) {
+        if (answer == null) {
+            throw new IllegalArgumentException("Argument is null");
+        }
 
         return answer.isEmpty() ?
                 Result.INCORRECT_INPUT :

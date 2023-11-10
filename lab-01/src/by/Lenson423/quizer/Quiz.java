@@ -2,6 +2,7 @@ package by.Lenson423.quizer;
 
 import by.Lenson423.quizer.exceptions.CantGenerateTask;
 import by.Lenson423.quizer.exceptions.NoTaskWasGeneratedException;
+import by.Lenson423.quizer.exceptions.QuizIsFinishedException;
 import by.Lenson423.quizer.exceptions.QuizNotFinishedException;
 
 /**
@@ -23,7 +24,13 @@ class Quiz {
      * @param taskCount количество заданий в тесте
      */
     Quiz(Task.Generator generator, int taskCount) {
+        if (generator == null) {
+            throw new IllegalArgumentException("Generator is null");
+        }
         this.generator = generator;
+        if (taskCount <= 0) {
+            throw new IllegalArgumentException("TaskCount must be positive");
+        }
         this.taskCount = taskCount;
     }
 
@@ -32,6 +39,9 @@ class Quiz {
      * @see Task
      */
     Task nextTask() throws CantGenerateTask {
+        if (isFinished()) {
+            throw new QuizIsFinishedException("Quiz is finished!");
+        }
         if (needNew) {
             currentTask = generator.generate();
         }
@@ -46,6 +56,9 @@ class Quiz {
         if (currentTask == null){
             throw new NoTaskWasGeneratedException("Task wasn't generated yet");
         }
+        if (isFinished()) {
+            throw new QuizIsFinishedException("Quiz is finished!");
+        }
         var tmp = currentTask.validate(answer);
         if (tmp == Result.OK) {
             correctAnswerNumber += 1;
@@ -54,7 +67,7 @@ class Quiz {
         } else if (tmp == Result.INCORRECT_INPUT) {
             incorrectInputNumber += 1;
             needNew = false;
-        } else {
+        } else if (tmp == Result.WRONG){
             currentTaskNumber += 1;
             needNew = true;
         }

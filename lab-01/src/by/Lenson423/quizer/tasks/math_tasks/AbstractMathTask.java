@@ -21,6 +21,9 @@ public abstract class AbstractMathTask implements MathTask {
 
     @Override
     public Result validate(String answer) {
+        if (answer == null) {
+            throw new IllegalArgumentException("Argument is null!");
+        }
         double tmp;
         try {
             tmp = Double.parseDouble(answer);
@@ -67,6 +70,9 @@ public abstract class AbstractMathTask implements MathTask {
         ) {
             if (minNumber > maxNumber) {
                 throw new IllegalArgumentException("Min value > Max value");
+            }
+            if (operations == null) {
+                throw new IllegalArgumentException("Set of operations is null");
             }
             if (operations.isEmpty()) {
                 throw new CantCreateTaskWithoutOperations("Empty operations set");

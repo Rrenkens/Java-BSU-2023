@@ -23,6 +23,16 @@ public class GroupTaskGenerator implements Task.Generator {
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
     public GroupTaskGenerator(Collection<Task.Generator> generators) {
+        if (generators == null) {
+            throw new IllegalArgumentException("Generators is null");
+        }
+        if (generators.isEmpty()) {
+            throw new IllegalArgumentException("Generators is empty");
+        }
+        if (generators.contains(null)) {
+            throw new IllegalArgumentException("Generators contains null");
+        }
+
         taskGenerators = new ArrayList<>(generators);
 
     }

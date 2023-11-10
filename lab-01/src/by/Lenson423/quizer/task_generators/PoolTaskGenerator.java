@@ -35,8 +35,23 @@ public class PoolTaskGenerator implements Task.Generator {
             boolean allowDuplicate,
             Collection<Task> tasks
     ) {
+        if (tasks == null) {
+            throw new IllegalArgumentException("Tasks is null");
+        }
+        if (tasks.isEmpty()) {
+            throw new IllegalArgumentException("Tasks is empty");
+        }
+        if (tasks.contains(null)) {
+            throw new IllegalArgumentException("Tasks contains null");
+        }
+
         this.allowDuplicate = allowDuplicate;
-        this.tasks = new ArrayList<>(tasks);
+
+        if (!allowDuplicate) {
+            this.tasks = tasks.stream().distinct().collect(Collectors.toList()); //Delete all duplicates
+        } else {
+            this.tasks = new ArrayList<>(tasks);
+        }
     }
 
     /**

@@ -15,6 +15,28 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws QuizNotFinishedException, CantGenerateTask {
         Scanner in = new Scanner(System.in);
+        var quizzes = getQuizMap();
+        System.out.println("Выберите тест (тесты 'C' и 'E' могут выбрасывать исключения):");
+        System.out.println("Если хотите вывести все тесты ничего не вводите");
+        for (var name : quizzes.keySet()) {
+            System.out.println(name);
+        }
+
+        String name = in.nextLine();
+        if (name.isEmpty()) {
+            testQuiz();
+            return;
+        }
+        while (!quizzes.containsKey(name)) {
+            System.out.println("Ввод некорректный. Введите еще раз!");
+            name = in.nextLine();
+        }
+
+        checkQuiz(in, quizzes.get(name));
+    }
+
+    private static void testQuiz() {
+        Scanner in = new Scanner(System.in);
         var tmp = getQuizMap();
         var quiz = tmp.get("A");
         checkQuiz(in, quiz);
@@ -72,7 +94,10 @@ public class Main {
         Map<String, Quiz> map = new HashMap<>();
         map.put("A", firstQuiz);
 
-        TextTask task1 = new TextTask("Best soviet movie is ...", "The Youth of Maxim");
+        TextTask task1 = new TextTask(
+                "First Chief Executive Officer of AREOC" +
+                        " (write only last name starting with the first capital letter)",
+                "Dzerzhinsky");
         AbstractMathTask task2 = new EquationTask(5, MathTask.Operation.DIFFERENCE, 22, 0);
         List<Task> tasks = new ArrayList<>();
         tasks.add(task1);
@@ -95,7 +120,10 @@ public class Main {
         Quiz fourthQuiz = new Quiz(tasks4, 3);
         map.put("D", fourthQuiz); //Should not be exception
 
-        TextTask task5 = new TextTask("Best soviet movie is ...", "The Youth of Maxim");
+        TextTask task5 = new TextTask(
+                "First Chief Executive Officer of AREOC " +
+                        "(write only last name starting with the first capital letter)",
+                "Dzerzhinsky");
         List<Task> tasks5 = new ArrayList<>();
         tasks5.add(task5);
         PoolTaskGenerator poolTaskGenerator5 = new PoolTaskGenerator(false, tasks5);
