@@ -3,7 +3,7 @@ package by.Kra567.quizer.basics;
 /**
  * Class, который описывает один тест
  */
-class Quiz {
+public class Quiz {
     /**
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
@@ -18,20 +18,24 @@ class Quiz {
     private int wrongAnswersCount;
     private int incorrectAnswersCount;
     private Task currentTask;
-    Quiz(TaskGenerator generator, int taskCount) {
+    public Quiz(TaskGenerator generator, int taskCount) throws Exception {
         this.generator = generator;
         this.taskCount = taskCount;
         this.taskLeftCount = taskCount;
         this.wrongAnswersCount = 0;
         this.incorrectAnswersCount = 0;
-        this.currentTask = generator.generate();
+        try{
+            this.currentTask = generator.generate();
+        }catch (Exception e) {
+            throw e;
+        }
     }
 
     /**
      * @return задание, повторный вызов вернет слелующее
      * @see Task
      */
-    Task nextTask() {
+    public Task nextTask() {
         return currentTask;
     }
 
@@ -39,44 +43,52 @@ class Quiz {
      * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
-    Result provideAnswer(String answer) {
+    public Result provideAnswer(String answer) throws Exception {
         Result res = currentTask.validate(answer);
         if (res == Result.INCORRECT_INPUT){
+            incorrectAnswersCount++;
             return res;
         }
+        taskLeftCount--;
+        try {
+            currentTask = generator.generate();
+        } catch (Exception e) {
+            throw e;
+        }
+
         if (res == Result.WRONG){
             wrongAnswersCount++;
+            return res;
         }
-        taskLeftCount--;
-        currentTask = generator.generate();
+
         return res;
     }
 
     /**
      * @return завершен ли тест
      */
-    boolean isFinished() {
+    public boolean isFinished() {
         return taskLeftCount == 0;
     }
 
     /**
      * @return количество правильных ответов
      */
-    int getCorrectAnswerNumber() {
+    public int getCorrectAnswerNumber() {
         return (taskCount - taskLeftCount) - wrongAnswersCount;
     }
 
     /**
      * @return количество неправильных ответов
      */
-    int getWrongAnswerNumber() {
+    public int getWrongAnswerNumber() {
         return wrongAnswersCount;
     }
 
     /**
      * @return количество раз, когда был предоставлен неправильный ввод
      */
-    int getIncorrectInputNumber() {
+    public int getIncorrectInputNumber() {
         return incorrectAnswersCount;
     }
 
@@ -84,7 +96,10 @@ class Quiz {
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
      *         Оценка выставляется только в конце!
      */
-    double getMark() {
+    public double getMark() {
         return (double)getCorrectAnswerNumber()/(double)taskCount;
+    }
+    public int taskNumber(){
+        return taskCount - taskLeftCount + 1;
     }
 }
