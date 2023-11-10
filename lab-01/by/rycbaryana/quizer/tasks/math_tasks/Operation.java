@@ -9,18 +9,10 @@ public enum Operation {
     @Override
     public String toString() {
         return switch (this) {
-            case SUM -> {
-                yield "+";
-            }
-            case SUB -> {
-                yield "-";
-            }
-            case MULT -> {
-                yield "*";
-            }
-            case DIV -> {
-                yield "/";
-            }
+            case SUM -> "+";
+            case SUB -> "-";
+            case MULT -> "*";
+            case DIV -> "/";
         };
     }
 }
