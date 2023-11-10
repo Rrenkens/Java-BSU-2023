@@ -1,15 +1,15 @@
 package by.Lexus_FAMCS.quizer;
 
-import by.Lexus_FAMCS.quizer.task_generators.TaskGenerator;
+import by.Lexus_FAMCS.quizer.exceptions.QuizNotFinishedException;
 import by.Lexus_FAMCS.quizer.tasks.Task;
 
 /**
  * Class, который описывает один тест
  */
 class Quiz {
-    private TaskGenerator gen;
+    private Task.Generator gen;
     private int taskCount;
-    private int taskNumber = -1;
+    private int taskNumber = 0;
     private Task currTask;
     private int correctAnswers;
     private int incorrectInputAnswers;
@@ -18,7 +18,8 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    Quiz(TaskGenerator generator, int taskCount) {
+    Quiz(Task.Generator generator, int taskCount) {
+        if (taskCount <= 0) throw new IllegalArgumentException("Number of tasks(taskCount) can't be negative");
         gen = generator;
         this.taskCount = taskCount;
     }
@@ -28,16 +29,15 @@ class Quiz {
      * @see Task
      */
     Task nextTask() {
+        if (skip) {
+            skip = false;
+            return currTask;
+        }
         if (isFinished()) {
             return null;
         } else {
-            if (skip) {
-                skip = false;
-                return currTask;
-            } else {
-                ++taskNumber;
-                return gen.generate();
-            }
+            ++taskNumber;
+            return currTask = gen.generate();
         }
     }
 
@@ -45,11 +45,12 @@ class Quiz {
      * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
-    Result provideAnswer(String answer) {
+    Result processAnswer(String answer) {
         Result res = currTask.validate(answer);
-        switch (res) {
-            case Result.OK -> ++correctAnswers;
-            case Result.INCORRECT_INPUT -> { ++incorrectInputAnswers; skip = true; }
+        if (res == Result.OK) ++correctAnswers;
+        else if (res == Result.INCORRECT_INPUT) {
+            ++incorrectInputAnswers;
+            skip = true;
         }
         return res;
     }
@@ -86,7 +87,8 @@ class Quiz {
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
      *         Оценка выставляется только в конце!
      */
-    double getMark() {
-        return (double) correctAnswers / taskCount;
+    int getMark() {
+        if (!isFinished()) throw new QuizNotFinishedException("Quiz haven't finished yet");
+        return (int) Math.round((double) correctAnswers / taskCount * 10);
     }
 }
