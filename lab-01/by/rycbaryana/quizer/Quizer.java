@@ -2,7 +2,6 @@ package by.rycbaryana.quizer;
 
 import by.rycbaryana.quizer.exceptions.QuizNotFinishedException;
 import by.rycbaryana.quizer.tasks.Task;
-import by.rycbaryana.quizer.task_generators.TaskGenerator;
 import by.rycbaryana.quizer.tasks.TextTask;
 import by.rycbaryana.quizer.tasks.math_tasks.ExpressionTask;
 import by.rycbaryana.quizer.tasks.math_tasks.EquationTask;
@@ -18,7 +17,7 @@ import java.util.*;
  * Class, который описывает один тест
  */
 class Quiz {
-    TaskGenerator generator;
+    Task.Generator generator;
     int taskCount;
     int wrongCount = 0;
     int okCount = 0;
@@ -31,7 +30,7 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    Quiz(TaskGenerator generator, int taskCount) {
+    Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
     }
@@ -110,8 +109,8 @@ class Quiz {
 public class Quizer {
     static Map<String, Quiz> getQuizMap() {
         HashMap<String, Quiz> quizMap = new HashMap<>();
-        TaskGenerator expression = new ExpressionTask.Generator(EnumSet.allOf(Operation.class), -10, 10, 0);
-        TaskGenerator equation = new EquationTask.Generator(EnumSet.allOf(Operation.class), -10, 10, 0);
+        Task.Generator expression = new ExpressionTask.Generator(EnumSet.allOf(Operation.class), -10, 10, 0);
+        Task.Generator equation = new EquationTask.Generator(EnumSet.allOf(Operation.class), -10, 10, 0);
         quizMap.put("Exp", new Quiz(expression, 5));
         quizMap.put("Eq", new Quiz(equation, 5));
         quizMap.put("Math", new Quiz(new GroupTaskGenerator(expression, equation), 10));
@@ -123,7 +122,7 @@ public class Quizer {
                 new TextTask("Placeholder question?", "Placeholder answer")
         )
         );
-        TaskGenerator pool = new PoolTaskGenerator(false, questions);
+        Task.Generator pool = new PoolTaskGenerator(false, questions);
         quizMap.put("Quiz", new Quiz(pool, 5));
         quizMap.put("Triangles", new Quiz(new TriangleAreaTask.Generator(1, 10, 1), 5));
         return quizMap;

@@ -6,16 +6,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
-public class GroupTaskGenerator implements TaskGenerator {
-    /**
-     * Конструктор с переменным числом аргументов
-     *
-     * @param generators генераторы, которые в конструктор передаются через запятую
-     */
-    ArrayList<TaskGenerator> generators;
+public class GroupTaskGenerator implements Task.Generator {
+    ArrayList<Task.Generator> generators;
     Random random = new Random();
-    public GroupTaskGenerator(TaskGenerator... generators) {
-        this.generators = new ArrayList<TaskGenerator>(Arrays.asList(generators));
+    public GroupTaskGenerator(Task.Generator... generators) {
+        this.generators = new ArrayList<>(Arrays.asList(generators));
     }
 
     /**
@@ -23,8 +18,8 @@ public class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
-        this.generators = (ArrayList<TaskGenerator>) generators;
+    public GroupTaskGenerator(Collection<Task.Generator> generators) {
+        this.generators = (ArrayList<Task.Generator>) generators;
     }
 
     /**

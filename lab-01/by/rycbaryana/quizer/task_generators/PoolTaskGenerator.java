@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
-public class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements Task.Generator {
     ArrayList<Task> tasks;
     boolean allowDuplicate;
     Random random = new Random();
