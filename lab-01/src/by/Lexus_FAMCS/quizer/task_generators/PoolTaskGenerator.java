@@ -12,6 +12,7 @@ public class PoolTaskGenerator {
             boolean allowDuplicate,
             Task... tasks
     ) {
+        if (tasks.length == 0) throw new IllegalArgumentException("You can't provide empty task list");
         for (Task task : tasks) {
             if (allowDuplicate || !this.tasks.contains(task)) this.tasks.add(task);
         }
@@ -20,6 +21,7 @@ public class PoolTaskGenerator {
             boolean allowDuplicate,
             Collection<Task> tasks
     ) {
+        if (tasks.isEmpty()) throw new IllegalArgumentException("You can't provide empty taskGenerator list");
         for (Task task : tasks) {
             if (allowDuplicate || !this.tasks.contains(task)) this.tasks.add(task);
         }
@@ -30,14 +32,6 @@ public class PoolTaskGenerator {
      */
     public Task generate() {
         int num = (int) (Math.random() * tasks.size());
-        Task res = null;
-        int i = -1;
-        for (Task task : tasks) {
-            if (++i == num) {
-                res = task;
-                break;
-            }
-        }
-        return res;
+        return tasks.stream().toList().get(num);
     }
 }

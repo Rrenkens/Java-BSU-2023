@@ -1,6 +1,8 @@
 package by.Lexus_FAMCS.quizer.tasks;
 
 import by.Lexus_FAMCS.quizer.Result;
+import by.Lexus_FAMCS.quizer.exceptions.EmptyOperationsEnumSet;
+import by.Lexus_FAMCS.quizer.exceptions.IncorrectTestCreated;
 import by.Lexus_FAMCS.quizer.tasks.math_tasks.MathTask;
 
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ public class ExpressionTask implements Task {
                 int maxNumber,
                 EnumSet<MathTask.Operation> operations
         ) {
+            if (minNumber > maxNumber) throw new IllegalArgumentException("min is greater than max");
+            if (operations.isEmpty()) throw new EmptyOperationsEnumSet();
             this.maxNumber = maxNumber;
             this.minNumber = minNumber;
             if (operations.contains(MathTask.Operation.SUM)) permittedSymbols.add('+');
@@ -29,7 +33,7 @@ public class ExpressionTask implements Task {
         private double generateResultOfDivision(int a, int b) {
             if (b == 0) {
                 if (permittedSymbols.size() == 1 && maxNumber == 0 && minNumber == 0) {
-                    throw new ArithmeticException("Incorrect test!!!");
+                    throw new IncorrectTestCreated("Incorrect test!!!");
                 }
                 b += maxNumber >= 1 ? 1 : -1;
             }

@@ -1,6 +1,7 @@
 package by.Lexus_FAMCS.quizer.tasks.math_tasks;
 
 import by.Lexus_FAMCS.quizer.Result;
+import by.Lexus_FAMCS.quizer.exceptions.EmptyOperationsEnumSet;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -21,6 +22,8 @@ public abstract class AbstractMathTask implements MathTask {
                 double maxNumber,
                 EnumSet<Operation> operations
         ) {
+            if (minNumber - maxNumber > eps) throw new IllegalArgumentException("min is greater than max");
+            if (operations.isEmpty()) throw new EmptyOperationsEnumSet();
             this.maxNumber = maxNumber;
             this.minNumber = minNumber;
             if (operations.contains(MathTask.Operation.SUM)) permittedSymbols.add('+');
@@ -35,6 +38,9 @@ public abstract class AbstractMathTask implements MathTask {
                 int precision,
                 EnumSet<Operation> operations
         ) {
+            if (minNumber - maxNumber > eps) throw new IllegalArgumentException("min is greater than max");
+            if (precision < 0) throw new IllegalArgumentException("precision can't be negative");
+            if (operations.isEmpty()) throw new EmptyOperationsEnumSet();
             this.maxNumber = maxNumber;
             this.minNumber = minNumber;
             while (precision-- > 0) {

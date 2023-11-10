@@ -21,7 +21,7 @@ public class EquationMathTask extends AbstractMathTask {
                 int precision,
                 EnumSet<Operation> operations
         ) {
-            super(minNumber, maxNumber, operations);
+            super(minNumber, maxNumber, precision, operations);
         }
 
         /**
