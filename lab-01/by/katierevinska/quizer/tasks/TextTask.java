@@ -10,7 +10,7 @@ public class TextTask implements Task {
     private final String text;
     private final String answer;
 
-    TextTask(
+    public TextTask(
             String text,
             String answer
     ) {

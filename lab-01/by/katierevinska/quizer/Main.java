@@ -2,6 +2,7 @@ package by.katierevinska.quizer;
 
 import by.katierevinska.quizer.task_generators.GroupTaskGenerator;
 import by.katierevinska.quizer.task_generators.PoolTaskGenerator;
+import by.katierevinska.quizer.tasks.TextTask;
 import by.katierevinska.quizer.tasks.math_tasks.EquationTask;
 import by.katierevinska.quizer.tasks.math_tasks.ExpressionTask;
 import by.katierevinska.quizer.tasks.math_tasks.MathTask;
@@ -14,19 +15,30 @@ public class Main {
         EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
         EnumSet<MathTask.Operation> sumAndSubOperations = EnumSet.of(MathTask.Operation.Sum, MathTask.Operation.Difference);
         EnumSet<MathTask.Operation> multiplicationAndDivisionOperations = EnumSet.of(MathTask.Operation.Multiplication, MathTask.Operation.Division);
-        PoolTaskGenerator poolGenerator = new PoolTaskGenerator(false, new PlatesProblemTask.Generator(5, 12).generate(), new ExpressionTask.Generator(15, 20, operations).generate());
-        poolGenerator.generate().getText();
-        poolGenerator.generate().getText();
-        // poolGenerator.generate().getText();//throw exception +
-        PoolTaskGenerator poolGeneratorWithDuplicates = new PoolTaskGenerator(true, new PlatesProblemTask.Generator(5, 12).generate(), new ExpressionTask.Generator(15, 20, operations).generate());
-        poolGeneratorWithDuplicates.generate().getText();
-        poolGeneratorWithDuplicates.generate().getText();
-        poolGeneratorWithDuplicates.generate().getText();
+        try {
+            PoolTaskGenerator poolGenerator = new PoolTaskGenerator(false, new PlatesProblemTask.Generator(5, 12).generate(), new ExpressionTask.Generator(15, 20, operations).generate());
+            poolGenerator.generate().getText();
+            poolGenerator.generate().getText();
+            // poolGenerator.generate().getText();//throw exception +
+            PoolTaskGenerator poolGeneratorWithDuplicates = new PoolTaskGenerator(true, new PlatesProblemTask.Generator(5, 12).generate(), new ExpressionTask.Generator(15, 20, operations).generate());
+            poolGeneratorWithDuplicates.generate().getText();
+            poolGeneratorWithDuplicates.generate().getText();
+            poolGeneratorWithDuplicates.generate().getText();
+        }catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+
         Map<String, Quiz> quizMap = new HashMap<>();
 
         try {
+//            quizMap.put("Pool1", new Quiz(new GroupTaskGenerator(new PoolTaskGenerator(false, new PlatesProblemTask.Generator(5, 12).generate(),
+//                    new ExpressionTask.Generator(15, 20, operations).generate())),3));//throw except +
+            quizMap.put("Pool3", new Quiz(new PoolTaskGenerator(true, new PlatesProblemTask.Generator(5, 12).generate(), new ExpressionTask.Generator(15, 20, operations).generate()),4));
+            quizMap.put("Pool4", new Quiz(new PoolTaskGenerator(false, new TextTask("Какого цвета молоко?","Белый"),
+                    new TextTask("Какое дерево - символ нового года?","Ёлка")),2));
             quizMap.put("ExpressionTask 1", new Quiz(new ExpressionTask.Generator(0, 10, 0,
                     sumAndSubOperations), 5));
+
             quizMap.put("ExpressionTask 2", new Quiz(new ExpressionTask.Generator(-10, 10,
                     multiplicationAndDivisionOperations), 5));
             quizMap.put("ExpressionTask 3", new Quiz(new ExpressionTask.Generator(-5, 10,
