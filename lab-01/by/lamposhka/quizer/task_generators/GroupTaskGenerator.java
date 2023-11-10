@@ -1,5 +1,6 @@
 package by.lamposhka.quizer.task_generators;
 
+import by.lamposhka.quizer.exceptions.NoValidGeneratorsGivenException;
 import by.lamposhka.quizer.tasks.Task;
 
 import java.util.*;
@@ -33,7 +34,7 @@ public class GroupTaskGenerator implements Task.Generator {
      * Если этот генератор выбросил исключение в методе generate(), выбирается другой.
      * Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
-    public Task generate() throws Exception { // Make generate() throw exceptions.
+    public Task generate() throws NoValidGeneratorsGivenException {
         Random random = new Random();
         boolean[] isThrowingExceptions = new boolean[generators.size()];
         Arrays.fill(isThrowingExceptions, true);
@@ -53,7 +54,7 @@ public class GroupTaskGenerator implements Task.Generator {
                     }
                 }
                 if (noGeneratorsLeft) {
-                    throw new Exception("All generators are throwing exceptions.");
+                    throw new NoValidGeneratorsGivenException("All generators are throwing exceptions.");
                 }
             }
         }

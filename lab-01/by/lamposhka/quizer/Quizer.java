@@ -1,12 +1,11 @@
 package by.lamposhka.quizer;
 
+import by.lamposhka.quizer.exceptions.QuizNotFinishedException;
 import by.lamposhka.quizer.task_generators.GroupTaskGenerator;
 import by.lamposhka.quizer.task_generators.PoolTaskGenerator;
-import by.lamposhka.quizer.tasks.math_tasks.EquationTask;
+import by.lamposhka.quizer.tasks.math_tasks.*;
 import by.lamposhka.quizer.tasks.Task;
 import by.lamposhka.quizer.tasks.TextTask;
-import by.lamposhka.quizer.tasks.math_tasks.ExpressionTask;
-import by.lamposhka.quizer.tasks.math_tasks.MathTask;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +22,7 @@ public class Quizer {
      * значение - сам тест       {@link Quiz}
      */
     static Map<String, Quiz> getQuizMap() throws Exception {
+
         Map<String, Quiz> quizMap = new HashMap<>();
         quizMap.put("FUNNY TEST FOR STUPID PEOPLE", new Quiz(new EquationTask.Generator(
                 1,
@@ -50,6 +50,9 @@ public class Quizer {
                 true,
                 new TextTask("what?", "yes"),
                 new EquationTask("3*3", 9)), 5));
+
+        quizMap.put("OMAEWA", new Quiz(new AppleTask.Generator("Лампошка"), 5));
+
         return quizMap;
     }
 
@@ -76,9 +79,9 @@ public class Quizer {
             } catch (IOException e) {
                 System.out.println("Input error occurred. Try again.");
             } catch (IllegalArgumentException e) {
-                System.out.println("Wrong quiz name. Try again." + e.toString());
+                System.out.println("Wrong quiz name. Try again.");
             } catch (Exception e) {
-                System.out.println("Unexpected error occurred" + e.toString());
+                System.out.println("Unexpected error occurred");
                 return;
             }
         }
@@ -95,9 +98,14 @@ public class Quizer {
             if (result == Task.Result.INCORRECT_INPUT) {
                 System.out.println("Incorrect input");
             } else {
-                System.out.println(result.toString());
+//                System.out.println(result.toString()); // отладочка
             }
         }
-        System.out.println("Your mark: " + quiz.getMark() + "%");
+        try {
+            System.out.println("Your mark: " + quiz.getMark() + "%");
+        } catch (QuizNotFinishedException e) {
+            System.out.println("Error occured. Quiz not finished.");
+        }
+
     }
 }

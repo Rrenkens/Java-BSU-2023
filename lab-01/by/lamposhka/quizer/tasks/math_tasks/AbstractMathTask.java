@@ -1,10 +1,8 @@
 package by.lamposhka.quizer.tasks.math_tasks;
 
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.Map;
 import java.util.Random;
 
 
@@ -107,9 +105,6 @@ public abstract class AbstractMathTask implements MathTask {
         public double getMaxNumber() {
             return maxNumber;
         }
-
-        @Override
-        public abstract AbstractMathTask generate() throws Exception;
 
     }
 

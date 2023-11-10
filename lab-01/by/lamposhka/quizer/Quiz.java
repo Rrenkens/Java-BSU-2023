@@ -1,6 +1,8 @@
 package by.lamposhka.quizer;
 
+import by.lamposhka.quizer.exceptions.QuizNotFinishedException;
 import by.lamposhka.quizer.tasks.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -32,12 +34,10 @@ class Quiz {
         if (!isFinished()) {
             if (lastValidatedTaskIndex == currentTaskIndex) {
                 ++currentTaskIndex;
-                return tasks.get(currentTaskIndex); // :o
-            } else {
-                return tasks.get(currentTaskIndex);
             }
+            return tasks.get(currentTaskIndex); // o_O
         } else {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Trying to get the next task when the quiz is already finished.");
         }
     }
 
@@ -56,7 +56,6 @@ class Quiz {
                 break;
             default:
                 ++incorrectInputCount;
-                ;
                 break;
         }
         return tasks.get(currentTaskIndex).validate(answer);
@@ -66,10 +65,7 @@ class Quiz {
      * @return завершен ли тест
      */
     public boolean isFinished() {
-        if (lastValidatedTaskIndex == tasks.size() - 1) {
-            return true;
-        }
-        return false;
+        return lastValidatedTaskIndex == tasks.size() - 1;
     }
 
     /**
@@ -97,10 +93,10 @@ class Quiz {
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
      * Оценка выставляется только в конце!
      */
-    double getMark() {
+    double getMark() throws QuizNotFinishedException {
         if (isFinished()) {
             return 100 * ((double) (tasks.size() - mistakesCount)) / tasks.size();
         }
-        return 0;
+        throw new QuizNotFinishedException("Trying to call getMark() when the quiz is not finished.");
     }
 }

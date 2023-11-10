@@ -69,7 +69,7 @@ public class ExpressionTask extends AbstractMathTask {
                     text = number1 + "/" + number2;
                     break;
                 default:
-                    throw new Exception("No such operator.");
+                    throw new Exception("Unrecognized operator.");
             }
             return new ExpressionTask(text, castToPrecision(answer), precision);
         }

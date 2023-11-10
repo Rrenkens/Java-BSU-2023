@@ -1,5 +1,7 @@
 package by.lamposhka.quizer.tasks;
 
+import by.lamposhka.quizer.exceptions.NoValidGeneratorsGivenException;
+
 /**
  * Interface, который описывает одно задание
  */

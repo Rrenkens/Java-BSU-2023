@@ -64,7 +64,7 @@ public class EquationTask extends AbstractMathTask {
                     answer = (xFirstPositionIndicator) ? number1 * number2 : number1 / number2;
                     break;
                 default:
-                    throw new Exception("No such operator.");
+                    throw new Exception("Unrecognized operator.");
             }
             return new EquationTask(text, castToPrecision(answer), precision);
         }
