@@ -3,6 +3,9 @@ package by.Roman191976.Quizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.Roman191976.Quizer.Exceptions.QuizCannotBeGenerated;
+import by.Roman191976.Quizer.Exceptions.QuizNotFinishedException;
+
 /**
  * Class, который описывает один тест
  */
@@ -30,9 +33,14 @@ public class Quiz {
         incorrectInputCount = 0;
         currentTask = null;
 
-        for (int i = 0; i < taskCount; i++) {
+        try {
+                    for (int i = 0; i < taskCount; i++) {
             tasks.add(generator.generate());
-        }
+        } 
+    } catch (Exception e) {
+        throw new QuizCannotBeGenerated("ошибка при создании теста");
+    }
+
     }
 
 
@@ -113,6 +121,7 @@ public class Quiz {
      *         Оценка выставляется только в конце!
      */
     double getMark() {
+        if (!isFinished()) throw new QuizNotFinishedException("тест не оконче!!!");
         if (taskCount == 0) {
             return 0.0;
         }

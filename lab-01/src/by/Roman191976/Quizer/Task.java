@@ -3,7 +3,7 @@ package by.Roman191976.Quizer;
 /**
  * Interface, который описывает одно задание
  */
-interface Task {
+public interface Task {
     /**
      @return текст задания
      */
