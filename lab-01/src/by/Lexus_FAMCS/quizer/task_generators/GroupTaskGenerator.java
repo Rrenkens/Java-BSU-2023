@@ -15,6 +15,7 @@ public class GroupTaskGenerator implements Task.Generator {
      */
     private List<Task.Generator> taskGens = new ArrayList<>();
     public GroupTaskGenerator(Task.Generator... generators) {
+        if (generators.length == 0) throw new IllegalArgumentException("You can't provide empty taskGenerator list");
         taskGens.addAll(Arrays.asList(generators));
     }
 
@@ -24,6 +25,7 @@ public class GroupTaskGenerator implements Task.Generator {
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
     public GroupTaskGenerator(Collection<Task.Generator> generators) {
+        if (generators.isEmpty()) throw new IllegalArgumentException("You can't provide empty taskGenerator list");
         taskGens.addAll(generators);
     }
 
@@ -35,15 +37,16 @@ public class GroupTaskGenerator implements Task.Generator {
     public Task generate() {
         int num = (int) (Math.random() * taskGens.size());
         Task.Generator taskGen;
-        RuntimeException exception = new RuntimeException();
+        RuntimeException exception = new RuntimeException("Error when working with taskGenerator list");
         Task res = null;
         for (int i = 0, size = taskGens.size(); i < size; ++i) {
             taskGen = taskGens.get((num + i) % size);
             try {
                 res = taskGen.generate();
+                break;
             } catch (Exception exc) {
-                if (i == size - 1) throw exception;
                 exception.addSuppressed(exc);
+                if (i == size - 1) throw exception;
             }
         }
         return res;
