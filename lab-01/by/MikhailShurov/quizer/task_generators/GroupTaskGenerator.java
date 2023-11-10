@@ -11,15 +11,15 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class GroupTaskGenerator implements TaskGenerator {
-    private ArrayList<TaskGenerator> generators;
+    private ArrayList<Task.Generator> generators;
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    public GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupTaskGenerator(Task.Generator... generators) {
         this.generators = new ArrayList<>();
-        for (TaskGenerator generator : generators) {
+        for (Task.Generator generator : generators) {
             this.generators.add(generator);
         }
     }
@@ -29,7 +29,7 @@ public class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    public GroupTaskGenerator(Collection<Task.Generator> generators) {
         this.generators = new ArrayList<>(generators);
     }
 
@@ -49,7 +49,6 @@ public class GroupTaskGenerator implements TaskGenerator {
             do {
                 randomIndex = random.nextInt(generators.size());
             } while (excludedIndexes.contains(randomIndex));
-
             try {
                 return generators.get(randomIndex).generate();
             } catch (Exception e) {

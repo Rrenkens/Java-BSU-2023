@@ -1,58 +1,59 @@
-package by.MikhailShurov.quizer.tasks;
+package by.MikhailShurov.quizer.tasks.math_tasks;
 
 import by.MikhailShurov.quizer.Result;
 import by.MikhailShurov.quizer.Task;
-import by.MikhailShurov.quizer.task_generators.PoolTaskGenerator;
+import by.MikhailShurov.quizer.tasks.math_tasks.MathTask.Operation;
+
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-
-/**
- * Задание с заранее заготовленным текстом.
- * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
- */
-public class TextTask implements Task {
-    /**
-     * @param text   текст задания
-     * @param answer ответ на задание
-     */
+abstract class AbstractMathTask implements Task {
     String text;
     String answer;
+    protected static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(,\\d+)?");
+    }
+    static abstract class Generator implements MathTask.Generator {
+        ArrayList<Character> operationsList = new ArrayList<>();
+        int minNumber;
+        int maxNumber;
 
-    public TextTask(
-            String text,
-            String answer
-    ) {
+        protected Generator(
+                int minNumber,
+                int maxNumber,
+                EnumSet<Operation> operations
+        ) {
+
+            if (maxNumber < minNumber) {
+                throw new IllegalArgumentException("Value error: maxNumber < minNumber");
+            }
+
+            if (operations.contains(Operation.Sum)) {
+                operationsList.add('+');
+            }
+            if (operations.contains(Operation.Difference)) {
+                operationsList.add('-');
+            }
+            if (operations.contains(Operation.Multiplication)) {
+                operationsList.add('*');
+            }
+            if (operations.contains(Operation.Division)) {
+                operationsList.add('/');
+            }
+            this.minNumber = minNumber;
+            this.maxNumber = maxNumber;
+        }
+    }
+
+    public AbstractMathTask(String text, String answer) {
         this.text = text;
         this.answer = answer;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Task other = (Task) obj;
-        return this.text != null ? this.text.equals(other.getText()) : other.getText() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return text != null ? text.hashCode() : 0;
-    }
-
-    @Override
     public String getText() {
         return this.text;
-    }
-
-    @Override
-    public String getAnswer() {
-        return this.answer;
     }
 
     @Override
@@ -95,7 +96,6 @@ public class TextTask implements Task {
             }
         }
 
-//        System.out.println(firstNum + " " + secondNum + " " + thirdNum);
         try {
             int solution = checkAnswerByCalculating(Integer.parseInt(firstNum.toString()), Integer.parseInt(secondNum.toString()), task);
             if (solution == Integer.parseInt(thirdNum.toString())) {
