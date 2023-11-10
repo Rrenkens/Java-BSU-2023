@@ -92,8 +92,10 @@ public class Main {
                 new GroupTaskGenerator(gen1, gen2, gen1), 2));
         var task1 = gen1.generate();
         var task2 = gen2.generate();
+        var task3 = gen2.generate();
+        var task4 = gen1.generate();
         tests.put("TestByPoolTaskGenerator_4_-10-10_all_1", new Quiz( // генерирует 0.0/x=-1.0
-                new PoolTaskGenerator(true, task1, task2, task1), 6));
+                new PoolTaskGenerator(false, task1, task2, task1, task4, task4, task4, task3), 6));
 
 
         return tests;
