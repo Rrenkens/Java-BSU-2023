@@ -19,11 +19,13 @@ public class TextTask implements Task {
 
     @Override
     public Result validate(String userAnswer) {
+        if (userAnswer.isEmpty()) {
+            return Result.INCORRECT_INPUT;
+        }
         if (answer.equals(userAnswer)) {
             return Result.OK;
-        } else {
-            return Result.WRONG;
         }
+        return Result.WRONG;
     }
 
     private final String text;

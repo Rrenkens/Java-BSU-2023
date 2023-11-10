@@ -2,36 +2,36 @@ package by.busskov.quizer.task_generators;
 
 import by.busskov.quizer.Task;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Random;
+import java.util.*;
 
 public class PoolTaskGenerator implements Task.Generator {
     public PoolTaskGenerator(
             boolean allowDuplicate,
             Task... tasks
     ) {
-        this.tasks = Arrays.copyOf(tasks, tasks.length);
+        this.allowDuplicate = allowDuplicate;
+        this.tasks = new ArrayList<>(List.of(tasks));
     }
 
     public PoolTaskGenerator(
             boolean allowDuplicate,
             Collection<? extends Task> tasks
     ) {
-        Object[] array = tasks.toArray();
-        this.tasks = new Task[array.length];
-        for (int i = 0; i < array.length; ++i) {
-            this.tasks[i] = (Task) array[i];
-        }
+        this.allowDuplicate = allowDuplicate;
+        this.tasks = new ArrayList<>(tasks);
     }
 
-    //TODO allowDuplicate
     @Override
     public Task generate() {
         Random random = new Random();
-        int index = random.nextInt(tasks.length);
-        return tasks[index];
+        int index = random.nextInt(tasks.size());
+        Task task = tasks.get(index);
+        if (!allowDuplicate) {
+            tasks.remove(index);
+        }
+        return task;
     }
 
-    private final Task[] tasks;
+    private final ArrayList<Task> tasks;
+    private final boolean allowDuplicate;
 }
