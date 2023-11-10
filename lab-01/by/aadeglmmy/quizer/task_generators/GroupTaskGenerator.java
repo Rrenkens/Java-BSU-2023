@@ -2,21 +2,22 @@ package by.aadeglmmy.quizer.task_generators;
 
 import by.aadeglmmy.quizer.Task;
 import by.aadeglmmy.quizer.TaskGenerator;
+import by.aadeglmmy.quizer.exceptions.GroupsNotUniqueException;
 import by.aadeglmmy.quizer.exceptions.PoolsNotUniqueException;
-import by.aadeglmmy.quizer.tasks.TextTask;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
-
+import java.util.Set;
 
 public class GroupTaskGenerator implements TaskGenerator {
 
   private final Collection<TaskGenerator> generators;
   private final Random random = new Random();
+  private final List<Integer> availableIndexes = new ArrayList<>();
 
   public GroupTaskGenerator(TaskGenerator... generators) {
     this.generators = new ArrayList<>(Arrays.asList(generators));
@@ -24,48 +25,73 @@ public class GroupTaskGenerator implements TaskGenerator {
       throw new NoSuchElementException("No generators available in the group");
     }
 
-    arePoolsUnique();
+    arePoolsAndGroupsUnique();
   }
 
   public GroupTaskGenerator(Collection<TaskGenerator> generators) {
     if (generators.isEmpty()) {
       throw new NoSuchElementException("No generators available in the group");
     }
-    this.generators = generators;
+    this.generators = new ArrayList<>(generators.size());
+    this.generators.addAll(generators);
 
-    arePoolsUnique();
+    arePoolsAndGroupsUnique();
+  }
+
+  public void updateAvailableIndexes() {
+    availableIndexes.clear();
+    for (int i = 0; i < generators.size(); ++i) {
+      availableIndexes.add(i);
+    }
+    for (TaskGenerator generator : generators) {
+      if (generator instanceof PoolTaskGenerator) {
+        ((PoolTaskGenerator) generator).updateAvailableIndexes();
+      } else if (generator instanceof GroupTaskGenerator) {
+        ((GroupTaskGenerator) generator).updateAvailableIndexes();
+      }
+    }
   }
 
   @Override
   public Task generate() {
-    Collection<TaskGenerator> availableGenerators = generators;
-
-    while (!availableGenerators.isEmpty()) {
-      int randomIndex = random.nextInt(availableGenerators.size());
-      TaskGenerator generator = generators.stream().skip(randomIndex).findFirst().orElse(null);
+    while (!availableIndexes.isEmpty()) {
+      int randomIndex = random.nextInt(availableIndexes.size());
+      int generatorIndex = availableIndexes.get(randomIndex);
+      TaskGenerator generator = generators.stream().skip(generatorIndex).findFirst().orElse(null);
 
       try {
         assert generator != null;
         return generator.generate();
       } catch (Exception e) {
-        availableGenerators.remove(generator);
+        availableIndexes.remove(randomIndex);
       }
     }
 
     throw new IllegalStateException("All generators failed to generate a task");
   }
 
-  private void arePoolsUnique() {
-    Map<TaskGenerator, String> poolTaskGenerators = new HashMap<>();
-    Map<Collection<TextTask>, String> collections = new HashMap<>();
+  private void arePoolsAndGroupsUnique() {
+    Set<TaskGenerator> taskGenerators = new HashSet<>();
+    Set<Collection<Task>> poolCollections = new HashSet<>();
+    Set<Collection<TaskGenerator>> groupCollections = new HashSet<>();
     for (TaskGenerator generator : generators) {
       if (generator instanceof PoolTaskGenerator) {
-        if (poolTaskGenerators.put(generator, "") != null) {
-          throw new PoolsNotUniqueException("Putting identical poolTaskGenerators into the group");
-        }
-        if (collections.put(((PoolTaskGenerator) generator).getTasks(), "") != null) {
+        if (!taskGenerators.add(generator)) {
           throw new PoolsNotUniqueException(
-              "Putting poolTaskGenerators with identical collections of textTasks");
+              "Putting identical poolTaskGenerators into the group");
+        }
+        if (!poolCollections.add(((PoolTaskGenerator) generator).getTasks())) {
+          throw new PoolsNotUniqueException(
+              "Putting poolTaskGenerators with identical collections of tasks");
+        }
+      } else if (generator instanceof GroupTaskGenerator) {
+        if (!taskGenerators.add(generator)) {
+          throw new GroupsNotUniqueException(
+              "Putting identical groupTaskGenerators into the group");
+        }
+        if (!groupCollections.add(((GroupTaskGenerator) generator).getGenerators())) {
+          throw new GroupsNotUniqueException(
+              "Putting groupTaskGenerators with identical collections of taskGenerators");
         }
       }
     }

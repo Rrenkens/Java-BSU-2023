@@ -39,9 +39,6 @@ public class EquationTaskGenerator implements TaskGenerator {
 
   @Override
   public EquationTask generate() {
-
-    //TODO: nice checks
-
     String operator = getRandomOperator();
     int num1 = getRandomNumber();
     int num2 = getRandomNumber();

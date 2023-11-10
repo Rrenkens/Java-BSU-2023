@@ -17,9 +17,6 @@ public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
 
   @Override
   public EquationMathTask generate() {
-
-    //TODO: nice checks
-
     String operator = getRandomOperator();
     int num1 = getRandomNumber();
     int num2 = getRandomNumber();
@@ -94,4 +91,3 @@ public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
     return text;
   }
 }
-

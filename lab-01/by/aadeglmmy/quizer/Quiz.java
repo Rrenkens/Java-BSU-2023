@@ -123,4 +123,12 @@ public class Quiz {
 
     return count;
   }
+
+  public void updateAvailableIndexes() {
+    if (generator instanceof PoolTaskGenerator) {
+      ((PoolTaskGenerator) generator).updateAvailableIndexes();
+    } else if (generator instanceof GroupTaskGenerator) {
+      ((GroupTaskGenerator) generator).updateAvailableIndexes();
+    }
+  }
 }

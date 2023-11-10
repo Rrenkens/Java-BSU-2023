@@ -29,7 +29,7 @@ public class Quizer {
     Quiz equationQuiz = new Quiz(equationTaskGenerator, 10);
     quizMap.put("Equations", equationQuiz);
 
-    Collection<TextTask> tasks = new ArrayList<>();
+    Collection<Task> tasks = new ArrayList<>();
     tasks.add(new TextTask("Translate 'apple'", "яблык"));
     tasks.add(new TextTask("Translate 'cat'", "кот"));
     tasks.add(new TextTask("Translate 'paper'", "папера"));
@@ -126,6 +126,7 @@ public class Quizer {
 
     Quiz selectedQuiz = quizMap.get(selectedQuizName);
 
+    selectedQuiz.updateAvailableIndexes();
     while (!selectedQuiz.isFinished()) {
       Task task = selectedQuiz.nextTask();
       if (task != null) {
