@@ -4,9 +4,9 @@ import by.Lexus_FAMCS.quizer.tasks.Task;
 
 public interface MathTask extends Task {
     interface Generator extends Task.Generator {
-        int getMinNumber();
-        int getMaxNumber();
-        int getDiffNumber();
+        double getMinNumber();
+        double getMaxNumber();
+        double getDiffNumber();
     }
     enum Operation {
         SUM,

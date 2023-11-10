@@ -7,8 +7,17 @@ import java.util.EnumSet;
 public class ExpressionMathTask extends AbstractMathTask {
     static class Generator extends AbstractMathTask.Generator {
         public Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
+                EnumSet<Operation> operations
+        ) {
+            super(minNumber, maxNumber, operations);
+        }
+
+        public Generator(
+                double minNumber,
+                double maxNumber,
+                int precision,
                 EnumSet<Operation> operations
         ) {
             super(minNumber, maxNumber, operations);
@@ -18,9 +27,9 @@ public class ExpressionMathTask extends AbstractMathTask {
          * return задание типа {@link ExpressionTask}
          */
         public ExpressionTask generate() {
-            int num1 = generateInteger(getMinNumber(), getMaxNumber());
-            int num2 = generateInteger(getMinNumber(), getMaxNumber());
-            Character operator = permittedSymbols.get((int) (Math.random() * permittedSymbols.size()));
+            double num1 = generate(getMinNumber(), getMaxNumber());
+            double num2 = generate(getMinNumber(), getMaxNumber());
+            Character operator = permittedSymbols.get(generate(0, permittedSymbols.size() - 1));
             double result = Double.NaN;
             switch (operator) {
                 case '+' -> result = num1 + num2;

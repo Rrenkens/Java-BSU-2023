@@ -7,13 +7,18 @@ import java.util.EnumSet;
 import java.util.List;
 
 public abstract class AbstractMathTask implements MathTask {
+    protected static final double eps = 1e-6;
+    protected static double div = 1;
+    private String text;
+    protected double result;
     static abstract class Generator implements MathTask.Generator {
-        private int minNumber;
-        private int maxNumber;
+        private double minNumber;
+        private double maxNumber;
+        private double precision;
         protected List<Character> permittedSymbols = new ArrayList<>();
         public Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
                 EnumSet<Operation> operations
         ) {
             this.maxNumber = maxNumber;
@@ -24,39 +29,58 @@ public abstract class AbstractMathTask implements MathTask {
             if (operations.contains(MathTask.Operation.DIV)) permittedSymbols.add('/');
         }
 
+        public Generator(
+                double minNumber,
+                double maxNumber,
+                int precision,
+                EnumSet<Operation> operations
+        ) {
+            this.maxNumber = maxNumber;
+            this.minNumber = minNumber;
+            while (precision-- > 0) {
+                div *= 10;
+            }
+            if (operations.contains(MathTask.Operation.SUM)) permittedSymbols.add('+');
+            if (operations.contains(MathTask.Operation.SUB)) permittedSymbols.add('-');
+            if (operations.contains(MathTask.Operation.MULT)) permittedSymbols.add('*');
+            if (operations.contains(MathTask.Operation.DIV)) permittedSymbols.add('/');
+        }
+
         @Override
-        public int getMinNumber() {
+        public double getMinNumber() {
             return minNumber;
         }
 
         @Override
-        public int getMaxNumber() {
+        public double getMaxNumber() {
             return maxNumber;
         }
 
         @Override
-        public int getDiffNumber() {
+        public double getDiffNumber() {
             return maxNumber - minNumber;
         }
 
-        protected double generateResultOfDivision(int a, int b) {
-            if (b == 0) {
-                if (permittedSymbols.size() == 1 && getMaxNumber() == 0 && getMinNumber() == 0) {
+        protected double generateResultOfDivision(double a, double b) {
+            if (Math.abs(b) < eps) {
+                if (permittedSymbols.size() == 1 &&
+                        Math.abs(getMaxNumber()) < eps &&
+                        Math.abs(getMaxNumber()) < eps) {
                     throw new ArithmeticException("Incorrect test!!!");
                 }
-                b += getMaxNumber() >= 1 ? 1 : -1;
+                b = Math.abs(getMaxNumber()) < eps ? getMinNumber() : getMaxNumber();
             }
-            return (double) a / b;
+            return a / b;
         }
 
-        public int generateInteger(int a, int b) {
+        public int generate(int a, int b) {
             return (int) (Math.random() * (b - a + 1) + a);
         }
+
+        public double generate(double a, double b) {
+            return (Math.random() * (b - a) + a);
+        }
     }
-    protected final double eps = 1e-6;
-    protected double div = 1000;
-    private String text;
-    protected double result;
     AbstractMathTask(String text, double result) {
         this.text = text;
         this.result = result;
