@@ -13,13 +13,14 @@ public class TextTask implements Task {
      * @param answer ответ на задание
      */
     String text;
-    String answer;
+    double result;
+    private static final double eps = 1e-6;
     TextTask(
             String text,
-            String answer
+            double result
     ) {
         this.text = text;
-        this.answer = answer;
+        this.result = result;
     }
 
     @Override
@@ -29,6 +30,12 @@ public class TextTask implements Task {
 
     @Override
     public Result validate(String answer) {
-        return text.equals(answer) ? Result.OK : Result.WRONG;
+        double ans;
+        try {
+            ans = Double.parseDouble(answer);
+        } catch (NumberFormatException exc) {
+            return Result.INCORRECT_INPUT;
+        }
+        return Math.abs((double) Math.round(result * 1000) / 1000 - ans) < eps ? Result.OK : Result.WRONG ;
     }
 }
