@@ -5,7 +5,7 @@ import by.Lexus_FAMCS.quizer.tasks.ExpressionTask;
 import java.util.EnumSet;
 
 public class ExpressionMathTask extends AbstractMathTask {
-    static class Generator extends AbstractMathTask.Generator {
+    public static class Generator extends AbstractMathTask.Generator {
         public Generator(
                 double minNumber,
                 double maxNumber,
@@ -26,19 +26,22 @@ public class ExpressionMathTask extends AbstractMathTask {
         /**
          * return задание типа {@link ExpressionTask}
          */
-        public ExpressionTask generate() {
+        public ExpressionMathTask generate() {
             double num1 = generate(getMinNumber(), getMaxNumber());
             double num2 = generate(getMinNumber(), getMaxNumber());
-            Character operator = permittedSymbols.get(generate(0, permittedSymbols.size() - 1));
+            Character operator = permittedSymbols.get((int) (Math.random() * permittedSymbols.size()));
             double result = Double.NaN;
             switch (operator) {
                 case '+' -> result = num1 + num2;
                 case '-' -> result = num1 - num2;
                 case '*' -> result = num1 * num2;
-                case '/' -> result = generateResultOfDivision(num1, num2);
+                case '/' -> {
+                    if (Math.abs(num2) < eps) num2 = changeZero();
+                    result = num1 / num2;
+                }
             }
-            return new ExpressionTask("" + num1 + operator + num2 + "=?", result);
+            return new ExpressionMathTask("" + num1 + operator + num2 + "=?", result, precision);
         }
     }
-    ExpressionMathTask(String text, double result) { super(text, result); }
+    ExpressionMathTask(String text, double result, int precision) { super(text, result, precision); }
 }
