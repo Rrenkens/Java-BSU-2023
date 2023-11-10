@@ -30,14 +30,12 @@ public class EquationTask implements Task {
             if (operations.contains(MathTask.Operation.DIV)) permittedSymbols.add('/');
         }
 
-        private double generateResultOfDivision(int a, int b) {
-            if (b == 0) {
-                if (permittedSymbols.size() == 1 && maxNumber == 0 && minNumber == 0) {
-                    throw new IncorrectTestCreated("Incorrect test!!!");
-                }
-                b += maxNumber >= 1 ? 1 : -1;
+        private int changeZero() {
+            if (maxNumber == 0 && minNumber == 0) {
+                throw new IncorrectTestCreated("Incorrect test!!!");
+
             }
-            return (double) a / b;
+            return maxNumber > -minNumber ? (int) (Math.random() * (maxNumber) + 1) : (int) (Math.random() * (minNumber) - 1) ;
         }
 
         public EquationTask generate() {
@@ -49,8 +47,22 @@ public class EquationTask implements Task {
             switch (operator) {
                 case '+' -> result = answer - num;
                 case '-' -> result = reverse ? num - answer : num + answer;
-                case '*' -> result = generateResultOfDivision(answer, num);
-                case '/' -> result = reverse ? generateResultOfDivision(num, answer) : num * answer;
+                case '*' -> {
+                    if (num == 0) num = changeZero();
+                    result = (double) answer / num;
+                }
+                case '/' -> {
+                    // case 1: 0/x=answer
+                    // case 2: x/0=answer
+                    if (num == 0) num = changeZero();
+                    if (!reverse) {
+                        result = num * answer;
+                    }
+                    else {
+                        if (answer == 0) answer = changeZero();
+                        result = (double) num / answer;
+                    }
+                }
 
             }
             return new EquationTask("" + (reverse ? num : "x") + operator +

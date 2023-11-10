@@ -30,14 +30,12 @@ public class ExpressionTask implements Task {
             if (operations.contains(MathTask.Operation.DIV)) permittedSymbols.add('/');
         }
 
-        private double generateResultOfDivision(int a, int b) {
-            if (b == 0) {
-                if (permittedSymbols.size() == 1 && maxNumber == 0 && minNumber == 0) {
+        private int changeZero() {
+            if (maxNumber == 0 && minNumber == 0) {
                     throw new IncorrectTestCreated("Incorrect test!!!");
-                }
-                b += maxNumber >= 1 ? 1 : -1;
+
             }
-            return (double) a / b;
+            return maxNumber > -minNumber ? (int) (Math.random() * (maxNumber) + 1) : (int) (Math.random() * (minNumber) - 1) ;
         }
 
 
@@ -53,7 +51,10 @@ public class ExpressionTask implements Task {
                 case '+' -> result = num1 + num2;
                 case '-' -> result = num1 - num2;
                 case '*' -> result = num1 * num2;
-                case '/' -> result = generateResultOfDivision(num1, num2);
+                case '/' -> {
+                    if (num2 == 0) num2 = changeZero();
+                    result = (double) num1 / num2;
+                }
             }
             return new ExpressionTask("" + num1 + operator + num2 + "=?", result);
         }
