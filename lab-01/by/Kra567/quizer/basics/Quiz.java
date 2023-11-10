@@ -17,7 +17,7 @@ public class Quiz {
     private int taskLeftCount;
     private int wrongAnswersCount;
     private int incorrectAnswersCount;
-    private Task currentTask;
+    private Task currentTask = null;
     public Quiz(TaskGenerator generator, int taskCount) throws Exception {
         this.generator = generator;
         this.taskCount = taskCount;
@@ -35,7 +35,10 @@ public class Quiz {
      * @return задание, повторный вызов вернет слелующее
      * @see Task
      */
-    public Task nextTask() {
+    public Task nextTask() throws Exception {
+        if (currentTask == null){
+            currentTask = generator.generate();
+        }
         return currentTask;
     }
 

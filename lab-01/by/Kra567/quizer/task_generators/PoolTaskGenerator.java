@@ -4,6 +4,7 @@ import by.Kra567.quizer.basics.Task;
 import by.Kra567.quizer.basics.TaskGenerator;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PoolTaskGenerator implements TaskGenerator {
     /**
@@ -12,7 +13,7 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param allowDuplicate разрешить повторения
      * @param tasks          задания, которые в конструктор передаются через запятую
      */
-    private List<Task> tasks;
+    private ArrayList<Task> tasks;
     private boolean allowDuplicate;
     private Random gen = new Random();
     public PoolTaskGenerator(
@@ -20,7 +21,7 @@ public class PoolTaskGenerator implements TaskGenerator {
             Task... tasks
     ) {
         this.allowDuplicate = allowDuplicate;
-        this.tasks = Arrays.stream(tasks).toList();
+        this.tasks = new ArrayList<>(Arrays.stream(tasks).toList());
     }
 
     /**
@@ -34,7 +35,7 @@ public class PoolTaskGenerator implements TaskGenerator {
             Collection<Task> tasks
     ) {
         this.allowDuplicate = allowDuplicate;
-        this.tasks = tasks.stream().toList();
+        this.tasks = new ArrayList<>(tasks);
     }
 
     /**

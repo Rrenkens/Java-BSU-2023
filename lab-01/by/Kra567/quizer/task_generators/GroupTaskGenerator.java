@@ -4,6 +4,8 @@ import by.Kra567.quizer.basics.Task;
 import by.Kra567.quizer.basics.TaskGenerator;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+
 // UPDATE
 public class GroupTaskGenerator implements TaskGenerator {
     /**
@@ -35,9 +37,10 @@ public class GroupTaskGenerator implements TaskGenerator {
     public Task generate() throws Exception {
 
         int idx = gen.nextInt(generators.size());
+        //System.out.println(idx);
         try{
             return generators.get(idx).generate();
-        }catch (Exception e){
+        } catch (Exception e) {
             if (generators.size() == 1){
                 throw e;
             }

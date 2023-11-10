@@ -8,6 +8,7 @@ import by.Kra567.quizer.tasks.OperationType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class EquationTaskGenerator implements TaskGenerator {
     /**
@@ -52,7 +53,13 @@ public class EquationTaskGenerator implements TaskGenerator {
     private int generateArgument() {
         return minNumber + gen.nextInt(maxNumber - minNumber + 1);
     }
-
+    private int generateArgumentNonZero() {
+        int res = generateArgument();
+        if (res == 0){
+            return generateArgumentNonZero();
+        }
+        return res;
+    }
     /**
      * return задание типа {@link ExpressionTask}
      */
