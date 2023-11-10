@@ -5,7 +5,7 @@ import by.katierevinska.quizer.Task;
 
 public interface MathTask extends Task {
 
-    public interface Generator extends Task.Generator {
+    interface Generator extends Task.Generator {
         double getMinNumber();
 
         double getMaxNumber();

@@ -40,8 +40,8 @@ public class Main {
 
             quizMap.put("ExpressionTask 1 with precision 1", new Quiz(new ExpressionTask.Generator(-5, 10, 1,
                     sumAndSubOperations), 5));
-            quizMap.put("EquationTask 1 with precision 1", new Quiz(new EquationTask.Generator(0, 15, 1,
-                    operations), 10));
+            quizMap.put("EquationTask 1 with precision 1", new Quiz(new EquationTask.Generator(0, 3, 1,
+                    multiplicationAndDivisionOperations), 10));
             quizMap.put("EquationTask 2 with precision 2", new Quiz(new EquationTask.Generator(-5, 10, 2,
                     operations), 1));
             quizMap.put("PlatesProblem", new Quiz(new PlatesProblemTask.Generator(1, 8), 2));

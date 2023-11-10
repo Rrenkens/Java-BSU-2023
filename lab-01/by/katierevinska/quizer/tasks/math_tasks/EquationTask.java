@@ -9,13 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EquationTask extends AbstractMathTask {
 
-//```
-//
-//        ### EquationTaskGenerator
-//        Генерирует уравнения вида `<num1><operator>x=<answer>` и `x<operator><num2>=<answer>`. Например, `x/2=6`.
-//
-//        ```java
-
     public static class Generator extends AbstractMathTask.Generator {
         private final double minNumber;
         private final double maxNumber;
@@ -88,7 +81,7 @@ public class EquationTask extends AbstractMathTask {
             if (allowedOperations.length == 0) {
                 throw new NoOperationsAllowedException("should be allowed operations ");
             }
-            int randomNum = ThreadLocalRandom.current().nextInt(0, allowedOperations.length);//TODO can be fasterx
+            int randomNum = ThreadLocalRandom.current().nextInt(0, allowedOperations.length);
             StringBuilder expression = new StringBuilder();
             double answer = 0;
             double num1 = generatingDoubleWithPrecision(minNumber, maxNumber, precision);
@@ -108,7 +101,7 @@ public class EquationTask extends AbstractMathTask {
                             .append(num2);
                     answer = num2 + num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Multiplication) {
-                    if (Objects.equals(num1, 0)) {
+                    if (Objects.equals(num1, 0.0)) {
                         num1 = generationWithout0(minNumber, maxNumber, precision);
                     }
                     expression.append("x*")
@@ -117,7 +110,7 @@ public class EquationTask extends AbstractMathTask {
                             .append(num2);
                     answer = num2 / num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Division) {
-                    if (Objects.equals(num1, 0)) {
+                    if (Objects.equals(num1, 0.0)) {
                         num1 = generationWithout0(minNumber, maxNumber, precision);
                     }
                     expression.append("x/")
@@ -138,19 +131,22 @@ public class EquationTask extends AbstractMathTask {
                             .append(num2);
                     answer = num1 - num2;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Multiplication) {
-                    if (Objects.equals(num1, 0)) {
+                    if (Objects.equals(num1, 0.0)) {
                         num1 = generationWithout0(minNumber, maxNumber, precision);
+                        System.out.println(num1);
                     }
                     expression.append(num1)
                             .append("*x=")
                             .append(num2);
                     answer = num2 / num1;
                 } else if (allowedOperations[randomNum] == MathTask.Operation.Division) {
-                    if (Objects.equals(num1, 0)) {
+                    if (Objects.equals(num1, 0.0)) {
                         num1 = generationWithout0(minNumber, maxNumber, precision);
+                        System.out.println(num1);
                     }
-                    if (Objects.equals(num1, 0)) {
+                    if (Objects.equals(num2, 0.0)) {
                         num2 = generationWithout0(minNumber, maxNumber, precision);
+                        System.out.println(num2);
                     }
                     expression.append(num1)
                             .append("/x=")
