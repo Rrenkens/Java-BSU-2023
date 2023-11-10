@@ -5,20 +5,26 @@ import by.MikhailShurov.quizer.Task;
 import by.MikhailShurov.quizer.tasks.math_tasks.MathTask.Operation;
 
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.*;
 
 abstract class AbstractMathTask implements Task {
     String text;
     String answer;
+
     protected static boolean isNumeric(String str) {
         return str.matches("-?\\d+(,\\d+)?");
     }
-    static abstract class Generator implements MathTask.Generator {
+    public static abstract class Generator implements MathTask.Generator {
         ArrayList<Character> operationsList = new ArrayList<>();
         double minNumber;
         double maxNumber;
         int precision;
+
+        public int getPrecision() {
+            return precision;
+        }
 
         protected Generator(
                 double minNumber,
@@ -61,6 +67,10 @@ abstract class AbstractMathTask implements Task {
 
     @Override
     public Result validate(String answer) {
+        if (this.answer.equals(answer)) {
+            return Result.OK;
+        }
+
         String task = this.text;
         boolean checkAnswerByCalculating = true;
         Map<String, Integer> operations = new HashMap<>() {{
@@ -101,7 +111,7 @@ abstract class AbstractMathTask implements Task {
 
         try {
             double solution = checkAnswerByCalculating(Double.parseDouble(firstNum.toString()), Double.parseDouble(secondNum.toString()), task);
-            if (Math.abs(solution - Double.parseDouble(thirdNum.toString())) < 0.0001) {
+            if (solution == Double.parseDouble(thirdNum.toString())) {
                 return Result.OK;
             } else {
                 return Result.WRONG;

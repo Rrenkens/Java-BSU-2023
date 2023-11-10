@@ -89,7 +89,9 @@ public class ExpressionTask extends AbstractMathTask {
                     task = new ExpressionTask(taskStr, String.valueOf(firstNumber / secondNumber));
                 } else {
                     String taskStr = String.valueOf(firstNumber) + "/" + String.valueOf(secondNumber) + "=?";
-                    task = new ExpressionTask(taskStr, String.valueOf(firstNumber / secondNumber));
+                    double result = firstNumber / secondNumber;
+                    result = Double.valueOf(decimalFormat.format(result));
+                    task = new ExpressionTask(taskStr, String.valueOf(result));
                 }
             } else {
                 String taskStr = String.valueOf(firstNumber) + selectedOperation + String.valueOf(secondNumber) + "=?";
@@ -116,13 +118,19 @@ public class ExpressionTask extends AbstractMathTask {
         }
 
         private double calculateSolution(double firstNumber, double secondNumber, char operation) {
+            DecimalFormat decimalFormat;
+            if (precision > 0) {
+                decimalFormat = new DecimalFormat("#." + "#".repeat(precision));
+            } else {
+                decimalFormat = new DecimalFormat("#");
+            }
             switch (operation) {
                 case '+':
-                    return firstNumber + secondNumber;
+                    return Double.valueOf(decimalFormat.format(firstNumber + secondNumber));
                 case '-':
-                    return firstNumber - secondNumber;
+                    return Double.valueOf(decimalFormat.format(firstNumber - secondNumber));
                 case '*':
-                    return firstNumber * secondNumber;
+                    return Double.valueOf(decimalFormat.format(firstNumber * secondNumber));
                 default:
                     throw new IllegalArgumentException("Invalid operator: " + operation);
             }

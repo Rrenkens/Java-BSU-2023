@@ -18,7 +18,6 @@ public class Main {
         Map<String, Quiz> quizMap = new HashMap<>();
         EnumSet<MathTask.Operation> allOperations = EnumSet.allOf(MathTask.Operation.class);
 
-        //ToDo add some tests
         Quiz quiz;
         EquationTask.Generator equationgGnerator1 = new EquationTask.Generator(-100, 100, 2, allOperations);
         quiz = new Quiz(equationgGnerator1, 10);
@@ -52,8 +51,8 @@ public class Main {
 //        quiz = new Quiz(exprressionGenerator4, 10);
 //        quizMap.put("Simple equations", quiz);
 
-//        GroupTaskGenerator groupTaskGenerator = new GroupTaskGenerator(equationgGnerator1, equationgGnerator2, equationgGnerator3, equationgGnerator4, exprressionGenerator1, exprressionGenerator2, exprressionGenerator3, exprressionGenerator4);
-//        GroupTaskGenerator groupTaskGenerator = new GroupTaskGenerator(equationgGnerator1);
+//        GroupTaskGenerator groupTaskGenerator = new GroupTaskGenerator(equationgGnerator1, exprressionGenerator1);
+////        GroupTaskGenerator groupTaskGenerator = new GroupTaskGenerator(equationgGnerator1);
 //
 //        Set<Task> arrayListWithTasks = new HashSet<>();
 //        for (int i = 0; i < 11; ++ i) {
@@ -63,9 +62,8 @@ public class Main {
 //
 //        }
 //
-//        // ToDo why i get similar tasks, but duplicates are not allowed?
 //        PoolTaskGenerator poolTaskGenerator = new PoolTaskGenerator(false, arrayListWithTasks);
-
+//
 //        for (int i = 0; i < 660; ++ i) {
 //            Task task = poolTaskGenerator.generate();
 //            Result result = task.validate(task.getAnswer());

@@ -72,12 +72,12 @@ public class EquationTask extends AbstractMathTask {
                     if (firstNumber == 0) {
                         return generate();
                     }
-                    // n
                     String taskStr = "x/" + String.valueOf(firstNumber) + "=" + String.valueOf(secondNumber);
-                    task = new EquationTask(taskStr, String.valueOf(firstNumber * secondNumber));
+                    double result = firstNumber * secondNumber;
+                    result = Double.valueOf(decimalFormat.format(result));
+                    task = new EquationTask(taskStr, String.valueOf(result));
                 } else {
                     String taskStr = "x" + selectedOperation + secondNumber + "=" + calculateSolution(firstNumber, secondNumber, selectedOperation);
-                    // x = firstNumber, secondNumber, solution = <firstNumber><operation><secondNumber>
                     task = new EquationTask(taskStr, String.valueOf(firstNumber));
                 }
             } else {
@@ -86,17 +86,20 @@ public class EquationTask extends AbstractMathTask {
                     if (divisors != null) {
                         int randomIndex = random.nextInt(divisors.size());
                         int answer = divisors.get(randomIndex);
-                        String taskStr = String.valueOf(firstNumber) + selectedOperation + "x=" + String.valueOf(answer);
+                        String taskStr = String.valueOf(firstNumber) + "/x=" + String.valueOf(answer);
                         task = new EquationTask(taskStr, String.valueOf(firstNumber / answer));
                     } else {
                         double answer = random.nextDouble(this.maxNumber - this.minNumber + 1) + this.minNumber;
-                        String taskStr = String.valueOf(firstNumber) + selectedOperation + "x=" + String.valueOf(answer);
-                        task = new EquationTask(taskStr, String.valueOf(firstNumber / answer));
+                        answer = Double.valueOf(decimalFormat.format(answer));
+                        System.out.println(answer);
+                        String taskStr = String.valueOf(firstNumber) + "/x=" + String.valueOf(answer);
+                        double result = firstNumber / answer;
+                        result = Double.valueOf(decimalFormat.format(result));
+                        task = new EquationTask(taskStr, String.valueOf(result));
                     }
 
                 } else {
                     String taskStr = String.valueOf(firstNumber) + selectedOperation + "x=" + calculateSolution(firstNumber, secondNumber, selectedOperation);
-                    // firstNumber, x = secondNumber, solution = <firstNumber><operation><secondNumber>
                     task = new EquationTask(taskStr, String.valueOf(secondNumber));
                 }
             }
@@ -121,13 +124,19 @@ public class EquationTask extends AbstractMathTask {
         }
 
         private double calculateSolution(double firstNumber, double secondNumber, char operation) {
+            DecimalFormat decimalFormat;
+            if (precision > 0) {
+                decimalFormat = new DecimalFormat("#." + "#".repeat(precision));
+            } else {
+                decimalFormat = new DecimalFormat("#");
+            }
             switch (operation) {
                 case '+':
-                    return firstNumber + secondNumber;
+                    return Double.valueOf(decimalFormat.format(firstNumber + secondNumber));
                 case '-':
-                    return firstNumber - secondNumber;
+                    return Double.valueOf(decimalFormat.format(firstNumber - secondNumber));
                 case '*':
-                    return firstNumber * secondNumber;
+                    return Double.valueOf(decimalFormat.format(firstNumber * secondNumber));
                 default:
                     throw new IllegalArgumentException("Invalid operator: " + operation);
             }

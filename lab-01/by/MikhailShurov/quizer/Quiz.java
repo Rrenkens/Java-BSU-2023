@@ -45,17 +45,17 @@ public class Quiz {
      */
 
     Result provideAnswer(String answer) {
-        if (lastTask.validate(answer) == Result.WRONG) {
+        if (lastTask.validate(answer) == Result.OK) {
+            lastInputWasIncorrect = false;
+            return Result.OK;
+        } else if (lastTask.validate(answer) == Result.WRONG) {
             ++ incorrectAnswersCount;
             lastInputWasIncorrect = false;
             return Result.WRONG;
-        } else if (lastTask.validate(answer) == Result.INCORRECT_INPUT) {
+        } else {
             ++ incorrectInputCount;
             lastInputWasIncorrect = true;
             return Result.INCORRECT_INPUT;
-        } else {
-            lastInputWasIncorrect = false;
-            return Result.OK;
         }
     }
 
