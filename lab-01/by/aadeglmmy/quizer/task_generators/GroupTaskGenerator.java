@@ -76,8 +76,7 @@ public class GroupTaskGenerator implements TaskGenerator {
     for (TaskGenerator generator : generators) {
       if (generator instanceof PoolTaskGenerator) {
         if (!taskGenerators.add(generator)) {
-          throw new PoolsNotUniqueException(
-              "Putting identical poolTaskGenerators into the group");
+          throw new PoolsNotUniqueException("Putting identical poolTaskGenerators into the group");
         }
         if (!poolCollections.add(((PoolTaskGenerator) generator).getTasks())) {
           throw new PoolsNotUniqueException(

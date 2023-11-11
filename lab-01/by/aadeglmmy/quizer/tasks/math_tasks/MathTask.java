@@ -4,4 +4,7 @@ import by.aadeglmmy.quizer.Task;
 
 public interface MathTask extends Task {
 
+  enum Operation {
+    SUM, DIFFERENCE, MULTIPLICATION, DIVISION
+  }
 }

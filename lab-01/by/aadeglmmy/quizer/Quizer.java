@@ -8,8 +8,10 @@ import by.aadeglmmy.quizer.task_generators.math_task_generators.EquationMathTask
 import by.aadeglmmy.quizer.task_generators.math_task_generators.ExpressionMathTaskGenerator;
 import by.aadeglmmy.quizer.task_generators.math_task_generators.MathTaskGenerator;
 import by.aadeglmmy.quizer.tasks.TextTask;
+import by.aadeglmmy.quizer.tasks.math_tasks.MathTask.Operation;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -19,13 +21,13 @@ public class Quizer {
   static Map<String, Quiz> getQuizMap() {
     Map<String, Quiz> quizMap = new HashMap<>();
 
-    TaskGenerator expressionTaskGenerator = new ExpressionTaskGenerator(-10, 10, true, true, true,
-        true);
+    TaskGenerator expressionTaskGenerator = new ExpressionTaskGenerator(-10, 10,
+        EnumSet.allOf(Operation.class));
     Quiz expressionQuiz = new Quiz(expressionTaskGenerator, 10);
     quizMap.put("Expressions", expressionQuiz);
 
-    TaskGenerator equationTaskGenerator = new EquationTaskGenerator(-10, 10, true, true, true,
-        true);
+    TaskGenerator equationTaskGenerator = new EquationTaskGenerator(-10, 10,
+        EnumSet.allOf(Operation.class));
     Quiz equationQuiz = new Quiz(equationTaskGenerator, 10);
     quizMap.put("Equations", equationQuiz);
 

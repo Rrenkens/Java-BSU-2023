@@ -3,38 +3,34 @@ package by.aadeglmmy.quizer.task_generators;
 import by.aadeglmmy.quizer.TaskGenerator;
 import by.aadeglmmy.quizer.exceptions.InvalidConfigurationException;
 import by.aadeglmmy.quizer.tasks.EquationTask;
+import by.aadeglmmy.quizer.tasks.math_tasks.MathTask.Operation;
+import java.util.EnumSet;
 import java.util.Random;
 
 public class EquationTaskGenerator implements TaskGenerator {
 
   private final int minNumber;
   private final int maxNumber;
-  private final boolean generateSum;
-  private final boolean generateDifference;
-  private final boolean generateMultiplication;
-  private final boolean generateDivision;
+  private final EnumSet<Operation> operations;
   private final Random random = new Random();
 
-  public EquationTaskGenerator(int minNumber, int maxNumber, boolean generateSum,
-      boolean generateDifference, boolean generateMultiplication, boolean generateDivision) {
+  public EquationTaskGenerator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
     if (maxNumber < minNumber) {
       throw new IllegalArgumentException("maxNumber cannot be less than minNumber");
     }
 
-    if (!(generateSum || generateDifference || generateMultiplication || generateDivision)) {
+    if (operations.isEmpty()) {
       throw new UnsupportedOperationException("No operations selected");
     }
 
-    if (minNumber == 0 && maxNumber == 0 && !(generateDifference || generateSum)) {
+    if (minNumber == 0 && maxNumber == 0 && !(operations.contains(Operation.SUM)
+        || operations.contains(Operation.DIFFERENCE))) {
       throw new InvalidConfigurationException("Invalid configuration: Cannot generate equations.");
     }
 
     this.minNumber = minNumber;
     this.maxNumber = maxNumber;
-    this.generateSum = generateSum;
-    this.generateDifference = generateDifference;
-    this.generateMultiplication = generateMultiplication;
-    this.generateDivision = generateDivision;
+    this.operations = operations;
   }
 
   @Override
@@ -86,17 +82,17 @@ public class EquationTaskGenerator implements TaskGenerator {
 
   private String getRandomOperator() {
     StringBuilder operators = new StringBuilder();
-    if (generateSum) {
+    if (operations.contains(Operation.SUM)) {
       operators.append("+");
     }
-    if (generateDifference) {
+    if (operations.contains(Operation.DIFFERENCE)) {
       operators.append("-");
     }
     if (!(minNumber == 0 && maxNumber == 0)) {
-      if (generateMultiplication) {
+      if (operations.contains(Operation.MULTIPLICATION)) {
         operators.append("*");
       }
-      if (generateDivision) {
+      if (operations.contains(Operation.DIVISION)) {
         operators.append("/");
       }
     }
