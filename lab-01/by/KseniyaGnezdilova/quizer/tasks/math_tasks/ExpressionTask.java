@@ -3,6 +3,7 @@ package by.KseniyaGnezdilova.quizer.tasks.math_tasks;
 import by.KseniyaGnezdilova.quizer.Result;
 
 import javax.swing.*;
+import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Vector;
@@ -51,18 +52,12 @@ public class ExpressionTask extends AbstractMathTask {
                 int precision,
                 double minNumber,
                 double maxNumber,
-                boolean generateSum,
-                boolean generateDifference,
-                boolean generateMultiplication,
-                boolean generateDivision
+                EnumSet <Operations> operations
         ) {
             super(  precision,
                     minNumber,
                     maxNumber,
-                    generateSum,
-                    generateDifference,
-                    generateMultiplication,
-                    generateDivision
+                    operations
             );
         }
         public ExpressionTask generate() {
@@ -71,17 +66,23 @@ public class ExpressionTask extends AbstractMathTask {
             double secondNum = random.nextDouble(getDiffNumber() + 1) + this.minNumber;
             firstNum = Math.round(firstNum * Math.pow(10, precision)) / Math.pow(10, precision);
             secondNum = Math.round(secondNum * Math.pow(10, precision)) / Math.pow(10, precision);
-            Vector <String> operations = new Vector<String>();
-            if (this.generateSum) operations.add("+");
-            if (this.generateDifference) operations.add("-");
-            if (this.generateMultiplication) operations.add("*");
-            if (this.generateDivision) operations.add("/");
-            int pos = random.nextInt(operations.size());
+            Vector<String> operations_ = new Vector<>();
+            for (var operation: operations){
+                operations_.add(operation.name());
+            }
+            int pos = random.nextInt(operations_.size());
             ExpressionTask expressionTask = new ExpressionTask();
-            if (secondNum == 0 && Objects.equals(operations.get(pos), "/")) {
+            String operator = operations_.get(pos);
+            if (secondNum == 0 && Objects.equals(operator, "DIV")) {
                 generate();
             } else {
-                 expressionTask = new ExpressionTask(firstNum, secondNum, operations.get(pos), precision);
+                switch (operator) {
+                    case "SUM" -> operator = "+";
+                    case "DIFF" -> operator = "-";
+                    case "MUL" -> operator = "*";
+                    case "DIV" -> operator = "/";
+                }
+                expressionTask = new ExpressionTask(firstNum, secondNum, operator, precision);
             }
             return expressionTask;
         }

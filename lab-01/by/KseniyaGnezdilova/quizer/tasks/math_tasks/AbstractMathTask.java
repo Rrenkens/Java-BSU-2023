@@ -1,31 +1,24 @@
 package by.KseniyaGnezdilova.quizer.tasks.math_tasks;
 
+import java.util.EnumSet;
+
 public abstract class AbstractMathTask implements MathTask {
     static abstract class Generator implements MathTask.Generator{
         protected int precision;
         protected double minNumber;
         protected double maxNumber;
-        protected boolean generateSum;
-        protected boolean generateDifference;
-        protected boolean generateMultiplication;
-        protected boolean generateDivision;
+        protected EnumSet<Operations> operations;
 
         public Generator(
                 int precision,
                 double minNumber,
                 double maxNumber,
-                boolean generateSum,
-                boolean generateDifference,
-                boolean generateMultiplication,
-                boolean generateDivision
+                EnumSet<Operations> operations
         ) {
             this.precision = precision;
             this.maxNumber = maxNumber;
             this.minNumber = minNumber;
-            this.generateSum = generateSum;
-            this.generateDifference = generateDifference;
-            this.generateMultiplication = generateMultiplication;
-            this.generateDivision = generateDivision;
+            this.operations = operations;
         }
 
         public double getMaxNumber(){

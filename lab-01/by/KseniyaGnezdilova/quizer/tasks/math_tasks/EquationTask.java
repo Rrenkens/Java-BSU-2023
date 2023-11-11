@@ -2,6 +2,7 @@ package by.KseniyaGnezdilova.quizer.tasks.math_tasks;
 
 import by.KseniyaGnezdilova.quizer.Result;
 
+import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Vector;
@@ -83,18 +84,12 @@ public class EquationTask extends AbstractMathTask {
                 int precision,
                 double minNumber,
                 double maxNumber,
-                boolean generateSum,
-                boolean generateDifference,
-                boolean generateMultiplication,
-                boolean generateDivision
+                EnumSet<Operations> operations
         ) {
             super(  precision,
                     minNumber,
                     maxNumber,
-                    generateSum,
-                    generateDifference,
-                    generateMultiplication,
-                    generateDivision
+                    operations
             );
 
         }
@@ -106,26 +101,26 @@ public class EquationTask extends AbstractMathTask {
             firstNum = Math.round(firstNum * Math.pow(10, precision)) / Math.pow(10, precision);
             secondNum = Math.round(secondNum * Math.pow(10, precision)) / Math.pow(10, precision);
             double thirdNum = 0;
-            Vector<String> operations = new Vector<String>();
-            if (this.generateSum) operations.add("+");
-            if (this.generateDifference) operations.add("-");
-            if (this.generateMultiplication) operations.add("*");
-            if (this.generateDivision) operations.add("/");
-            int pos = random.nextInt(operations.size());
+            Vector<String> operations_ = new Vector<>();
+            for (var operation: operations){
+                operations_.add(operation.name());
+            }
+            int pos = random.nextInt(operations_.size());
             EquationTask equationTask = new EquationTask();
             boolean unknown = random.nextBoolean();
-            if (!unknown && secondNum == 0 && Objects.equals(operations.get(pos), "/")) {
+            String operator = operations_.get(pos);
+            if (!unknown && secondNum == 0 && Objects.equals(operator, "DIV")) {
                 generate();
             } else {
-                switch (operations.get(pos)) {
-                    case "+" -> thirdNum = firstNum + secondNum;
-                    case "-" -> thirdNum = firstNum - secondNum;
-                    case "*" -> thirdNum = firstNum * secondNum;
-                    case "/" -> thirdNum = firstNum / secondNum;
+                switch (operator) {
+                    case "SUM" -> {operator = "+"; thirdNum = firstNum + secondNum;}
+                    case "DIFF" -> {operator = "-"; thirdNum = firstNum - secondNum;}
+                    case "MUL" -> {operator = "*"; thirdNum = firstNum * secondNum;}
+                    case "DIV" -> {operator = "/"; thirdNum = firstNum / secondNum;}
                 }
             }
             thirdNum = Math.round(firstNum * Math.pow(10, 2 * precision)) / Math.pow(10, 2 * precision);
-            equationTask = new EquationTask(unknown, firstNum, secondNum, thirdNum, operations.get(pos), precision);
+            equationTask = new EquationTask(unknown, firstNum, secondNum, thirdNum, operator, precision);
             return  equationTask;
         }
     }

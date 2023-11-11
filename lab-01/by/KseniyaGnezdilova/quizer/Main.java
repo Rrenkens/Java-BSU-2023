@@ -6,6 +6,7 @@ import by.KseniyaGnezdilova.quizer.tasks.Task;
 import by.KseniyaGnezdilova.quizer.tasks.TextTask;
 import by.KseniyaGnezdilova.quizer.tasks.math_tasks.EquationTask;
 import by.KseniyaGnezdilova.quizer.tasks.math_tasks.ExpressionTask;
+import by.KseniyaGnezdilova.quizer.tasks.math_tasks.Operations;
 
 import java.util.*;
 
@@ -14,11 +15,13 @@ public class Main {
     static Map<String, Quiz> getQuizMap(){
         Map <String, Quiz> quizzes = new HashMap<>();
 
-        Task.Generator equation = new EquationTask.Generator(0, -20, 20, true, true, true, true);
+        Task.Generator equation = new EquationTask.Generator(0, -20, 20,
+                EnumSet.of(Operations.SUM, Operations.DIV, Operations.MUL, Operations.DIFF));
         Quiz quiz_equation = new Quiz(equation, 10);
         quizzes.put("Equation", quiz_equation);
 
-        Task.Generator expression = new ExpressionTask.Generator(1, -20, 20, true, true, true, true);
+        Task.Generator expression = new ExpressionTask.Generator(1, -20, 20,
+                EnumSet.of(Operations.SUM, Operations.DIV, Operations.MUL, Operations.DIFF));
         Quiz quiz_expression = new Quiz(expression, 10);
         quizzes.put("Expression", quiz_expression);
 
