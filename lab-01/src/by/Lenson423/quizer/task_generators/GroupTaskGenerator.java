@@ -14,6 +14,16 @@ public class GroupTaskGenerator implements Task.Generator {
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
     public GroupTaskGenerator(Task.Generator... generators) {
+        if (generators == null) {
+            throw new IllegalArgumentException("Generators is null");
+        }
+        if (generators.length == 0) {
+            throw new IllegalArgumentException("Generators is empty");
+        }
+        if (Arrays.stream(generators).toList().contains(null)) {
+            throw new IllegalArgumentException("Generators contains null");
+        }
+
         taskGenerators = Arrays.stream(generators).collect(Collectors.toList());
     }
 

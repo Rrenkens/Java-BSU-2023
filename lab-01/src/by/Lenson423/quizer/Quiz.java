@@ -35,7 +35,7 @@ class Quiz {
     }
 
     /**
-     * @return задание, повторный вызов вернет слелующее
+     * @return задание, повторный вызов вернет следующее
      * @see Task
      */
     Task nextTask() throws CantGenerateTask {
