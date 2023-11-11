@@ -45,6 +45,10 @@ public class ExpressionTask extends AbstractMathTask {
             if (precision == 0 && operation == Operation.DIV && lhs % rhs != 0) {
                 lhs *= rhs;
             }
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(precision);
+            lhs = Double.parseDouble(df.format(lhs));
+            rhs = Double.parseDouble(df.format(rhs));
             return new ExpressionTask(lhs, rhs, operation, precision);
         }
     }
@@ -62,7 +66,7 @@ public class ExpressionTask extends AbstractMathTask {
         if (!answer.isNumeric()) {
             return Result.INCORRECT_INPUT;
         }
-        double eps = precision == 0 ? 1e-8 : Math.pow(10, -precision);
+        double eps = 1e-8;
         if (Math.abs(applyOperation(lhs, rhs, operation) - answer.getNum()) < eps) {
             return Result.OK;
         } else {

@@ -109,7 +109,7 @@ class Quiz {
 public class Quizer {
     static Map<String, Quiz> getQuizMap() {
         HashMap<String, Quiz> quizMap = new HashMap<>();
-        Task.Generator expression = new ExpressionTask.Generator(EnumSet.allOf(Operation.class), -10, 10, 0);
+        Task.Generator expression = new ExpressionTask.Generator(EnumSet.of(Operation.MULT), -10, 10, 1);
         Task.Generator equation = new EquationTask.Generator(EnumSet.allOf(Operation.class), -10, 10, 0);
         quizMap.put("Exp", new Quiz(expression, 5));
         quizMap.put("Eq", new Quiz(equation, 5));
