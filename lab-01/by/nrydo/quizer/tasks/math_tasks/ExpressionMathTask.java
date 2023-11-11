@@ -4,6 +4,10 @@ import by.nrydo.quizer.Result;
 
 public class ExpressionMathTask extends AbstractMathTask {
     public ExpressionMathTask(int x, int y, Operation operation) {
+        if ((y == 0 || x % y != 0) && operation == Operation.Division) {
+            throw new IllegalArgumentException();
+        }
+
         String operation_symbol = switch (operation) {
             case SUM -> "+";
             case Difference -> "-";

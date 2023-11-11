@@ -40,6 +40,9 @@ abstract public class AbstractMathTaskGenerator implements MathTaskGenerator {
         if (generateDivision) {
             operations.add(AbstractMathTask.Operation.Division);
         }
+        if (operations.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override

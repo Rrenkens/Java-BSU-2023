@@ -1,8 +1,6 @@
 package by.nrydo.quizer.task_generators.task_genertors;
 
-import by.nrydo.quizer.TaskGenerator;
 import by.nrydo.quizer.tasks.math_tasks.EquationMathTask;
-import by.nrydo.quizer.tasks.math_tasks.ExpressionMathTask;
 
 import java.util.Random;
 
@@ -15,7 +13,7 @@ public class EquationTaskGenerator extends AbstractMathTaskGenerator {
      * @param generateMultiplication разрешить генерацию с оператором *
      * @param generateDivision       разрешить генерацию с оператором /
      */
-    EquationTaskGenerator(
+    public EquationTaskGenerator(
             int minNumber,
             int maxNumber,
             boolean generateSum,

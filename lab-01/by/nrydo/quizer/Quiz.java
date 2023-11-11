@@ -1,5 +1,9 @@
 package by.nrydo.quizer;
 
+import by.nrydo.quizer.exceptions.NoTasksException;
+import by.nrydo.quizer.exceptions.QuizNotFinishedException;
+import by.nrydo.quizer.exceptions.TaskGenerationException;
+
 /**
  * Class, который описывает один тест
  */
@@ -11,12 +15,16 @@ class Quiz {
     private int correctAnswerNumber = 0;
     private int wrongAnswerNumber = 0;
     private int incorrectInputNumber = 0;
+    private boolean canGenerate = true;
 
     /**
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
     Quiz(TaskGenerator generator, int taskCount) {
+        if (taskCount == 0) {
+            throw new IllegalArgumentException();
+        }
         this.generator = generator;
         this.taskCount = taskCount;
     }
@@ -25,10 +33,17 @@ class Quiz {
      * @return задание, повторный вызов вернет следующее
      * @see Task
      */
-    Task nextTask() {
-        taskCount--;
-        currentTask = generator.generate();
-        return currentTask;
+    Task nextTask() throws TaskGenerationException, NoTasksException {
+        if (taskCount == 0) {
+            throw new NoTasksException();
+        }
+        if (canGenerate) {
+            currentTask = generator.generate();
+            canGenerate = false;
+            return currentTask;
+        } else {
+            return currentTask;
+        }
     }
 
     /**
@@ -40,9 +55,13 @@ class Quiz {
         switch (result) {
             case OK:
                 correctAnswerNumber++;
+                canGenerate = true;
+                taskCount--;
                 break;
             case WRONG:
                 wrongAnswerNumber++;
+                canGenerate = true;
+                taskCount--;
                 break;
             case INCORRECT_INPUT:
                 incorrectInputNumber++;
@@ -83,8 +102,11 @@ class Quiz {
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
      *         Оценка выставляется только в конце!
      */
-    double getMark() {
-        double done = correctAnswerNumber + wrongAnswerNumber + incorrectInputNumber;
+    double getMark() throws QuizNotFinishedException {
+        if (taskCount != 0) {
+            throw new QuizNotFinishedException();
+        }
+        double done = correctAnswerNumber + wrongAnswerNumber;
         return correctAnswerNumber / done;
     }
 }

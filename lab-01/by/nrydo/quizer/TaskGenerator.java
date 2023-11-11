@@ -1,5 +1,7 @@
 package by.nrydo.quizer;
 
+import by.nrydo.quizer.exceptions.TaskGenerationException;
+
 /**
  * Interface, который описывает один генератор заданий
  */
@@ -10,5 +12,5 @@ public interface TaskGenerator {
      * @return задание
      * @see    Task
      */
-    Task generate();
+    Task generate() throws TaskGenerationException;
 }

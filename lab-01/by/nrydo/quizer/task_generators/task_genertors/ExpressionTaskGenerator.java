@@ -1,10 +1,8 @@
 package by.nrydo.quizer.task_generators.task_genertors;
 
-import by.nrydo.quizer.TaskGenerator;
 import by.nrydo.quizer.tasks.math_tasks.AbstractMathTask;
 import by.nrydo.quizer.tasks.math_tasks.ExpressionMathTask;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
@@ -16,7 +14,7 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
      * @param generateMultiplication разрешить генерацию с оператором *
      * @param generateDivision       разрешить генерацию с оператором /
      */
-    ExpressionTaskGenerator(
+    public ExpressionTaskGenerator(
             int minNumber,
             int maxNumber,
             boolean generateSum,
@@ -24,6 +22,10 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
             boolean generateMultiplication,
             boolean generateDivision) {
         super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
+        if (minNumber == 0 && maxNumber == 0 &&
+                operations.size() == 1 && operations.get(0) == AbstractMathTask.Operation.Division) {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**

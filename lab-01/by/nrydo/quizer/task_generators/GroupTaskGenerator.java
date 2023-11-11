@@ -2,10 +2,11 @@ package by.nrydo.quizer.task_generators;
 
 import by.nrydo.quizer.Task;
 import by.nrydo.quizer.TaskGenerator;
+import by.nrydo.quizer.exceptions.TaskGenerationException;
 
 import java.util.*;
 
-class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements TaskGenerator {
 
     private final ArrayList<TaskGenerator> generators = new ArrayList<>();
 
@@ -14,7 +15,7 @@ class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupTaskGenerator(TaskGenerator... generators) {
         Collections.addAll(this.generators, generators);
     }
 
@@ -32,7 +33,7 @@ class GroupTaskGenerator implements TaskGenerator {
      *         Если этот генератор выбросил исключение в методе generate(), выбирается другой.
      *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
-    public Task generate() {
+    public Task generate() throws TaskGenerationException {
         var random = new Random();
         while (!generators.isEmpty()) {
             int generator_index = random.nextInt(generators.size());
@@ -42,6 +43,6 @@ class GroupTaskGenerator implements TaskGenerator {
                 generators.remove(generator_index);
             }
         }
-        throw new IndexOutOfBoundsException("No generators left");
+        throw new TaskGenerationException();
     }
 }
