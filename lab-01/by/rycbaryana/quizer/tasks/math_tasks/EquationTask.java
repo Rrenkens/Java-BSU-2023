@@ -55,6 +55,10 @@ public class EquationTask extends AbstractMathTask {
             if (precision == 0 && operation == Operation.DIV && !isFirst && num % ans != 0) {
                 num *= ans;
             }
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(precision);
+            num = Double.parseDouble(df.format(num));
+            ans = Double.parseDouble(df.format(ans));
             return new EquationTask(num, ans, operation, isFirst, precision);
         }
     }
@@ -82,7 +86,7 @@ public class EquationTask extends AbstractMathTask {
         } else {
             res = applyOperation(num, answer.getNum(), operation);
         }
-        double eps = precision == 0 ? 1e-8 : Math.pow(10, -precision);
+        double eps = 1e-8;
         if (Math.abs(res - ans) < eps) {
             return Result.OK;
         } else {
