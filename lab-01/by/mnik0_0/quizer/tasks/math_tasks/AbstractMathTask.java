@@ -15,7 +15,7 @@ public class AbstractMathTask implements MathTask {
                 throw new IllegalArgumentException("min >= max");
             }
             if (precision < 0) {
-                throw new IllegalArgumentException("precision > 0");
+                throw new IllegalArgumentException("precision < 0");
             }
         }
 
