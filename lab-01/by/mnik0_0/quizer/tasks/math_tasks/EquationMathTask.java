@@ -6,8 +6,12 @@ import java.util.Random;
 
 public class EquationMathTask extends AbstractMathTask {
     public static class Generator extends AbstractMathTask.Generator {
-        Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
+        Generator(double minNumber, double maxNumber, EnumSet<Operation> operations) {
             super(minNumber, maxNumber, operations);
+        }
+
+        Generator(double minNumber, double maxNumber, EnumSet<Operation> operations, int precision) {
+            super(minNumber, maxNumber, operations, precision);
         }
 
         @Override
@@ -17,8 +21,12 @@ public class EquationMathTask extends AbstractMathTask {
 
             Random random = new Random();
 
-            int num = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-            int res = random.nextInt(maxNumber - minNumber + 1) + minNumber;
+            double num = random.nextDouble(maxNumber - minNumber + 1) + minNumber;
+            String formattedValue = decimalFormat.format(num);
+            num = Double.parseDouble(formattedValue);
+            double res = random.nextDouble(maxNumber - minNumber + 1) + minNumber;
+            formattedValue = decimalFormat.format(res);
+            res = Double.parseDouble(formattedValue);
 
             int index = random.nextInt(operations.size());
             MathTask.Operation operation = operations.stream().skip(index).findFirst().orElse(null);
@@ -78,28 +86,29 @@ public class EquationMathTask extends AbstractMathTask {
                         break;
                     case Multiplication:
                         if (num != 0) {
-                            answer = (double) res / num;
+                            answer = res / num;
                         } else {
                             return generate();
                         }
                         break;
                     case Division:
                         if (num != 0) {
-                            answer = (double) num * res;
+                            answer = num * res;
                         } else {
                             return generate();
                         }
                         break;
                 }
             }
-
+            formattedValue = decimalFormat.format(answer);
+            answer = Double.parseDouble(formattedValue);
             return new EquationMathTask(equation.toString(), answer);
         }
     }
 
 //    public static void main(String[] args) {
 //        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
-//        EquationMathTask.Generator expressionTask = new EquationMathTask.Generator(2, 10, operations);
+//        EquationMathTask.Generator expressionTask = new EquationMathTask.Generator(2, 10, operations, 2);
 //        System.out.println(expressionTask.generate().getText());
 //    }
 

@@ -1,14 +1,19 @@
 package by.mnik0_0.quizer.tasks.math_tasks;
 
 
+import java.text.DecimalFormat;
 import java.util.EnumSet;
 import java.util.Random;
 
 public class ExpressionMathTask extends AbstractMathTask {
 
     public static class Generator extends AbstractMathTask.Generator {
-        Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
+        Generator(double minNumber, double maxNumber, EnumSet<Operation> operations) {
             super(minNumber, maxNumber, operations);
+        }
+
+        Generator(double minNumber, double maxNumber, EnumSet<Operation> operations, int precision) {
+            super(minNumber, maxNumber, operations, precision);
         }
 
         @Override
@@ -18,8 +23,12 @@ public class ExpressionMathTask extends AbstractMathTask {
 
             Random random = new Random();
 
-            int num1 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-            int num2 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
+            double num1 = random.nextDouble(maxNumber - minNumber + 1) + minNumber;
+            String formattedValue = decimalFormat.format(num1);
+            num1 = Double.parseDouble(formattedValue);
+            double num2 = random.nextDouble(maxNumber - minNumber + 1) + minNumber;
+            formattedValue = decimalFormat.format(num2);
+            num2 = Double.parseDouble(formattedValue);
 
             int index = random.nextInt(operations.size());
             MathTask.Operation operation = operations.stream().skip(index).findFirst().orElse(null);
@@ -40,7 +49,7 @@ public class ExpressionMathTask extends AbstractMathTask {
                     break;
                 case Division:
                     if (num2 != 0) {
-                        answer = (double) num1 / num2;
+                        answer = num1 / num2;
                         operationChar = '/';
                     } else {
                         return generate();
@@ -49,7 +58,8 @@ public class ExpressionMathTask extends AbstractMathTask {
             }
 
             expression.append(num1).append(operationChar).append(num2).append("=");
-
+            formattedValue = decimalFormat.format(answer);
+            answer = Double.parseDouble(formattedValue);
             return new ExpressionMathTask(expression.toString(), answer);
         }
 
@@ -57,7 +67,7 @@ public class ExpressionMathTask extends AbstractMathTask {
 
 //    public static void main(String[] args) {
 //        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
-//        ExpressionMathTask.Generator expressionTask = new ExpressionMathTask.Generator(2, 10, operations);
+//        ExpressionMathTask.Generator expressionTask = new ExpressionMathTask.Generator(2, 10, operations, 2);
 //        System.out.println(expressionTask.generate().getText());
 //    }
 

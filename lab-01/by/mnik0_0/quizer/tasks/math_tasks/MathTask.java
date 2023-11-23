@@ -4,10 +4,10 @@ import by.mnik0_0.quizer.Task;
 
 public interface MathTask extends Task {
     public interface Generator extends Task.Generator {
-        int getMinNumber(); // получить минимальное число
-        int getMaxNumber(); // получить максимальное число
+        double getMinNumber(); // получить минимальное число
+        double getMaxNumber(); // получить максимальное число
 
-        default int getDiffNumber() {
+        default double getDiffNumber() {
             return getMaxNumber() - getMinNumber();
         }
     }

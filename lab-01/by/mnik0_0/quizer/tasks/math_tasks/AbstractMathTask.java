@@ -2,36 +2,63 @@ package by.mnik0_0.quizer.tasks.math_tasks;
 
 import by.mnik0_0.quizer.Result;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.EnumSet;
+import java.util.Locale;
 
 public class AbstractMathTask implements MathTask {
     public abstract static class Generator implements MathTask.Generator {
 
-        protected int minNumber;
-        protected int maxNumber;
+        protected double minNumber;
+        protected double maxNumber;
         protected EnumSet<Operation> operations;
+        protected int precision;
+
+        DecimalFormat decimalFormat;
+        DecimalFormatSymbols decimalFormatSymbols;
 
         Generator(
-                int minNumber,
-                int maxNumber,
+                double minNumber,
+                double maxNumber,
                 EnumSet<MathTask.Operation> operations
         ) {
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
             this.operations = operations;
+            this.precision = 0;
 
+            decimalFormatSymbols = new DecimalFormatSymbols(Locale.getDefault());
+            decimalFormatSymbols.setDecimalSeparator('.');
+            decimalFormat = new DecimalFormat("#." + "0".repeat(precision), decimalFormatSymbols);
+        }
+
+        Generator(
+                double minNumber,
+                double maxNumber,
+                EnumSet<MathTask.Operation> operations,
+                int precision
+        ) {
+            this.minNumber = minNumber;
+            this.maxNumber = maxNumber;
+            this.operations = operations;
+            this.precision = precision;
+
+            decimalFormatSymbols = new DecimalFormatSymbols(Locale.getDefault());
+            decimalFormatSymbols.setDecimalSeparator('.');
+            decimalFormat = new DecimalFormat("#." + "0".repeat(precision), decimalFormatSymbols);
         }
 
         @Override
         public abstract MathTask generate();
 
         @Override
-        public int getMinNumber() {
+        public double getMinNumber() {
             return minNumber;
         }
 
         @Override
-        public int getMaxNumber() {
+        public double getMaxNumber() {
             return maxNumber;
         }
     }
