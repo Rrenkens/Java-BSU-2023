@@ -10,7 +10,7 @@ public class EquationMathTask extends AbstractMathTask {
             super(minNumber, maxNumber, operations);
         }
 
-        Generator(double minNumber, double maxNumber, EnumSet<Operation> operations, int precision) {
+        public Generator(double minNumber, double maxNumber, EnumSet<Operation> operations, int precision) {
             super(minNumber, maxNumber, operations, precision);
         }
 

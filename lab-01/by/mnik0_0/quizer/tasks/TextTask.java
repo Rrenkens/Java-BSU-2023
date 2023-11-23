@@ -10,10 +10,6 @@ public class TextTask implements Task {
 
     private String text;
     private String answer;
-    /**
-     * @param text   текст задания
-     * @param answer ответ на задание
-     */
 
     TextTask(
             String text,
@@ -30,7 +26,7 @@ public class TextTask implements Task {
 
     @Override
     public Result validate(String answer) {
-        if(Objects.equals(answer, this.answer)){
+        if (Objects.equals(answer, this.answer)) {
             return Result.OK;
         }
 

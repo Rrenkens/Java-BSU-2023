@@ -98,7 +98,12 @@ public class AbstractMathTask implements MathTask {
     public Result validate(String answer) {
 
         double expectedAnswer = this.answer;
-        double userAnswer = Double.parseDouble(answer);
+        double userAnswer = 0;
+        try {
+            userAnswer = Double.parseDouble(answer);
+        } catch (NumberFormatException e) {
+            return Result.INCORRECT_INPUT;
+        }
 
         double difference = Math.abs(expectedAnswer - userAnswer);
         double threshold = Math.pow(10, -precision);

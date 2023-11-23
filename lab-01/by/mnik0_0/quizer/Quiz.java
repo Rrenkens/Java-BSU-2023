@@ -4,9 +4,6 @@ import by.mnik0_0.quizer.Result;
 import by.mnik0_0.quizer.Task;
 import by.mnik0_0.quizer.exceptions.QuizNotFinishedException;
 
-/**
- * Class, который описывает один тест
- */
 class Quiz {
 
     private Task.Generator generator;
@@ -18,19 +15,11 @@ class Quiz {
     private Task currentTask;
     private boolean incorrectInput = false;
 
-    /**
-     * @param generator генератор заданий
-     * @param taskCount количество заданий в тесте
-     */
     Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
     }
 
-    /**
-     * @return задание, повторный вызов вернет слелующее
-     * @see Task
-     */
     Task nextTask() {
         if (incorrectInput) {
             this.incorrectInput = false;
@@ -45,10 +34,6 @@ class Quiz {
         }
     }
 
-    /**
-     * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных
-     * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
-     */
     Result provideAnswer(String answer) {
         Result res = this.currentTask.validate(answer);
         if (res == Result.OK) {
@@ -69,38 +54,22 @@ class Quiz {
         return res;
     }
 
-    /**
-     * @return завершен ли тест
-     */
     boolean isFinished() {
         return this.taskNumber >= this.taskCount;
     }
 
-    /**
-     * @return количество правильных ответов
-     */
     int getCorrectAnswerNumber() {
         return this.correctAnswerNumber;
     }
 
-    /**
-     * @return количество неправильных ответов
-     */
     int getWrongAnswerNumber() {
         return this.wrongAnswerNumber;
     }
 
-    /**
-     * @return количество раз, когда был предоставлен неправильный ввод
-     */
     int getIncorrectInputNumber() {
         return this.incorrectInputNumber;
     }
 
-    /**
-     * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
-     * Оценка выставляется только в конце!
-     */
     double getMark() throws QuizNotFinishedException {
         if (!isFinished()) {
             throw new QuizNotFinishedException();
