@@ -102,17 +102,20 @@ public class EquationMathTask extends AbstractMathTask {
             }
             formattedValue = decimalFormat.format(answer);
             answer = Double.parseDouble(formattedValue);
-            return new EquationMathTask(equation.toString(), answer);
+            return new EquationMathTask(equation.toString(), answer, precision);
         }
     }
 
 //    public static void main(String[] args) {
 //        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
 //        EquationMathTask.Generator expressionTask = new EquationMathTask.Generator(2, 10, operations, 2);
-//        System.out.println(expressionTask.generate().getText());
+//        EquationMathTask n = expressionTask.generate();
+//        System.out.println(n.getText());
+//        System.out.println(n.answer);
+//        System.out.println(n.validate(String.valueOf(n.answer + 0.009)));
 //    }
 
-    public EquationMathTask(String text, double answer) {
-        super(text, answer);
+    public EquationMathTask(String text, double answer, int precision) {
+        super(text, answer, precision);
     }
 }

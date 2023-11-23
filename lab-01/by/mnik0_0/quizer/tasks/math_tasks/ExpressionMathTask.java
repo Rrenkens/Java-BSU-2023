@@ -60,7 +60,7 @@ public class ExpressionMathTask extends AbstractMathTask {
             expression.append(num1).append(operationChar).append(num2).append("=");
             formattedValue = decimalFormat.format(answer);
             answer = Double.parseDouble(formattedValue);
-            return new ExpressionMathTask(expression.toString(), answer);
+            return new ExpressionMathTask(expression.toString(), answer, precision);
         }
 
     }
@@ -71,7 +71,7 @@ public class ExpressionMathTask extends AbstractMathTask {
 //        System.out.println(expressionTask.generate().getText());
 //    }
 
-    public ExpressionMathTask(String text, double answer) {
-        super(text, answer);
+    public ExpressionMathTask(String text, double answer, int precision) {
+        super(text, answer, precision);
     }
 }

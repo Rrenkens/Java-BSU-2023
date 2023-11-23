@@ -65,13 +65,16 @@ public class AbstractMathTask implements MathTask {
 
     String text;
     double answer;
+    int precision;
 
     public AbstractMathTask(
             String text,
-            double answer
+            double answer,
+            int precision
     ) {
         this.text = text;
         this.answer = answer;
+        this.precision = precision;
     }
 
     @Override
@@ -83,7 +86,13 @@ public class AbstractMathTask implements MathTask {
     @Override
     public Result validate(String answer) {
 
-        if (this.answer - Double.parseDouble(answer) < 0.1) {
+        double expectedAnswer = this.answer;
+        double userAnswer = Double.parseDouble(answer);
+
+        double difference = Math.abs(expectedAnswer - userAnswer);
+        double threshold = Math.pow(10, -precision);
+
+        if (difference < threshold) {
             return Result.OK;
         }
         return Result.WRONG;
