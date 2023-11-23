@@ -9,7 +9,7 @@ import by.mnik0_0.quizer.tasks.math_tasks.EquationMathTask;
 import java.util.ArrayList;
 import java.util.Random;
 
-class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
+public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
     EquationMathTaskGenerator(int minNumber, int maxNumber, boolean generateSum, boolean generateDifference, boolean generateMultiplication, boolean generateDivision) {
         super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
     }
@@ -92,16 +92,6 @@ class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
         }
 
         return new EquationMathTask(equation.toString(), answer);
-    }
-
-    @Override
-    public int getMinNumber() {
-        return minNumber;
-    }
-
-    @Override
-    public int getMaxNumber() {
-        return maxNumber;
     }
 
 //    public static void main(String[] args) {

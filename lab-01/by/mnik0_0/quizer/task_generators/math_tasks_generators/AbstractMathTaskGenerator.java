@@ -46,4 +46,14 @@ public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
 
     @Override
     public abstract MathTask generate();
+
+    @Override
+    public int getMinNumber() {
+        return minNumber;
+    }
+
+    @Override
+    public int getMaxNumber() {
+        return maxNumber;
+    }
 }
