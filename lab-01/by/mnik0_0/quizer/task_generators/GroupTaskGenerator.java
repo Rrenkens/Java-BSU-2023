@@ -1,18 +1,17 @@
-package by.mnik0_0.quizer.tasks;
+package by.mnik0_0.quizer.task_generators;
 import by.mnik0_0.quizer.Task;
-import by.mnik0_0.quizer.TaskGenerator;
 
 import java.util.*;
 
-public class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements Task.Generator {
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    private ArrayList<TaskGenerator> generators = new ArrayList<>();
+    private ArrayList<Task.Generator> generators = new ArrayList<>();
 
-    public GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupTaskGenerator(Task.Generator... generators) {
         Collections.addAll(this.generators, generators);
     }
 
@@ -21,7 +20,7 @@ public class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    GroupTaskGenerator(Collection<Task.Generator> generators) {
         this.generators.addAll(generators);
     }
 
@@ -31,12 +30,12 @@ public class GroupTaskGenerator implements TaskGenerator {
      *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
     public Task generate() {
-        ArrayList<TaskGenerator> availableGenerators = new ArrayList<>(generators);
+        ArrayList<Task.Generator> availableGenerators = new ArrayList<>(generators);
         Random random = new Random();
 
         while (!availableGenerators.isEmpty()) {
             int index = random.nextInt(availableGenerators.size());
-            TaskGenerator generator = availableGenerators.get(index);
+            Task.Generator generator = availableGenerators.get(index);
 
             try {
                 return generator.generate();

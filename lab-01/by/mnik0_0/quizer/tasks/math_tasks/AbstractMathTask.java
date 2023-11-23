@@ -2,7 +2,40 @@ package by.mnik0_0.quizer.tasks.math_tasks;
 
 import by.mnik0_0.quizer.Result;
 
+import java.util.EnumSet;
+
 public class AbstractMathTask implements MathTask {
+    public abstract static class Generator implements MathTask.Generator {
+
+        protected int minNumber;
+        protected int maxNumber;
+        protected EnumSet<Operation> operations;
+
+        Generator(
+                int minNumber,
+                int maxNumber,
+                EnumSet<MathTask.Operation> operations
+        ) {
+            this.minNumber = minNumber;
+            this.maxNumber = maxNumber;
+            this.operations = operations;
+
+        }
+
+        @Override
+        public abstract MathTask generate();
+
+        @Override
+        public int getMinNumber() {
+            return minNumber;
+        }
+
+        @Override
+        public int getMaxNumber() {
+            return maxNumber;
+        }
+    }
+
     String text;
     double answer;
 

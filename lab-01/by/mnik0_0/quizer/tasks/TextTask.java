@@ -5,10 +5,7 @@ import by.mnik0_0.quizer.Task;
 
 import java.util.Objects;
 
-/**
- * Задание с заранее заготовленным текстом.
- * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
- */
+
 public class TextTask implements Task {
 
     private String text;

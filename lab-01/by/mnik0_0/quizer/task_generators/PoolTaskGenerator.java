@@ -1,11 +1,10 @@
-package by.mnik0_0.quizer.tasks;
+package by.mnik0_0.quizer.task_generators;
 
 import by.mnik0_0.quizer.Task;
-import by.mnik0_0.quizer.TaskGenerator;
 
 import java.util.*;
 
-class PoolTaskGenerator implements TaskGenerator {
+class PoolTaskGenerator implements Task.Generator {
     /**
      * Конструктор с переменным числом аргументов
      *

@@ -8,7 +8,7 @@ import by.mnik0_0.quizer.Task;
  */
 class Quiz {
 
-    private TaskGenerator generator;
+    private Task.Generator generator;
     private int taskCount;
     private int correctAnswerNumber = 0;
     private int wrongAnswerNumber = 0;
@@ -21,7 +21,7 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    Quiz(TaskGenerator generator, int taskCount) {
+    Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
     }
