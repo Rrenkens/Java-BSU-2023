@@ -4,44 +4,23 @@ import by.mnik0_0.quizer.Task;
 import by.mnik0_0.quizer.tasks.math_tasks.MathTask;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
 
     protected int minNumber;
     protected int maxNumber;
-    protected boolean generateSum;
-    protected boolean generateDifference;
-    protected boolean generateMultiplication;
-    protected boolean generateDivision;
-    protected ArrayList<Character> operators = new ArrayList<>();
+    protected EnumSet<MathTask.Operation> operations;
 
     AbstractMathTaskGenerator(
             int minNumber,
             int maxNumber,
-            boolean generateSum,
-            boolean generateDifference,
-            boolean generateMultiplication,
-            boolean generateDivision
+            EnumSet<MathTask.Operation> operations
     ) {
         this.minNumber = minNumber;
         this.maxNumber = maxNumber;
-        this.generateSum = generateSum;
-        this.generateDifference = generateDifference;
-        this.generateMultiplication = generateMultiplication;
-        this.generateDivision = generateDivision;
+        this.operations = operations;
 
-        if (generateSum) {
-            operators.add('+');
-        }
-        if (generateDifference) {
-            operators.add('-');
-        }
-        if (generateMultiplication) {
-            operators.add('*');
-        }
-        if (generateSum) {
-            operators.add('/');
-        }
     }
 
     @Override

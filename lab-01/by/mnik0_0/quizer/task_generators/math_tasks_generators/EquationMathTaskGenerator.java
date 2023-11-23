@@ -5,14 +5,17 @@ import by.mnik0_0.quizer.tasks.EquationTask;
 import by.mnik0_0.quizer.tasks.ExpressionTask;
 import by.mnik0_0.quizer.tasks.math_tasks.AbstractMathTask;
 import by.mnik0_0.quizer.tasks.math_tasks.EquationMathTask;
+import by.mnik0_0.quizer.tasks.math_tasks.MathTask;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Random;
 
 public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
-    EquationMathTaskGenerator(int minNumber, int maxNumber, boolean generateSum, boolean generateDifference, boolean generateMultiplication, boolean generateDivision) {
-        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
+    EquationMathTaskGenerator(int minNumber, int maxNumber, EnumSet<MathTask.Operation> operations) {
+        super(minNumber, maxNumber, operations);
     }
+
 
     /**
      * @param minNumber              минимальное число
@@ -36,28 +39,46 @@ public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
         int num = random.nextInt(maxNumber - minNumber + 1) + minNumber;
         int res = random.nextInt(maxNumber - minNumber + 1) + minNumber;
 
-        int index = random.nextInt(operators.size());
-        Character operator = operators.get(index);
+        int index = random.nextInt(operations.size());
+        MathTask.Operation operation = operations.stream().skip(index).findFirst().orElse(null);
 
         boolean firstNum = random.nextBoolean();
 
+        char operationChar = ' ';
+
+        switch (operation) {
+            case Sum:
+                operationChar = '+';
+                break;
+            case Difference:
+                operationChar = '-';
+                break;
+            case Multiplication:
+                operationChar = '*';
+                break;
+            case Division:
+                operationChar = '/';
+                break;
+
+        }
+
         if (firstNum) {
-            equation.append(num).append(operator).append("x").append("=").append(res);
-            switch (operator) {
-                case '+':
+            equation.append(num).append(operationChar).append("x").append("=").append(res);
+            switch (operation) {
+                case Sum:
                     answer = res - num;
                     break;
-                case '-':
+                case Difference:
                     answer = num - res;
                     break;
-                case '*':
+                case Multiplication:
                     if (num != 0) {
                         answer = (double) res / num;
                     } else {
                         return generate();
                     }
                     break;
-                case '/':
+                case Division:
                     if (res != 0) {
                         answer = (double) num / res;
                     } else {
@@ -66,22 +87,22 @@ public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
                     break;
             }
         } else {
-            equation.append("x").append(operator).append(num).append("=").append(res);
-            switch (operator) {
-                case '+':
+            equation.append("x").append(operationChar).append(num).append("=").append(res);
+            switch (operation) {
+                case Sum:
                     answer = res - num;
                     break;
-                case '-':
+                case Difference:
                     answer = num + res;
                     break;
-                case '*':
+                case Multiplication:
                     if (num != 0) {
                         answer = (double) res / num;
                     } else {
                         return generate();
                     }
                     break;
-                case '/':
+                case Division:
                     if (num != 0) {
                         answer = (double) num * res;
                     } else {
@@ -95,7 +116,8 @@ public class EquationMathTaskGenerator extends AbstractMathTaskGenerator {
     }
 
 //    public static void main(String[] args) {
-//        EquationMathTaskGenerator expressionTask = new EquationMathTaskGenerator(2, 10, true, true, true, true);
+//        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
+//        EquationMathTaskGenerator expressionTask = new EquationMathTaskGenerator(2, 10, operations);
 //        System.out.println(expressionTask.generate().getText());
 //    }
 }

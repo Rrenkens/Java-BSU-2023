@@ -1,17 +1,20 @@
 package by.mnik0_0.quizer.task_generators.math_tasks_generators;
 
 import by.mnik0_0.quizer.TaskGenerator;
+import by.mnik0_0.quizer.task_generators.ExpressionTaskGenerator;
 import by.mnik0_0.quizer.task_generators.math_tasks_generators.AbstractMathTaskGenerator;
 import by.mnik0_0.quizer.tasks.ExpressionTask;
 import by.mnik0_0.quizer.tasks.math_tasks.EquationMathTask;
 import by.mnik0_0.quizer.tasks.math_tasks.ExpressionMathTask;
+import by.mnik0_0.quizer.tasks.math_tasks.MathTask;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Random;
 
 public class ExpressionMathTaskGenerator extends AbstractMathTaskGenerator {
-    ExpressionMathTaskGenerator(int minNumber, int maxNumber, boolean generateSum, boolean generateDifference, boolean generateMultiplication, boolean generateDivision) {
-        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
+    ExpressionMathTaskGenerator(int minNumber, int maxNumber, EnumSet<MathTask.Operation> operations) {
+        super(minNumber, maxNumber, operations);
     }
 
 
@@ -36,35 +39,41 @@ public class ExpressionMathTaskGenerator extends AbstractMathTaskGenerator {
         int num1 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
         int num2 = random.nextInt(maxNumber - minNumber + 1) + minNumber;
 
-        int index = random.nextInt(operators.size());
-        Character operator = operators.get(index);
+        int index = random.nextInt(operations.size());
+        MathTask.Operation operation = operations.stream().skip(index).findFirst().orElse(null);
 
-        switch (operator) {
-            case '+':
+        char operationChar = ' ';
+        switch (operation) {
+            case Sum:
                 answer = num1 + num2;
+                operationChar = '+';
                 break;
-            case '-':
+            case Difference:
                 answer = num1 - num2;
+                operationChar = '-';
                 break;
-            case '*':
+            case Multiplication:
                 answer = num1 * num2;
+                operationChar = '*';
                 break;
-            case '/':
+            case Division:
                 if (num2 != 0) {
                     answer = (double) num1 / num2;
+                    operationChar = '/';
                 } else {
                     return generate();
                 }
                 break;
         }
 
-        expression.append(num1).append(operator).append(num2).append("=");
+        expression.append(num1).append(operationChar).append(num2).append("=");
 
         return new ExpressionMathTask(expression.toString(), answer);
     }
 
 //    public static void main(String[] args) {
-//        EquationMathTaskGenerator expressionTask = new EquationMathTaskGenerator(2, 10, true, true, true, true);
+//        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
+//        ExpressionMathTaskGenerator expressionTask = new ExpressionMathTaskGenerator(2, 10, operations);
 //        System.out.println(expressionTask.generate().getText());
 //    }
 }
