@@ -106,15 +106,6 @@ public class EquationMathTask extends AbstractMathTask {
         }
     }
 
-//    public static void main(String[] args) {
-//        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
-//        EquationMathTask.Generator expressionTask = new EquationMathTask.Generator(2, 10, operations, 2);
-//        EquationMathTask n = expressionTask.generate();
-//        System.out.println(n.getText());
-//        System.out.println(n.answer);
-//        System.out.println(n.validate(String.valueOf(n.answer + 0.009)));
-//    }
-
     public EquationMathTask(String text, double answer, int precision) {
         super(text, answer, precision);
     }

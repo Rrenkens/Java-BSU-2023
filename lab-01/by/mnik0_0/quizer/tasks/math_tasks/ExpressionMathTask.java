@@ -65,12 +65,6 @@ public class ExpressionMathTask extends AbstractMathTask {
 
     }
 
-//    public static void main(String[] args) {
-//        EnumSet<MathTask.Operation> operations = EnumSet.allOf(MathTask.Operation.class);
-//        ExpressionMathTask.Generator expressionTask = new ExpressionMathTask.Generator(2, 10, operations, 2);
-//        System.out.println(expressionTask.generate().getText());
-//    }
-
     public ExpressionMathTask(String text, double answer, int precision) {
         super(text, answer, precision);
     }

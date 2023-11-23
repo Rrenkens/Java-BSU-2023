@@ -90,7 +90,7 @@ public class AbstractMathTask implements MathTask {
 
     @Override
     public String getText() {
-        System.out.println(answer);
+//        System.out.println(answer);
         return text;
     }
 
