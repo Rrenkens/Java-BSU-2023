@@ -2,6 +2,7 @@ package by.mnik0_0.quizer;
 
 import by.mnik0_0.quizer.Result;
 import by.mnik0_0.quizer.Task;
+import by.mnik0_0.quizer.exceptions.QuizNotFinishedException;
 
 /**
  * Class, который описывает один тест
@@ -100,7 +101,10 @@ class Quiz {
      * @return оценка, которая является отношением количества правильных ответов к количеству всех вопросов.
      * Оценка выставляется только в конце!
      */
-    double getMark() {
+    double getMark() throws QuizNotFinishedException {
+        if (!isFinished()) {
+            throw new QuizNotFinishedException();
+        }
         return (this.correctAnswerNumber / (double) this.taskCount) * 10;
     }
 }

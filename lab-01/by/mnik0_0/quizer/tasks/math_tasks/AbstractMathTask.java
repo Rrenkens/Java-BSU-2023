@@ -10,6 +10,15 @@ import java.util.Locale;
 public class AbstractMathTask implements MathTask {
     public abstract static class Generator implements MathTask.Generator {
 
+        public void validate() {
+            if (minNumber - maxNumber >= 0) {
+                throw new IllegalArgumentException("min >= max");
+            }
+            if (precision < 0) {
+                throw new IllegalArgumentException("precision > 0");
+            }
+        }
+
         protected double minNumber;
         protected double maxNumber;
         protected EnumSet<Operation> operations;
@@ -31,6 +40,7 @@ public class AbstractMathTask implements MathTask {
             decimalFormatSymbols = new DecimalFormatSymbols(Locale.getDefault());
             decimalFormatSymbols.setDecimalSeparator('.');
             decimalFormat = new DecimalFormat("#." + "0".repeat(precision), decimalFormatSymbols);
+            validate();
         }
 
         Generator(
@@ -47,6 +57,7 @@ public class AbstractMathTask implements MathTask {
             decimalFormatSymbols = new DecimalFormatSymbols(Locale.getDefault());
             decimalFormatSymbols.setDecimalSeparator('.');
             decimalFormat = new DecimalFormat("#." + "0".repeat(precision), decimalFormatSymbols);
+            validate();
         }
 
         @Override
