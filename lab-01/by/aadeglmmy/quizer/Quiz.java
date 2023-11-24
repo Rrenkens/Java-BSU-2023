@@ -126,9 +126,9 @@ public class Quiz {
 
   public void updateAvailableIndexes() {
     if (generator instanceof PoolTaskGenerator) {
-      ((PoolTaskGenerator) generator).updateAvailableIndexes();
+      ((PoolTaskGenerator) generator).updateAvailableElements();
     } else if (generator instanceof GroupTaskGenerator) {
-      ((GroupTaskGenerator) generator).updateAvailableIndexes();
+      ((GroupTaskGenerator) generator).updateAvailableElements();
     }
   }
 }

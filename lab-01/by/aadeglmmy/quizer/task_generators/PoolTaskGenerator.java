@@ -5,7 +5,6 @@ import by.aadeglmmy.quizer.TaskGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
@@ -14,7 +13,7 @@ public class PoolTaskGenerator implements TaskGenerator {
   private final Collection<Task> tasks;
   private final Random random = new Random();
   private final boolean allowDuplicate;
-  private final List<Integer> availableIndexes = new ArrayList<>();
+  private final Collection<Task> availableElements = new ArrayList<>();
 
   public PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
     this.tasks = new ArrayList<>(Arrays.asList(tasks));
@@ -33,35 +32,32 @@ public class PoolTaskGenerator implements TaskGenerator {
     this.allowDuplicate = allowDuplicate;
   }
 
-  public void updateAvailableIndexes() {
+  public void updateAvailableElements() {
     if (tasks.isEmpty()) {
       throw new NoSuchElementException("No tasks available in the pool.");
     }
     if (!allowDuplicate) {
-      availableIndexes.clear();
-      for (int i = 0; i < tasks.size(); ++i) {
-        availableIndexes.add(i);
-      }
+      availableElements.clear();
+      availableElements.addAll(tasks);
     }
   }
 
   @Override
   public Task generate() {
-    int taskIndex;
+    Task task;
     if (allowDuplicate) {
-      taskIndex = random.nextInt(tasks.size());
+      int taskIndex = random.nextInt(tasks.size());
+      task = tasks.stream().skip(taskIndex).findFirst().orElse(null);
     } else {
-      if (availableIndexes.isEmpty()) {
+      if (availableElements.isEmpty()) {
         throw new IllegalStateException("No tasks available in the pool.");
       }
-
-      int randomIndex = random.nextInt(availableIndexes.size());
-      taskIndex = availableIndexes.get(randomIndex);
-
-      availableIndexes.remove(randomIndex);
+      int taskIndex = random.nextInt(availableElements.size());
+      task = availableElements.stream().skip(taskIndex).findFirst().orElse(null);
+      availableElements.remove(task);
     }
 
-    return tasks.stream().skip(taskIndex).findFirst().orElse(null);
+    return task;
   }
 
   public boolean getAllowDuplicate() {

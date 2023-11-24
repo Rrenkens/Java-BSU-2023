@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Set;
@@ -17,7 +16,7 @@ public class GroupTaskGenerator implements TaskGenerator {
 
   private final Collection<TaskGenerator> generators;
   private final Random random = new Random();
-  private final List<Integer> availableIndexes = new ArrayList<>();
+  private final Collection<TaskGenerator> availableElements = new ArrayList<>();
 
   public GroupTaskGenerator(TaskGenerator... generators) {
     this.generators = new ArrayList<>(Arrays.asList(generators));
@@ -37,32 +36,29 @@ public class GroupTaskGenerator implements TaskGenerator {
     arePoolsAndGroupsUnique();
   }
 
-  public void updateAvailableIndexes() {
-    availableIndexes.clear();
-    for (int i = 0; i < generators.size(); ++i) {
-      availableIndexes.add(i);
-    }
+  public void updateAvailableElements() {
+    availableElements.clear();
+    availableElements.addAll(generators);
     for (TaskGenerator generator : generators) {
       if (generator instanceof PoolTaskGenerator) {
-        ((PoolTaskGenerator) generator).updateAvailableIndexes();
+        ((PoolTaskGenerator) generator).updateAvailableElements();
       } else if (generator instanceof GroupTaskGenerator) {
-        ((GroupTaskGenerator) generator).updateAvailableIndexes();
+        ((GroupTaskGenerator) generator).updateAvailableElements();
       }
     }
   }
 
   @Override
   public Task generate() {
-    while (!availableIndexes.isEmpty()) {
-      int randomIndex = random.nextInt(availableIndexes.size());
-      int generatorIndex = availableIndexes.get(randomIndex);
-      TaskGenerator generator = generators.stream().skip(generatorIndex).findFirst().orElse(null);
+    while (!availableElements.isEmpty()) {
+      int randomIndex = random.nextInt(availableElements.size());
+      TaskGenerator generator = availableElements.stream().skip(randomIndex).findFirst().orElse(null);
 
       try {
         assert generator != null;
         return generator.generate();
       } catch (Exception e) {
-        availableIndexes.remove(randomIndex);
+        availableElements.remove(generator);
       }
     }
 

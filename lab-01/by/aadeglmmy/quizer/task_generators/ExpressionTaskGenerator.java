@@ -76,7 +76,9 @@ public class ExpressionTaskGenerator implements TaskGenerator {
     if (operations.contains(Operation.DIVISION) && !(minNumber == 0 && maxNumber == 0)) {
       operators.append("/");
     }
-
+    if (operators.isEmpty()) {
+      throw new UnsupportedOperationException("No operations selected");
+    }
     int randomIndex = random.nextInt(operators.length());
     return String.valueOf(operators.charAt(randomIndex));
   }

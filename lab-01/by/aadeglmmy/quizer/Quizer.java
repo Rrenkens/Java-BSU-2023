@@ -62,8 +62,8 @@ public class Quizer {
     generators1.add(poolTaskGenerator3);
 
     TaskGenerator groupTaskGenerator1 = new GroupTaskGenerator(expressionTaskGenerator,
-        equationTaskGenerator, poolTaskGenerator3);
-    Quiz groupQuiz1 = new Quiz(groupTaskGenerator1, 10);
+        /*equationTaskGenerator,*/ poolTaskGenerator3);
+    Quiz groupQuiz1 = new Quiz(groupTaskGenerator1, 100);
     quizMap.put("Group", groupQuiz1);
 
     TaskGenerator groupTaskGenerator2 = new GroupTaskGenerator(generators1);
