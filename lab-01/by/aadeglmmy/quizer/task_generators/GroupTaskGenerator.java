@@ -52,7 +52,8 @@ public class GroupTaskGenerator implements TaskGenerator {
   public Task generate() {
     while (!availableElements.isEmpty()) {
       int randomIndex = random.nextInt(availableElements.size());
-      TaskGenerator generator = availableElements.stream().skip(randomIndex).findFirst().orElse(null);
+      TaskGenerator generator = availableElements.stream().skip(randomIndex).findFirst()
+          .orElse(null);
 
       try {
         assert generator != null;
