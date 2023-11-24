@@ -66,6 +66,9 @@ public class EquationTask extends AbstractMathTask {
                 if (result == 0) {
                     throw new ArithmeticException("Have a zero division");
                 }
+                if (number == 0) {
+                    throw new IllegalArgumentException("Uncertainty in the answer!");
+                }
                 taskText =  number + " / x = " + result;
                 answer = number / result;
             }

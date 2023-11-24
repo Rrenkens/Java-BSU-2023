@@ -5,14 +5,14 @@ import by.Dzenia.quizer.tasks.Task;
 
 import java.util.*;
 
-class GroupTaskGenerator implements TaskGenerator {
+public class GroupTaskGenerator implements TaskGenerator {
     private ArrayList<TaskGenerator> generators;
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupTaskGenerator(TaskGenerator... generators) {
         this.generators = new ArrayList<>(Arrays.asList(generators));
     }
 
@@ -21,7 +21,7 @@ class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
         this.generators = new ArrayList<>(generators);
     }
 

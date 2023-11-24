@@ -15,6 +15,12 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
             int precision,
             EnumSet<Operation> includedOperations
     ) {
+        if (precision < 0) {
+            throw new IllegalArgumentException("Precision cannot be negative");
+        }
+        if (maxNumber < minNumber) {
+            throw new IllegalArgumentException("MIN_NUMBER cannot be greater tha MAX_NUMBER");
+        }
         if (includedOperations.isEmpty()) {
             return;
         }
