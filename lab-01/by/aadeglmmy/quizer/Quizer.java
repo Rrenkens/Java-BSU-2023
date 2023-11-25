@@ -18,15 +18,25 @@ public class Quizer {
   static Map<String, Quiz> getQuizMap() {
     Map<String, Quiz> quizMap = new HashMap<>();
 
-    Task.Generator expressionTaskGenerator = new ExpressionTask.Generator(-10, 10,
+    Task.Generator expressionTaskGenerator1 = new ExpressionTask.Generator(-10, 10,
         EnumSet.allOf(Operation.class));
-    Quiz expressionQuiz = new Quiz(expressionTaskGenerator, 10);
-    quizMap.put("Expressions", expressionQuiz);
+    Quiz expressionQuiz1 = new Quiz(expressionTaskGenerator1, 10);
+    quizMap.put("Expressions", expressionQuiz1);
 
-    Task.Generator equationTaskGenerator = new EquationTask.Generator(-10, 10,
+    Task.Generator expressionTaskGenerator2 = new ExpressionTask.Generator(-10, 10, 3,
         EnumSet.allOf(Operation.class));
-    Quiz equationQuiz = new Quiz(equationTaskGenerator, 10);
-    quizMap.put("Equations", equationQuiz);
+    Quiz expressionQuiz2 = new Quiz(expressionTaskGenerator2, 10);
+    quizMap.put("Expressions with precision", expressionQuiz2);
+
+    Task.Generator equationTaskGenerator1 = new EquationTask.Generator(-10, 10,
+        EnumSet.allOf(Operation.class));
+    Quiz equationQuiz1 = new Quiz(equationTaskGenerator1, 10);
+    quizMap.put("Equations", equationQuiz1);
+
+    Task.Generator equationTaskGenerator2 = new EquationTask.Generator(-10, 10, 3,
+        EnumSet.allOf(Operation.class));
+    Quiz equationQuiz2 = new Quiz(equationTaskGenerator2, 10);
+    quizMap.put("Equations with precision", equationQuiz2);
 
     Collection<Task> tasks = new ArrayList<>();
     tasks.add(new TextTask("Translate 'apple'", "яблык"));
@@ -54,12 +64,12 @@ public class Quizer {
     quizMap.put("Pool's collection not allowing duplicates", poolQuiz4);
 
     Collection<Task.Generator> generators1 = new ArrayList<>();
-    generators1.add(expressionTaskGenerator);
-    generators1.add(equationTaskGenerator);
+    generators1.add(expressionTaskGenerator1);
+    generators1.add(equationTaskGenerator1);
     generators1.add(poolTaskGenerator3);
 
-    Task.Generator groupTaskGenerator1 = new GroupTaskGenerator(expressionTaskGenerator,
-        equationTaskGenerator, poolTaskGenerator3);
+    Task.Generator groupTaskGenerator1 = new GroupTaskGenerator(expressionTaskGenerator1,
+        equationTaskGenerator1, poolTaskGenerator3);
     Quiz groupQuiz1 = new Quiz(groupTaskGenerator1, 10);
     quizMap.put("Group", groupQuiz1);
 

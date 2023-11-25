@@ -5,44 +5,44 @@ import java.util.EnumSet;
 
 public class ExpressionTask extends AbstractMathTask {
 
-  public ExpressionTask(String text, String answer) {
+  public ExpressionTask(String text, double answer) {
     super(text, answer);
   }
 
   static public class Generator extends AbstractMathTask.Generator {
 
-    public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
+    public Generator(double minNumber, double maxNumber, int precision,
+        EnumSet<Operation> operations) {
 
-      super(minNumber, maxNumber, operations);
+      super(minNumber, maxNumber, precision, operations);
 
-      if (minNumber == 0 && maxNumber == 0 && !(operations.contains(Operation.SUM)
-          || operations.contains(Operation.DIFFERENCE) || operations.contains(
-          Operation.MULTIPLICATION))) {
+      if (Math.abs(minNumber) < Math.pow(10, -precision) && Math.abs(maxNumber) < Math.pow(10,
+          -precision) && !(operations.contains(Operation.SUM) || operations.contains(
+          Operation.DIFFERENCE) || operations.contains(Operation.MULTIPLICATION))) {
         throw new InvalidConfigurationException(
             "Invalid configuration: Cannot generate expressions.");
       }
     }
 
+    public Generator(double minNumber, double maxNumber, EnumSet<Operation> operations) {
+      this(minNumber, maxNumber, 0, operations);
+    }
+
     @Override
     public ExpressionTask generate() {
       String operator = getRandomOperator();
-      int num1 = getRandomNumber();
-      int num2 = getRandomNumber();
+      double num1 = getRandomNumber();
+      double num2 = getRandomNumber();
 
       if (operator.equals("/")) {
         while (num2 == 0) {
           num2 = getRandomNumber();
         }
       }
-      int answer = calculateAnswer(num1, num2, operator);
-      String text;
-      if (operator.equals("/")) {
-        text = createExpressionTaskText(num2 * answer, num2, operator);
-      } else {
-        text = createExpressionTaskText(num1, num2, operator);
-      }
+      double answer = calculateAnswer(num1, num2, operator);
+      String text = createExpressionTaskText(num1, num2, operator);
 
-      return new ExpressionTask(text, String.valueOf(answer));
+      return new ExpressionTask(text, answer);
     }
 
     @Override
@@ -57,7 +57,9 @@ public class ExpressionTask extends AbstractMathTask {
       if (operations.contains(Operation.MULTIPLICATION)) {
         operators.append("*");
       }
-      if (operations.contains(Operation.DIVISION) && !(minNumber == 0 && maxNumber == 0)) {
+      if (operations.contains(Operation.DIVISION) && !(
+          Math.abs(minNumber) < Math.pow(10, -precision) && Math.abs(maxNumber) < Math.pow(10,
+              -precision))) {
         operators.append("/");
       }
       if (operators.isEmpty()) {
@@ -67,7 +69,7 @@ public class ExpressionTask extends AbstractMathTask {
       return String.valueOf(operators.charAt(randomIndex));
     }
 
-    String createExpressionTaskText(int num1, int num2, String operator) {
+    String createExpressionTaskText(double num1, double num2, String operator) {
       return num1 + operator + num2 + "=";
     }
   }

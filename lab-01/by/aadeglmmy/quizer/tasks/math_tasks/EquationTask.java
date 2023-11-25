@@ -5,27 +5,33 @@ import java.util.EnumSet;
 
 public class EquationTask extends AbstractMathTask {
 
-  public EquationTask(String text, String answer) {
+  public EquationTask(String text, double answer) {
     super(text, answer);
   }
 
   static public class Generator extends AbstractMathTask.Generator {
 
-    public Generator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
-      super(minNumber, maxNumber, operations);
+    public Generator(double minNumber, double maxNumber, int precision,
+        EnumSet<Operation> operations) {
+      super(minNumber, maxNumber, precision, operations);
 
-      if (minNumber == 0 && maxNumber == 0 && !(operations.contains(Operation.SUM)
-          || operations.contains(Operation.DIFFERENCE))) {
+      if (Math.abs(minNumber) < Math.pow(10, -precision) && Math.abs(maxNumber) < Math.pow(10,
+          -precision) && !(operations.contains(Operation.SUM) || operations.contains(
+          Operation.DIFFERENCE))) {
         throw new InvalidConfigurationException(
             "Invalid configuration: Cannot generate equations.");
       }
     }
 
+    public Generator(double minNumber, double maxNumber, EnumSet<Operation> operations) {
+      this(minNumber, maxNumber, 0, operations);
+    }
+
     @Override
     public EquationTask generate() {
       String operator = getRandomOperator();
-      int num1 = getRandomNumber();
-      int num2 = getRandomNumber();
+      double num1 = getRandomNumber();
+      double num2 = getRandomNumber();
       if (operator.equals("/")) {
         while (num2 == 0) {
           num2 = getRandomNumber();
@@ -50,17 +56,12 @@ public class EquationTask extends AbstractMathTask {
           num2 = getRandomNumber();
         }
       }
-      int answer = calculateAnswer(num1, num2, operator);
-      if (operator.equals("/")) {
-        num1 = answer * num2;
-      }
-
+      double answer = calculateAnswer(num1, num2, operator);
       String text = createEquationTaskText(num1, num2, operator, answer, variation);
-
       if (variation) {
-        return new EquationTask(text, String.valueOf(num2));
+        return new EquationTask(text, num2);
       } else {
-        return new EquationTask(text, String.valueOf(num1));
+        return new EquationTask(text, num1);
       }
     }
 
@@ -73,7 +74,8 @@ public class EquationTask extends AbstractMathTask {
       if (operations.contains(Operation.DIFFERENCE)) {
         operators.append("-");
       }
-      if (!(minNumber == 0 && maxNumber == 0)) {
+      if (!(Math.abs(minNumber) < Math.pow(10, -precision) && Math.abs(maxNumber) < Math.pow(10,
+          -precision))) {
         if (operations.contains(Operation.MULTIPLICATION)) {
           operators.append("*");
         }
@@ -88,7 +90,7 @@ public class EquationTask extends AbstractMathTask {
       return String.valueOf(operators.charAt(randomIndex));
     }
 
-    String createEquationTaskText(int num1, int num2, String operator, int answer,
+    String createEquationTaskText(double num1, double num2, String operator, double answer,
         boolean variation) {
       String text;
       if (variation) {

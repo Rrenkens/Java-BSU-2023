@@ -7,9 +7,9 @@ import java.util.Random;
 public abstract class AbstractMathTask implements MathTask {
 
   private final String text;
-  private final String answer;
+  private final double answer;
 
-  public AbstractMathTask(String text, String answer) {
+  public AbstractMathTask(String text, double answer) {
     this.text = text;
     this.answer = answer;
   }
@@ -21,11 +21,14 @@ public abstract class AbstractMathTask implements MathTask {
 
   @Override
   public Result validate(String answer) {
-    if (answer == null || answer.isEmpty()) {
+    double userAnswer;
+    try {
+      userAnswer = Double.parseDouble(answer);
+    } catch (NumberFormatException exception) {
       return Result.INCORRECT_INPUT;
     }
 
-    if (this.answer.equals(answer)) {
+    if (this.answer == userAnswer) {
       return Result.OK;
     } else {
       return Result.WRONG;
@@ -34,12 +37,14 @@ public abstract class AbstractMathTask implements MathTask {
 
   protected static abstract class Generator implements MathTask.Generator {
 
-    protected int minNumber;
-    protected int maxNumber;
+    protected double minNumber;
+    protected double maxNumber;
     protected EnumSet<Operation> operations;
+    protected int precision;
     protected Random random = new Random();
 
-    protected Generator(int minNumber, int maxNumber, EnumSet<MathTask.Operation> operations) {
+    protected Generator(double minNumber, double maxNumber, int precision,
+        EnumSet<Operation> operations) {
       if (maxNumber < minNumber) {
         throw new IllegalArgumentException("maxNumber cannot be less than minNumber");
       }
@@ -48,18 +53,27 @@ public abstract class AbstractMathTask implements MathTask {
         throw new UnsupportedOperationException("No operations selected");
       }
 
+      if (precision < 0) {
+        throw new IllegalArgumentException("Precision can't be negative");
+      }
+
       this.minNumber = minNumber;
       this.maxNumber = maxNumber;
+      this.precision = precision;
       this.operations = operations;
     }
 
+    protected Generator(double minNumber, double maxNumber, EnumSet<Operation> operations) {
+      this(minNumber, maxNumber, 0, operations);
+    }
+
     @Override
-    public int getMinNumber() {
+    public double getMinNumber() {
       return minNumber;
     }
 
     @Override
-    public int getMaxNumber() {
+    public double getMaxNumber() {
       return maxNumber;
     }
 
@@ -68,15 +82,18 @@ public abstract class AbstractMathTask implements MathTask {
       return null;
     }
 
-    protected int getRandomNumber() {
-      return random.nextInt(maxNumber - minNumber + 1) + minNumber;
+    protected double getRandomNumber() {
+      double diff = getDiffNumber();
+      double randomNumber = minNumber + diff * random.nextDouble();
+      double precisionFactor = Math.pow(10, precision);
+      return Math.round(randomNumber * precisionFactor) / precisionFactor;
     }
 
     protected String getRandomOperator() {
       return null;
     }
 
-    protected int calculateAnswer(int num1, int num2, String operator) {
+    protected double calculateAnswer(double num1, double num2, String operator) {
       return switch (operator) {
         case "+" -> num1 + num2;
         case "-" -> num1 - num2;

@@ -10,11 +10,11 @@ public interface MathTask extends Task {
 
   interface Generator extends Task.Generator {
 
-    int getMinNumber();
+    double getMinNumber();
 
-    int getMaxNumber();
+    double getMaxNumber();
 
-    default int getDiffNumber() {
+    default double getDiffNumber() {
       return getMaxNumber() - getMinNumber();
     }
   }
