@@ -7,7 +7,7 @@ import by.aadeglmmy.quizer.task_generators.PoolTaskGenerator;
 
 public class Quiz {
 
-  private final TaskGenerator generator;
+  private final Task.Generator generator;
   private final int taskCount;
   private int currentTaskIndex = 0;
   private int correctAnswerNumber = 0;
@@ -16,7 +16,7 @@ public class Quiz {
   private Task task = null;
   private boolean incorrectInputFlag = false;
 
-  Quiz(TaskGenerator generator, int taskCount) {
+  Quiz(Task.Generator generator, int taskCount) {
     if (taskCount < 1) {
       throw new IllegalArgumentException("There must be at least one task");
     }
@@ -97,10 +97,9 @@ public class Quiz {
     return (double) correctAnswerNumber / taskCount;
   }
 
-
   private int countTasksInTheGroup(GroupTaskGenerator generator) {
     int count = 0;
-    for (TaskGenerator subGenerator : generator.getGenerators()) {
+    for (Task.Generator subGenerator : generator.getGenerators()) {
       if (subGenerator instanceof PoolTaskGenerator) {
         if (((PoolTaskGenerator) subGenerator).getAllowDuplicate()) {
           return -1;

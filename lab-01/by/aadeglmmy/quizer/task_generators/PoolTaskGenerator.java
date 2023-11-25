@@ -1,14 +1,13 @@
 package by.aadeglmmy.quizer.task_generators;
 
 import by.aadeglmmy.quizer.Task;
-import by.aadeglmmy.quizer.TaskGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-public class PoolTaskGenerator implements TaskGenerator {
+public class PoolTaskGenerator implements Task.Generator {
 
   private final Collection<Task> tasks;
   private final Random random = new Random();

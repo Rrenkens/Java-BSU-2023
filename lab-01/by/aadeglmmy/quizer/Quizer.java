@@ -1,13 +1,10 @@
 package by.aadeglmmy.quizer;
 
-import by.aadeglmmy.quizer.task_generators.EquationTaskGenerator;
-import by.aadeglmmy.quizer.task_generators.ExpressionTaskGenerator;
 import by.aadeglmmy.quizer.task_generators.GroupTaskGenerator;
 import by.aadeglmmy.quizer.task_generators.PoolTaskGenerator;
-import by.aadeglmmy.quizer.task_generators.math_task_generators.EquationMathTaskGenerator;
-import by.aadeglmmy.quizer.task_generators.math_task_generators.ExpressionMathTaskGenerator;
-import by.aadeglmmy.quizer.task_generators.math_task_generators.MathTaskGenerator;
 import by.aadeglmmy.quizer.tasks.TextTask;
+import by.aadeglmmy.quizer.tasks.math_tasks.EquationTask;
+import by.aadeglmmy.quizer.tasks.math_tasks.ExpressionTask;
 import by.aadeglmmy.quizer.tasks.math_tasks.MathTask.Operation;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,12 +18,12 @@ public class Quizer {
   static Map<String, Quiz> getQuizMap() {
     Map<String, Quiz> quizMap = new HashMap<>();
 
-    TaskGenerator expressionTaskGenerator = new ExpressionTaskGenerator(-10, 10,
+    Task.Generator expressionTaskGenerator = new ExpressionTask.Generator(-10, 10,
         EnumSet.allOf(Operation.class));
     Quiz expressionQuiz = new Quiz(expressionTaskGenerator, 10);
     quizMap.put("Expressions", expressionQuiz);
 
-    TaskGenerator equationTaskGenerator = new EquationTaskGenerator(-10, 10,
+    Task.Generator equationTaskGenerator = new EquationTask.Generator(-10, 10,
         EnumSet.allOf(Operation.class));
     Quiz equationQuiz = new Quiz(equationTaskGenerator, 10);
     quizMap.put("Equations", equationQuiz);
@@ -36,76 +33,39 @@ public class Quizer {
     tasks.add(new TextTask("Translate 'cat'", "кот"));
     tasks.add(new TextTask("Translate 'paper'", "папера"));
 
-    TaskGenerator poolTaskGenerator1 = new PoolTaskGenerator(true,
+    Task.Generator poolTaskGenerator1 = new PoolTaskGenerator(true,
         new TextTask("Translate 'apple'", "яблык"), new TextTask("Translate 'cat'", "кот"),
         new TextTask("Translate 'paper'", "папера"));
     Quiz poolQuiz1 = new Quiz(poolTaskGenerator1, 10);
     quizMap.put("Pool allowing duplicates", poolQuiz1);
 
-    TaskGenerator poolTaskGenerator2 = new PoolTaskGenerator(true, tasks);
+    Task.Generator poolTaskGenerator2 = new PoolTaskGenerator(true, tasks);
     Quiz poolQuiz2 = new Quiz(poolTaskGenerator2, 10);
     quizMap.put("Pool's collection allowing duplicates", poolQuiz2);
 
-    TaskGenerator poolTaskGenerator3 = new PoolTaskGenerator(false,
+    Task.Generator poolTaskGenerator3 = new PoolTaskGenerator(false,
         new TextTask("Translate 'apple'", "яблык"), new TextTask("Translate 'cat'", "кот"),
         new TextTask("Translate 'paper'", "папера"));
     Quiz poolQuiz3 = new Quiz(poolTaskGenerator3, 2);
     quizMap.put("Pool not allowing duplicates", poolQuiz3);
 
-    TaskGenerator poolTaskGenerator4 = new PoolTaskGenerator(false, tasks);
+    Task.Generator poolTaskGenerator4 = new PoolTaskGenerator(false, tasks);
     Quiz poolQuiz4 = new Quiz(poolTaskGenerator4, 2);
     quizMap.put("Pool's collection not allowing duplicates", poolQuiz4);
 
-    Collection<TaskGenerator> generators1 = new ArrayList<>();
+    Collection<Task.Generator> generators1 = new ArrayList<>();
     generators1.add(expressionTaskGenerator);
     generators1.add(equationTaskGenerator);
     generators1.add(poolTaskGenerator3);
 
-    TaskGenerator groupTaskGenerator1 = new GroupTaskGenerator(expressionTaskGenerator,
+    Task.Generator groupTaskGenerator1 = new GroupTaskGenerator(expressionTaskGenerator,
         equationTaskGenerator, poolTaskGenerator3);
     Quiz groupQuiz1 = new Quiz(groupTaskGenerator1, 10);
     quizMap.put("Group", groupQuiz1);
 
-    TaskGenerator groupTaskGenerator2 = new GroupTaskGenerator(generators1);
+    Task.Generator groupTaskGenerator2 = new GroupTaskGenerator(generators1);
     Quiz groupQuiz2 = new Quiz(groupTaskGenerator2, 10);
     quizMap.put("Group's collection", groupQuiz2);
-
-    MathTaskGenerator expressionMathTaskGenerator = new ExpressionMathTaskGenerator(-10, 10, true,
-        true, true, true);
-    Quiz expressionMathQuiz = new Quiz(expressionMathTaskGenerator, 10);
-    quizMap.put("Abstract expressions", expressionMathQuiz);
-
-    MathTaskGenerator equationMathTaskGenerator = new EquationMathTaskGenerator(-10, 10, true, true,
-        true, true);
-    Quiz equationMathQuiz = new Quiz(equationMathTaskGenerator, 10);
-    quizMap.put("Abstract equations", equationMathQuiz);
-
-    Collection<TaskGenerator> generators2 = new ArrayList<>();
-    generators2.add(expressionMathTaskGenerator);
-    generators2.add(equationMathTaskGenerator);
-    generators2.add(poolTaskGenerator2);
-
-    TaskGenerator groupTaskGenerator3 = new GroupTaskGenerator(expressionMathTaskGenerator,
-        equationMathTaskGenerator, poolTaskGenerator2);
-    Quiz groupQuiz3 = new Quiz(groupTaskGenerator3, 10);
-    quizMap.put("Group with abstract generators", groupQuiz3);
-
-    TaskGenerator groupTaskGenerator4 = new GroupTaskGenerator(generators2);
-    Quiz groupQuiz4 = new Quiz(groupTaskGenerator4, 10);
-    quizMap.put("Group's collection with abstract generators", groupQuiz4);
-
-    Collection<TaskGenerator> generators3 = new ArrayList<>();
-    generators3.add(groupTaskGenerator1);
-    generators3.add(groupTaskGenerator4);
-
-    TaskGenerator groupTaskGenerator5 = new GroupTaskGenerator(groupTaskGenerator1,
-        groupTaskGenerator4);
-    Quiz groupQuiz5 = new Quiz(groupTaskGenerator5, 10);
-    quizMap.put("Group with groups", groupQuiz5);
-
-    TaskGenerator groupTaskGenerator6 = new GroupTaskGenerator(generators3);
-    Quiz groupQuiz6 = new Quiz(groupTaskGenerator6, 10);
-    quizMap.put("Group's collection with groups", groupQuiz6);
 
     return quizMap;
   }
