@@ -59,10 +59,19 @@ public class EquationTask extends AbstractMathTask {
       double answer = calculateAnswer(num1, num2, operator);
       String text = createEquationTaskText(num1, num2, operator, answer, variation);
       if (variation) {
-        return new EquationTask(text, num2);
+        if (operator.equals("/")) {
+          answer = num1 / answer;
+        } else {
+          answer = num2;
+        }
       } else {
-        return new EquationTask(text, num1);
+        if (operator.equals("/")) {
+          answer = answer * num2;
+        } else {
+          answer = num1;
+        }
       }
+      return new EquationTask(text, Math.round(answer * precisionFactor) / precisionFactor);
     }
 
     @Override
@@ -74,8 +83,8 @@ public class EquationTask extends AbstractMathTask {
       if (operations.contains(Operation.DIFFERENCE)) {
         operators.append("-");
       }
-      if (!(Math.abs(minNumber) < Math.pow(10, -precision) && Math.abs(maxNumber) < Math.pow(10,
-          -precision))) {
+      double compared = 1 / precisionFactor;
+      if (!(Math.abs(minNumber) < compared && Math.abs(maxNumber) < compared)) {
         if (operations.contains(Operation.MULTIPLICATION)) {
           operators.append("*");
         }

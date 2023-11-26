@@ -13,9 +13,7 @@ public class ExpressionTask extends AbstractMathTask {
 
     public Generator(double minNumber, double maxNumber, int precision,
         EnumSet<Operation> operations) {
-
       super(minNumber, maxNumber, precision, operations);
-
       if (Math.abs(minNumber) < Math.pow(10, -precision) && Math.abs(maxNumber) < Math.pow(10,
           -precision) && !(operations.contains(Operation.SUM) || operations.contains(
           Operation.DIFFERENCE) || operations.contains(Operation.MULTIPLICATION))) {
@@ -41,7 +39,6 @@ public class ExpressionTask extends AbstractMathTask {
       }
       double answer = calculateAnswer(num1, num2, operator);
       String text = createExpressionTaskText(num1, num2, operator);
-
       return new ExpressionTask(text, answer);
     }
 
@@ -57,9 +54,9 @@ public class ExpressionTask extends AbstractMathTask {
       if (operations.contains(Operation.MULTIPLICATION)) {
         operators.append("*");
       }
-      if (operations.contains(Operation.DIVISION) && !(
-          Math.abs(minNumber) < Math.pow(10, -precision) && Math.abs(maxNumber) < Math.pow(10,
-              -precision))) {
+      double compared = 1 / precisionFactor;
+      if (operations.contains(Operation.DIVISION) && !(Math.abs(minNumber) < compared
+          && Math.abs(maxNumber) < compared)) {
         operators.append("/");
       }
       if (operators.isEmpty()) {

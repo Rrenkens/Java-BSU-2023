@@ -28,7 +28,10 @@ public abstract class AbstractMathTask implements MathTask {
       return Result.INCORRECT_INPUT;
     }
 
-    if (this.answer == userAnswer) {
+    String strAnswer = Double.toString(this.answer);
+    int precision = strAnswer.length() - strAnswer.indexOf('.') - 1;
+
+    if (Math.abs(this.answer - userAnswer) < Math.pow(10, -precision) / 2) {
       return Result.OK;
     } else {
       return Result.WRONG;
@@ -42,6 +45,7 @@ public abstract class AbstractMathTask implements MathTask {
     protected EnumSet<Operation> operations;
     protected int precision;
     protected Random random = new Random();
+    protected double precisionFactor;
 
     protected Generator(double minNumber, double maxNumber, int precision,
         EnumSet<Operation> operations) {
@@ -61,10 +65,7 @@ public abstract class AbstractMathTask implements MathTask {
       this.maxNumber = maxNumber;
       this.precision = precision;
       this.operations = operations;
-    }
-
-    protected Generator(double minNumber, double maxNumber, EnumSet<Operation> operations) {
-      this(minNumber, maxNumber, 0, operations);
+      precisionFactor = Math.pow(10, precision);
     }
 
     @Override
@@ -85,7 +86,6 @@ public abstract class AbstractMathTask implements MathTask {
     protected double getRandomNumber() {
       double diff = getDiffNumber();
       double randomNumber = minNumber + diff * random.nextDouble();
-      double precisionFactor = Math.pow(10, precision);
       return Math.round(randomNumber * precisionFactor) / precisionFactor;
     }
 
@@ -94,13 +94,14 @@ public abstract class AbstractMathTask implements MathTask {
     }
 
     protected double calculateAnswer(double num1, double num2, String operator) {
-      return switch (operator) {
+      double rawAnswer = switch (operator) {
         case "+" -> num1 + num2;
         case "-" -> num1 - num2;
         case "*" -> num1 * num2;
         case "/" -> num1 / num2;
-        default -> throw new IllegalArgumentException("Invalid operator: " + operator);
+        default -> throw new IllegalArgumentException("Illegal operator: " + operator);
       };
+      return Math.round(rawAnswer * precisionFactor) / precisionFactor;
     }
   }
 }

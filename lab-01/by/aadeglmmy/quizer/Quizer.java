@@ -42,10 +42,13 @@ public class Quizer {
     tasks.add(new TextTask("Translate 'apple'", "яблык"));
     tasks.add(new TextTask("Translate 'cat'", "кот"));
     tasks.add(new TextTask("Translate 'paper'", "папера"));
+    tasks.add(new ExpressionTask("3+7=", 10));
+    tasks.add(new EquationTask("3.55/x=2.285", 1.553));
 
     Task.Generator poolTaskGenerator1 = new PoolTaskGenerator(true,
         new TextTask("Translate 'apple'", "яблык"), new TextTask("Translate 'cat'", "кот"),
-        new TextTask("Translate 'paper'", "папера"));
+        new TextTask("Translate 'paper'", "папера"), new ExpressionTask("3+7=", 10),
+        new EquationTask("3.55/x=2.285", 1.553));
     Quiz poolQuiz1 = new Quiz(poolTaskGenerator1, 10);
     quizMap.put("Pool allowing duplicates", poolQuiz1);
 
@@ -60,7 +63,7 @@ public class Quizer {
     quizMap.put("Pool not allowing duplicates", poolQuiz3);
 
     Task.Generator poolTaskGenerator4 = new PoolTaskGenerator(false, tasks);
-    Quiz poolQuiz4 = new Quiz(poolTaskGenerator4, 2);
+    Quiz poolQuiz4 = new Quiz(poolTaskGenerator4, 4);
     quizMap.put("Pool's collection not allowing duplicates", poolQuiz4);
 
     Collection<Task.Generator> generators1 = new ArrayList<>();
