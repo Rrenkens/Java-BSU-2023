@@ -1,8 +1,8 @@
 package by.Lenson423.docks_and_hobos;
 
 public class Ship {
-    final int shipCapacity;
-    final String shipType;
+    private final int shipCapacity;
+    private final String shipType;
 
     Ship(int shipCapacity, String shipType){
         if (shipCapacity < 0){
@@ -13,5 +13,13 @@ public class Ship {
             throw new IllegalArgumentException("Ship type is empty");
         }
         this.shipType = shipType;
+    }
+
+    public int getShipCapacity() {
+        return shipCapacity;
+    }
+
+    public String getShipType() {
+        return shipType;
     }
 }
