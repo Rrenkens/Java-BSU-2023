@@ -43,10 +43,8 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
 
         int answer = calculateAnswer(num1, num2, operator);
         if (operator == Operation.DIVISION) {
-            if (xOnFirstPosition) {
-                num2 = answer * num1;
-            } else {       
-                num1 = answer * num2;
+            if (!xOnFirstPosition) {
+              num1 = answer * num2;
             }
         }
         String taskText = generateTaskText(num1, num2, operator, xOnFirstPosition);
@@ -64,7 +62,7 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
             case MULTIPLICATION:
                 return num1 * num2;
             case DIVISION:
-                if (xOnFirstPosition) return num2 / num1;
+                if (xOnFirstPosition) return num2 * num1;
                 return num1 / num2;
             default:
                 throw new IllegalArgumentException("Invalid operator: " + operator);
