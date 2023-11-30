@@ -17,7 +17,7 @@ public class TextTask implements Task {
      * @param text   текст задания
      * @param answer ответ на задание
      */
-    TextTask(
+    public TextTask(
             String text,
             String answer
     ) {
