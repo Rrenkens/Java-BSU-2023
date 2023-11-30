@@ -4,7 +4,6 @@ public class RealExpressionMathTask extends AbstractRealMathTask {
 
     public RealExpressionMathTask(String text, double answer) {
         super(text, answer);
-        //TODO Auto-generated constructor stub
     }
     
 }

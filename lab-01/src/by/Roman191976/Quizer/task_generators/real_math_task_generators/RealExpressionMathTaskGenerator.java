@@ -20,30 +20,29 @@ public class RealExpressionMathTaskGenerator extends AbstractRealMathTaskGenerat
     public RealExpressionMathTask generate() {
         double num1 = generateRandomNumber();
         double num2 = generateRandomNumber();
-        double num3 = generateRandomNumber();
-        double answer = calculateAnswer(num1, num2, num3, operation);
+        double answer = calculateAnswer(num1, num2, operation);
         answer = round(answer, precision);
-        String taskText = generateTaskText(num1, num2, num3, operation);
+        String taskText = generateTaskText(num1, num2, operation);
 
         return new RealExpressionMathTask(taskText, answer);
     }
 
-    private double calculateAnswer(double num1, double num2, double num3, RealMathTask.Operation operation) {
+    private double calculateAnswer(double num1, double num2,RealMathTask.Operation operation) {
         switch (operation) {
             case SUM:
-                return num1 + num2 + num3;
+                return num1 + num2;
             case DIFFERENCE:
-                return num1 - num2 - num3;
+                return num1 - num2;
             case MULTIPLICATION:
-                return num1 * num2 * num3;
+                return num1 * num2;
             case DIVISION:
-                return num1 / num2 / num3;
+                return num1 / num2;
             default:
                 throw new IllegalArgumentException("Invalid operator: " + operation);
         }
     }
 
-    private String generateTaskText(double num1, double num2, double num3, RealMathTask.Operation operation) {
+    private String generateTaskText(double num1, double num2, RealMathTask.Operation operation) {
         String operatorSymbol;
         switch (operation) {
             case SUM:
@@ -62,6 +61,6 @@ public class RealExpressionMathTaskGenerator extends AbstractRealMathTaskGenerat
                 throw new IllegalArgumentException("Invalid operator: " + operation);
         }
 
-        return "(" + num1 + " " + operatorSymbol + " " + num2 + ") " + operatorSymbol + " " + num3;
+        return num1 + " " + operatorSymbol + " " + num2 + " = ";
     }
 }

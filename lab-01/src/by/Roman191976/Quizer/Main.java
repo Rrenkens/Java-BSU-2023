@@ -8,8 +8,11 @@ import java.util.Map;
 import java.util.Scanner;
 
 import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;
+import by.Roman191976.Quizer.tasks.real_math_tasks.RealMathTask;
 import by.Roman191976.Quizer.task_generators.math_task_generators.EquationMathTaskGenerator;
 import by.Roman191976.Quizer.task_generators.math_task_generators.ExpressionMathTaskGenerator;
+import by.Roman191976.Quizer.task_generators.real_math_task_generators.RealEquationMathTaskGenerator;
+import by.Roman191976.Quizer.task_generators.real_math_task_generators.RealExpressionMathTaskGenerator;
 
 public class Main {
        public static void main(String[] args) {
@@ -82,13 +85,14 @@ public class Main {
         Quiz poolQuizFromCollection = new Quiz(poolTaskGeneratorFromCollection, 3);
         quizMap.put("Pool Quiz From Collection 2", poolQuizFromCollection);
 
+        EnumSet<Operation> enumOpMath = EnumSet.of(Operation.SUM, Operation.DIFFERENCE, Operation.MULTIPLICATION, Operation.DIVISION);
 
-        TaskGenerator equationTaskGenerator = new EquationTaskGenerator(1, 20, true, true, true, true);
+        TaskGenerator equationTaskGenerator = new EquationMathTaskGenerator(1, 20, enumOpMath);
         Quiz equationQuiz = new Quiz(equationTaskGenerator, 8);
         quizMap.put("Equation Quiz 3", equationQuiz);
 
-  
-        TaskGenerator expressionTaskGenerator = new ExpressionTaskGenerator(1, 20, true, true, true, true);
+        enumOpMath = EnumSet.of(Operation.SUM, Operation.DIVISION);
+        TaskGenerator expressionTaskGenerator = new ExpressionMathTaskGenerator(1, 20, enumOpMath);
         Quiz expressionQuiz = new Quiz(expressionTaskGenerator, 6);
         quizMap.put("Expression Quiz 4", expressionQuiz);
 
@@ -109,9 +113,19 @@ public class Main {
          Quiz groupMathQuiz = new Quiz(groupMathTaskGenerator, 4);
          quizMap.put("Group Math Quiz 7", groupMathQuiz);
 
-        TaskGenerator equationTaskGeneratorWithDivision = new EquationTaskGenerator(1, 20, false, false, false, true);
-        Quiz equationQuizWithDivision = new Quiz(equationTaskGeneratorWithDivision, 8);
+
+        enumOpMath = EnumSet.of(Operation.DIVISION);
+        TaskGenerator equationMathTaskGeneratorWithDivision = new EquationMathTaskGenerator(1, 20, enumOpMath);
+        Quiz equationQuizWithDivision = new Quiz(equationMathTaskGeneratorWithDivision, 8);
         quizMap.put("Equation Quiz With Division 8", equationQuizWithDivision);
+
+        EnumSet<RealMathTask.Operation> enumOpReal = EnumSet.of(RealMathTask.Operation.SUM, RealMathTask.Operation.DIFFERENCE, RealMathTask.Operation.MULTIPLICATION, RealMathTask.Operation.DIVISION);
+         RealEquationMathTaskGenerator realEquationMathTaskGenerator = new RealEquationMathTaskGenerator(1.0, 20.0, enumOpReal, 2);
+         RealExpressionMathTaskGenerator realExpressionMathTaskGenerator = new RealExpressionMathTaskGenerator(1.0, 20.0, enumOpReal, 2);
+        TaskGenerator realGroupMathTaskGenerator = new GroupTaskGenerator(realEquationMathTaskGenerator, realExpressionMathTaskGenerator, poolTaskGenerator);
+         Quiz RealMathQuiz = new Quiz(realGroupMathTaskGenerator, 8);
+        quizMap.put("Real Math Quiz 9", RealMathQuiz);
+
         return quizMap;
     }
 }

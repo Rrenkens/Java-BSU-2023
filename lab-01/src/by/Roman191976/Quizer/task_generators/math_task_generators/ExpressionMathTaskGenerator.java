@@ -8,7 +8,6 @@ import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;
 public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
     public ExpressionMathTaskGenerator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
         super(minNumber, maxNumber, operations);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -23,6 +22,9 @@ public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
         }
 
         int answer = calculateAnswer(num1, num2, operator);
+        if (operator == Operation.DIVISION) {
+            num1 = answer * num2;
+        }
         String taskText = generateTaskText(num1, num2, operator);
 
         return new ExpressionMathTask(taskText, answer);

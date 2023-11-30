@@ -9,7 +9,6 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
     public EquationMathTaskGenerator(int minNumber, int maxNumber,
             EnumSet<by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation> operations) {
         super(minNumber, maxNumber, operations);
-        //TODO Auto-generated constructor stub
     }
 
     boolean xOnFirstPosition;
@@ -24,7 +23,7 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
 
         if (xOnFirstPosition) {
             operator = generateRandomOperator();    
-            if (operator.equals("*") | operator.equals("/")) { 
+            if (operator.equals(Operation.MULTIPLICATION) | operator.equals(Operation.DIVISION)) { 
                 num1 = generateRandomNumberExceptZero();
                 num2 = generateRandomNumber();
             } else {
@@ -33,7 +32,7 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
             }
         } else {
             operator = generateRandomOperator();    
-            if (operator.equals("*") | operator.equals("/")) { 
+            if (operator.equals(Operation.MULTIPLICATION) | operator.equals(Operation.DIVISION)) { 
                 num1 = generateRandomNumber();
                 num2 = generateRandomNumberExceptZero();
             } else {
@@ -43,6 +42,13 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
         }
 
         int answer = calculateAnswer(num1, num2, operator);
+        if (operator == Operation.DIVISION) {
+            if (xOnFirstPosition) {
+                num2 = answer * num1;
+            } else {       
+                num1 = answer * num2;
+            }
+        }
         String taskText = generateTaskText(num1, num2, operator, xOnFirstPosition);
 
         return new EquationMathTask(taskText, answer);

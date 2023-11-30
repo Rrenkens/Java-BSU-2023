@@ -13,9 +13,9 @@ public abstract class AbstractRealMathTask implements RealMathTask {
 
     @Override
     public Result validate(String userAnswer) {
-        int parsedAnswer;
+        double parsedAnswer;
         try {
-            parsedAnswer = Integer.parseInt(userAnswer);
+            parsedAnswer = Double.parseDouble(userAnswer);
         } catch (NumberFormatException e) {
             return Result.INCORRECT_INPUT;
         }
