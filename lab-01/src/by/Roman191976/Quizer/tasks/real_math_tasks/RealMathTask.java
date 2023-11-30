@@ -1,11 +1,11 @@
-package by.Roman191976.Quizer.tasks.math_tasks;
+package by.Roman191976.Quizer.tasks.real_math_tasks;
  
 import by.Roman191976.Quizer.Task;
 
 /**
  * MathTask
  */
-public interface MathTask extends Task {
+public interface RealMathTask extends Task {
     enum Operation {
         SUM,
         DIFFERENCE,

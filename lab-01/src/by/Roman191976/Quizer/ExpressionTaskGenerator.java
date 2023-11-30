@@ -49,10 +49,11 @@ class ExpressionTaskGenerator implements TaskGenerator {
         } else {
            num2 = generateRandomNumber();
         }
-
-        int answer = calculateAnswer(num1, num2, operator);
-        String taskText = generateTaskText(num1, num2, operator);
-
+        if (operator.equals("/")) {
+            num1 = (num1 / num2 * num2 < minNumber) ? (num1 / num2 * num2) : ((num1 + num2)/ num2 * num2);
+        }
+            int answer = calculateAnswer(num1, num2, operator);
+            String taskText = generateTaskText(num1, num2, operator);
         return new ExpressionTask(taskText, answer);
     }
 

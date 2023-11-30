@@ -1,57 +1,34 @@
 package by.Roman191976.Quizer.task_generators.math_task_generators;
+import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;
 
 import java.util.Random;
-
-import by.Roman191976.Quizer.task_generators.MathTaskGenerator;
+import java.util.EnumSet;
 
 public abstract class AbstractMathGenerator implements MathTaskGenerator {
     private int minNumber;
     private int maxNumber;
-    private boolean generateSum;
-    private boolean generateDifference;
-    private boolean generateMultiplication;
-    private boolean generateDivision;
+    private EnumSet<Operation> operations;
     public Random random;
 
     public AbstractMathGenerator(
-        int minNumber,
-        int maxNumber,
-        boolean generateSum,
-        boolean generateDifference,
-        boolean generateMultiplication,
-        boolean generateDivision) {
-            this.minNumber = minNumber;
-            this.maxNumber = maxNumber;
-            if (getDiffNumber() < 0) {
-                throw new IllegalArgumentException("нижняя граница больше верхней");
-            }
-            this.generateSum = generateSum;
-            this.generateDifference = generateDifference;
-            this.generateMultiplication = generateMultiplication;
-            this.generateDivision = generateDivision;
-            this.random = new Random();
+            int minNumber,
+            int maxNumber,
+            EnumSet<Operation> operations) {
+        this.minNumber = minNumber;
+        this.maxNumber = maxNumber;
+        if (minNumber > maxNumber) {
+            throw new IllegalArgumentException("нижняя граница больше верхней");
         }
+        this.operations = operations;
+        this.random = new Random();
+    }
 
-        public String generateRandomOperator() {
-            StringBuilder operators = new StringBuilder();
-            if (generateSum) {
-                operators.append("+");
-            }
-            if (generateDifference) {
-                operators.append("-");
-            }
-            if (generateMultiplication) {
-                operators.append("*");
-            }
-            if (generateDivision) {
-                operators.append("/");
-            }
-    
-            int index = random.nextInt(operators.length());
-            return String.valueOf(operators.charAt(index));
-        }
+    public Operation generateRandomOperator() {
+        Operation[] availableOperations = operations.toArray(new Operation[0]);
+        int index = random.nextInt(availableOperations.length);
+        return availableOperations[index];
+    }
 
-        
     public int generateRandomNumber() {
         return random.nextInt(maxNumber - minNumber + 1) + minNumber;
     }

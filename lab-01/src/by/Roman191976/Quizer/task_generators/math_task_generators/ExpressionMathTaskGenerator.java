@@ -1,25 +1,25 @@
 package by.Roman191976.Quizer.task_generators.math_task_generators;
 
-import by.Roman191976.Quizer.tasks.math_tasks.*;;
+import java.util.EnumSet;
+
+import by.Roman191976.Quizer.tasks.math_tasks.*;
+import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;
 
 public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
-
-    public ExpressionMathTaskGenerator(int minNumber, int maxNumber, boolean generateSum, boolean generateDifference,
-            boolean generateMultiplication, boolean generateDivision) {
-        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
+    public ExpressionMathTaskGenerator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
+        super(minNumber, maxNumber, operations);
         //TODO Auto-generated constructor stub
     }
 
-
-  @Override
+    @Override
     public ExpressionMathTask generate() {
-        String operator = generateRandomOperator();
+        Operation operator = generateRandomOperator();
         int num1 = generateRandomNumber();
         int num2;
-        if (operator.equals("/")) {
+        if (operator == Operation.DIVISION) {
             num2 = generateRandomNumberExceptZero();
         } else {
-           num2 = generateRandomNumber();
+            num2 = generateRandomNumber();
         }
 
         int answer = calculateAnswer(num1, num2, operator);
@@ -27,23 +27,40 @@ public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
 
         return new ExpressionMathTask(taskText, answer);
     }
-    
-    private int calculateAnswer(int num1, int num2, String operator) {
+
+    private int calculateAnswer(int num1, int num2, Operation operator) {
         switch (operator) {
-            case "+":
+            case SUM:
                 return num1 + num2;
-            case "-":
+            case DIFFERENCE:
                 return num1 - num2;
-            case "*":
+            case MULTIPLICATION:
                 return num1 * num2;
-            case "/":
+            case DIVISION:
                 return num1 / num2;
             default:
                 throw new IllegalArgumentException("Invalid operator: " + operator);
         }
     }
 
-    private String generateTaskText(int num1, int num2, String operator) {
-        return num1 + " " + operator + " " + num2 +  " =";
+    private String generateTaskText(int num1, int num2, Operation operator) {
+        String operatorSymbol;
+        switch (operator) {
+            case SUM:
+                operatorSymbol = "+";
+                break;
+            case DIFFERENCE:
+                operatorSymbol = "-";
+                break;
+            case MULTIPLICATION:
+                operatorSymbol = "*";
+                break;
+            case DIVISION:
+                operatorSymbol = "/";
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operator: " + operator);
+        }
+        return num1 + " " + operatorSymbol + " " + num2 + " =";
     }
 }

@@ -56,7 +56,18 @@ class EquationTaskGenerator implements TaskGenerator {
             }
         }
 
+ // for x in second position
+            num1 = (num1 / num2 * num2 > minNumber) ? (num1 / num2 * num2) : ((num1 + num2)/ num2 * num2);
+
         int answer = calculateAnswer(num1, num2, operator);
+
+        if (xOnFirstPosition) {
+            // swap answer and num1
+            num1 = num1 + answer;
+            answer = num1 - answer;
+            num1 = num1 - answer;
+        }
+
         String taskText = generateTaskText(num1, num2, operator, xOnFirstPosition);
 
         return new EquationTask(taskText, answer);
@@ -100,7 +111,7 @@ class EquationTaskGenerator implements TaskGenerator {
             case "*":
                 return num2 / num1;
             case "/":
-                if (xOnFirstPosition) return num1 * num2;
+                // if (xOnFirstPosition) return num1 * num2;
                 return num1 / num2;
             default:
                 throw new IllegalArgumentException("Invalid operator: " + operator);
@@ -114,4 +125,4 @@ class EquationTaskGenerator implements TaskGenerator {
             return num1 + " " + operator + " x = " + num2;
         }
     }
-}
+} 

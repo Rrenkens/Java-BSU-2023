@@ -1,11 +1,13 @@
 package by.Roman191976.Quizer;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;
 import by.Roman191976.Quizer.task_generators.math_task_generators.EquationMathTaskGenerator;
 import by.Roman191976.Quizer.task_generators.math_task_generators.ExpressionMathTaskGenerator;
 
@@ -99,12 +101,17 @@ public class Main {
         Quiz geometryQuiz = new Quiz(geometryTaskGenerator, 2);
         quizMap.put("Quiz Geometry 6", geometryQuiz);
 
-        TaskGenerator equationMathTaskGenerator = new EquationMathTaskGenerator(1, 20, true, true, true, true);
-        TaskGenerator expressionMathTaskGenerator = new ExpressionMathTaskGenerator(1, 20, true, true, true, true);
+        EnumSet<Operation> enumOp = EnumSet.of(Operation.SUM, Operation.DIFFERENCE, Operation.MULTIPLICATION, Operation.DIVISION);
+        EquationMathTaskGenerator equationMathTaskGenerator = new EquationMathTaskGenerator(1, 20, enumOp);
+        TaskGenerator expressionMathTaskGenerator = new ExpressionMathTaskGenerator(1, 20, enumOp);
         
         TaskGenerator groupMathTaskGenerator = new GroupTaskGenerator(equationMathTaskGenerator, expressionMathTaskGenerator, poolTaskGenerator);
          Quiz groupMathQuiz = new Quiz(groupMathTaskGenerator, 4);
          quizMap.put("Group Math Quiz 7", groupMathQuiz);
+
+        TaskGenerator equationTaskGeneratorWithDivision = new EquationTaskGenerator(1, 20, false, false, false, true);
+        Quiz equationQuizWithDivision = new Quiz(equationTaskGeneratorWithDivision, 8);
+        quizMap.put("Equation Quiz With Division 8", equationQuizWithDivision);
         return quizMap;
     }
 }

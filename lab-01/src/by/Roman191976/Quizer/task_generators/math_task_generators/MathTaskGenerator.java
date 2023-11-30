@@ -1,4 +1,4 @@
-package by.Roman191976.Quizer.task_generators;
+package by.Roman191976.Quizer.task_generators.math_task_generators;
 
 import by.Roman191976.Quizer.TaskGenerator;
 
