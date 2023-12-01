@@ -1,6 +1,7 @@
 package by.katierevinska.docks_and_hobos;
 
 
+import com.sun.source.doctree.TextTree;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -26,7 +27,8 @@ public class Main {
             Thread threadGenerationShips = new Thread(() -> {
                 while (true) {
                     tunnel.setShip(shipGenerator.generate());
-                    System.out.println("generate ship on tunnel which size is "+tunnel.sizeOfShips()+"and max size is over "+tunnel.isFull());
+                    System.out.println("generate ship on tunnel which size is "+tunnel.sizeOfShips()
+                            +"and max size is over "+tunnel.isFull());
                     try {
                         Thread.sleep(shipGenerator.getGeneratingTime());
                     } catch (InterruptedException e) {
@@ -36,9 +38,14 @@ public class Main {
             });
             Thread threadTunnel = new Thread(() -> {
                 while (true) {
-                   if (tunnel.isFull()) {
+                    if (tunnel.isFull()) {
                         tunnel.sinkShip();
                         System.out.println("sink lastIn ship");
+                    }
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             });
