@@ -4,8 +4,12 @@ public class Ship {
     private String cargoType;
     private Long shipCapacity;
 
-Ship(String cargoType, Long capacity){
-    this.cargoType= cargoType;
-    this.shipCapacity = capacity;
-}
+    Long getShipCapacity() {
+        return shipCapacity;
+    }
+
+    Ship(String cargoType, Long capacity) {
+        this.cargoType = cargoType;
+        this.shipCapacity = capacity;
+    }
 }

@@ -54,8 +54,10 @@ public class Main {
                     if (!tunnel.isEmpty()) {
                         Ship ship = tunnel.sendToDock();
                         System.out.println("send firstIn ship to dock");
+                        dock.addVolume(ship.getShipCapacity());
                         try {
                             Thread.sleep(dock.getUnloadingSpeed());
+                            System.out.println("dock unloaded ship");
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
