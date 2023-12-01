@@ -8,11 +8,18 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         ArrayList<Ship> shipArrayList = new ArrayList<>();
-        ShipGenerator generator = new ShipGenerator(2, 2, 3
+        ShipGenerator generator = new ShipGenerator(1, 2, 3
         , shipArrayList);
 
         Thread generateThread = new Thread(generator, "Generator");
         generateThread.start();
+
+        Tunnel tunnel = new Tunnel(5);
+        TunnelManager manager = new TunnelManager(tunnel, generator);
+
+        Thread managerThread = new Thread(manager);
+        managerThread.start();
+
 
         //Thread.sleep(5000);
 

@@ -1,6 +1,8 @@
 package by.BelArtem.docks_and_hobos;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class ShipGenerator implements Runnable{
@@ -15,18 +17,23 @@ public class ShipGenerator implements Runnable{
 
     private final static int size = cargo_types.length;
 
-    private ArrayList<Ship> ships;
+    private final List<Ship> ships;
 
     public ShipGenerator(int generatingTime, int ship_capacity_min,
-                         int ship_capacity_max, ArrayList<Ship> arr) {
+                         int ship_capacity_max, List<Ship> arr) {
         this.generating_time = generatingTime;
         this.ship_capacity_min = ship_capacity_min;
         this.ship_capacity_max = ship_capacity_max;
-        ships = arr;
+        ships = Collections.synchronizedList(new ArrayList<Ship>());
+        //ships = new ArrayList<>();
     }
 
     public int getGeneratingTime() {
         return generating_time;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
     }
 
 
@@ -35,10 +42,11 @@ public class ShipGenerator implements Runnable{
         Random random = new Random();
         while (true) {
             //System.out.println(new StringBuffer("Cur size: ").append(ships.size()));
-            if (!ships.isEmpty()) {
-                System.out.println(ships.get(ships.size() - 1).getCargoType() +
-                        "; capacity: " + ships.get(ships.size() - 1).getCapacity());
-            }
+//            if (!ships.isEmpty()) {
+//                System.out.println(ships.get(ships.size() - 1).getCargoType() +
+//                        "; capacity: " + ships.get(ships.size() - 1).getCapacity());
+//            }
+            System.out.println("Amount of ships: " + ships.size());
             int cargoIndex = random.nextInt(size);
             String cargoName = cargo_types[cargoIndex];
             int capacity = ship_capacity_min +
