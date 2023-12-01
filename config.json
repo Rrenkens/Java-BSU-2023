@@ -1,0 +1,9 @@
+{
+  "generating_time": 1000,
+  "ship_capacity_min": 4,
+  "ship_capacity_max": 12,
+  "max_ships": 2,
+  "unloading_speed": 5000,
+  "stealing_time": 20,
+  "eating_time": 5
+}

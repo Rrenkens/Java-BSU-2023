@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Dock {
-    private int unloadingSpeed;//единиц товара в секунду
-    private int dockCapacity;
-    private int hobosStealingTime;
-    private int hobosEatingTime;
+    private Long unloadingSpeed;//единиц товара в секунду
+    private Long dockCapacity;
+    private Long hobosStealingTime;
+    private Long hobosEatingTime;
     Map<String, Integer> ingredientsCount= new HashMap();
     private int hobosCount;
     private List<Hobos> hobosList;
@@ -20,6 +20,12 @@ public class Dock {
         ingredientsCount.put("Butter", 30);
     }
 
+    public void setUnloadingSpeed(Long unloadingSpeed) {
+        this.unloadingSpeed = unloadingSpeed;
+    }
+    public Long getUnloadingSpeed() {
+        return this.unloadingSpeed;
+    }
     public void generateHobos(){
         hobosList = new ArrayList<>();
         for(int i = 0; i < hobosCount; ++i){
