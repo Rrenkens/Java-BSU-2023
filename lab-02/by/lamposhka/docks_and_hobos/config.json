@@ -1,0 +1,12 @@
+{
+  "generating_time" : 2,
+  "ship_capacity_min": 200,
+  "ship_capacity_max": 500,
+  "cargo_types": ["rock", "bread", "butter", "scissors"],
+  "max_ships" : 50,
+  "unloading_speed" : "20",
+  "dock_capacity" : ["5", "3", "8", "1"],
+  "ingredients_count" : [],
+  "stealing_time" : 3,
+  "eating_time" : 10
+}
