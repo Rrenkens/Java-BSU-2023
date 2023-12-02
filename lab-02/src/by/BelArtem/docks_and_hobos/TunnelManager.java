@@ -22,7 +22,7 @@ public class TunnelManager implements Runnable{
         //List<Ship> ships = shipGenerator.getShips();
         while (true) {
             synchronized (ships){
-                System.out.println("Entering sync block");
+                //System.out.println("Entering sync block");
 
                 if (tunnel.isFull()){
                     //ships = ships.subList(0, tunnel.getMaxShips());
@@ -51,7 +51,7 @@ public class TunnelManager implements Runnable{
 //                System.out.println("Leaving sync block");
             }
             try {
-                Thread.sleep(4000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("Error");
                 throw new RuntimeException(e);
@@ -61,11 +61,11 @@ public class TunnelManager implements Runnable{
 
 
     public Ship getFirstShip() {
-        if (ships.isEmpty()) {
-            return null;
-        }
         Ship ship;
         synchronized (ships) {
+            if (ships.isEmpty()) {
+                return null;
+            }
             ship = ships.get(0);
             ships.remove(0);
             this.tunnel.removeShips(1);
