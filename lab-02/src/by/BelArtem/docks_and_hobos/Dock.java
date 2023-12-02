@@ -23,6 +23,10 @@ public class Dock implements Runnable{
         this.cargo_types = cargo_types;
     }
 
+    public AtomicIntegerArray getStock() {
+        return stock;
+    }
+
     @Override
     public void run() {
         while(true) {

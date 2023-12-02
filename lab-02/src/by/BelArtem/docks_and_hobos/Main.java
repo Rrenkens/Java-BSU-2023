@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 
 public class Main {
 
@@ -32,13 +33,29 @@ public class Main {
 
 
         List<Dock> lst = Collections.synchronizedList(new ArrayList<>());
-        for (int i = 0; i < 2; ++i) {
+        for (int i = 0; i < 1; ++i) {
             lst.add(new Dock(5, 23, tunnelManager, cargo_types));
         }
         DocksManager docksManager = new DocksManager(lst);
 
         Thread dockManagerThread = new Thread(docksManager);
         dockManagerThread.start();
+
+
+        AtomicIntegerArray ingredients = new AtomicIntegerArray(cargo_types.size());
+        ingredients.set(0, 2);
+        ingredients.set(1, 1);
+        ingredients.set(2, 3);
+
+        ArrayList<Hobo> hobos = new ArrayList<>();
+        for (int i = 0; i <8; ++i) {
+            hobos.add(new Hobo(lst, ingredients, 1));
+        }
+
+        HobosManager hobosManager = new HobosManager(hobos, 5, ingredients);
+
+        Thread hobosManagerThread = new Thread(hobosManager);
+        hobosManagerThread.start();
 
 
         //Thread.sleep(5000);

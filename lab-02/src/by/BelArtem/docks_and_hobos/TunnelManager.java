@@ -51,7 +51,7 @@ public class TunnelManager implements Runnable{
 //                System.out.println("Leaving sync block");
             }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 System.out.println("Error");
                 throw new RuntimeException(e);
