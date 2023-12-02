@@ -2,7 +2,6 @@ package by.Lenson423.docks_and_hobos;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
 import static java.lang.Math.min;
@@ -22,14 +21,14 @@ public class Dock {
     }
 
     public void getFromShip(@NotNull Ship ship) throws InterruptedException {
-        int index = Controller.getController().getCargoTypes().getByName(ship.getShipType());
+        int index = Controller.getController().getModel().getCargoTypes().getByName(ship.getShipType());
         int current = currentCount.addAndGet(index,
                 min(ship.getShipCapacity(), dockCapacity[index] - currentCount.get(index)));
         Thread.sleep((current - ship.getShipCapacity()) / unloadingSpeed * 1000L);
     }
 
     public synchronized boolean stealProduct(@NotNull String product) {
-        int num = Controller.getController().getCargoTypes().getByName(product);
+        int num = Controller.getController().getModel().getCargoTypes().getByName(product);
         if (currentCount.get(num) == 0) {
             return false;
         }

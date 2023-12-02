@@ -46,7 +46,7 @@ public class HobosGroup {
             Dock dockToSteal = null;
             boolean flag = false;
             do {
-                for (Dock dock : Controller.getController().getDocks()) {
+                for (Dock dock : Controller.getController().getModel().getDocks()) {
                     if (dock.stealProduct(productName)) {
                         dockToSteal = dock;
                         flag = true;
@@ -56,7 +56,7 @@ public class HobosGroup {
             } while (!flag);
 
             Thread.sleep(stealingTime * 1000L);
-            currentCount.incrementAndGet(Controller.getController().getCargoTypes().getByName(productName));
+            currentCount.incrementAndGet(Controller.getController().getModel().getCargoTypes().getByName(productName));
         }
     }
 }

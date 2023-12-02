@@ -16,7 +16,7 @@ public class ShipGenerator {
 
     final private TimerTask task = new TimerTask() {
         public void run() {
-            Controller.getController().getTunel().tryAddShipToTunel
+            Controller.getController().getModel().getTunel().tryAddShipToTunel
                     (new Ship(ThreadLocalRandom.current().nextInt(shipCapacityMin, shipCapacityMax + 1),
                    cargoTypes.get(ThreadLocalRandom.current().nextInt( cargoTypes.size()))));
         }

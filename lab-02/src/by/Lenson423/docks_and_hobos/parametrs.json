@@ -10,18 +10,29 @@
   "tunnel": {
     "max_ships": 4
   },
-  "docks": {
-    "unloading_speed": 3,
-    "dock_capacity": 100
-  },
+  "docks": [
+    {
+      "unloading_speed": 3,
+      "dock_capacity": {
+        "bread": 50,
+        "cheese": 30,
+        "pork": 70
+      }
+    },
+    {
+      "unloading_speed": 2,
+      "dock_capacity": {
+        "bread": 40,
+        "cheese": 25,
+        "pork": 60
+      }
+    }],
   "hobos": {
-    "hobos_count": 10,
     "ingredients_count": [
       {"bread": 2},
       {"cheese": 1},
       {"pork": 3}
     ],
-    "stealing_time": 5,
     "eating_time": 10,
     "hobos_stealing_time_list": [
       2, 4, 5, 6, 5, 4, 1, 6, 2, 1
