@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
-public class HobosGroup {
+public class HobosGroup implements Runnable{
     final AtomicIntegerArray currentCount;
     final int[] ingredientsCount;
     final int eatingTime;
@@ -27,6 +27,12 @@ public class HobosGroup {
         }
     }
 
+    public void run(){
+        while(true){
+            //ToDo
+        }
+    }
+
     private class Hobo{
         final int stealingTime;
         final int hoboId;
@@ -36,7 +42,8 @@ public class HobosGroup {
             this.hoboId = hoboId;
         }
 
-        public void start() throws InterruptedException {
+
+        public void run() {
             while (true) {
                 //ToDo
             }

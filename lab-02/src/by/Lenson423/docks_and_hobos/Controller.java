@@ -25,8 +25,20 @@ public class Controller {
     }
 
     void startWorking(){
-        while (true){
-            //ToDo;
+        List<Thread> threads = new ArrayList<>();
+        for (var dock: model.getDocks()){
+            Thread thread = new Thread(dock);
+            threads.add(thread);
+        }
+
+        Thread hobosGroupThread = new Thread(model.getHobosGroup());
+        threads.add(hobosGroupThread);
+
+        Thread shipGeneratorThread = new Thread(model.getGenerator());
+        threads.add(shipGeneratorThread);
+
+        for (var thread: threads){
+            thread.start();
         }
     }
 

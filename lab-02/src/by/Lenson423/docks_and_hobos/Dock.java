@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicIntegerArray;
 
 import static java.lang.Math.min;
 
-public class Dock {
+public class Dock implements Runnable{
     final int unloadingSpeed;
     final int[] dockCapacity;
     final AtomicIntegerArray currentCount;
@@ -36,7 +36,8 @@ public class Dock {
         return true;
     }
 
-    public void startWorking(){
+    @Override
+    public void run(){
         while (true){
             //ToDo
         }

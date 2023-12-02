@@ -7,7 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ShipGenerator {
+public class ShipGenerator implements Runnable{
     final int generationTime;
     final Timer timer;
     final int shipCapacityMin;
@@ -45,7 +45,8 @@ public class ShipGenerator {
         this.cargoTypes = cargoTypes;
     }
 
-    public void startGenerating(){
+    @Override
+    public void run(){
         timer.scheduleAtFixedRate (task, 0, generationTime * 1000L);
     }
 }
