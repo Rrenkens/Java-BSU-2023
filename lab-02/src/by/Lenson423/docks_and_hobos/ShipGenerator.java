@@ -1,8 +1,11 @@
 package by.Lenson423.docks_and_hobos;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ShipGenerator {
     final int generationTime;
@@ -13,12 +16,14 @@ public class ShipGenerator {
 
     final private TimerTask task = new TimerTask() {
         public void run() {
-            //return new Ship(ThreadLocalRandom.current().nextInt(shipCapacityMin, shipCapacityMax + 1),
-              //      cargoTypes.get(ThreadLocalRandom.current().nextInt( cargoTypes.size())));
+            Controller.getController().getTunel().tryAddShipToTunel
+                    (new Ship(ThreadLocalRandom.current().nextInt(shipCapacityMin, shipCapacityMax + 1),
+                   cargoTypes.get(ThreadLocalRandom.current().nextInt( cargoTypes.size()))));
         }
     };
 
-    public ShipGenerator(int generationTime, int shipCapacityMin, int shipCapacityMax, List<String> cargoTypes) {
+    public ShipGenerator(int generationTime, int shipCapacityMin, int shipCapacityMax,
+                         @NotNull List<String> cargoTypes) {
         if (generationTime <= 0){
             throw new IllegalArgumentException("Invalid period");
         }
@@ -31,9 +36,6 @@ public class ShipGenerator {
         this.shipCapacityMin = shipCapacityMin;
         this.shipCapacityMax = shipCapacityMax;
 
-        if (cargoTypes == null) {
-            throw new IllegalArgumentException("Cargo types array is null");
-        }
         if (cargoTypes.isEmpty()) {
             throw new IllegalArgumentException("Cargo types array is empty");
         }

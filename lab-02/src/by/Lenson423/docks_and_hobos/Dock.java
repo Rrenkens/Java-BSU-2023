@@ -1,5 +1,7 @@
 package by.Lenson423.docks_and_hobos;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
@@ -10,9 +12,7 @@ public class Dock {
     final int[] dockCapacity;
     final AtomicIntegerArray currentCount;
 
-    final CargoTypes cargoTypes = new CargoTypes(new ArrayList<>()); //ToDo
-
-    public Dock(int unloadingSpeed, int[] dockCapacity) {
+    public Dock(int unloadingSpeed, int @NotNull [] dockCapacity) {
         if (unloadingSpeed < 0){
             throw new IllegalArgumentException("Unloading speed less then 0");
         }
@@ -21,17 +21,25 @@ public class Dock {
         this.currentCount = new AtomicIntegerArray(dockCapacity.length);
     }
 
-    public void getFromShip(Ship ship) throws InterruptedException {
-        if (ship == null){
-            throw new IllegalArgumentException("No ship exception");
-        }
-        int index = cargoTypes.getByName(ship.getShipType());
+    public void getFromShip(@NotNull Ship ship) throws InterruptedException {
+        int index = Controller.getController().getCargoTypes().getByName(ship.getShipType());
         int current = currentCount.addAndGet(index,
                 min(ship.getShipCapacity(), dockCapacity[index] - currentCount.get(index)));
         Thread.sleep((current - ship.getShipCapacity()) / unloadingSpeed * 1000L);
     }
 
+    public synchronized boolean stealProduct(@NotNull String product) {
+        int num = Controller.getController().getCargoTypes().getByName(product);
+        if (currentCount.get(num) == 0) {
+            return false;
+        }
+        currentCount.decrementAndGet(num);
+        return true;
+    }
+
     public void startWorking(){
-        //ToDo
+        while (true){
+            //ToDo
+        }
     }
 }

@@ -1,6 +1,7 @@
 package by.Lenson423.docks_and_hobos;
 
 import by.Lenson423.docks_and_hobos.Exceptions.ShipGoDownException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -13,10 +14,7 @@ public class Tunel {
         this.maxShips = maxShips;
     }
 
-    public synchronized void tryAddShipToTunel(Ship ship){
-        if (ship == null){
-            throw new IllegalArgumentException("Ship is null");
-        }
+    public synchronized void tryAddShipToTunel(@NotNull Ship ship){
         if (shipQueue.size() == maxShips){
             throw new ShipGoDownException();
         }

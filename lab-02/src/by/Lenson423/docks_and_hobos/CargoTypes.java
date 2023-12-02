@@ -1,11 +1,13 @@
 package by.Lenson423.docks_and_hobos;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.List;
 
 public class CargoTypes {
-    HashMap<String, Integer> nameToIndex = new HashMap<>();
-    public CargoTypes(List<String> names){
+    private final HashMap<String, Integer> nameToIndex = new HashMap<>();
+    public CargoTypes(@NotNull List<String> names){
         if(names.isEmpty() || names.contains(null) || names.contains("")){
             throw new IllegalArgumentException("List with names is invalid");
         }
@@ -15,7 +17,7 @@ public class CargoTypes {
         }
     }
 
-    public int getByName(String name){
+    public int getByName(@NotNull String name){
         return nameToIndex.get(name);
     }
 }
