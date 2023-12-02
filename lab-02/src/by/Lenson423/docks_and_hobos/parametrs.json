@@ -1,0 +1,30 @@
+{
+  "generator": {
+    "generating_time": 5
+  },
+  "ship": {
+    "ship_capacity_min": 10,
+    "ship_capacity_max": 20,
+    "cargo_types": ["bread", "cheese", "pork"]
+  },
+  "tunnel": {
+    "max_ships": 4
+  },
+  "docks": {
+    "unloading_speed": 3,
+    "dock_capacity": 100
+  },
+  "hobos": {
+    "hobos_count": 10,
+    "ingredients_count": [
+      {"bread": 2},
+      {"cheese": 1},
+      {"pork": 3}
+    ],
+    "stealing_time": 5,
+    "eating_time": 10,
+    "hobos_stealing_time_list": [
+      2, 4, 5, 6, 5, 4, 1, 6, 2, 1
+    ]
+  }
+}

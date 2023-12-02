@@ -4,27 +4,33 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Controller {
     private static Controller controller;
     private final CargoTypes cargoTypes;
     private final ArrayList<Dock> docks;
-
     private final Tunel tunel;
-
     private final ShipGenerator generator;
 
-    public Controller(List<String> cargoNames, ArrayList<Dock> docks,
+    public static Controller cetControllerInstance(List<String> cargoNames, ArrayList<Dock> docks,
+                      Tunel tunel,
+                      ShipGenerator generator){
+        return Objects.requireNonNullElseGet(controller, () -> new Controller(cargoNames, docks, tunel, generator));
+    }
+
+    private Controller(@NotNull List<@NotNull String> cargoNames,
+                       @NotNull ArrayList<@NotNull Dock> docks,
                       @NotNull Tunel tunel,
                       @NotNull ShipGenerator generator) {
         controller = this;
 
-        if (cargoNames == null || cargoNames.contains(null) || cargoNames.isEmpty() || cargoNames.contains("")){
+        if (cargoNames.isEmpty() || cargoNames.contains("")){
             throw new IllegalArgumentException("Illegal cargo names array");
         }
         this.cargoTypes = new CargoTypes(cargoNames);
 
-        if (docks == null || docks.contains(null) || docks.isEmpty()){
+        if (docks.isEmpty()){
             throw new IllegalArgumentException("Illegal docks array");
         }
         this.docks = docks;
