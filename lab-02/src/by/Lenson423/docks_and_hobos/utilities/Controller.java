@@ -67,28 +67,6 @@ public class Controller implements Runnable{
         return controller;
     }
 
-    public void configureLoggers() {
-        for (Logger logger : model.getLoggers()) {
-            logger.setUseParentHandlers(false);
-        }
-
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(Level.INFO);
-        addHandler(consoleHandler);
-
-        String filename = getNewFilenameAndCreateFile();
-        try {
-            model.setHandler(new FileHandler(filename));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (Logger logger : model.getLoggers()) {
-            logger.setLevel(Level.FINE);
-        }
-        addHandler(model.getHandler());
-    }
-
     public void run() {
         while (true) {
             try {

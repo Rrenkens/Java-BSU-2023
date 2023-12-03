@@ -8,8 +8,6 @@ import java.util.List;
 public class CargoTypes {
     private final HashMap<String, Integer> nameToIndex = new HashMap<>();
 
-    private final List<String> cargoTypes;
-
     public CargoTypes(@NotNull List<@NotNull String> names) {
         if (names.isEmpty() || names.contains("")) {
             throw new IllegalArgumentException("List with names is invalid");
@@ -18,15 +16,10 @@ public class CargoTypes {
         for (int i = 0; i < k; ++i) {
             nameToIndex.put(names.get(i), i);
         }
-
-        this.cargoTypes = names;
     }
 
     public int getByName(@NotNull String name) {
         return nameToIndex.get(name);
     }
 
-    public List<String> getCargoTypes() {
-        return cargoTypes;
-    }
 }
