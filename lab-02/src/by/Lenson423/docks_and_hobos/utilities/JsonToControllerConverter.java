@@ -1,19 +1,32 @@
-package by.Lenson423.docks_and_hobos;
+package by.Lenson423.docks_and_hobos.utilities;
 
+import by.Lenson423.docks_and_hobos.main_actors.Dock;
+import by.Lenson423.docks_and_hobos.main_actors.HobosGroup;
+import by.Lenson423.docks_and_hobos.main_actors.ShipGenerator;
+import by.Lenson423.docks_and_hobos.main_actors.Tunel;
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class JsonToControllerConverter {
-    static Controller readJsonAndGetController(@NotNull String filePath) throws IOException, ParseException {
+    public static Controller readJsonAndGetController(@NotNull String filePath) throws IOException {
         JSONParser parser = new JSONParser();
         try {
+            String newPath = convertPath(filePath);
+            File directory = new File(newPath, "log");
+
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
             Object obj = parser.parse(new FileReader(filePath));
             JSONObject jsonObject = (JSONObject) obj;
 
@@ -24,7 +37,7 @@ public class JsonToControllerConverter {
             int shipCapacityMax = Integer.parseInt(ship.get("ship_capacity_max").toString());
             JSONArray cargoTypes = (JSONArray) ship.get("cargo_types");
             ArrayList<String> cargoList = new ArrayList<>(cargoTypes.size());
-            for (var elem: cargoTypes){
+            for (var elem : cargoTypes) {
                 cargoList.add(elem.toString());
             }
             ShipGenerator shipGenerator = new ShipGenerator(generatingTime, shipCapacityMin,
@@ -53,7 +66,7 @@ public class JsonToControllerConverter {
             JSONArray ingredientsCount = (JSONArray) hobos.get("ingredients_count");
             int k = ingredientsCount.size();
             int[] ingredientsCountInt = new int[k];
-            for(int i = 0; i < k; ++i){
+            for (int i = 0; i < k; ++i) {
                 ingredientsCountInt[i] = Integer.parseInt(((JSONObject) ingredientsCount.get(i)).
                         get(cargoList.get(i)).toString());
             }
@@ -61,13 +74,19 @@ public class JsonToControllerConverter {
             JSONArray hobosStealingTimeList = (JSONArray) hobos.get("hobos_stealing_time_list");
             k = ingredientsCount.size();
             int[] hobosStealingTimeListInt = new int[k];
-            for(int i = 0; i < k; ++i){
+            for (int i = 0; i < k; ++i) {
                 hobosStealingTimeListInt[i] = Integer.parseInt(hobosStealingTimeList.get(i).toString());
             }
             HobosGroup hobosGroup = new HobosGroup(ingredientsCountInt, eatingTime, hobosStealingTimeListInt);
-            return Controller.cetControllerInstance(cargoList, docks, tunel, shipGenerator, hobosGroup);
+            return Controller.cetControllerInstance(newPath, cargoList, docks, tunel, shipGenerator, hobosGroup);
         } catch (Exception e) {
             throw new IOException("Cannot parse json file");
         }
+    }
+
+    public static String convertPath(String inputPath) {
+        Path path = Paths.get(inputPath);
+        Path rootPath = path.getRoot().resolve("Java-BSU-2023\\lab-02\\src\\by\\Lenson423\\docks_and_hobos");
+        return rootPath.toString();
     }
 }

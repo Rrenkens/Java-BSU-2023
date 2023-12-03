@@ -1,56 +1,66 @@
-package by.Lenson423.docks_and_hobos;
+package by.Lenson423.docks_and_hobos.main_actors;
 
+import by.Lenson423.docks_and_hobos.utilities.Controller;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+import java.util.logging.Logger;
 
-public class HobosGroup implements Runnable{
+import static java.util.logging.Level.ALL;
+import static java.util.logging.Level.INFO;
+
+public class HobosGroup implements Runnable {
     final AtomicIntegerArray currentCount;
     final int[] ingredientsCount;
     final int eatingTime;
     final List<Hobo> hobos;
 
-    public HobosGroup(int @NotNull[] ingredientsCount, int eatingTime, int@NotNull[] hobosStealingTimes) {
+    private static final Logger logger = Logger.getLogger(HobosGroup.class.toString());
+
+    public HobosGroup(int @NotNull [] ingredientsCount, int eatingTime, int @NotNull [] hobosStealingTimes) {
         this.ingredientsCount = ingredientsCount;
         this.currentCount = new AtomicIntegerArray(ingredientsCount.length);
         this.eatingTime = eatingTime;
 
         int k = hobosStealingTimes.length;
-        if (k < 3){
+        if (k < 3) {
             throw new IllegalArgumentException("Invalid number of hobos");
         }
         hobos = new ArrayList<>(k);
-        for (int i = 0; i < k; ++i){
+        for (int i = 0; i < k; ++i) {
             hobos.add(i, new Hobo(hobosStealingTimes[i], i));
         }
     }
 
-    int indexToSteal(){
-        for (int i = 0; i < ingredientsCount.length; ++i){
-            if ((currentCount.get(i) - ingredientsCount[i]) < 0){
+    int indexToSteal() {
+        for (int i = 0; i < ingredientsCount.length; ++i) {
+            if ((currentCount.get(i) - ingredientsCount[i]) < 0) {
                 return i;
             }
         }
         return -1;
     }
 
-    public void run(){
-        while(true){
+    public void run() {
+        logger.log(ALL, "Hobos group start steeling");
+        while (true) {
             Collections.shuffle(hobos); //Hobos at indexes 0, 1 cook
+            logger.log(INFO, "Hobos with id" + hobos.get(0).hoboId +
+                    ", " + hobos.get(1).hoboId + " are cookers");
 
             int count = hobos.size();
             Thread[] hoboThreads = new Thread[count - 2];
-            for(int i = 2; i < count; ++i){
+            for (int i = 2; i < count; ++i) {
                 hoboThreads[i - 2] = new Thread(hobos.get(i));
             }
-            for (Thread thread: hoboThreads){
+            for (Thread thread : hoboThreads) {
                 thread.start();
             }
 
-            for (Thread thread: hoboThreads){
+            for (Thread thread : hoboThreads) {
                 try {
                     thread.join();
                 } catch (InterruptedException e) {
@@ -63,6 +73,7 @@ public class HobosGroup implements Runnable{
             }
 
             try {
+                logger.log(ALL, "Hobos group start eating");
                 Thread.sleep(eatingTime * 1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -70,7 +81,11 @@ public class HobosGroup implements Runnable{
         }
     }
 
-    private class Hobo implements Runnable{
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    private class Hobo implements Runnable {
         final int stealingTime;
         final int hoboId;
 
@@ -81,13 +96,12 @@ public class HobosGroup implements Runnable{
 
         @Override
         public void run() {
-            for (int index = indexToSteal(); index != -1;) {
-                //Dock dockToSteal;
+            logger.log(ALL, "Hobo with id " + hoboId + " start steeling");
+            for (int index = indexToSteal(); index != -1; index = indexToSteal()) {
                 boolean flag = false;
-                while(true) {
+                while (true) {
                     for (Dock dock : Controller.getController().getModel().getDocks()) {
                         if (dock.stealProduct(index)) {
-                            //dockToSteal = dock;
                             flag = true;
                             break;
                         }
@@ -98,6 +112,8 @@ public class HobosGroup implements Runnable{
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
+                        logger.log(INFO, "Hobo with id " + hoboId
+                                + " steel product with id " + index + " from dock");
                         currentCount.incrementAndGet(index);
                         break;
                     }

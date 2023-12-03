@@ -5,7 +5,11 @@
   "ship": {
     "ship_capacity_min": 10,
     "ship_capacity_max": 20,
-    "cargo_types": ["bread", "cheese", "pork"]
+    "cargo_types": [
+      "bread",
+      "cheese",
+      "pork"
+    ]
   },
   "tunnel": {
     "max_ships": 4
@@ -26,16 +30,32 @@
         "cheese": 25,
         "pork": 60
       }
-    }],
+    }
+  ],
   "hobos": {
     "ingredients_count": [
-      {"bread": 2},
-      {"cheese": 1},
-      {"pork": 3}
+      {
+        "bread": 2
+      },
+      {
+        "cheese": 1
+      },
+      {
+        "pork": 3
+      }
     ],
     "eating_time": 5,
     "hobos_stealing_time_list": [
-      2, 4, 5, 6, 5, 4, 1, 6, 2, 1
+      2,
+      4,
+      5,
+      6,
+      5,
+      4,
+      1,
+      6,
+      2,
+      1
     ]
   }
 }
