@@ -8,11 +8,11 @@ import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ShipGenerator implements Runnable{
-    final int generationTime;
-    final Timer timer;
-    final int shipCapacityMin;
-    final int shipCapacityMax;
-    final List<String> cargoTypes;
+    private final int generationTime;
+    private final Timer timer;
+    private final int shipCapacityMin;
+    private final int shipCapacityMax;
+    private final List<String> cargoTypes;
 
     final private TimerTask task = new TimerTask() {
         public void run() {

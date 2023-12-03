@@ -4,45 +4,46 @@ import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class JsonToControllerConverter {
-    static Controller readJsonAndGetController(@NotNull String filePath) throws IOException {
+    static Controller readJsonAndGetController(@NotNull String filePath) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(new FileReader(filePath));
             JSONObject jsonObject = (JSONObject) obj;
 
             JSONObject generator = (JSONObject) jsonObject.get("generator");
-            int generatingTime = (int) generator.get("generating_time");
+            int generatingTime = Integer.parseInt(generator.get("generating_time").toString());
             JSONObject ship = (JSONObject) jsonObject.get("ship");
-            int shipCapacityMin = (int) ship.get("ship_capacity_min");
-            int shipCapacityMax = (int) ship.get("ship_capacity_max");
+            int shipCapacityMin = Integer.parseInt(ship.get("ship_capacity_min").toString());
+            int shipCapacityMax = Integer.parseInt(ship.get("ship_capacity_max").toString());
             JSONArray cargoTypes = (JSONArray) ship.get("cargo_types");
             ArrayList<String> cargoList = new ArrayList<>(cargoTypes.size());
             for (var elem: cargoTypes){
-                cargoList.add((String) elem);
+                cargoList.add(elem.toString());
             }
             ShipGenerator shipGenerator = new ShipGenerator(generatingTime, shipCapacityMin,
                     shipCapacityMax, cargoList);
 
             JSONObject tunnel = (JSONObject) jsonObject.get("tunnel");
-            int maxShips = (int) tunnel.get("max_ships");
+            int maxShips = Integer.parseInt(tunnel.get("max_ships").toString());
             Tunel tunel = new Tunel(maxShips);
 
             ArrayList<Dock> docks = new ArrayList<>();
             JSONArray docksArray = (JSONArray) jsonObject.get("docks");
             for (Object o : docksArray) {
                 JSONObject dock = (JSONObject) o;
-                int unloadingSpeed = (int) dock.get("unloading_speed");
+                int unloadingSpeed = Integer.parseInt(dock.get("unloading_speed").toString());
                 JSONObject dockCapacity = (JSONObject) dock.get("dock_capacity");
                 int k = cargoTypes.size();
                 int[] dockCapacityInt = new int[k];
                 for (int j = 0; j < k; j++) {
-                    dockCapacityInt[j] = (int) dockCapacity.get((String) cargoTypes.get(j));
+                    dockCapacityInt[j] = Integer.parseInt(dockCapacity.get(cargoTypes.get(j)).toString());
                 }
                 Dock dockToAdd = new Dock(unloadingSpeed, dockCapacityInt);
                 docks.add(dockToAdd);
@@ -53,14 +54,15 @@ public class JsonToControllerConverter {
             int k = ingredientsCount.size();
             int[] ingredientsCountInt = new int[k];
             for(int i = 0; i < k; ++i){
-                ingredientsCountInt[i] = (int) ingredientsCount.get(i);
+                ingredientsCountInt[i] = Integer.parseInt(((JSONObject) ingredientsCount.get(i)).
+                        get(cargoList.get(i)).toString());
             }
-            int eatingTime = (int) hobos.get("eating_time");
+            int eatingTime = Integer.parseInt(hobos.get("eating_time").toString());
             JSONArray hobosStealingTimeList = (JSONArray) hobos.get("hobos_stealing_time_list");
             k = ingredientsCount.size();
             int[] hobosStealingTimeListInt = new int[k];
             for(int i = 0; i < k; ++i){
-                hobosStealingTimeListInt[i] = (int) hobosStealingTimeList.get(i);
+                hobosStealingTimeListInt[i] = Integer.parseInt(hobosStealingTimeList.get(i).toString());
             }
             HobosGroup hobosGroup = new HobosGroup(ingredientsCountInt, eatingTime, hobosStealingTimeListInt);
             return Controller.cetControllerInstance(cargoList, docks, tunel, shipGenerator, hobosGroup);

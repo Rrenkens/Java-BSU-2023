@@ -27,19 +27,22 @@ public class Dock implements Runnable{
         Thread.sleep((current - ship.getShipCapacity()) / unloadingSpeed * 1000L);
     }
 
-    public synchronized boolean stealProduct(@NotNull String product) {
-        int num = Controller.getController().getModel().getCargoTypes().getByName(product);
-        if (currentCount.get(num) == 0) {
+    public synchronized boolean stealProduct(int product) {
+        if (currentCount.get(product) == 0) {
             return false;
         }
-        currentCount.decrementAndGet(num);
+        currentCount.decrementAndGet(product);
         return true;
     }
 
     @Override
     public void run(){
         while (true){
-            //ToDo
+            try {
+                getFromShip(Controller.getController().getModel().getTunel().getPassedShip());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "generator": {
-    "generating_time": 5
+    "generating_time": 20
   },
   "ship": {
     "ship_capacity_min": 10,
@@ -20,7 +20,7 @@
       }
     },
     {
-      "unloading_speed": 2,
+      "unloading_speed": 4,
       "dock_capacity": {
         "bread": 40,
         "cheese": 25,
@@ -33,7 +33,7 @@
       {"cheese": 1},
       {"pork": 3}
     ],
-    "eating_time": 10,
+    "eating_time": 5,
     "hobos_stealing_time_list": [
       2, 4, 5, 6, 5, 4, 1, 6, 2, 1
     ]
