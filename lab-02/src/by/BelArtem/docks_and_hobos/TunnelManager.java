@@ -24,23 +24,7 @@ public class TunnelManager implements Runnable{
             synchronized (ships){
                 //System.out.println("Entering sync block");
 
-                if (tunnel.isFull()){
-                    //ships = ships.subList(0, tunnel.getMaxShips());
-                    while (ships.size() > tunnel.getMaxShips()) {
-                        ships.remove(ships.size() - 1);
-                    }
-                } else {
-                    if (ships.size() <= tunnel.getMaxShips()){
-                        tunnel.setShipsInTunnel(ships.size());
-                    } else {
-                        tunnel.setShipsInTunnel(tunnel.getMaxShips());
-                        //ships = ships.subList(0, tunnel.getMaxShips());
-                        while (ships.size() > tunnel.getMaxShips()) {
-                            ships.remove(ships.size() - 1);
-                        }
-                    }
-
-                }
+                this.updateTunnel();
 
 //                try {
 //                    Thread.sleep(4000);
@@ -51,7 +35,7 @@ public class TunnelManager implements Runnable{
 //                System.out.println("Leaving sync block");
             }
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("Error");
                 throw new RuntimeException(e);
@@ -63,6 +47,7 @@ public class TunnelManager implements Runnable{
     public Ship getFirstShip() {
         Ship ship;
         synchronized (ships) {
+            this.updateTunnel();
             if (ships.isEmpty()) {
                 return null;
             }
@@ -72,6 +57,27 @@ public class TunnelManager implements Runnable{
         }
         return ship;
     }
+
+    public void updateTunnel () {
+        if (tunnel.isFull()){
+            //ships = ships.subList(0, tunnel.getMaxShips());
+            while (ships.size() > tunnel.getMaxShips()) {
+                ships.remove(ships.size() - 1);
+            }
+        } else {
+            if (ships.size() <= tunnel.getMaxShips()){
+                tunnel.setShipsInTunnel(ships.size());
+            } else {
+                tunnel.setShipsInTunnel(tunnel.getMaxShips());
+                //ships = ships.subList(0, tunnel.getMaxShips());
+                while (ships.size() > tunnel.getMaxShips()) {
+                    ships.remove(ships.size() - 1);
+                }
+            }
+
+        }
+    }
+
 
 
 
