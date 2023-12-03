@@ -1,17 +1,13 @@
 {
-  "generating_time" : "5",
+  "generating_time" : 5,
   "ship_capacity_min" : 10,
   "ship_capacity_max" : 100,
   "cargo_types" : [
-    {
-
-    },
-    {
-
-    },
-    {
-
-    }
+    "CHEMICAL",
+    "FOOD",
+    "WEAPON",
+    "RAW_MATERIALS",
+    "SLAVES"
   ],
   "max_ships" : 5,
   "unloading_speed" : 10,
