@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 import java.util.logging.Logger;
 
-import static java.util.logging.Level.ALL;
+import static java.util.logging.Level.CONFIG;
 import static java.util.logging.Level.INFO;
 
 public class HobosGroup implements Runnable {
@@ -45,10 +45,10 @@ public class HobosGroup implements Runnable {
     }
 
     public void run() {
-        logger.log(ALL, "Hobos group start steeling");
+        logger.log(INFO, "Hobos group start steeling");
         while (true) {
             Collections.shuffle(hobos); //Hobos at indexes 0, 1 cook
-            logger.log(INFO, "Hobos with id" + hobos.get(0).hoboId +
+            logger.log(CONFIG, "Hobos with id" + hobos.get(0).hoboId +
                     ", " + hobos.get(1).hoboId + " are cookers");
 
             int count = hobos.size();
@@ -67,13 +67,13 @@ public class HobosGroup implements Runnable {
                     throw new RuntimeException(e);
                 }
             }
-
+            logger.log(CONFIG, "All hobos come");
             for (int i = 0; i < ingredientsCount.length; ++i) {
                 currentCount.addAndGet(i, -ingredientsCount[i]);
             }
 
             try {
-                logger.log(ALL, "Hobos group start eating");
+                logger.log(INFO, "Hobos group start eating");
                 Thread.sleep(eatingTime * 1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -96,7 +96,7 @@ public class HobosGroup implements Runnable {
 
         @Override
         public void run() {
-            logger.log(ALL, "Hobo with id " + hoboId + " start steeling");
+            logger.log(CONFIG, "Hobo with id " + hoboId + " start steeling");
             for (int index = indexToSteal(); index != -1; index = indexToSteal()) {
                 boolean flag = false;
                 while (true) {
@@ -112,7 +112,7 @@ public class HobosGroup implements Runnable {
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        logger.log(INFO, "Hobo with id " + hoboId
+                        logger.log(CONFIG, "Hobo with id " + hoboId
                                 + " steel product with id " + index + " from dock");
                         currentCount.incrementAndGet(index);
                         break;

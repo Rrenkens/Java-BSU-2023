@@ -72,7 +72,7 @@ public class JsonToControllerConverter {
             }
             int eatingTime = Integer.parseInt(hobos.get("eating_time").toString());
             JSONArray hobosStealingTimeList = (JSONArray) hobos.get("hobos_stealing_time_list");
-            k = ingredientsCount.size();
+            k = hobosStealingTimeList.size();
             int[] hobosStealingTimeListInt = new int[k];
             for (int i = 0; i < k; ++i) {
                 hobosStealingTimeListInt[i] = Integer.parseInt(hobosStealingTimeList.get(i).toString());

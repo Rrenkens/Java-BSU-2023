@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.*;
 
-public class Controller implements Runnable{
+public class Controller implements Runnable {
     private static Controller controller;
     private final Model model;
     private final static int FILE_CHANGING_INTERVAL = 60;
@@ -68,13 +68,33 @@ public class Controller implements Runnable{
     }
 
     public void run() {
+        for (Logger logger : model.getLoggers()) {
+            logger.setUseParentHandlers(false);
+        }
+
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setLevel(Level.INFO);
+        addHandler(consoleHandler);
+
+        String filename = getNewFilenameAndCreateFile();
+        try {
+            model.setHandler(new FileHandler(filename));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (Logger logger : model.getLoggers()) {
+            logger.setLevel(Level.CONFIG);
+        }
+        addHandler(model.getHandler());
+
         while (true) {
             try {
                 Thread.sleep(FILE_CHANGING_INTERVAL * 1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            String filename = getNewFilenameAndCreateFile();
+            filename = getNewFilenameAndCreateFile();
             changeHandlers(filename);
         }
     }

@@ -6,6 +6,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.logging.Logger;
 
+import static java.util.logging.Level.CONFIG;
 import static java.util.logging.Level.INFO;
 
 public class Tunel {
@@ -24,7 +25,7 @@ public class Tunel {
             logger.log(INFO, text + " go down");
         }
         shipQueue.add(ship);
-        logger.log(INFO, text + " was added to tunel");
+        logger.log(CONFIG, text + " was added to tunel");
         notify();
     }
 

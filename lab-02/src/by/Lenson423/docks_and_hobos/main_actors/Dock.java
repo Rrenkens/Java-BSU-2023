@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicIntegerArray;
 import java.util.logging.Logger;
 
 import static java.lang.Math.min;
-import static java.util.logging.Level.ALL;
+import static java.util.logging.Level.CONFIG;
 import static java.util.logging.Level.INFO;
 
 public class Dock implements Runnable {
@@ -29,7 +29,7 @@ public class Dock implements Runnable {
         int index = Controller.getController().getModel().getCargoTypes().getByName(ship.getShipType());
         int current = currentCount.addAndGet(index,
                 min(ship.getShipCapacity(), dockCapacity[index] - currentCount.get(index)));
-        logger.log(INFO, "Product " + ship.getShipType() + " in count of " + current + " now in dock");
+        logger.log(CONFIG, "Product " + ship.getShipType() + " in count of " + current + " now in dock");
         Thread.sleep((current - ship.getShipCapacity()) / unloadingSpeed * 1000L);
     }
 
@@ -38,13 +38,13 @@ public class Dock implements Runnable {
             return false;
         }
         currentCount.decrementAndGet(product);
-        logger.log(INFO, "Product with id " + product + "was stealed");
+        logger.log(CONFIG, "Product with id " + product + "was stealed");
         return true;
     }
 
     @Override
     public void run() {
-        logger.log(ALL, "Dock start working");
+        logger.log(INFO, "Dock start working");
         while (true) {
             try {
                 getFromShip(Controller.getController().getModel().getTunel().getPassedShip());

@@ -55,7 +55,7 @@ public class ShipGenerator implements Runnable {
 
     @Override
     public void run() {
-        logger.log(Level.ALL, "Ship generator start working");
+        logger.log(Level.INFO, "Ship generator start working");
         timer.scheduleAtFixedRate(task, 0, generationTime * 1000L);
     }
 }
