@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.*;
 
+import static java.lang.Thread.sleep;
+
 public class Controller implements Runnable {
     private static Controller controller;
     private final Model model;
@@ -40,34 +42,8 @@ public class Controller implements Runnable {
 
     public void startWorking() {
         List<Thread> threads = new ArrayList<>();
-        for (var dock : model.getDocks()) {
-            Thread thread = new Thread(dock);
-            threads.add(thread);
-        }
-
-        Thread hobosGroupThread = new Thread(model.getHobosGroup());
-        threads.add(hobosGroupThread);
-
         Thread controllerThread = new Thread(Controller.getController());
-        threads.add(controllerThread);
 
-        Thread shipGeneratorThread = new Thread(model.getGenerator());
-        threads.add(shipGeneratorThread);
-
-        for (var thread : threads) {
-            thread.start();
-        }
-    }
-
-    public Model getModel() {
-        return model;
-    }
-
-    public static Controller getController() {
-        return controller;
-    }
-
-    public void run() {
         for (Logger logger : model.getLoggers()) {
             logger.setUseParentHandlers(false);
         }
@@ -87,14 +63,40 @@ public class Controller implements Runnable {
             logger.setLevel(Level.CONFIG);
         }
         addHandler(model.getHandler());
+        controllerThread.start();
 
+        for (var dock : model.getDocks()) {
+            Thread thread = new Thread(dock);
+            threads.add(thread);
+        }
+
+        Thread hobosGroupThread = new Thread(model.getHobosGroup());
+        threads.add(hobosGroupThread);
+
+        Thread shipGeneratorThread = new Thread(model.getGenerator());
+        threads.add(shipGeneratorThread);
+
+        for (var thread : threads) {
+            thread.start();
+        }
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public static Controller getController() {
+        return controller;
+    }
+
+    public void run() {
         while (true) {
             try {
-                Thread.sleep(FILE_CHANGING_INTERVAL * 1000L);
+                sleep(FILE_CHANGING_INTERVAL * 1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            filename = getNewFilenameAndCreateFile();
+            String filename = getNewFilenameAndCreateFile();
             changeHandlers(filename);
         }
     }

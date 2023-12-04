@@ -36,7 +36,7 @@ public class Tunel {
         return shipQueue.remove();
     }
 
-    public static Logger getLogger(){
+    public static Logger getLogger() {
         return logger;
     }
 }

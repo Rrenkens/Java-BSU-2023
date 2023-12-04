@@ -15,14 +15,14 @@ public class ShipGenerator implements Runnable {
     private final Timer timer;
     private final int shipCapacityMin;
     private final int shipCapacityMax;
-    private final List<String> cargoTypes;
     private static final Logger logger = Logger.getLogger(ShipGenerator.class.toString());
 
     final private TimerTask task = new TimerTask() {
         public void run() {
+            List<String> cargoList = Controller.getController().getModel().getCargoTypes().getCargoNames();
             Controller.getController().getModel().getTunel().tryAddShipToTunel
                     (new Ship(ThreadLocalRandom.current().nextInt(shipCapacityMin, shipCapacityMax + 1),
-                            cargoTypes.get(ThreadLocalRandom.current().nextInt(cargoTypes.size()))));
+                            cargoList.get(ThreadLocalRandom.current().nextInt(cargoList.size()))));
         }
     };
 
@@ -39,14 +39,6 @@ public class ShipGenerator implements Runnable {
         }
         this.shipCapacityMin = shipCapacityMin;
         this.shipCapacityMax = shipCapacityMax;
-
-        if (cargoTypes.isEmpty()) {
-            throw new IllegalArgumentException("Cargo types array is empty");
-        }
-        if (cargoTypes.contains(null)) {
-            throw new IllegalArgumentException("Cargo types array contains null");
-        }
-        this.cargoTypes = cargoTypes;
     }
 
     public static Logger getLogger() {
