@@ -21,8 +21,17 @@ public class HobosGroup implements Runnable {
     private static final Logger logger = Logger.getLogger(HobosGroup.class.toString());
 
     public HobosGroup(int @NotNull [] ingredientsCount, int eatingTime, int @NotNull [] hobosStealingTimes) {
+        for (var count : ingredientsCount) {
+            if (count < 0){
+                throw new IllegalArgumentException("Invalid ingredient count");
+            }
+        }
         this.ingredientsCount = ingredientsCount;
         this.currentCount = new AtomicIntegerArray(ingredientsCount.length);
+
+        if (eatingTime <= 0){
+            throw new IllegalArgumentException("Eating time is invalid");
+        }
         this.eatingTime = eatingTime;
 
         int k = hobosStealingTimes.length;
@@ -90,7 +99,13 @@ public class HobosGroup implements Runnable {
         final int hoboId;
 
         public Hobo(int stealingTime, int hoboId) {
+            if (stealingTime <= 0) {
+                throw new IllegalArgumentException("Stealing time less or equal then 0");
+            }
             this.stealingTime = stealingTime;
+            if (hoboId < 0) {
+                throw new IllegalArgumentException("Index is negative");
+            }
             this.hoboId = hoboId;
         }
 

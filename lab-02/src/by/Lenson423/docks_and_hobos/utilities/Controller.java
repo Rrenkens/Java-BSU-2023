@@ -101,7 +101,10 @@ public class Controller implements Runnable {
         }
     }
 
-    private synchronized void changeHandlers(String filename) {
+    private synchronized void changeHandlers(@NotNull String filename) {
+        if (filename.isEmpty()){
+           throw new IllegalArgumentException("Empty filename");
+        }
         if (model.getHandler() != null) {
             model.getHandler().flush();
         }
@@ -122,7 +125,7 @@ public class Controller implements Runnable {
         addHandler(model.getHandler());
     }
 
-    private void addHandler(Handler handler) {
+    private void addHandler(@NotNull Handler handler) {
         for (Logger logger : model.getLoggers()) {
             logger.addHandler(handler);
         }

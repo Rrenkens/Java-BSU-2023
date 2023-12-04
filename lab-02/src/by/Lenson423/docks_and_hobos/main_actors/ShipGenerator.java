@@ -32,8 +32,11 @@ public class ShipGenerator implements Runnable {
         this.generationTime = generationTime;
         this.timer = new Timer();
 
+        if (shipCapacityMin < 0) {
+            throw new IllegalArgumentException("Min capacity is invalid");
+        }
         if (shipCapacityMax - shipCapacityMin < 0) {
-            throw new IllegalArgumentException("Max capacity less then min");
+            throw new IllegalArgumentException("Max capacity less then min or max capacity is invalid");
         }
         this.shipCapacityMin = shipCapacityMin;
         this.shipCapacityMax = shipCapacityMax;

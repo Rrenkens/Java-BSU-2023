@@ -84,7 +84,10 @@ public class JsonToControllerConverter {
         }
     }
 
-    public static String convertPath(String inputPath) {
+    public static String convertPath(@NotNull String inputPath) {
+        if (inputPath.isEmpty()){
+            throw new IllegalArgumentException("Empty filename");
+        }
         Path path = Paths.get(inputPath);
         Path rootPath = path.getRoot().resolve("Java-BSU-2023\\lab-02\\src\\by\\Lenson423\\docks_and_hobos");
         return rootPath.toString();

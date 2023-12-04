@@ -21,6 +21,11 @@ public class Dock implements Runnable {
             throw new IllegalArgumentException("Unloading speed less then 0");
         }
         this.unloadingSpeed = unloadingSpeed;
+        for (var capacity : dockCapacity) {
+            if (capacity < 0) {
+                throw new IllegalArgumentException("Capacity is negative");
+            }
+        }
         this.dockCapacity = dockCapacity;
         this.currentCount = new AtomicIntegerArray(dockCapacity.length);
     }
@@ -34,8 +39,12 @@ public class Dock implements Runnable {
     }
 
     public synchronized boolean stealProduct(int product) {
-        if (currentCount.get(product) == 0) {
-            return false;
+        try {
+            if (currentCount.get(product) == 0) {
+                return false;
+            }
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("Invalid product id");
         }
         currentCount.decrementAndGet(product);
         logger.log(CONFIG, "Product with id " + product + "was stealed");
