@@ -41,7 +41,7 @@ public class JsonToControllerConverter {
                 cargoList.add(elem.toString());
             }
             ShipGenerator shipGenerator = new ShipGenerator(generatingTime, shipCapacityMin,
-                    shipCapacityMax, cargoList);
+                    shipCapacityMax);
 
             JSONObject tunnel = (JSONObject) jsonObject.get("tunnel");
             int maxShips = Integer.parseInt(tunnel.get("max_ships").toString());

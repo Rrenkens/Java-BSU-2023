@@ -1,7 +1,6 @@
 package by.Lenson423.docks_and_hobos.main_actors;
 
 import by.Lenson423.docks_and_hobos.utilities.Controller;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Timer;
@@ -26,8 +25,7 @@ public class ShipGenerator implements Runnable {
         }
     };
 
-    public ShipGenerator(int generationTime, int shipCapacityMin, int shipCapacityMax,
-                         @NotNull List<String> cargoTypes) {
+    public ShipGenerator(int generationTime, int shipCapacityMin, int shipCapacityMax) {
         if (generationTime <= 0) {
             throw new IllegalArgumentException("Invalid period");
         }
