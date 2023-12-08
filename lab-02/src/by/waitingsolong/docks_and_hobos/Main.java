@@ -1,5 +1,6 @@
 package by.waitingsolong.docks_and_hobos;
 
+import by.waitingsolong.docks_and_hobos.helpers.CargoType;
 import by.waitingsolong.docks_and_hobos.helpers.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,9 +10,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.*;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
@@ -71,8 +69,6 @@ public class Main {
 
         shipGeneratorThread.start();
         dockThread.start();
-
-        logger.info("End of program.");
     }
 
 }

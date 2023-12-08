@@ -1,9 +1,6 @@
-package by.waitingsolong.docks_and_hobos;
+package by.waitingsolong.docks_and_hobos.helpers;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class CargoType {
     private static Random random = new Random();
@@ -20,6 +17,14 @@ public class CargoType {
             throw new IllegalArgumentException("Invalid CargoType id: " + id);
         }
         this.id = id;
+    }
+
+    public static List<CargoType> values() {
+        List<CargoType> cargoTypes = new ArrayList<>();
+        for (int i = 0; i < types.size(); i++) {
+            cargoTypes.add(new CargoType(i));
+        }
+        return cargoTypes;
     }
 
     public String getName() {

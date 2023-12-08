@@ -1,5 +1,5 @@
 {
-  "generating_time" : 5,
+  "generating_time" : 3,
   "ship_capacity_min" : 10,
   "ship_capacity_max" : 100,
   "cargo_types" : [
@@ -9,7 +9,7 @@
     "RAW_MATERIALS",
     "SLAVES"
   ],
-  "max_ships" : 5,
+  "max_ships" : 3,
   "unloading_speed" : 10,
   "dock_capacity" : 50,
   "hobos" : 5,

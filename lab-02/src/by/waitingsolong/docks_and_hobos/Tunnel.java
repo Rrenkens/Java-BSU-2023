@@ -3,6 +3,7 @@ package by.waitingsolong.docks_and_hobos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -16,24 +17,22 @@ public class Tunnel {
 
     public void enter(Ship ship) {
         if (!tunnel.offer(ship)) {
-            logger.info("Ship " + ship.getName() + " has not entered the tunnel...");
+            logger.info("Ship " + ship.getName() + " has not entered the tunnel");
             Thread.currentThread().interrupt();
         } else {
-            logger.info("Ship " + ship.getName() + " entered the tunnel...");
+            logger.info("Ship " + ship.getName() + " entered the tunnel");
         }
     }
 
-    public boolean call(Dock dock) {
+    public Optional<Ship> call(Dock dock) {
         Ship ship = tunnel.poll();
         if (ship != null) {
-            ship.setDock(dock);
             synchronized (ship) {
-                logger.info("Ship " + ship.getName() + " is called from the tunnel...");
                 ship.notify();
             }
-            return true;
+            return Optional.of(ship);
         } else {
-            return false;
+            return Optional.empty();
         }
     }
 }
