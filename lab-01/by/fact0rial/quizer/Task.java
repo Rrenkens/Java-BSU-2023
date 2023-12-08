@@ -1,9 +1,8 @@
-package by.fact0rial.quizer
+package by.fact0rial.quizer;
 /**
  * Interface, который описывает одно задание
  */
 public interface Task {
-    private String text;
     /**
      @return текст задания
      */
@@ -17,4 +16,7 @@ public interface Task {
      * @see           Result
      */
     Result validate(String answer);
+    interface Generator {
+        Task generate();
+    }
 }

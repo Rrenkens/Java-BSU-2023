@@ -1,4 +1,4 @@
-package by.fact0rial.quizer
+package by.fact0rial.quizer;
 /**
  * Enum, который описывает результат ответа на задание
  */
