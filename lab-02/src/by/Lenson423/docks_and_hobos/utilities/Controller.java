@@ -13,7 +13,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.*;
+import java.util.logging.Handler;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
 
@@ -101,7 +105,7 @@ public class Controller implements Runnable {
         }
     }
 
-    private synchronized void changeHandlers(@NotNull String filename) {
+    private void changeHandlers(@NotNull String filename) {
         if (filename.isEmpty()){
            throw new IllegalArgumentException("Empty filename");
         }

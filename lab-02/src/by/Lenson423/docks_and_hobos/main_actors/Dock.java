@@ -47,7 +47,7 @@ public class Dock implements Runnable {
             throw new IllegalArgumentException("Invalid product id");
         }
         currentCount.decrementAndGet(product);
-        logger.log(CONFIG, "Product with id " + product + "was stealed");
+        logger.log(CONFIG, "Product with id " + product + "was stolen");
         return true;
     }
 
