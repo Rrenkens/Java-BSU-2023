@@ -8,6 +8,7 @@
     "bread",
     "butter",
     "sausages",
+    "oranges",
     "cheese",
     "tomatoes"
   ],
@@ -15,6 +16,7 @@
     3,
     3,
     1,
+    0,
     1,
     1
   ],
@@ -25,6 +27,7 @@
         "bread": 10,
         "butter": 20,
         "sausages": 30,
+        "oranges": 100,
         "cheese": 40,
         "tomatoes": 5
       }
@@ -35,6 +38,7 @@
         "bread": 20,
         "butter": 20,
         "sausages": 30,
+        "oranges": 100,
         "cheese": 40,
         "tomatoes": 5
       }

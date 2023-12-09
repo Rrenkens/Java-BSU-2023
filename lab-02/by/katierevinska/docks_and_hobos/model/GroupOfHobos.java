@@ -115,10 +115,13 @@ class GroupOfHobos implements Runnable {
     public void run() {
         while (true) {
             int count = hobosList.size();
-            Thread[] threadsOfHobos = new Thread[count - 2];
-            for (int i = 2; i < count; i++) {
-                threadsOfHobos[i - 2] = new Thread(hobosList.get(i));
-            }//TODO change known about cookers
+            Thread[] threadsOfHobos= new Thread[count - 2];
+            int num = 0;
+            for (Hobo hobo : hobosList) {
+                if (hobo.isStealing) {
+                    threadsOfHobos[num++] = new Thread(hobo);
+                }
+            }
             for (Thread thread : threadsOfHobos) {
                 thread.start();
             }
