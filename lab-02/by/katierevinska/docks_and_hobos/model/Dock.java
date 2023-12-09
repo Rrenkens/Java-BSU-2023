@@ -1,8 +1,8 @@
-package by.katierevinska.docks_and_hobos;
+package by.katierevinska.docks_and_hobos.model;
 
-import java.util.HashMap;
+import by.katierevinska.docks_and_hobos.Controller;
+
 import java.util.Map;
-import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Dock implements Runnable {
@@ -10,9 +10,9 @@ public class Dock implements Runnable {
     private Map<String, Integer> dockCapacity;
     private ConcurrentHashMap<String, Long> currentNumOfIngredients;
 
-    Dock() {
+    public Dock() {
         this.currentNumOfIngredients = new ConcurrentHashMap<>();
-        for (var ing : Process.getInstance().shipGenerator.cargoTypes) {
+        for (var ing : Controller.getInstance().getModel().getCargoTypes()) {
             this.currentNumOfIngredients.put(ing, 0L);
         }
     }
@@ -57,7 +57,7 @@ public class Dock implements Runnable {
             while (true) {
                 try {
                     System.out.println("sending ship to the dock");
-                    Ship shipForUploading = Process.getInstance().tunnel.sendToDock();
+                    Ship shipForUploading = Controller.getInstance().getModel().getTunnel().sendToDock();
                     System.out.println(shipForUploading.getCargoType()+shipForUploading.getCargoType()+shipForUploading.getCargoType());
                     addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
                     System.out.println("dock uploaded ship");

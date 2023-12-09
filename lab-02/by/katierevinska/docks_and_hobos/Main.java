@@ -8,9 +8,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
 
-        Process.getInstance().createObjects();
-        System.out.println("Process start");
-        Process.getInstance().startProcess();
+        Controller.getInstance().createObjects();
+        System.out.println("Controller start");
+        Controller.getInstance().startProcess();
     }
 
 

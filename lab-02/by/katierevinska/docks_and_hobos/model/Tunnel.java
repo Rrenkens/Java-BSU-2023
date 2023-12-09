@@ -1,12 +1,12 @@
-package by.katierevinska.docks_and_hobos;
+package by.katierevinska.docks_and_hobos.model;
 
 import java.util.LinkedList;
 
-public class Tunnel {
+class Tunnel {
     private Long max_ships = 0L;
     private LinkedList<Ship> ships;
 
-    Tunnel() {
+    public Tunnel() {
         this.ships = new LinkedList<>();
     }
 

@@ -1,20 +1,16 @@
-package by.katierevinska.docks_and_hobos;
+package by.katierevinska.docks_and_hobos.model;
 
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
+import by.katierevinska.docks_and_hobos.Controller;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicIntegerArray;
 
-public class GroupOfHobos implements Runnable {
+class GroupOfHobos implements Runnable {
     private Long hobosEatingTime;
     private Long hobosStealingTime;
     private int hobosCount;
     List<Hobos> hobosList;
-    List<String> cargoTypes;
     Map<String, Long> ingredientsCount;
     ConcurrentHashMap<String, Long> nowIngredientsCount;
 
@@ -26,9 +22,11 @@ public class GroupOfHobos implements Runnable {
         }
 
         Optional<String> ingredientNeedToSteeling() {
-            for (int i = 0; i < cargoTypes.size(); ++i) {
-                if ((Long) nowIngredientsCount.get(cargoTypes.get(i)) < ingredientsCount.get(cargoTypes.get(i))) {
-                    return Optional.of(cargoTypes.get(i));
+            for (int i = 0; i < Controller.getInstance().getModel().getCargoTypes().size(); ++i) {
+                String type = Controller.getInstance().getModel().getCargoTypes().get(i);
+                if (nowIngredientsCount.get(type)
+                        < ingredientsCount.get(type)) {
+                    return Optional.of(type);
                 }
             }
             return Optional.empty();
@@ -40,7 +38,7 @@ public class GroupOfHobos implements Runnable {
                 String ingredientToSteeling = ingredientNeedToSteeling().get();
                 boolean flag = false;
                 while (true) {
-                    for (var dock : Process.getInstance().docks) {
+                    for (var dock : Controller.getInstance().getModel().getDocks()) {
                         if (dock.steelIngredient(ingredientToSteeling)) {
                             flag = true;
                             break;
@@ -54,7 +52,7 @@ public class GroupOfHobos implements Runnable {
                         }
                         System.out.println("Hobo steeled product " + ingredientToSteeling + " from dock");
 
-                        Long newCount = (Long) nowIngredientsCount.get(ingredientToSteeling) + 1;
+                        Long newCount = nowIngredientsCount.get(ingredientToSteeling) + 1;
                         nowIngredientsCount.put(ingredientToSteeling, newCount);
                         System.out.println("Hobo drought "+ ingredientToSteeling);
 
@@ -65,34 +63,29 @@ public class GroupOfHobos implements Runnable {
         }
     }
 
-    void setNullListIngredients(){
+    public void setNullListIngredients(){
         this.nowIngredientsCount = new ConcurrentHashMap<>();
-        for (var ing : Process.getInstance().shipGenerator.cargoTypes) {
+        for (var ing : Controller.getInstance().getModel().getCargoTypes()) {
             this.nowIngredientsCount.put(ing, 0L);
         }
     }
 
-    GroupOfHobos setHobosStealingTime(Long hobosStealingTime) {
+    public GroupOfHobos setHobosStealingTime(Long hobosStealingTime) {
         this.hobosStealingTime = hobosStealingTime;
         return this;
     }
 
-    GroupOfHobos setHobosEatingTime(Long hobosEatingTime) {
+    public GroupOfHobos setHobosEatingTime(Long hobosEatingTime) {
         this.hobosEatingTime = hobosEatingTime;
         return this;
     }
 
-    GroupOfHobos setHobosCount(int hobosCount) {
+    public GroupOfHobos setHobosCount(int hobosCount) {
         this.hobosCount = hobosCount;
         return this;
     }
 
-    GroupOfHobos setCargoTypes(List<String> cargoTypes) {
-        this.cargoTypes = cargoTypes;
-        return this;
-    }
-
-    GroupOfHobos setIngredientsCount(Map<String, Long> ingredientsCount) {
+    public GroupOfHobos setIngredientsCount(Map<String, Long> ingredientsCount) {
         this.ingredientsCount = ingredientsCount;
         return this;
     }
@@ -133,7 +126,7 @@ public class GroupOfHobos implements Runnable {
                 }
             }
             System.out.println("Hobos steeled all they need");
-            for (String cargoType : cargoTypes) {
+            for (String cargoType : Controller.getInstance().getModel().getCargoTypes()) {
                 nowIngredientsCount.put(cargoType, 0L);
             }
 

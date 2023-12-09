@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Reader {
     String fileName = "config.json";
 
-     JSONObject getJsonObject() throws IOException, ParseException {
+     public JSONObject getJsonObject() throws IOException, ParseException {
         Object object = new JSONParser().parse(new FileReader(fileName));
         return (JSONObject) object;
     }

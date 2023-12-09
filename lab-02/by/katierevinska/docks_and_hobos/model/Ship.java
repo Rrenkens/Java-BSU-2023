@@ -1,6 +1,6 @@
-package by.katierevinska.docks_and_hobos;
+package by.katierevinska.docks_and_hobos.model;
 
-public class Ship {
+class Ship {
     private String cargoType;
     private Long shipCapacity;
 
