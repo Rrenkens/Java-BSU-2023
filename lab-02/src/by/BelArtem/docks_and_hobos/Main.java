@@ -7,14 +7,19 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
+
+
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
+
+        Program program = new Program();
+        program.start();
 //        ArrayList<Ship> shipArrayList = new ArrayList<>();
 //        ShipGenerator generator = new ShipGenerator(1, 2, 3
 //        , shipArrayList);
 
-        ArrayList<String> cargo_types = new ArrayList<>();
+        /*ArrayList<String> cargo_types = new ArrayList<>();
         cargo_types.add("first");
         cargo_types.add("second");
         cargo_types.add("third");
@@ -55,7 +60,7 @@ public class Main {
         HobosManager hobosManager = new HobosManager(hobos, 5, ingredients);
 
         Thread hobosManagerThread = new Thread(hobosManager);
-        hobosManagerThread.start();
+        hobosManagerThread.start();*/
 
 
         //Thread.sleep(5000);
@@ -67,6 +72,9 @@ public class Main {
 //            System.out.println("During joining something went wrong");
 //            throw new RuntimeException(e);
 //        }
+    }
+
+    public static void writeJson() {
 
     }
 }
