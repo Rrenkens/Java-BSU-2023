@@ -37,10 +37,11 @@ public class GroupOfHobos implements Runnable {
         @Override
         public void run() {
             while (ingredientNeedToSteeling().isPresent()) {
+                String ingredientToSteeling = ingredientNeedToSteeling().get();
                 boolean flag = false;
                 while (true) {
                     for (var dock : Process.getInstance().docks) {
-                        if (dock.steelIngredient(ingredientNeedToSteeling().get())) {
+                        if (dock.steelIngredient(ingredientToSteeling)) {
                             flag = true;
                             break;
                         }
@@ -51,11 +52,11 @@ public class GroupOfHobos implements Runnable {
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        System.out.println("Hobo steeled product " + ingredientNeedToSteeling().isPresent() + " from dock");
+                        System.out.println("Hobo steeled product " + ingredientToSteeling + " from dock");
 
-                        Long newCount = (Long) nowIngredientsCount.get(ingredientNeedToSteeling().get()) + 1;
-                        nowIngredientsCount.put(ingredientNeedToSteeling().get(), newCount);
-                        System.out.println("hobos get product " + ingredientNeedToSteeling().isPresent());
+                        Long newCount = (Long) nowIngredientsCount.get(ingredientToSteeling) + 1;
+                        nowIngredientsCount.put(ingredientToSteeling, newCount);
+                        System.out.println("Hobo drought "+ ingredientToSteeling);
 
                         break;
                     }
@@ -131,13 +132,13 @@ public class GroupOfHobos implements Runnable {
                     throw new RuntimeException(e);
                 }
             }
-            System.out.println("hobos steeled all they need");
+            System.out.println("Hobos steeled all they need");
             for (String cargoType : cargoTypes) {
                 nowIngredientsCount.put(cargoType, 0L);
             }
 
             try {
-                System.out.println("hobos eating!!!)))");
+                System.out.println("Hobos eating!!!)))");
                 Thread.sleep(hobosEatingTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

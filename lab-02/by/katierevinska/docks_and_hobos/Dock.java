@@ -56,11 +56,11 @@ public class Dock implements Runnable {
         public void run() {
             while (true) {
                 try {
-                    System.out.println("in tunnel " + Process.getInstance().tunnel.sizeOfShips());
+                    System.out.println("sending ship to the dock");
                     Ship shipForUploading = Process.getInstance().tunnel.sendToDock();
                     System.out.println(shipForUploading.getCargoType()+shipForUploading.getCargoType()+shipForUploading.getCargoType());
                     addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
-                    System.out.println("uploadedShip");
+                    System.out.println("dock uploaded ship");
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

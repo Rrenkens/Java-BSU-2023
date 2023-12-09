@@ -39,7 +39,7 @@ public class ShipGenerator implements Runnable {
         public void run() {
             Long shipCapacity = ThreadLocalRandom.current().nextLong(SHIP_CAPACITY_MIN, SHIP_CAPACITY_MAX + 1);
             int cargoType = ThreadLocalRandom.current().nextInt(0, cargoTypes.size());
-            System.out.println("send ship with type " + cargoType + "and capacity " + shipCapacity + "to tunnel");
+            System.out.println("Ship generator send ship with type " + cargoType + " and capacity " + shipCapacity + "to tunnel");
             Process.getInstance().tunnel.setShip(new Ship(cargoTypes.get(cargoType), shipCapacity));
         }
     };

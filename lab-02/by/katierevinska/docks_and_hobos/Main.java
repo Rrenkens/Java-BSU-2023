@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException {
 
         Process.getInstance().createObjects();
-        System.out.println("process start");
+        System.out.println("Process start");
         Process.getInstance().startProcess();
     }
 
