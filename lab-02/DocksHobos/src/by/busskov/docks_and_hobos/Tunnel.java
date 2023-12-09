@@ -16,6 +16,10 @@ public class Tunnel {
         return maxShips == queue.size();
     }
 
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
+
     public synchronized void addShip(Ship ship) {
         if (!this.isFull()) {
             queue.add(ship);

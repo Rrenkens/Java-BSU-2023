@@ -1,12 +1,10 @@
 package by.busskov.docks_and_hobos;
 
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 public class Ship {
 
-    public static class Generator {
+    public static class Generator implements Runnable {
         Generator(
                 int minCapacity,
                 int maxCapacity,
@@ -39,14 +37,17 @@ public class Ship {
             random = new Random();
         }
 
-        void startGenerating() {
-            //TODO
-        }
-
-        Ship generate() {
-            int index = random.nextInt(cargoTypes.size());
-            int capacity = random.nextInt(maxCapacity - minCapacity + 1) + minCapacity;
-            return new Ship(capacity, cargoTypes.get(index));
+        @Override
+        public void run() {
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    int index = random.nextInt(cargoTypes.size());
+                    int capacity = random.nextInt(maxCapacity - minCapacity + 1) + minCapacity;
+                    tunnel.addShip(new Ship(capacity, index));
+                }
+            }, 0, generatingTime);
         }
 
         private final Random random;
@@ -58,24 +59,37 @@ public class Ship {
         private final Tunnel tunnel;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public Ship (
+            int quantity,
+            int cargoType
+    ) {
+        this.quantity = quantity;
+        this.cargoType = cargoType;
     }
 
-    public String getCargoType() {
+    public int getCargoType() {
         return cargoType;
     }
 
-    public Ship (
-            int capacity,
-            String cargoType
-    ) {
-        if (cargoType == null || cargoType.isBlank()) {
-            throw new IllegalArgumentException("Cargo type must have a value");
+    public synchronized int takeGoods(int number) {
+        if (number < quantity) {
+            quantity -= number;
+            return number;
         }
-        this.capacity = capacity;
-        this.cargoType = cargoType;
+        int taken = quantity;
+        quantity = 0;
+        return taken;
     }
-    private final int capacity;
-    private final String cargoType;
+
+    public synchronized boolean isEmpty() {
+        return quantity == 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Ship:" + quantity + ";" + cargoType;
+    }
+
+    private int quantity;
+    private final int cargoType;
 }
