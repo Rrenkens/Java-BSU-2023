@@ -6,15 +6,15 @@ import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ShipGenerator implements Runnable {
-    Process process;
     List<String> cargoTypes;
-    ShipGenerator(Process process){
-        this.process = process;
-    }
     private Long SHIP_CAPACITY_MIN;
     private Long SHIP_CAPACITY_MAX;
     private Long GENERATION_TIME;
-    private final Timer timer = new Timer();
+    private final Timer timer;
+
+    public ShipGenerator() {
+        this.timer = new Timer();
+    }
 
     ShipGenerator setGeneratingTime(Long time){
         GENERATION_TIME = time;
@@ -40,7 +40,7 @@ public class ShipGenerator implements Runnable {
             Long shipCapacity = ThreadLocalRandom.current().nextLong(SHIP_CAPACITY_MIN, SHIP_CAPACITY_MAX + 1);
             int cargoType = ThreadLocalRandom.current().nextInt(0, cargoTypes.size());
             System.out.println("send ship with type " + cargoType + "and capacity " + shipCapacity + "to tunnel");
-            process.tunnel.setShip(new Ship(cargoTypes.get(cargoType), shipCapacity));
+            Process.getInstance().tunnel.setShip(new Ship(cargoTypes.get(cargoType), shipCapacity));
         }
     };
     @Override

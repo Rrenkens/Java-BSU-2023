@@ -1,5 +1,9 @@
 package by.katierevinska.docks_and_hobos;
 
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +14,6 @@ public class GroupOfHobos implements Runnable {
     private Long hobosStealingTime;
     private int hobosCount;
     List<Hobos> hobosList;
-    Process process;
     List<String> cargoTypes;
     Map<String, Long> ingredientsCount;
     ConcurrentHashMap<String, Long> nowIngredientsCount;
@@ -36,7 +39,7 @@ public class GroupOfHobos implements Runnable {
             while (ingredientNeedToSteeling().isPresent()) {
                 boolean flag = false;
                 while (true) {
-                    for (var dock : process.docks) {
+                    for (var dock : Process.getInstance().docks) {
                         if (dock.steelIngredient(ingredientNeedToSteeling().get())) {
                             flag = true;
                             break;
@@ -61,10 +64,9 @@ public class GroupOfHobos implements Runnable {
         }
     }
 
-    GroupOfHobos(Process process) {
-        this.process = process;
+    void setNullListIngredients(){
         this.nowIngredientsCount = new ConcurrentHashMap<>();
-        for (var ing : process.shipGenerator.cargoTypes) {
+        for (var ing : Process.getInstance().shipGenerator.cargoTypes) {
             this.nowIngredientsCount.put(ing, 0L);
         }
     }

@@ -9,29 +9,34 @@ import java.io.IOException;
 import java.util.*;
 
 public class Process {
+    private static Process instance = new Process();
     Reader reader;
     ShipGenerator shipGenerator;
-    List<Ship> ships;
-    Tunnel tunnel = new Tunnel();
-    List<Dock> docks = new ArrayList<>();
+    Tunnel tunnel;
+    List<Dock> docks;
     GroupOfHobos hobos;
-
-    void createShipGenerator() {
-        shipGenerator = new ShipGenerator(this);
+    public static Process getInstance(){
+        return instance;
     }
 
-    void createHobos() {
-        hobos = new GroupOfHobos(this);
-    }
+
 
     void createDock() {
         for (int i = 0; i < hobos.getHobosCount(); ++i) {
-            docks.add(new Dock(this));
+            docks.add(new Dock());
         }
     }
+    private Process(){
+        instance = this;
+        tunnel = new Tunnel();
+        docks = new ArrayList<>();
+        shipGenerator = new ShipGenerator();
+        hobos = new GroupOfHobos();
+    }
 
-    void createObjects(String fileName) throws IOException, ParseException, JSONException {
-        reader = new Reader(fileName);
+    void createObjects() throws IOException, ParseException {
+        reader = new Reader();
+
         JSONObject configParam = reader.getJsonObject();
 
         JSONArray jsonCargoTypes = (JSONArray) configParam.get("cargo_types");
@@ -46,12 +51,11 @@ public class Process {
         for (int i = 0; i < sizeOfIngredients; i++) {
             ingredientsCount.put(cargoTypes.get(i), (Long)jsonIngredientsCount.get(i));
         }
-        createShipGenerator();
         shipGenerator.setGeneratingTime((Long) configParam.get("generating_time"))
                 .setShipCapacityMin((Long) configParam.get("ship_capacity_min"))
                 .setShipCapacityMax((Long) configParam.get("ship_capacity_max"))
                 .setCargoType(cargoTypes);
-        createHobos();
+        hobos.setNullListIngredients();
         hobos.setHobosStealingTime((Long) configParam.get("stealing_time"))
                 .setHobosEatingTime((Long) configParam.get("eating_time"))
                 .setHobosCount(Integer.parseInt(configParam.get("hobos_count").toString()))

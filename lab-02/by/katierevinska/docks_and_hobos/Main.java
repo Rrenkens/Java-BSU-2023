@@ -9,11 +9,11 @@ import java.lang.Thread;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException, ParseException, JSONException {
-        Process process = new Process();
-        process.createObjects("config.json");
+    public static void main(String[] args) throws IOException, ParseException {
+
+        Process.getInstance().createObjects();
         System.out.println("process start");
-        process.startProcess();
+        Process.getInstance().startProcess();
     }
 
 

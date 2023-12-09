@@ -9,12 +9,10 @@ public class Dock implements Runnable {
     private Long unloadingSpeed;//единиц товара в секунду
     private Map<String, Integer> dockCapacity;
     private ConcurrentHashMap<String, Long> currentNumOfIngredients;
-    Process process;
 
-    Dock(Process process) {
-        this.process = process;
+    Dock() {
         this.currentNumOfIngredients = new ConcurrentHashMap<>();
-        for (var ing : process.shipGenerator.cargoTypes) {
+        for (var ing : Process.getInstance().shipGenerator.cargoTypes) {
             this.currentNumOfIngredients.put(ing, 0L);
         }
     }
@@ -57,8 +55,8 @@ public class Dock implements Runnable {
         public void run() {
             while (true) {
                 try {
-                    System.out.println("in tunnel " + process.tunnel.sizeOfShips());
-                    Ship shipForUploading = process.tunnel.sendToDock();
+                    System.out.println("in tunnel " + Process.getInstance().tunnel.sizeOfShips());
+                    Ship shipForUploading = Process.getInstance().tunnel.sendToDock();
                     addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
                     System.out.println("uploadedShip");
                 } catch (InterruptedException e) {

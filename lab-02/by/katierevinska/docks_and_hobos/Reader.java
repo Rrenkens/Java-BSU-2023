@@ -8,10 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
-    String fileName;
-    Reader(String fileName){
-        this.fileName = fileName;
-    }
+    String fileName = "config.json";
+
      JSONObject getJsonObject() throws IOException, ParseException {
         Object object = new JSONParser().parse(new FileReader(fileName));
         return (JSONObject) object;
