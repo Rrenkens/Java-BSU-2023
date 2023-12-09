@@ -1,47 +1,48 @@
 package by.ullliaa.docks_and_hobos.actors;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Vector;
 
 public class CargoTypes {
-    private final Vector<String> cargoNames = new Vector<>();
+    private final Vector<String> cargoTypes = new Vector<>();
 
-    public CargoTypes(Vector<String> names) {
-        if (names == null) {
-            throw new IllegalArgumentException("Cargo types is null");
+    public CargoTypes(Vector<String> types) {
+        if (types == null) {
+            throw new IllegalArgumentException("Cargo types array is null");
         }
 
-        if (names.isEmpty()) {
+        if (types.isEmpty()) {
             throw new IllegalArgumentException("Array of cargo types is empty");
         }
 
-        for (var el: names) {
+        for (var el: types) {
             if (el == null) {
                 throw new IllegalArgumentException("Element in cargo types is null");
             }
         }
 
-        if (names.contains("")) {
-            throw new IllegalArgumentException("List with names is invalid");
+        if (types.contains("")) {
+            throw new IllegalArgumentException("Types contain invalid name");
         }
 
-        cargoNames.addAll(names);
+        cargoTypes.addAll(types);
     }
 
-    public int getName(String name) {
+    public int getType(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Name of cargo is null");
         }
 
-        for (int i = 0; i < cargoNames.size(); ++i) {
-            if (Objects.equals(cargoNames.get(i), name)) {
+        for (int i = 0; i < cargoTypes.size(); ++i) {
+            if (Objects.equals(cargoTypes.get(i), name)) {
                 return i;
             }
         }
 
-        throw new RuntimeException("Don't have such product");
+        throw new RuntimeException("Don't have such type");
     }
 
-    public Vector<String> getCargoNames(){
-        return cargoNames;
+    public Vector<String> getCargoTypes(){
+        return cargoTypes;
     }
 }

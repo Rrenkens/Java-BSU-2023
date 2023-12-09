@@ -19,13 +19,17 @@ public class Dock implements Runnable {
         }
 
         if (dockCapacity == null) {
-            throw new IllegalArgumentException("Dock capacity should be positive");
+            throw new IllegalArgumentException("Dock capacity is null");
         }
 
         for (int elem : dockCapacity) {
             if (elem < 0) {
                 throw new IllegalArgumentException("Count of product should be positive");
             }
+        }
+
+        if (id < 0) {
+            throw new IllegalArgumentException("Dock id should be positive");
         }
 
         this.unloadingSpeed = unloadingSpeed;
@@ -41,8 +45,8 @@ public class Dock implements Runnable {
         while (true) {
             try {
                 UnloadShip(Controller.getController().getModel().getTunnel().takeShip());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException exception) {
+                throw new RuntimeException(exception);
             }
         }
     }
@@ -53,7 +57,7 @@ public class Dock implements Runnable {
         }
         logger.log(Level.INFO, "Ship with cargo type " + ship.getShipType() + " and capacity " + ship.getShipCapacity() + " now in dock " + id);
 
-        int index = Controller.getController().getModel().getCargoTypes().getName(ship.getShipType());
+        int index = Controller.getController().getModel().getCargoTypes().getType(ship.getShipType());
         int needCargo = dockCapacity[index] - currentCount.get(index);
         currentCount.addAndGet(index, Math.min(ship.getShipCapacity(), needCargo));
 

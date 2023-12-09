@@ -9,8 +9,6 @@ public class Ship {
             throw new IllegalArgumentException("Ship capacity is less then zero");
         }
 
-        this.shipCapacity = shipCapacity;
-
         if (shipType == null) {
             throw new IllegalArgumentException("Ship type is null");
         }
@@ -19,6 +17,7 @@ public class Ship {
             throw new IllegalArgumentException("Ship type is empty");
         }
 
+        this.shipCapacity = shipCapacity;
         this.shipType = shipType;
     }
 

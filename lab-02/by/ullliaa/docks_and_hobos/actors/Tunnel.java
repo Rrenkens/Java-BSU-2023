@@ -8,13 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Tunnel {
-    public final int maxShips;
-    final Queue<Ship> ships = new ArrayDeque<>();
+    private final int maxShips;
+    private final Queue<Ship> ships = new ArrayDeque<>();
     private static final Logger logger = Logger.getLogger(Tunnel.class.getName());
 
     public Tunnel(int maxShips) {
         if (maxShips <= 0) {
-            throw new IllegalArgumentException("count of max ships on tunnel should be positive");
+            throw new IllegalArgumentException("count of ships on tunnel should be positive");
         }
 
         this.maxShips = maxShips;

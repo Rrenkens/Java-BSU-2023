@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
 
 public class Hobos implements Runnable {
-    private final int[] ingredientsCount;
     private final int eatingTime;
+    private final int[] ingredientsCount;
     private final AtomicIntegerArray currentIngredientsCount;
     public final ArrayList<Hobo> hobos;
     private final Vector<Integer> isStolen = new Vector<>();
@@ -82,15 +82,15 @@ public class Hobos implements Runnable {
                 isStolen.set(product, 1);
                 product = (int) (Math.random() * ingredientsCount.length);
 
-                boolean flag = false;
+                boolean allIngStolen = true;
                 for (var elem : isStolen) {
-                    if (elem != 1) {
-                        flag = true;
+                    if (elem == 0) {
+                        allIngStolen = false;
                         break;
                     }
                 }
 
-                if (!flag) {
+                if (allIngStolen) {
                     return -1;
                 }
             }
@@ -201,7 +201,7 @@ public class Hobos implements Runnable {
                         steal(product);
 
                         logger.log(Level.INFO, "Hobo " + id + " steal " +
-                                Controller.getController().getModel().getCargoTypes().getCargoNames().get(product));
+                                Controller.getController().getModel().getCargoTypes().getCargoTypes().get(product));
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -209,10 +209,6 @@ public class Hobos implements Runnable {
                     break;
                 }
             }
-        }
-
-        int getStealingTime() {
-            return stealingTime;
         }
     }
 }

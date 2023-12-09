@@ -20,7 +20,7 @@ public class ShipGenerator implements Runnable  {
         }
 
         if (cargoTypes == null) {
-            throw new IllegalArgumentException("Some parameter in ShipGenerator constructor is null");
+            throw new IllegalArgumentException("Cargo Type array is null");
         }
 
         if (cargoTypes.isEmpty()) {
@@ -70,9 +70,5 @@ public class ShipGenerator implements Runnable  {
 
     public static Logger getLogger() {
         return logger;
-    }
-
-    public int getGeneratingTime() {
-        return generatingTime;
     }
 }
