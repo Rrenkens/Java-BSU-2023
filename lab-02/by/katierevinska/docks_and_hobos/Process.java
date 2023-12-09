@@ -27,7 +27,6 @@ public class Process {
         }
     }
     private Process(){
-        instance = this;
         tunnel = new Tunnel();
         docks = new ArrayList<>();
         shipGenerator = new ShipGenerator();
