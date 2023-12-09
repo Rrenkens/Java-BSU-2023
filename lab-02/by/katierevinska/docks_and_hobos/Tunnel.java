@@ -6,28 +6,44 @@ public class Tunnel {
     private Long max_ships = 0L;
     private LinkedList<Ship> ships;
 
-    Tunnel(){
+    Tunnel() {
         this.ships = new LinkedList<>();
     }
-    boolean isFull(){
-        return ships.size()>max_ships;
+
+    private boolean isFull() {
+        return ships.size() > max_ships;
     }
-    int sizeOfShips(){
+
+    int sizeOfShips() {
         return ships.size();
     }
-    boolean isEmpty(){
+
+    boolean isEmpty() {
         return ships.isEmpty();
     }
-    public void setMaxShips(Long count){
+
+    public void setMaxShips(Long count) {
         max_ships = count;
-    };
-    public void setShip(Ship ship){
+    }
+
+    public synchronized void setShip(Ship ship) {
+        System.out.println("try set ship in tunnel");
+        if (this.isFull()) {
+              this.sinkShip();
+        }
         ships.add(ship);
     }
-    public void sinkShip(){
-        ships.remove(ships.size()-1);
+
+    private void sinkShip() {
+        System.out.println("sink lastIn ship");
     }
-    public Ship sendToDock(){
+
+    public synchronized Ship sendToDock() throws InterruptedException {
+        System.out.println("trying send to dock");
+        if (this.isEmpty()) {
+            wait();
+        }
+        System.out.println("send to dock");
         return ships.remove();
     }
 }

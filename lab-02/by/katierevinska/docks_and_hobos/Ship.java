@@ -7,6 +7,9 @@ public class Ship {
     Long getShipCapacity() {
         return shipCapacity;
     }
+    String getCargoType() {
+        return cargoType;
+    }
 
     Ship(String cargoType, Long capacity) {
         this.cargoType = cargoType;

@@ -1,47 +1,60 @@
 package by.katierevinska.docks_and_hobos;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Dock {
+public class Dock implements Runnable {
     private Long unloadingSpeed;//единиц товара в секунду
-    private Long dockCapacity;
-    private Long currentVolume = 0L;
-    private Long hobosStealingTime;
-    private Long hobosEatingTime;
-    Map<String, Integer> ingredientsCount= new HashMap();
-    private int hobosCount;
-    private List<Hobos> hobosList;
-    Dock(){
-        ingredientsCount.put("Tomatoes", 12);
-        ingredientsCount.put("Bread", 18);
-        ingredientsCount.put("Sausages", 10);
-        ingredientsCount.put("Butter", 30);
+    private Map<String, Integer> dockCapacity;
+    private Map<String, Long> currentNumOfIngredients;
+    Process process;
+
+    Dock(Process process) {
+        this.process = process;
+        this.currentNumOfIngredients = new HashMap<>();
+        for (var ing : process.shipGenerator.cargoTypes) {
+            this.currentNumOfIngredients.put(ing, 0L);
+        }
     }
-    public void addVolume(Long volumeOfCargo) {
-        this.currentVolume += volumeOfCargo;
+
+    public void addIngredient(String ing, Long num) {
+        Long newValue = this.currentNumOfIngredients.get(ing) + num;
+        this.currentNumOfIngredients.put(ing,
+                newValue < dockCapacity.get(ing) ? newValue:dockCapacity.get(ing));
     }
+    public boolean steelIngredient(String ing) {
+        if(this.currentNumOfIngredients.get(ing) <= 0){
+            return false;
+        }
+        Long newValue = this.currentNumOfIngredients.get(ing) - 1;
+        this.currentNumOfIngredients.put(ing, newValue);
+        return true;
+    }
+
     public void setUnloadingSpeed(Long unloadingSpeed) {
         this.unloadingSpeed = unloadingSpeed;
     }
+
     public Long getUnloadingSpeed() {
         return this.unloadingSpeed;
     }
-    public void setDockCapacity(Long dockCapacity) {
+
+    public void setDockCapacity(Map<String, Integer> dockCapacity) {
         this.dockCapacity = dockCapacity;
     }
-    public Long getDockCapacity() {
+
+    public Map<String, Integer> getDockCapacity() {
         return this.dockCapacity;
     }
-    public void generateHobos(){
-        hobosList = new ArrayList<>();
-        for(int i = 0; i < hobosCount; ++i){
-            hobosList.add(new Hobos());
+
+
+    public void run() {
+        try {
+            Ship shipForUploading = process.tunnel.sendToDock();
+            addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
+            System.out.println("uploadedShip");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-    }
-    public void generateProcessOnDock(){
-        //threads
     }
 }

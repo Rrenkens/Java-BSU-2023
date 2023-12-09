@@ -4,7 +4,43 @@
   "ship_capacity_max": 12,
   "max_ships": 2,
   "unloading_speed": 5000,
+  "cargo_types": [
+    "bread",
+    "butter",
+    "sausages",
+    "cheese",
+    "tomatoes"
+  ],
+  "ingredients_count": [
+    3,
+    3,
+    1,
+    1,
+    1
+  ],
+  "docks": [
+    {
+      "unloading_speed": 5,
+      "dock_capacity": {
+        "bread": 10,
+        "butter": 20,
+        "sausages": 30,
+        "cheese": 40,
+        "tomatoes": 5
+      }
+    },
+    {
+      "unloading_speed": 4,
+      "dock_capacity": {
+        "bread": 20,
+        "butter": 20,
+        "sausages": 30,
+        "cheese": 40,
+        "tomatoes": 5
+      }
+    }
+  ],
   "stealing_time": 20,
-  "dock_capacity": 15,
-  "eating_time": 5
+  "eating_time": 5,
+  "hobos_count": 6
 }
