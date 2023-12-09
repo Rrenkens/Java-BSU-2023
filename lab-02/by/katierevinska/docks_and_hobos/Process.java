@@ -58,7 +58,7 @@ public class Process {
                 .setCargoTypes(cargoTypes)
                 .setIngredientsCount(ingredientsCount);
         hobos.generateHobos();
-        tunnel.setMaxShips((Long) configParam.get("max_ships"));
+        tunnel.setMaxShips((Long)configParam.get("max_ships"));
 
         createDock();
         JSONArray jsonArrayOfDocks = (JSONArray) configParam.get("docks");

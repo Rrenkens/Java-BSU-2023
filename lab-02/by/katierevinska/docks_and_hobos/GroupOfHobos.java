@@ -1,7 +1,9 @@
 package by.katierevinska.docks_and_hobos;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 
 public class GroupOfHobos implements Runnable {
     private Long hobosEatingTime;
@@ -11,7 +13,7 @@ public class GroupOfHobos implements Runnable {
     Process process;
     List<String> cargoTypes;
     Map<String, Long> ingredientsCount;
-    Map<String, Long> nowIngredientsCount;
+    ConcurrentHashMap<String, Long> nowIngredientsCount;
 
     public class Hobos implements Runnable {
         private boolean isStealing = true;
@@ -22,13 +24,14 @@ public class GroupOfHobos implements Runnable {
 
         Optional<String> ingredientNeedToSteeling() {
             for (int i = 0; i < cargoTypes.size(); ++i) {
-                if (nowIngredientsCount.get(cargoTypes.get(i)) < ingredientsCount.get(cargoTypes.get(i))) {
+                if ((Long) nowIngredientsCount.get(cargoTypes.get(i)) < ingredientsCount.get(cargoTypes.get(i))) {
                     return Optional.of(cargoTypes.get(i));
                 }
             }
             return Optional.empty();
         }
 
+        @Override
         public void run() {
             while (ingredientNeedToSteeling().isPresent()) {
                 boolean flag = false;
@@ -47,7 +50,7 @@ public class GroupOfHobos implements Runnable {
                         }
                         System.out.println("Hobo steeled product " + ingredientNeedToSteeling().isPresent() + " from dock");
 
-                        Long newCount = nowIngredientsCount.get(ingredientNeedToSteeling().get()) + 1;
+                        Long newCount = (Long) nowIngredientsCount.get(ingredientNeedToSteeling().get()) + 1;
                         nowIngredientsCount.put(ingredientNeedToSteeling().get(), newCount);
                         System.out.println("hobos get product " + ingredientNeedToSteeling().isPresent());
 
@@ -60,7 +63,7 @@ public class GroupOfHobos implements Runnable {
 
     GroupOfHobos(Process process) {
         this.process = process;
-        this.nowIngredientsCount = new HashMap<>();
+        this.nowIngredientsCount = new ConcurrentHashMap<>();
         for (var ing : process.shipGenerator.cargoTypes) {
             this.nowIngredientsCount.put(ing, 0L);
         }
@@ -132,7 +135,7 @@ public class GroupOfHobos implements Runnable {
             }
 
             try {
-                System.out.println("hobos eating)))");
+                System.out.println("hobos eating!!!)))");
                 Thread.sleep(hobosEatingTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

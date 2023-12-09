@@ -2,28 +2,35 @@ package by.katierevinska.docks_and_hobos;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Dock implements Runnable {
     private Long unloadingSpeed;//единиц товара в секунду
     private Map<String, Integer> dockCapacity;
-    private Map<String, Long> currentNumOfIngredients;
+    private ConcurrentHashMap<String, Long> currentNumOfIngredients;
     Process process;
 
     Dock(Process process) {
         this.process = process;
-        this.currentNumOfIngredients = new HashMap<>();
+        this.currentNumOfIngredients = new ConcurrentHashMap<>();
         for (var ing : process.shipGenerator.cargoTypes) {
             this.currentNumOfIngredients.put(ing, 0L);
         }
     }
 
-    public void addIngredient(String ing, Long num) {
+    public void addIngredient(String ing, Long num) throws InterruptedException {
         Long newValue = this.currentNumOfIngredients.get(ing) + num;
-        this.currentNumOfIngredients.put(ing,
-                newValue < dockCapacity.get(ing) ? newValue:dockCapacity.get(ing));
+        Long ingredientsForUploading =  newValue < dockCapacity.get(ing) ? newValue : dockCapacity.get(ing);
+        this.currentNumOfIngredients.put(ing,ingredientsForUploading
+               );
+        Long addingIngredients =  dockCapacity.get(ing) - this.currentNumOfIngredients.get(ing) > num ?
+                num : dockCapacity.get(ing) - this.currentNumOfIngredients.get(ing);
+        Thread.sleep( addingIngredients/ getUnloadingSpeed());
     }
-    public boolean steelIngredient(String ing) {
-        if(this.currentNumOfIngredients.get(ing) <= 0){
+
+    public synchronized boolean steelIngredient(String ing) {
+        if (this.currentNumOfIngredients.get(ing) <= 0) {
             return false;
         }
         Long newValue = this.currentNumOfIngredients.get(ing) - 1;
@@ -46,15 +53,19 @@ public class Dock implements Runnable {
     public Map<String, Integer> getDockCapacity() {
         return this.dockCapacity;
     }
+    @Override
+        public void run() {
+            while (true) {
+                try {
+                    System.out.println("in tunnel " + process.tunnel.sizeOfShips());
+                    Ship shipForUploading = process.tunnel.sendToDock();
+                    addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
+                    System.out.println("uploadedShip");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
-
-    public void run() {
-        try {
-            Ship shipForUploading = process.tunnel.sendToDock();
-            addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
-            System.out.println("uploadedShip");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
-    }
+
 }

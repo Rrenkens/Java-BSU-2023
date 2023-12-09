@@ -11,7 +11,7 @@ public class Tunnel {
     }
 
     private boolean isFull() {
-        return ships.size() > max_ships;
+        return ships.size() >= max_ships;
     }
 
     int sizeOfShips() {
@@ -30,8 +30,11 @@ public class Tunnel {
         System.out.println("try set ship in tunnel");
         if (this.isFull()) {
               this.sinkShip();
+        }else{
+            ships.add(ship);
+            System.out.println("adding ship in tunnel "+ sizeOfShips());
         }
-        ships.add(ship);
+
     }
 
     private void sinkShip() {
@@ -40,7 +43,7 @@ public class Tunnel {
 
     public synchronized Ship sendToDock() throws InterruptedException {
         System.out.println("trying send to dock");
-        if (this.isEmpty()) {
+        while (this.isEmpty()) {
             wait();
         }
         System.out.println("send to dock");
