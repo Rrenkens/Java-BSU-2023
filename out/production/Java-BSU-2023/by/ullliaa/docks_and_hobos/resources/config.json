@@ -1,0 +1,72 @@
+{
+  "ShipGenerator": {
+    "generatingTime": 2,
+    "minShipCapacity": 5,
+    "maxShipCapacity": 20,
+    "cargoTypes": [
+      "apple",
+      "banana",
+      "orange",
+      "watermelon"
+    ]
+  },
+  "Tunnel": {
+    "maxShips": 2
+  },
+  "Docks": [
+    {
+      "unloadingSpeed": 5,
+      "maxProductCapacity": {
+        "apple": 10,
+        "banana": 30,
+        "orange": 25,
+        "watermelon": 3
+      }
+    },
+    {
+      "unloadingSpeed": 2,
+      "maxProductCapacity": {
+        "apple": 50,
+        "banana": 20,
+        "orange": 10,
+        "watermelon": 30
+      }
+    },
+    {
+      "unloadingSpeed": 1,
+      "maxProductCapacity": {
+        "apple": 10,
+        "banana": 16,
+        "orange": 20,
+        "watermelon": 0
+      }
+    }
+  ],
+  "Hobos": [
+    {
+      "stealingTime": 1
+    },
+    {
+      "stealingTime": 8
+    },
+    {
+      "stealingTime": 4
+    },
+    {
+      "stealingTime": 6
+    },
+    {
+      "stealingTime": 2
+    },
+    {
+      "stealingTime": 11
+    }
+  ],
+  "eatingTime": 15,
+  "ingredientsCount": {
+    "apple": 30,
+    "banana": 10,
+    "orange": 0,
+    "watermelon": 5
+  }
+}
