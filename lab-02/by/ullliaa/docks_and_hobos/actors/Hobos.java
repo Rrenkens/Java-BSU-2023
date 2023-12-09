@@ -68,9 +68,7 @@ public class Hobos implements Runnable {
         sleep(eatingTime * 1000L);
         logger.log(Level.INFO, "Eating is over");
 
-        for (var elem : isStolen) {
-            elem = 0;
-        }
+        isStolen.replaceAll(ignored -> 0);
     }
 
     public int productForSteal() {
