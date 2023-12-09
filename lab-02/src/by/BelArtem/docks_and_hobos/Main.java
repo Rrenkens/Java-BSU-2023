@@ -48,7 +48,7 @@ public class Main {
         ingredients.set(2, 3);
 
         ArrayList<Hobo> hobos = new ArrayList<>();
-        for (int i = 0; i <8; ++i) {
+        for (int i = 0; i < 8; ++i) {
             hobos.add(new Hobo(lst, ingredients, 1));
         }
 
