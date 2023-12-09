@@ -32,7 +32,13 @@ public class Tunnel {
               this.sinkShip();
         }else{
             ships.add(ship);
+            notify();
             System.out.println("adding ship in tunnel "+ sizeOfShips());
+        }
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
     }

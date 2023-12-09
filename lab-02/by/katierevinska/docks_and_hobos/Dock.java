@@ -20,6 +20,7 @@ public class Dock implements Runnable {
     public void addIngredient(String ing, Long num) throws InterruptedException {
         Long newValue = this.currentNumOfIngredients.get(ing) + num;
         Long ingredientsForUploading =  newValue < dockCapacity.get(ing) ? newValue : dockCapacity.get(ing);
+
         this.currentNumOfIngredients.put(ing,ingredientsForUploading
                );
         Long addingIngredients =  dockCapacity.get(ing) - this.currentNumOfIngredients.get(ing) > num ?
@@ -57,6 +58,7 @@ public class Dock implements Runnable {
                 try {
                     System.out.println("in tunnel " + Process.getInstance().tunnel.sizeOfShips());
                     Ship shipForUploading = Process.getInstance().tunnel.sendToDock();
+                    System.out.println(shipForUploading.getCargoType()+shipForUploading.getCargoType()+shipForUploading.getCargoType());
                     addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
                     System.out.println("uploadedShip");
                 } catch (InterruptedException e) {

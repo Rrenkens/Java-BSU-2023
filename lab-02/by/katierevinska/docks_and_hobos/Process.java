@@ -19,13 +19,6 @@ public class Process {
         return instance;
     }
 
-
-
-    void createDock() {
-        for (int i = 0; i < hobos.getHobosCount(); ++i) {
-            docks.add(new Dock());
-        }
-    }
     private Process(){
         tunnel = new Tunnel();
         docks = new ArrayList<>();
@@ -63,17 +56,19 @@ public class Process {
         hobos.generateHobos();
         tunnel.setMaxShips((Long)configParam.get("max_ships"));
 
-        createDock();
         JSONArray jsonArrayOfDocks = (JSONArray) configParam.get("docks");
         int countOfDocks = jsonArrayOfDocks.size();
         for (int i = 0; i < countOfDocks; i++) {
             JSONObject dock = (JSONObject) jsonArrayOfDocks.get(i);
+            docks.add(new Dock());
             docks.get(i).setUnloadingSpeed((Long) dock.get("unloading_speed"));
             Map<String, Integer> capacityForIngredients = new HashMap<>();
-            for (int j = 0; j < sizeOfIngredients; j++) {
-                capacityForIngredients.put(cargoTypes.get(j), (Integer) dock.get(cargoTypes.get(j)));
+            JSONObject caps = (JSONObject) dock.get("dock_capacity");
+            for (String cargoType : cargoTypes) {
+                capacityForIngredients.put(cargoType, Integer.parseInt(caps.get(cargoType).toString()));
             }
             docks.get(i).setDockCapacity(capacityForIngredients);
+
         }
     }
 
