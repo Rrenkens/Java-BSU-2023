@@ -3,7 +3,7 @@ package by.katierevinska.docks_and_hobos.model;
 import java.util.LinkedList;
 
 class Tunnel {
-    private Long max_ships = 0L;
+    private Long MAX_COUNT_OF_SHIPS = 0L;
     private LinkedList<Ship> ships;
 
     public Tunnel() {
@@ -11,7 +11,7 @@ class Tunnel {
     }
 
     private boolean isFull() {
-        return ships.size() >= max_ships;
+        return ships.size() >= MAX_COUNT_OF_SHIPS;
     }
 
     int sizeOfShips() {
@@ -23,22 +23,22 @@ class Tunnel {
     }
 
     public void setMaxShips(Long count) {
-        max_ships = count;
+        MAX_COUNT_OF_SHIPS = count;
     }
 
     public synchronized void setShip(Ship ship) {
-        System.out.println("Try set ship in tunnel if it not already full");
+        System.out.println("Try set ship "+ship.getShipId()+" in tunnel if it not already full");
         if (this.isFull()) {
               this.sinkShip();
         }else {
             ships.add(ship);
             notify();
-            System.out.println("Adding ship in tunnel, now " + sizeOfShips() + " ships in it");
+            System.out.println("Adding ship "+ship.getShipId()+" in tunnel, now " + sizeOfShips() + " ships in it");
         }
     }
 
     private void sinkShip() {
-        System.out.println("Sink lastIn ship");
+        System.out.println("Sink ship");
     }
 
     public synchronized Ship sendToDock() throws InterruptedException {
@@ -46,7 +46,8 @@ class Tunnel {
         while (this.isEmpty()) {
             wait();
         }
-        System.out.println("Now can send ship to dock");
-        return ships.remove();
+        Ship ship = ships.remove();
+        System.out.println("Now can send ship "+ship.getShipId()+" to dock");
+        return ship;
     }
 }

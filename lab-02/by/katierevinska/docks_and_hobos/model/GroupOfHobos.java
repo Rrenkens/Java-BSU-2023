@@ -7,18 +7,23 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 class GroupOfHobos implements Runnable {
-    private Long hobosEatingTime;
-    private Long hobosStealingTime;
-    private int hobosCount;
-    List<Hobos> hobosList;
+    private Long HOBOS_EATING_TIME;
+    private Long HOBOS_STEALING_TIME;
+    private int HOBOS_COUNT;
+    List<Hobo> hobosList;
     Map<String, Long> ingredientsCount;
     ConcurrentHashMap<String, Long> nowIngredientsCount;
 
-    public class Hobos implements Runnable {
+    public class Hobo implements Runnable {
+        private Long hoboId;
         private boolean isStealing = true;
 
         public void makeCooking() {
             this.isStealing = false;
+        }
+
+        Hobo(Long id){
+            hoboId = id;
         }
 
         Optional<String> ingredientNeedToSteeling() {
@@ -46,15 +51,15 @@ class GroupOfHobos implements Runnable {
                     }
                     if (flag) {
                         try {
-                            Thread.sleep(hobosStealingTime);
+                            Thread.sleep(HOBOS_STEALING_TIME);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        System.out.println("Hobo steeled product " + ingredientToSteeling + " from dock");
+                        System.out.println("Hobo " + hoboId + " steeled product " + ingredientToSteeling + " from dock");
 
                         Long newCount = nowIngredientsCount.get(ingredientToSteeling) + 1;
                         nowIngredientsCount.put(ingredientToSteeling, newCount);
-                        System.out.println("Hobo drought "+ ingredientToSteeling);
+                        System.out.println("Hobo " + hoboId + " brought "+ ingredientToSteeling);
 
                         break;
                     }
@@ -70,18 +75,18 @@ class GroupOfHobos implements Runnable {
         }
     }
 
-    public GroupOfHobos setHobosStealingTime(Long hobosStealingTime) {
-        this.hobosStealingTime = hobosStealingTime;
+    public GroupOfHobos setHobosStealingTime(Long HOBOS_STEALING_TIME) {
+        this.HOBOS_STEALING_TIME = HOBOS_STEALING_TIME;
         return this;
     }
 
     public GroupOfHobos setHobosEatingTime(Long hobosEatingTime) {
-        this.hobosEatingTime = hobosEatingTime;
+        this.HOBOS_EATING_TIME = hobosEatingTime;
         return this;
     }
 
-    public GroupOfHobos setHobosCount(int hobosCount) {
-        this.hobosCount = hobosCount;
+    public GroupOfHobos setHOBOS_COUNT(int HOBOS_COUNT) {
+        this.HOBOS_COUNT = HOBOS_COUNT;
         return this;
     }
 
@@ -90,19 +95,19 @@ class GroupOfHobos implements Runnable {
         return this;
     }
 
-    int getHobosCount() {
-        return this.hobosCount;
+    int getHOBOS_COUNT() {
+        return this.HOBOS_COUNT;
     }
 
     public void generateHobos() {
         hobosList = new ArrayList<>();
-        for (int i = 0; i < hobosCount; ++i) {
-            hobosList.add(new Hobos());
+        for (int i = 0; i < HOBOS_COUNT; ++i) {
+            hobosList.add(new Hobo((long) i));
         }
-        int cooker1 = ThreadLocalRandom.current().nextInt(0, hobosCount);
+        int cooker1 = ThreadLocalRandom.current().nextInt(0, HOBOS_COUNT);
         hobosList.get(cooker1).makeCooking();
-        int tmp = ThreadLocalRandom.current().nextInt(1, hobosCount - 1);
-        hobosList.get((cooker1 + tmp) % hobosCount).makeCooking();//TODO exception if already cooker
+        int tmp = ThreadLocalRandom.current().nextInt(1, HOBOS_COUNT - 1);
+        hobosList.get((cooker1 + tmp) % HOBOS_COUNT).makeCooking();//TODO exception if already cooker
 
     }
 
@@ -132,7 +137,7 @@ class GroupOfHobos implements Runnable {
 
             try {
                 System.out.println("Hobos eating!!!)))");
-                Thread.sleep(hobosEatingTime);
+                Thread.sleep(HOBOS_EATING_TIME);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -2,7 +2,6 @@ package by.katierevinska.docks_and_hobos.model;
 
 import by.katierevinska.docks_and_hobos.Controller;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,6 +12,8 @@ class ShipGenerator implements Runnable {
     private Long SHIP_CAPACITY_MAX;
     private Long GENERATION_TIME;
     private final Timer timer;
+
+    private Long shipId = 100L;
     public ShipGenerator() {
         this.timer = new Timer();
     }
@@ -37,8 +38,9 @@ class ShipGenerator implements Runnable {
         public void run() {
             Long shipCapacity = ThreadLocalRandom.current().nextLong(SHIP_CAPACITY_MIN, SHIP_CAPACITY_MAX + 1);
             int cargoType = ThreadLocalRandom.current().nextInt(0, Controller.getInstance().getModel().getCargoTypes().size());
-            System.out.println("Ship generator send ship with type " + Controller.getInstance().getModel().getCargoTypes().get(cargoType) + " and capacity " + shipCapacity + "to tunnel");
-            Controller.getInstance().getModel().getTunnel().setShip(new Ship(Controller.getInstance().getModel().getCargoTypes().get(cargoType), shipCapacity));
+            Controller.getInstance().getModel().getTunnel().setShip(new Ship(Controller.getInstance().getModel().getCargoTypes().get(cargoType), shipCapacity, shipId++));
+            System.out.println("Ship generator send ship " +(shipId-1)+" with type " + Controller.getInstance().getModel().getCargoTypes().get(cargoType) + " and capacity " + shipCapacity + "to tunnel");
+
         }
     };
     @Override

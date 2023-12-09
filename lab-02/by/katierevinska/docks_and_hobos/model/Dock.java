@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Dock implements Runnable {
-    private Long unloadingSpeed;//единиц товара в секунду
+    private Long UNLOADING_SPEED;
     private Map<String, Integer> dockCapacity;
     private ConcurrentHashMap<String, Long> currentNumOfIngredients;
 
@@ -25,7 +25,7 @@ public class Dock implements Runnable {
                );
         Long addingIngredients =  dockCapacity.get(ing) - this.currentNumOfIngredients.get(ing) > num ?
                 num : dockCapacity.get(ing) - this.currentNumOfIngredients.get(ing);
-        Thread.sleep( addingIngredients/ getUnloadingSpeed());
+        Thread.sleep( addingIngredients/ getUNLOADING_SPEED());
     }
 
     public synchronized boolean steelIngredient(String ing) {
@@ -37,12 +37,12 @@ public class Dock implements Runnable {
         return true;
     }
 
-    public void setUnloadingSpeed(Long unloadingSpeed) {
-        this.unloadingSpeed = unloadingSpeed;
+    public void setUNLOADING_SPEED(Long UNLOADING_SPEED) {
+        this.UNLOADING_SPEED = UNLOADING_SPEED;
     }
 
-    public Long getUnloadingSpeed() {
-        return this.unloadingSpeed;
+    public Long getUNLOADING_SPEED() {
+        return this.UNLOADING_SPEED;
     }
 
     public void setDockCapacity(Map<String, Integer> dockCapacity) {
@@ -56,11 +56,10 @@ public class Dock implements Runnable {
         public void run() {
             while (true) {
                 try {
-                    System.out.println("sending ship to the dock");
                     Ship shipForUploading = Controller.getInstance().getModel().getTunnel().sendToDock();
-                    System.out.println(shipForUploading.getCargoType()+shipForUploading.getCargoType()+shipForUploading.getCargoType());
+                    System.out.println("sending ship "+ shipForUploading.getShipId()+" to the dock");
                     addIngredient(shipForUploading.getCargoType(), shipForUploading.getShipCapacity());
-                    System.out.println("dock uploaded ship");
+                    System.out.println("dock uploaded ship "+ shipForUploading.getShipId());
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

@@ -60,7 +60,7 @@ public class Model {
         hobos.setNullListIngredients();
         hobos.setHobosStealingTime((Long) configParam.get("stealing_time"))
                 .setHobosEatingTime((Long) configParam.get("eating_time"))
-                .setHobosCount(Integer.parseInt(configParam.get("hobos_count").toString()))
+                .setHOBOS_COUNT(Integer.parseInt(configParam.get("hobos_count").toString()))
                 .setIngredientsCount(ingredientsCount);
         hobos.generateHobos();
     }
@@ -70,7 +70,7 @@ private void createDocks(JSONObject configParam){
     for (int i = 0; i < countOfDocks; i++) {
         JSONObject dock = (JSONObject) jsonArrayOfDocks.get(i);
         docks.add(new Dock());
-        docks.get(i).setUnloadingSpeed((Long) dock.get("unloading_speed"));
+        docks.get(i).setUNLOADING_SPEED((Long) dock.get("unloading_speed"));
         Map<String, Integer> capacityForIngredients = new HashMap<>();
         JSONObject caps = (JSONObject) dock.get("dock_capacity");
         for (String cargoType : cargoTypes) {
