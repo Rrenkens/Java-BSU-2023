@@ -2,7 +2,7 @@ package by.Katya841.quizer.tasks;
 
 public interface MathTask extends Task {
 
-    public  interface Generator extends Task.Generator {
+    interface Generator extends Task.Generator {
         int getMinNumber();
         int getMaxNumber();
 

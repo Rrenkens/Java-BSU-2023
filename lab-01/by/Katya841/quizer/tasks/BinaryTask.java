@@ -1,5 +1,6 @@
 package by.Katya841.quizer.tasks;
 
+import by.Katya841.quizer.Rand;
 import by.Katya841.quizer.Result;
 
 public class BinaryTask implements Task {
@@ -28,6 +29,27 @@ public class BinaryTask implements Task {
             return Result.OK;
         } else {
             return Result.WRONG;
+        }
+    }
+
+    public static class Generator implements Task.Generator {
+        private final int min;
+        private final int max;
+
+        public Generator (int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+        int getMinNumber() {
+            return min;
+        }
+        int getMaxNumber() {
+            return max;
+        }
+        @Override
+        public Task generate() {
+            int x = Rand.generateNumber(getMinNumber(), getMaxNumber());
+            return new BinaryTask(x);
         }
     }
 }

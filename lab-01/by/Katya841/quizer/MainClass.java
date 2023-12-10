@@ -73,6 +73,9 @@ public class MainClass {
         allQuizes.put("EquationsHard", equationsHardQuiz);
         allQuizes.put("ExpressionsHard", expressionsHardQuiz);
         //binary Quiz
+         BinaryTask.Generator generatorOfBinaryTasks = new BinaryTask.Generator(1, 256);
+         Quiz binaryQuiz = new Quiz(generatorOfBinaryTasks, 10);
+         allQuizes.put("Binary", binaryQuiz);
 
         // common Quiz
         PoolTaskGenerator poolTaskGeneratorCommon = new PoolTaskGenerator(false,
