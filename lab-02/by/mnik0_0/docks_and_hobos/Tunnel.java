@@ -1,7 +1,6 @@
 package by.mnik0_0.docks_and_hobos;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 
 public class Tunnel {

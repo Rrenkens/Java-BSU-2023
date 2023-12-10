@@ -1,10 +1,7 @@
 package by.mnik0_0.docks_and_hobos;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Dock implements Runnable {
