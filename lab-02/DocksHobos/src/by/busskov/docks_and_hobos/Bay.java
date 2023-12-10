@@ -2,7 +2,6 @@ package by.busskov.docks_and_hobos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Bay {
     public static void main(String[] args) throws InterruptedException {

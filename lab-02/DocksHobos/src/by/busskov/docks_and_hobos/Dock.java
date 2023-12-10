@@ -26,7 +26,10 @@ public class Dock implements Runnable {
         this.capacity = capacity;
         this.tunnel = tunnel;
 
-        warehouse = new ArrayList<>(Collections.nCopies(cargoTypes.size(), 0));
+        warehouse = new HashMap<>(cargoTypes.size());
+        for (String type : cargoTypes) {
+            warehouse.put(type, 0);
+        }
     }
     @Override
     public void run() {
@@ -41,16 +44,16 @@ public class Dock implements Runnable {
 
     private void processShip(Ship ship) {
         Timer timer = new Timer();
-        int index = ship.getCargoType();
+        String shipCargoType = ship.getCargoType();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                int currentValue = warehouse.get(index);
-                currentValue += ship.takeGoods(unloadingSpeed);
-                if (currentValue > capacity) {
-                    currentValue = capacity;
+                int value = warehouse.get(shipCargoType);
+                value += ship.takeGoods(unloadingSpeed);
+                if (value > capacity) {
+                    value = capacity;
                 }
-                warehouse.set(index, currentValue);
+                warehouse.put(shipCargoType, value);
 
                 System.out.println(warehouse.toString() + "   " + LocalTime.now());
             }
@@ -63,7 +66,7 @@ public class Dock implements Runnable {
 
     private final int unloadingSpeed;
     private final int capacity;
-    private final ArrayList<Integer> warehouse;
+    private final HashMap<String, Integer> warehouse;
 
     private final Tunnel tunnel;
 

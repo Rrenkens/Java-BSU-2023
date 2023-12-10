@@ -45,7 +45,7 @@ public class Ship {
                 public void run() {
                     int index = random.nextInt(cargoTypes.size());
                     int capacity = random.nextInt(maxCapacity - minCapacity + 1) + minCapacity;
-                    tunnel.addShip(new Ship(capacity, index));
+                    tunnel.addShip(new Ship(capacity, cargoTypes.get(index)));
                 }
             }, 0, generatingTime);
         }
@@ -61,13 +61,13 @@ public class Ship {
 
     public Ship (
             int quantity,
-            int cargoType
+            String cargoType
     ) {
         this.quantity = quantity;
         this.cargoType = cargoType;
     }
 
-    public int getCargoType() {
+    public String getCargoType() {
         return cargoType;
     }
 
@@ -91,5 +91,5 @@ public class Ship {
     }
 
     private int quantity;
-    private final int cargoType;
+    private final String cargoType;
 }
