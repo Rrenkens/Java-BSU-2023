@@ -3,6 +3,7 @@ package by.Katya841.quizer.tasks.math_tasks;
 import by.Katya841.quizer.Operation;
 import by.Katya841.quizer.Rand;
 import by.Katya841.quizer.Result;
+import by.Katya841.quizer.exceptions.TaskGeneratingException;
 import by.Katya841.quizer.tasks.AbstractMathTask;
 
 import java.util.EnumSet;
@@ -45,10 +46,10 @@ public class EquationMathTask extends AbstractMathTask {
                 answer = num1 * num2;
 
             } else {
-               answer = num1 / num2;
+               answer = (double)num1 / num2;
             }
         } else {
-            answer = num2 / num1;
+            answer = (double)num2 / num1;
         }
 
     }
@@ -95,20 +96,27 @@ public class EquationMathTask extends AbstractMathTask {
                 if (num1 == 0) {
                     num1++;
                 } else {
-                    if (num2 % num1 != 0) {
+                    /*if (num2 % num1 != 0) {
                         num2 *= num1;
                     }
+                     */
                 }
             }
             if (operation == Operation.Division) {
                 if (xId == 2 && num2 == 0) {
+                    num2++;
                 } else if (xId == 1 && num1 == 0) {
                     num1++;
                 }
-                num2++;
+                /*
                 if (xId == 2 && num1 % num2 != 0) {
                     num1 *= num2;
                 }
+
+                 */
+            }
+            if (num1 > getMaxNumber()  || num2 > getMaxNumber()) {
+                throw new TaskGeneratingException("TaskGeneratingException")
             }
 
             return new EquationMathTask(num1, num2, operation, xId);

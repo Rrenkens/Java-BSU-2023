@@ -2,6 +2,7 @@ package by.Katya841.quizer.task_generators;
 
 
 import by.Katya841.quizer.Rand;
+import by.Katya841.quizer.exceptions.TaskGeneratingException;
 import by.Katya841.quizer.tasks.Task;
 
 import java.util.ArrayList;
@@ -20,12 +21,18 @@ public class PoolTaskGenerator implements Task.Generator {
     public PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
         this.allowDuplicate  = allowDuplicate;
         this.tasks = new ArrayList<>(Arrays.asList(tasks));
+        if (this.tasks.isEmpty()) {
+            throw new TaskGeneratingException("TaskGeneratingException : " + "Empty set of tasks");
+        }
 
     }
 
     PoolTaskGenerator(boolean allowDuplicate, Collection<Task> tasks) {
         this.allowDuplicate = allowDuplicate;
         this.tasks = new ArrayList<>(tasks);
+        if (this.tasks.isEmpty()) {
+            throw new TaskGeneratingException("TaskGeneratingException : " + "Empty collection of tasks");
+        }
     }
 
     public Task generate() {
@@ -38,7 +45,7 @@ public class PoolTaskGenerator implements Task.Generator {
             }
             return task;
         } else {
-            throw new RuntimeException("Tasks is empty in poolTaskGenerator");
+            throw new TaskGeneratingException("Empty set of tasks in poolTaskGenerator");
         }
     }
 }

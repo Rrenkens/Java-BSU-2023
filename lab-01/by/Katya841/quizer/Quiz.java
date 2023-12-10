@@ -1,6 +1,7 @@
 package by.Katya841.quizer;
 
-import by.Katya841.quizer.exceptions.ExceededNumber;
+import by.Katya841.quizer.exceptions.QuizIsFinishedException;
+import by.Katya841.quizer.exceptions.QuizNotFinishedException;
 import by.Katya841.quizer.tasks.Task;
 
 
@@ -18,7 +19,7 @@ public class Quiz {
         lastIncorrect = false;
 
     }
-    Task nextTask() throws ExceededNumber {
+    Task nextTask() throws QuizNotFinishedException {
         if (cntOk + cntWrong < taskCount) {
             if (lastIncorrect) {
                 return curTask;
@@ -26,7 +27,7 @@ public class Quiz {
             curTask = taskGenerator.generate();
             return curTask;
         } else {
-            throw new ExceededNumber("Exceeded number of tasks in Quiz");
+            throw new QuizIsFinishedException("QuizIsFinishedException : " + "Attempt to get next task");
         }
     }
 

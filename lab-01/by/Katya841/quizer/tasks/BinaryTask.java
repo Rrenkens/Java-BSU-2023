@@ -7,8 +7,8 @@ public class BinaryTask implements Task {
     private final int value;
     private int cnt;
     void countNumberOfBits() {
-        for (int i = 0; (1 << i) < value; i++) {
-            if ( (value & (1 << i)) > 0) {
+        for (int i = 0; (1 << i) <=value; i++) {
+            if ((value & (1 << i)) > 0) {
                 cnt++;
             }
         }

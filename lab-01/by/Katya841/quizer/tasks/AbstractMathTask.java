@@ -2,18 +2,19 @@ package by.Katya841.quizer.tasks;
 
 import by.Katya841.quizer.Operation;
 import by.Katya841.quizer.Result;
+import by.Katya841.quizer.exceptions.TaskGeneratingException;
 
 
 import java.util.*;
 
 public abstract class AbstractMathTask implements MathTask {
-    protected int answer;
+    protected double answer;
     protected String text;
 
     public Result validate(String answer) {
         try {
-            int number = Integer.parseInt(answer);
-            if (this.answer == number) {
+            Double number = Double.parseDouble(answer);
+            if (Math.abs(this.answer - number) < eps) {
                 return Result.OK;
             } else {
                 return Result.WRONG;
@@ -28,7 +29,10 @@ public abstract class AbstractMathTask implements MathTask {
         int max;
         EnumSet<Operation> operations;
         public ArrayList<Operation> listOperations;
-        public Generator(int min, int max, EnumSet<Operation> operations) {
+        public Generator(int min, int max, EnumSet<Operation> operations) throws TaskGeneratingException {
+            if (min > max) {
+                throw new TaskGeneratingException("TaskGenerationException : " + "min should not be greater than max");
+            }
             this.min = min;
             this.max = max;
             this.operations = operations;

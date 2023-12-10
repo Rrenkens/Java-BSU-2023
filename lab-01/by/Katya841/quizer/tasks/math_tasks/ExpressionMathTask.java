@@ -3,7 +3,6 @@ package by.Katya841.quizer.tasks.math_tasks;
 import by.Katya841.quizer.Operation;
 import by.Katya841.quizer.Rand;
 import by.Katya841.quizer.Result;
-import by.Katya841.quizer.exceptions.IncorrectRange;
 import by.Katya841.quizer.tasks.AbstractMathTask;
 
 import java.util.EnumSet;
@@ -37,7 +36,7 @@ public class ExpressionMathTask extends AbstractMathTask {
         } else if (operation == Operation.Multiplication) {
             answer = num1 * num2;
         } else {
-            answer = num1 / num2;
+            answer = (double)num1 / num2;
         }
     }
 
@@ -68,13 +67,15 @@ public class ExpressionMathTask extends AbstractMathTask {
 
             while (operation == Operation.Division && num2 == 0) {
                 if (getMaxNumber() == getMinNumber() && getMaxNumber() == 0) {
-                    throw new IncorrectRange("Incorrect min and max in ExpressionMathTask.Generator");
+                    throw new IllegalArgumentException("IllegalArgumentException : " + "IncorrectRange for generating equation with division operation");
                 }
                 num2 = Rand.generateNumber(getMinNumber(), getMaxNumber());
             }
+            /*
             if (operation == Operation.Division && num1 % num2 != 0) {
                 num1 *= num2;
             }
+            */
 
             return new ExpressionMathTask(num1, num2, operation);
         }

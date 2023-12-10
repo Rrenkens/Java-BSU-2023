@@ -1,6 +1,7 @@
 package by.Katya841.quizer.task_generators;
 
 import by.Katya841.quizer.Rand;
+import by.Katya841.quizer.exceptions.TaskGeneratingException;
 import by.Katya841.quizer.tasks.Task;
 
 import java.util.ArrayList;
@@ -13,12 +14,17 @@ public class GroupTaskGenerator implements Task.Generator {
 
     public GroupTaskGenerator(Task.Generator... generators) {
         listGenerator = new ArrayList<>(Arrays.asList(generators));
+        if (listGenerator.isEmpty()) {
+            throw new TaskGeneratingException("TaskGeneratingException : " + "Empty set of generators");
+        }
     }
 
 
     GroupTaskGenerator(Collection<Task.Generator> generators) {
         listGenerator = new ArrayList<>(generators);
-
+        if (listGenerator.isEmpty()) {
+            throw new TaskGeneratingException("TaskGeneratingException : " + "Empty collection of generators");
+        }
     }
     /**
      * @return результат метода generate() случайного генератора из списка.

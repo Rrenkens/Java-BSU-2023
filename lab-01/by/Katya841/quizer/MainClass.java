@@ -1,9 +1,9 @@
 package by.Katya841.quizer;
 
-import by.Katya841.quizer.exceptions.EmptyNameOfTheTest;
+import by.Katya841.quizer.exceptions.QuizIsFinishedException;
+import by.Katya841.quizer.exceptions.QuizNotFinishedException;
 import by.Katya841.quizer.task_generators.GroupTaskGenerator;
 import by.Katya841.quizer.task_generators.PoolTaskGenerator;
-import by.Katya841.quizer.tasks.AbstractMathTask;
 import by.Katya841.quizer.tasks.BinaryTask;
 import by.Katya841.quizer.tasks.Task;
 import by.Katya841.quizer.tasks.TextTask;
@@ -19,22 +19,23 @@ public class MainClass {
         System.out.println("Enter the name of the test");
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
-        while(!allQuizes.containsKey(name)) {
-            if (name.isEmpty()) {
-                throw new EmptyNameOfTheTest();
-            }
+        while(!allQuizes.containsKey(name) || name.isEmpty()) {
             System.out.println("Enter the name of the test");
             name = scanner.nextLine();
         }
         Quiz quiz = allQuizes.get(name);
+        quiz.taskCount = 10;
+        try {
         while(!quiz.isFinished()) {
             Task task = quiz.nextTask();
             System.out.print(task.getText() + " ");
             String answer = scanner.nextLine();
             System.out.println(quiz.provideAnswer(answer));
+           }
+            System.out.println("Your mark is " + quiz.getMark());
+        } catch (QuizNotFinishedException e) {
+            System.out.println("QuizNotFinishedException : " + "It's too early to get mark");
         }
-        System.out.println("Your mark is " + quiz.getMark());
-
     }
         static Map<String, Quiz> getQuizMap() {
         Map<String, Quiz> allQuizes = new HashMap<>();
@@ -48,8 +49,8 @@ public class MainClass {
                 new TextTask("The capital of Spain is", "Madrid"));
         Quiz capitalsQuiz = new Quiz(poolTaskGeneratorCapitals, 3);
         allQuizes.put("Capitals", capitalsQuiz);
-        // expressions and equations Quiz
 
+        // expressions and equations Quiz
         EnumSet<Operation> set1 = EnumSet.of(Operation.Sum, Operation.Difference);
         EnumSet<Operation> set2 = EnumSet.of(Operation.Division, Operation.Multiplication);
         EnumSet<Operation> setAllOperations = EnumSet.of(Operation.Multiplication, Operation.Difference, Operation.Sum, Operation.Division);
@@ -57,7 +58,7 @@ public class MainClass {
         ExpressionMathTask.Generator generatorOfExpressions1 = new ExpressionMathTask.Generator(1, 100, set1);
         ExpressionMathTask.Generator generatorOfExpressions2 = new ExpressionMathTask.Generator(1, 20, set2);
         EquationMathTask.Generator generatorOfEquations1 = new EquationMathTask.Generator(1, 100, set1);
-        EquationMathTask.Generator generatorOfEquations2 = new EquationMathTask.Generator(0, 20, set2);
+        EquationMathTask.Generator generatorOfEquations2 = new EquationMathTask.Generator(1, 20, set2);
 
 
         GroupTaskGenerator groupTaskGeneratorExpressions = new GroupTaskGenerator(generatorOfExpressions1, generatorOfExpressions2);
@@ -82,13 +83,12 @@ public class MainClass {
                 new TextTask("When the Second World War began, enter the year", "1939"),
                 new EquationMathTask(100, 110, Operation.Difference, 2),
                 new BinaryTask(127),
-                new BinaryTask(10),
+                new BinaryTask(4),
                 new BinaryTask(54),
                 new ExpressionMathTask(10,-10, Operation.Difference)
                 );
         Quiz commonQuiz = new Quiz(poolTaskGeneratorCommon, 5);
         allQuizes.put("Common", commonQuiz);
-
         return allQuizes;
     }
 }
