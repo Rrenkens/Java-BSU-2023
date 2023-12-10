@@ -1,0 +1,199 @@
+Dec 10, 2023 9:16:21 PM by.MikhailShurov.docks_and_hobos.Main main
+INFO: Docks amount = 4
+
+Dec 10, 2023 9:16:21 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:21 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 1
+
+Dec 10, 2023 9:16:22 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 0
+
+Dec 10, 2023 9:16:22 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:22 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 1
+
+Dec 10, 2023 9:16:22 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 0
+
+Dec 10, 2023 9:16:22 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: stolen heroin amount = 1
+Dec 10, 2023 9:16:22 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: collected ingredients = {heroin=1.0, pineapple=0.0, cocaine=0.0, marijuana=0.0}
+Dec 10, 2023 9:16:22 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: recipe ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+
+Dec 10, 2023 9:16:23 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:23 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 1
+
+Dec 10, 2023 9:16:23 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 0
+
+Dec 10, 2023 9:16:23 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: stolen pineapple amount = 1
+Dec 10, 2023 9:16:23 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: collected ingredients = {heroin=1.0, pineapple=1.0, cocaine=0.0, marijuana=0.0}
+Dec 10, 2023 9:16:23 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: recipe ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+
+Dec 10, 2023 9:16:24 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:24 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 1
+
+Dec 10, 2023 9:16:24 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 0
+
+Dec 10, 2023 9:16:25 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:25 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 1
+
+Dec 10, 2023 9:16:26 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:26 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 2
+
+Dec 10, 2023 9:16:27 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:27 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 3
+
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Dock run
+INFO: Ship successfully unloaded, dock free
+
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 2
+
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: stolen cocaine amount = 1
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: collected ingredients = {heroin=1.0, pineapple=1.0, cocaine=1.0, marijuana=0.0}
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: recipe ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Dock run
+INFO: Ship successfully unloaded, dock free
+
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 1
+
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:28 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 2
+
+Dec 10, 2023 9:16:29 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: stolen marijuana amount = 1
+Dec 10, 2023 9:16:29 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: collected ingredients = {heroin=1.0, pineapple=1.0, cocaine=1.0, marijuana=1.0}
+Dec 10, 2023 9:16:29 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: recipe ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+
+Dec 10, 2023 9:16:29 PM by.MikhailShurov.docks_and_hobos.Dock run
+INFO: Ship successfully unloaded, dock free
+
+Dec 10, 2023 9:16:29 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 1
+
+Dec 10, 2023 9:16:29 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:29 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 2
+
+Dec 10, 2023 9:16:30 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: stolen heroin amount = 1
+Dec 10, 2023 9:16:30 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: collected ingredients = {heroin=2.0, pineapple=1.0, cocaine=1.0, marijuana=1.0}
+Dec 10, 2023 9:16:30 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: recipe ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+
+Dec 10, 2023 9:16:30 PM by.MikhailShurov.docks_and_hobos.Dock run
+INFO: Ship successfully unloaded, dock free
+
+Dec 10, 2023 9:16:30 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 1
+
+Dec 10, 2023 9:16:30 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:30 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 2
+
+Dec 10, 2023 9:16:31 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: stolen cocaine amount = 1
+Dec 10, 2023 9:16:31 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: collected ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=1.0}
+Dec 10, 2023 9:16:31 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: recipe ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+
+Dec 10, 2023 9:16:31 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:31 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 3
+
+Dec 10, 2023 9:16:32 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: stolen marijuana amount = 1
+Dec 10, 2023 9:16:32 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: collected ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+Dec 10, 2023 9:16:32 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: recipe ingredients = {heroin=2.0, pineapple=1.0, cocaine=2.0, marijuana=2.0}
+
+Dec 10, 2023 9:16:32 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:32 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship successfully sank
+
+Dec 10, 2023 9:16:33 PM by.MikhailShurov.docks_and_hobos.Bay$HobosCamp$Hobo run
+INFO: Now hobos start eating. Eating time = 20 seconds
+
+Dec 10, 2023 9:16:33 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:33 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship successfully sank
+
+Dec 10, 2023 9:16:34 PM by.MikhailShurov.docks_and_hobos.Dock run
+INFO: Ship successfully unloaded, dock free
+
+Dec 10, 2023 9:16:34 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 2
+
+Dec 10, 2023 9:16:34 PM by.MikhailShurov.docks_and_hobos.Dock run
+INFO: Ship successfully unloaded, dock free
+
+Dec 10, 2023 9:16:34 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 1
+
+Dec 10, 2023 9:16:34 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:34 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 2
+
+Dec 10, 2023 9:16:35 PM by.MikhailShurov.docks_and_hobos.Dock run
+INFO: Ship successfully unloaded, dock free
+
+Dec 10, 2023 9:16:35 PM by.MikhailShurov.docks_and_hobos.Tunnel getShip
+INFO: Ship was moved to dock. Tunnel size = 1
+
+Dec 10, 2023 9:16:35 PM by.MikhailShurov.docks_and_hobos.ShipGenerator run
+INFO: Generated new ship
+
+Dec 10, 2023 9:16:35 PM by.MikhailShurov.docks_and_hobos.Tunnel addShip
+INFO: Ship added to tunnel. Tunnel size = 2
+
