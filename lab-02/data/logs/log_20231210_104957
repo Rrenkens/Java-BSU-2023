@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-12-10T07:49:57.148974Z</date>
+  <millis>1702194597148</millis>
+  <nanos>974000</nanos>
+  <sequence>4</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.ShipManager</logger>
+  <level>CONFIG</level>
+  <class>by.AlexHanimar.docs_and_hobos.ShipManager</class>
+  <method>run</method>
+  <thread>31</thread>
+  <message>Ship 0 has entered tunnel</message>
+</record>
+<record>
+  <date>2023-12-10T07:49:58.155960400Z</date>
+  <millis>1702194598155</millis>
+  <nanos>960400</nanos>
+  <sequence>5</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.Hobo</logger>
+  <level>CONFIG</level>
+  <class>by.AlexHanimar.docs_and_hobos.Hobo</class>
+  <method>run</method>
+  <thread>34</thread>
+  <message>Hobo 1 has successfully stolen c</message>
+</record>
+<record>
+  <date>2023-12-10T07:49:59.164903200Z</date>
+  <millis>1702194599164</millis>
+  <nanos>903200</nanos>
+  <sequence>6</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.Hobo</logger>
+  <level>CONFIG</level>
+  <class>by.AlexHanimar.docs_and_hobos.Hobo</class>
+  <method>run</method>
+  <thread>6023</thread>
+  <message>Hobo 3 has successfully stolen c</message>
+</record>
+<record>
+  <date>2023-12-10T07:49:59.164903200Z</date>
+  <millis>1702194599164</millis>
+  <nanos>903200</nanos>
+  <sequence>7</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.HoboGroupManager</logger>
+  <level>INFO</level>
+  <class>by.AlexHanimar.docs_and_hobos.HoboGroupManager</class>
+  <method>run</method>
+  <thread>33</thread>
+  <message>Hobos started eating</message>
+</record>
+<record>
+  <date>2023-12-10T07:49:59.185090100Z</date>
+  <millis>1702194599185</millis>
+  <nanos>90100</nanos>
+  <sequence>8</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.ShipManager</logger>
+  <level>CONFIG</level>
+  <class>by.AlexHanimar.docs_and_hobos.ShipManager</class>
+  <method>run</method>
+  <thread>31</thread>
+  <message>Ship 1 has entered tunnel</message>
+</record>
+<record>
+  <date>2023-12-10T07:50:00.170586500Z</date>
+  <millis>1702194600170</millis>
+  <nanos>586500</nanos>
+  <sequence>9</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.DockManager</logger>
+  <level>CONFIG</level>
+  <class>by.AlexHanimar.docs_and_hobos.DockManager</class>
+  <method>run</method>
+  <thread>32</thread>
+  <message>Finished processing ship 0</message>
+</record>
+<record>
+  <date>2023-12-10T07:50:00.170586500Z</date>
+  <millis>1702194600170</millis>
+  <nanos>586500</nanos>
+  <sequence>10</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.DockManager</logger>
+  <level>CONFIG</level>
+  <class>by.AlexHanimar.docs_and_hobos.DockManager</class>
+  <method>run</method>
+  <thread>32</thread>
+  <message>Started processing ship 1</message>
+</record>
+<record>
+  <date>2023-12-10T07:50:01.189201800Z</date>
+  <millis>1702194601189</millis>
+  <nanos>201800</nanos>
+  <sequence>11</sequence>
+  <logger>by.AlexHanimar.docs_and_hobos.ShipManager</logger>
+  <level>CONFIG</level>
+  <class>by.AlexHanimar.docs_and_hobos.ShipManager</class>
+  <method>run</method>
+  <thread>31</thread>
+  <message>Ship 2 has entered tunnel</message>
+</record>
+</log>
