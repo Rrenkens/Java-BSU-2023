@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Dock implements Runnable {
@@ -15,15 +14,14 @@ public class Dock implements Runnable {
     private final int unloading_speed;
     private final int dock_capacity;
     private volatile Map<CargoType, Integer> storage = new ConcurrentHashMap<>();
-    private Tunnel tunnel;
-    private long recallDelay;
-    private ReentrantLock shipLock;
-    private Condition unloadingIsFinished;
-
+    private final Tunnel tunnel;
+    private final long recallDelay;
+    private final Thread thread;
     public Dock(int unloadingSpeed, int dockCapacity, Tunnel tunnel, long recallDelay) {
         this.unloading_speed = unloadingSpeed;
         this.dock_capacity = dockCapacity;
         this.tunnel = tunnel;
+        this.thread = new Thread(this);
         this.recallDelay = recallDelay;
         for (CargoType cargoType : CargoType.values()) {
             storage.put(cargoType, 0);
@@ -32,9 +30,9 @@ public class Dock implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!thread.isInterrupted()) {
             logger.info("Dock calls");
-            Optional<Ship> call = tunnel.call(this);
+            Optional<Ship> call = tunnel.call();
             if (call.isPresent()) {
                 logger.info("There is a response");
                 processShip(call.get());
@@ -44,7 +42,6 @@ public class Dock implements Runnable {
                     Thread.sleep(recallDelay * 1000);
                 } catch (InterruptedException e) {
                     logger.error("Dock is interrupted during sleep", e);
-                    Thread.currentThread().interrupt();
                     return;
                 }
             }
@@ -95,5 +92,9 @@ public class Dock implements Runnable {
                 Thread.currentThread().interrupt();
             }
         }
+    }
+
+    public void start() {
+        thread.start();
     }
 }

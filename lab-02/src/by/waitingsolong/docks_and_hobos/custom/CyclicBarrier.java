@@ -1,17 +1,16 @@
 package by.waitingsolong.docks_and_hobos.custom;
 
-import java.util.Optional;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CyclicBarrier {
     private final int parties;
+    private static int generation = 0;
     private int waiting = 0;
     private final ReentrantLock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
     private final Runnable barrierAction;
-    private boolean reset;
 
     public CyclicBarrier(int parties) {
         this.parties = parties;
@@ -23,7 +22,7 @@ public class CyclicBarrier {
         this.barrierAction = barrierAction;
     }
 
-    public void await() throws InterruptedException {
+    public void await() {
         lock.lock();
         try {
             waiting++;
@@ -31,33 +30,18 @@ public class CyclicBarrier {
                 if (barrierAction != null) {
                     barrierAction.run();
                 }
+                waiting = 0;
+                generation++;
                 condition.signalAll();
-                Thread.yield();
-                reset();
             } else {
-                while (waiting < parties) {
+                int currGeneration = generation;
+                while (waiting < parties && generation == currGeneration) {
                     condition.await();
                 }
-
-                if (reset) {
-                    throw new BrokenBarrierException();
-                }
             }
-        } catch (BrokenBarrierException e) {
+        } catch(InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public void reset() {
-        lock.lock();
-        try {
-            reset = true;
-            condition.signalAll();
-            waiting = 0;
-            Thread.yield();
-            reset = false;
         } finally {
             lock.unlock();
         }

@@ -3,10 +3,9 @@ package by.waitingsolong.docks_and_hobos;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import by.waitingsolong.docks_and_hobos.helpers.CargoType;
-import by.waitingsolong.docks_and_hobos.helpers.NameGenerator;
+import by.waitingsolong.docks_and_hobos.helpers.NameDistributor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Ship implements Runnable {
@@ -15,14 +14,14 @@ public class Ship implements Runnable {
     private final String name;
     private static final Logger logger = LogManager.getLogger(Ship.class);
     private static final AtomicInteger shipCount = new AtomicInteger(0);
-    private Tunnel tunnel;
-    private Thread thread;
+    private final Tunnel tunnel;
+    private final Thread thread;
     private final ReentrantLock wakeUpLock;
 
     public Ship(int capacity, CargoType cargoType, Tunnel tunnel) {
         this.capacity = capacity;
         this.cargoType = cargoType;
-        this.name = NameGenerator.generateName(shipCount.getAndIncrement());
+        this.name = NameDistributor.getCounterName(shipCount.getAndIncrement());
         this.tunnel = tunnel;
         this.thread = new Thread(this);
         this.wakeUpLock = new ReentrantLock();
@@ -59,7 +58,7 @@ public class Ship implements Runnable {
             }
         }
 
-        logger.info("Ship " + name + " disappears on the horizon");
+        logger.info("Ship " + name + " vanished into thin air");
         thread.interrupt();
     }
 

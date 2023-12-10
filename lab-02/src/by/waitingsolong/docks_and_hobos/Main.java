@@ -2,6 +2,7 @@ package by.waitingsolong.docks_and_hobos;
 
 import by.waitingsolong.docks_and_hobos.helpers.CargoType;
 import by.waitingsolong.docks_and_hobos.helpers.Config;
+import by.waitingsolong.docks_and_hobos.helpers.NameDistributor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
@@ -35,7 +36,8 @@ public class Main {
         int dock_capacity;
         int hobos;
         int stealing_time;
-        int eating_time;
+        int crimes_per_day;
+        int cooking_time;
         ArrayList<Integer> ingredients_count;
         ArrayList<String> cargo_types;
 
@@ -51,7 +53,8 @@ public class Main {
             hobos = config.get("hobos");
             ingredients_count = config.get("ingredients_count");
             stealing_time = config.get("stealing_time");
-            eating_time = config.get("eating_time");
+            crimes_per_day = config.get("crimes_per_day");
+            cooking_time = config.get("cooking_time");
             cargo_types = config.get("cargo_types");
 
         } catch (JSONException | IOException e) {
@@ -60,15 +63,16 @@ public class Main {
         }
 
         CargoType.setTypes(cargo_types);
+        NameDistributor.readUniqueNames(Paths.get("resources", "names.txt").toString());
 
         Tunnel tunnel = new Tunnel(max_ships);
         Dock dock = new Dock(unloading_speed, dock_capacity, tunnel, generating_time);
-        Thread dockThread = new Thread(dock);
         ShipGenerator shipGenerator = new ShipGenerator(generating_time, ship_capacity_min, ship_capacity_max, tunnel);
-        Thread shipGeneratorThread = new Thread(shipGenerator);
+        HoboTent hoboTent = new HoboTent(hobos, stealing_time, crimes_per_day, cooking_time, ingredients_count);
 
-        shipGeneratorThread.start();
-        dockThread.start();
+        dock.start();
+        shipGenerator.start();
+        hoboTent.start();
     }
 
 }

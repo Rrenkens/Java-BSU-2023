@@ -3,7 +3,7 @@ package by.waitingsolong.docks_and_hobos.helpers;
 import java.util.*;
 
 public class CargoType {
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private static List<String> types;
 
     public static void setTypes(List<String> types_) {

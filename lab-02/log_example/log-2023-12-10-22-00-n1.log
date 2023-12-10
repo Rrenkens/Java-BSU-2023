@@ -1,0 +1,349 @@
+2023-12-10 22:00:00.956 [Thread-1] INFO  ShipGenerator - Ship PCB is on the horizon
+2023-12-10 22:00:00.960 [Thread-10196] INFO  Tunnel - Ship PCB entered the tunnel
+2023-12-10 22:00:01.562 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:01.562 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:01.562 [Thread-10196] INFO  Ship - Ship PCB exit the tunnel
+2023-12-10 22:00:01.562 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:01.562 [Thread-0] INFO  Dock - Ship PCB entered the dock
+2023-12-10 22:00:01.563 [Thread-0] INFO  Dock - Ship PCB with SLAVES is unloading...
+2023-12-10 22:00:01.563 [Thread-0] INFO  Dock - SLAVES storage is full
+2023-12-10 22:00:01.563 [Thread-0] INFO  Dock - Ship PCB leaves the dock
+2023-12-10 22:00:01.563 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:01.563 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:01.563 [Thread-10196] INFO  Ship - Ship PCB disappears on the horizon
+2023-12-10 22:00:03.968 [Thread-1] INFO  ShipGenerator - Ship PCC is on the horizon
+2023-12-10 22:00:03.969 [Thread-10197] INFO  Tunnel - Ship PCC entered the tunnel
+2023-12-10 22:00:04.574 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:04.574 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:04.574 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:04.574 [Thread-0] INFO  Dock - Ship PCC entered the dock
+2023-12-10 22:00:04.574 [Thread-0] INFO  Dock - Ship PCC with SLAVES is unloading...
+2023-12-10 22:00:04.574 [Thread-0] INFO  Dock - SLAVES storage is full
+2023-12-10 22:00:04.574 [Thread-0] INFO  Dock - Ship PCC leaves the dock
+2023-12-10 22:00:04.575 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:04.575 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:04.574 [Thread-10197] INFO  Ship - Ship PCC exit the tunnel
+2023-12-10 22:00:06.983 [Thread-1] INFO  ShipGenerator - Ship PCD is on the horizon
+2023-12-10 22:00:06.984 [Thread-10198] INFO  Tunnel - Ship PCD entered the tunnel
+2023-12-10 22:00:07.575 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:07.575 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:07.575 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:07.575 [Thread-0] INFO  Dock - Ship PCD entered the dock
+2023-12-10 22:00:07.575 [Thread-0] INFO  Dock - Ship PCD with WEAPON is unloading...
+2023-12-10 22:00:07.576 [Thread-0] INFO  Dock - WEAPON storage is full
+2023-12-10 22:00:07.576 [Thread-0] INFO  Dock - Ship PCD leaves the dock
+2023-12-10 22:00:07.576 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:07.575 [Thread-10198] INFO  Ship - Ship PCD exit the tunnel
+2023-12-10 22:00:07.576 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:10.012 [Thread-1] INFO  ShipGenerator - Ship PCE is on the horizon
+2023-12-10 22:00:10.066 [Thread-10199] INFO  Tunnel - Ship PCE entered the tunnel
+2023-12-10 22:00:10.585 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:10.586 [Thread-10199] INFO  Ship - Ship PCE exit the tunnel
+2023-12-10 22:00:10.586 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:10.587 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:10.587 [Thread-0] INFO  Dock - Ship PCE entered the dock
+2023-12-10 22:00:10.587 [Thread-0] INFO  Dock - Ship PCE with SLAVES is unloading...
+2023-12-10 22:00:10.587 [Thread-0] INFO  Dock - SLAVES storage is full
+2023-12-10 22:00:10.587 [Thread-0] INFO  Dock - Ship PCE leaves the dock
+2023-12-10 22:00:10.587 [Thread-10199] INFO  Ship - Ship PCE disappears on the horizon
+2023-12-10 22:00:10.587 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:10.588 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:13.025 [Thread-1] INFO  ShipGenerator - Ship PCF is on the horizon
+2023-12-10 22:00:13.028 [Thread-10200] INFO  Tunnel - Ship PCF entered the tunnel
+2023-12-10 22:00:13.594 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:13.594 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:13.594 [Thread-10200] INFO  Ship - Ship PCF exit the tunnel
+2023-12-10 22:00:13.594 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:13.595 [Thread-0] INFO  Dock - Ship PCF entered the dock
+2023-12-10 22:00:13.595 [Thread-0] INFO  Dock - Ship PCF with RAW_MATERIALS is unloading...
+2023-12-10 22:00:13.595 [Thread-0] INFO  Dock - RAW_MATERIALS storage is full
+2023-12-10 22:00:13.595 [Thread-0] INFO  Dock - Ship PCF leaves the dock
+2023-12-10 22:00:13.595 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:13.595 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:13.595 [Thread-10200] INFO  Ship - Ship PCF disappears on the horizon
+2023-12-10 22:00:16.037 [Thread-1] INFO  ShipGenerator - Ship PCG is on the horizon
+2023-12-10 22:00:16.039 [Thread-10201] INFO  Tunnel - Ship PCG entered the tunnel
+2023-12-10 22:00:16.603 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:16.603 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:16.603 [Thread-10201] INFO  Ship - Ship PCG exit the tunnel
+2023-12-10 22:00:16.603 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:16.604 [Thread-0] INFO  Dock - Ship PCG entered the dock
+2023-12-10 22:00:16.604 [Thread-0] INFO  Dock - Ship PCG with WEAPON is unloading...
+2023-12-10 22:00:16.604 [Thread-0] INFO  Dock - WEAPON storage is full
+2023-12-10 22:00:16.604 [Thread-0] INFO  Dock - Ship PCG leaves the dock
+2023-12-10 22:00:16.604 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:16.604 [Thread-10201] INFO  Ship - Ship PCG disappears on the horizon
+2023-12-10 22:00:16.604 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:19.042 [Thread-1] INFO  ShipGenerator - Ship PCH is on the horizon
+2023-12-10 22:00:19.043 [Thread-10202] INFO  Tunnel - Ship PCH entered the tunnel
+2023-12-10 22:00:19.607 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:19.610 [Thread-10202] INFO  Ship - Ship PCH exit the tunnel
+2023-12-10 22:00:19.611 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:19.612 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:19.613 [Thread-0] INFO  Dock - Ship PCH entered the dock
+2023-12-10 22:00:19.613 [Thread-0] INFO  Dock - Ship PCH with SLAVES is unloading...
+2023-12-10 22:00:19.613 [Thread-0] INFO  Dock - SLAVES storage is full
+2023-12-10 22:00:19.613 [Thread-0] INFO  Dock - Ship PCH leaves the dock
+2023-12-10 22:00:19.613 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:19.613 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:19.614 [Thread-10202] INFO  Ship - Ship PCH disappears on the horizon
+2023-12-10 22:00:22.043 [Thread-1] INFO  ShipGenerator - Ship PCI is on the horizon
+2023-12-10 22:00:22.045 [Thread-10203] INFO  Tunnel - Ship PCI entered the tunnel
+2023-12-10 22:00:22.644 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:22.654 [Thread-10203] INFO  Ship - Ship PCI exit the tunnel
+2023-12-10 22:00:22.654 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:22.666 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:22.666 [Thread-0] INFO  Dock - Ship PCI entered the dock
+2023-12-10 22:00:22.666 [Thread-0] INFO  Dock - Ship PCI with FOOD is unloading...
+2023-12-10 22:00:22.667 [Thread-0] INFO  Dock - FOOD storage is full
+2023-12-10 22:00:22.667 [Thread-0] INFO  Dock - Ship PCI leaves the dock
+2023-12-10 22:00:22.683 [Thread-10203] INFO  Ship - Ship PCI disappears on the horizon
+2023-12-10 22:00:22.683 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:22.684 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:25.058 [Thread-1] INFO  ShipGenerator - Ship PCJ is on the horizon
+2023-12-10 22:00:25.064 [Thread-10204] INFO  Tunnel - Ship PCJ entered the tunnel
+2023-12-10 22:00:25.685 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:25.685 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:25.685 [Thread-10204] INFO  Ship - Ship PCJ exit the tunnel
+2023-12-10 22:00:25.685 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:25.686 [Thread-0] INFO  Dock - Ship PCJ entered the dock
+2023-12-10 22:00:25.686 [Thread-0] INFO  Dock - Ship PCJ with SLAVES is unloading...
+2023-12-10 22:00:25.686 [Thread-0] INFO  Dock - SLAVES storage is full
+2023-12-10 22:00:25.686 [Thread-0] INFO  Dock - Ship PCJ leaves the dock
+2023-12-10 22:00:25.686 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:25.686 [Thread-10204] INFO  Ship - Ship PCJ disappears on the horizon
+2023-12-10 22:00:25.686 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:28.066 [Thread-1] INFO  ShipGenerator - Ship PCK is on the horizon
+2023-12-10 22:00:28.068 [Thread-10205] INFO  Tunnel - Ship PCK entered the tunnel
+2023-12-10 22:00:28.698 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:28.698 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:28.698 [Thread-10205] INFO  Ship - Ship PCK exit the tunnel
+2023-12-10 22:00:28.699 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:28.699 [Thread-0] INFO  Dock - Ship PCK entered the dock
+2023-12-10 22:00:28.700 [Thread-0] INFO  Dock - Ship PCK with FOOD is unloading...
+2023-12-10 22:00:28.700 [Thread-0] INFO  Dock - FOOD storage is full
+2023-12-10 22:00:28.700 [Thread-0] INFO  Dock - Ship PCK leaves the dock
+2023-12-10 22:00:28.700 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:28.700 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:28.700 [Thread-10205] INFO  Ship - Ship PCK disappears on the horizon
+2023-12-10 22:00:31.070 [Thread-1] INFO  ShipGenerator - Ship PCL is on the horizon
+2023-12-10 22:00:31.072 [Thread-10206] INFO  Tunnel - Ship PCL entered the tunnel
+2023-12-10 22:00:31.706 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:31.708 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:31.708 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:31.708 [Thread-0] INFO  Dock - Ship PCL entered the dock
+2023-12-10 22:00:31.708 [Thread-0] INFO  Dock - Ship PCL with FOOD is unloading...
+2023-12-10 22:00:31.724 [Thread-0] INFO  Dock - FOOD storage is full
+2023-12-10 22:00:31.725 [Thread-0] INFO  Dock - Ship PCL leaves the dock
+2023-12-10 22:00:31.725 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:31.726 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:31.708 [Thread-10206] INFO  Ship - Ship PCL exit the tunnel
+2023-12-10 22:00:34.080 [Thread-1] INFO  ShipGenerator - Ship PCM is on the horizon
+2023-12-10 22:00:34.081 [Thread-10207] INFO  Tunnel - Ship PCM entered the tunnel
+2023-12-10 22:00:34.727 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:34.728 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:34.728 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:34.728 [Thread-10207] INFO  Ship - Ship PCM exit the tunnel
+2023-12-10 22:00:34.728 [Thread-0] INFO  Dock - Ship PCM entered the dock
+2023-12-10 22:00:34.730 [Thread-0] INFO  Dock - Ship PCM with CHEMICAL is unloading...
+2023-12-10 22:00:34.730 [Thread-0] INFO  Dock - CHEMICAL storage is full
+2023-12-10 22:00:34.730 [Thread-0] INFO  Dock - Ship PCM leaves the dock
+2023-12-10 22:00:34.730 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:34.730 [Thread-10207] INFO  Ship - Ship PCM disappears on the horizon
+2023-12-10 22:00:34.730 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:37.095 [Thread-1] INFO  ShipGenerator - Ship PCN is on the horizon
+2023-12-10 22:00:37.097 [Thread-10208] INFO  Tunnel - Ship PCN entered the tunnel
+2023-12-10 22:00:37.740 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:37.741 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:37.741 [Thread-10208] INFO  Ship - Ship PCN exit the tunnel
+2023-12-10 22:00:37.741 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:37.741 [Thread-0] INFO  Dock - Ship PCN entered the dock
+2023-12-10 22:00:37.741 [Thread-0] INFO  Dock - Ship PCN with RAW_MATERIALS is unloading...
+2023-12-10 22:00:37.741 [Thread-0] INFO  Dock - RAW_MATERIALS storage is full
+2023-12-10 22:00:37.742 [Thread-0] INFO  Dock - Ship PCN leaves the dock
+2023-12-10 22:00:37.742 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:37.742 [Thread-10208] INFO  Ship - Ship PCN disappears on the horizon
+2023-12-10 22:00:37.742 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:40.108 [Thread-1] INFO  ShipGenerator - Ship PCO is on the horizon
+2023-12-10 22:00:40.110 [Thread-10209] INFO  Tunnel - Ship PCO entered the tunnel
+2023-12-10 22:00:40.743 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:40.743 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:40.743 [Thread-10209] INFO  Ship - Ship PCO exit the tunnel
+2023-12-10 22:00:40.744 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:40.744 [Thread-0] INFO  Dock - Ship PCO entered the dock
+2023-12-10 22:00:40.744 [Thread-0] INFO  Dock - Ship PCO with FOOD is unloading...
+2023-12-10 22:00:40.744 [Thread-0] INFO  Dock - FOOD storage is full
+2023-12-10 22:00:40.744 [Thread-0] INFO  Dock - Ship PCO leaves the dock
+2023-12-10 22:00:40.744 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:40.744 [Thread-10209] INFO  Ship - Ship PCO disappears on the horizon
+2023-12-10 22:00:40.745 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:43.114 [Thread-1] INFO  ShipGenerator - Ship PCP is on the horizon
+2023-12-10 22:00:43.116 [Thread-10210] INFO  Tunnel - Ship PCP entered the tunnel
+2023-12-10 22:00:43.749 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:43.749 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:43.749 [Thread-10210] INFO  Ship - Ship PCP exit the tunnel
+2023-12-10 22:00:43.749 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:43.750 [Thread-0] INFO  Dock - Ship PCP entered the dock
+2023-12-10 22:00:43.750 [Thread-0] INFO  Dock - Ship PCP with CHEMICAL is unloading...
+2023-12-10 22:00:43.750 [Thread-0] INFO  Dock - CHEMICAL storage is full
+2023-12-10 22:00:43.750 [Thread-0] INFO  Dock - Ship PCP leaves the dock
+2023-12-10 22:00:43.750 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:43.750 [Thread-10210] INFO  Ship - Ship PCP disappears on the horizon
+2023-12-10 22:00:43.750 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:45.512 [main] INFO  Main - Start of program.
+2023-12-10 22:00:45.555 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:45.559 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:45.566 [Thread-2] INFO  Hobo - This is an ingredients storage:
+2023-12-10 22:00:45.568 [Thread-2] INFO  Hobo - 
+---------------
+| 0 | 0 | 0 |
+---------------
+2023-12-10 22:00:45.569 [Thread-2] INFO  Hobo - It consists of bread, grain, pizza
+2023-12-10 22:00:45.570 [Thread-2] INFO  HoboTent - Day 0
+2023-12-10 22:00:45.572 [Thread-2] INFO  Hobo - Sviatoslav has materialized from garbage
+2023-12-10 22:00:45.578 [Thread-2] INFO  Hobo - Dobrojir has materialized from blood
+2023-12-10 22:00:45.579 [Thread-2] INFO  Hobo - Tihomir has materialized from ashes
+2023-12-10 22:00:45.581 [Thread-2] INFO  Hobo - Ratibor has materialized from puddle on the asphalt
+2023-12-10 22:00:45.586 [Thread-4] INFO  Hobo - Dobrojir steals
+2023-12-10 22:00:45.587 [Thread-4] INFO  Hobo - 
+---------------
+| 0 | 0 | 0 |
+---------------
+2023-12-10 22:00:45.588 [Thread-5] INFO  Hobo - Tihomir cooks
+2023-12-10 22:00:45.586 [Thread-3] INFO  Hobo - Sviatoslav steals
+2023-12-10 22:00:45.589 [Thread-5] INFO  Hobo - Tihomir is waiting for ingredients...
+2023-12-10 22:00:45.592 [Thread-6] INFO  Hobo - Ratibor cooks
+2023-12-10 22:00:46.116 [Thread-1] INFO  ShipGenerator - Ship PCQ is on the horizon
+2023-12-10 22:00:46.117 [Thread-10211] INFO  Tunnel - Ship PCQ entered the tunnel
+2023-12-10 22:00:46.764 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:46.764 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:46.764 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:46.764 [Thread-10211] INFO  Ship - Ship PCQ exit the tunnel
+2023-12-10 22:00:46.764 [Thread-0] INFO  Dock - Ship PCQ entered the dock
+2023-12-10 22:00:46.765 [Thread-0] INFO  Dock - Ship PCQ with CHEMICAL is unloading...
+2023-12-10 22:00:46.765 [Thread-0] INFO  Dock - CHEMICAL storage is full
+2023-12-10 22:00:46.765 [Thread-0] INFO  Dock - Ship PCQ leaves the dock
+2023-12-10 22:00:46.765 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:46.765 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:46.765 [Thread-10211] INFO  Ship - Ship PCQ disappears on the horizon
+2023-12-10 22:00:47.589 [Thread-4] INFO  Hobo - Dobrojir stole bread
+2023-12-10 22:00:47.590 [Thread-4] INFO  Hobo - 
+---------------
+| 1 | 0 | 0 |
+---------------
+2023-12-10 22:00:47.592 [Thread-3] INFO  Hobo - Sviatoslav stole bread
+2023-12-10 22:00:47.592 [Thread-6] INFO  Hobo - Ratibor is waiting for ingredients...
+2023-12-10 22:00:48.563 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:48.563 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:48.572 [Thread-1] INFO  ShipGenerator - Ship A is on the horizon
+2023-12-10 22:00:48.572 [Thread-7] INFO  Tunnel - Ship A entered the tunnel
+2023-12-10 22:00:49.127 [Thread-1] INFO  ShipGenerator - Ship PCR is on the horizon
+2023-12-10 22:00:49.128 [Thread-10212] INFO  Tunnel - Ship PCR entered the tunnel
+2023-12-10 22:00:49.594 [Thread-6] INFO  Hobo - Ratibor is waiting for ingredients...
+2023-12-10 22:00:49.594 [Thread-4] INFO  Hobo - Dobrojir stole grain
+2023-12-10 22:00:49.594 [Thread-3] INFO  Hobo - Sviatoslav stole grain
+2023-12-10 22:00:49.594 [Thread-4] INFO  Hobo - 
+---------------
+| 2 | 1 | 0 |
+---------------
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - Ship PCR entered the dock
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - Ship PCR with WEAPON is unloading...
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - WEAPON storage is full
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - Ship PCR leaves the dock
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:49.767 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:49.767 [Thread-10212] INFO  Ship - Ship PCR exit the tunnel
+2023-12-10 22:00:51.575 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:51.575 [Thread-1] INFO  ShipGenerator - Ship B is on the horizon
+2023-12-10 22:00:51.575 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:51.576 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:51.576 [Thread-7] INFO  Ship - Ship A exit the tunnel
+2023-12-10 22:00:51.576 [Thread-8] INFO  Tunnel - Ship B entered the tunnel
+2023-12-10 22:00:51.576 [Thread-0] INFO  Dock - Ship A entered the dock
+2023-12-10 22:00:51.577 [Thread-0] INFO  Dock - Ship A with CHEMICAL is unloading...
+2023-12-10 22:00:51.577 [Thread-0] INFO  Dock - The ship A is unloading...
+2023-12-10 22:00:51.605 [Thread-4] INFO  Hobo - Dobrojir stole pizza
+2023-12-10 22:00:51.605 [Thread-5] INFO  Hobo - Tihomir is waiting for ingredients...
+2023-12-10 22:00:51.605 [Thread-3] INFO  Hobo - Sviatoslav stole pizza
+2023-12-10 22:00:51.605 [Thread-3] INFO  Hobo - Sviatoslav finished working
+2023-12-10 22:00:51.605 [Thread-4] INFO  Hobo - Dobrojir finished working
+2023-12-10 22:00:52.137 [Thread-1] INFO  ShipGenerator - Ship PCS is on the horizon
+2023-12-10 22:00:52.149 [Thread-10213] INFO  Tunnel - Ship PCS entered the tunnel
+2023-12-10 22:00:52.768 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:52.768 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:52.768 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:52.768 [Thread-10213] INFO  Ship - Ship PCS exit the tunnel
+2023-12-10 22:00:52.768 [Thread-0] INFO  Dock - Ship PCS entered the dock
+2023-12-10 22:00:52.768 [Thread-0] INFO  Dock - Ship PCS with CHEMICAL is unloading...
+2023-12-10 22:00:52.769 [Thread-0] INFO  Dock - CHEMICAL storage is full
+2023-12-10 22:00:52.769 [Thread-0] INFO  Dock - Ship PCS leaves the dock
+2023-12-10 22:00:52.769 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:52.769 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:52.769 [Thread-10213] INFO  Ship - Ship PCS disappears on the horizon
+2023-12-10 22:00:53.606 [Thread-5] INFO  Hobo - Tihomir finished working
+2023-12-10 22:00:53.606 [Thread-6] INFO  Hobo - Ratibor is waiting for ingredients...
+2023-12-10 22:00:54.584 [Thread-0] INFO  Dock - The ship A is unloading...
+2023-12-10 22:00:54.584 [Thread-1] INFO  ShipGenerator - Ship C is on the horizon
+2023-12-10 22:00:54.585 [Thread-9] INFO  Tunnel - Ship C entered the tunnel
+2023-12-10 22:00:55.160 [Thread-1] INFO  ShipGenerator - Ship PCT is on the horizon
+2023-12-10 22:00:55.160 [Thread-10214] INFO  Tunnel - Ship PCT entered the tunnel
+2023-12-10 22:00:55.615 [Thread-6] INFO  Hobo - Ratibor finished working
+2023-12-10 22:00:55.615 [Thread-6] INFO  HoboTent - All came from work. The feast has begun. There are 0 sandwiches on the table
+2023-12-10 22:00:55.616 [Thread-2] INFO  HoboTent - Ratibor died from hunger
+2023-12-10 22:00:55.616 [Thread-2] INFO  HoboTent - Tihomir ate Sviatoslav
+2023-12-10 22:00:55.616 [Thread-2] INFO  HoboTent - Dobrojir is hungry
+2023-12-10 22:00:55.616 [Thread-2] INFO  HoboTent - The feast is over
+2023-12-10 22:00:55.617 [Thread-2] INFO  HoboTent - Day 1
+2023-12-10 22:00:55.617 [Thread-2] INFO  Hobo - Dobrinya has materialized from dust
+2023-12-10 22:00:55.617 [Thread-2] INFO  Hobo - Tishilo has materialized from blood
+2023-12-10 22:00:55.617 [Thread-5] INFO  Hobo - Tihomir cooks
+2023-12-10 22:00:55.617 [Thread-4] INFO  Hobo - Dobrojir steals
+2023-12-10 22:00:55.618 [Thread-10] INFO  Hobo - Dobrinya steals
+2023-12-10 22:00:55.618 [Thread-5] INFO  Hobo - Tihomir is waiting for ingredients...
+2023-12-10 22:00:55.618 [Thread-11] INFO  Hobo - Tishilo cooks
+2023-12-10 22:00:55.618 [Thread-10] INFO  Hobo - 
+---------------
+| 2 | 2 | 2 |
+---------------
+2023-12-10 22:00:55.770 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:55.771 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:55.771 [Thread-10214] INFO  Ship - Ship PCT exit the tunnel
+2023-12-10 22:00:55.771 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:55.771 [Thread-0] INFO  Dock - Ship PCT entered the dock
+2023-12-10 22:00:55.771 [Thread-0] INFO  Dock - Ship PCT with CHEMICAL is unloading...
+2023-12-10 22:00:55.772 [Thread-0] INFO  Dock - CHEMICAL storage is full
+2023-12-10 22:00:55.772 [Thread-0] INFO  Dock - Ship PCT leaves the dock
+2023-12-10 22:00:55.772 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:55.772 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:55.772 [Thread-10214] INFO  Ship - Ship PCT disappears on the horizon
+2023-12-10 22:00:57.586 [Thread-0] INFO  Dock - The ship A is unloading...
+2023-12-10 22:00:57.586 [Thread-1] INFO  ShipGenerator - Ship D is on the horizon
+2023-12-10 22:00:57.588 [Thread-12] INFO  Tunnel - Ship D entered the tunnel
+2023-12-10 22:00:57.619 [Thread-10] INFO  Hobo - Dobrinya stole pizza
+2023-12-10 22:00:57.620 [Thread-10] INFO  Hobo - 
+---------------
+| 2 | 2 | 3 |
+---------------
+2023-12-10 22:00:57.633 [Thread-11] INFO  Hobo - Tishilo started cooking!
+2023-12-10 22:00:57.633 [Thread-4] INFO  Hobo - Dobrojir stole pizza
+2023-12-10 22:00:58.161 [Thread-1] INFO  ShipGenerator - Ship PCU is on the horizon
+2023-12-10 22:00:58.162 [Thread-10215] INFO  Tunnel - Ship PCU entered the tunnel
+2023-12-10 22:00:58.775 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:58.775 [Thread-0] INFO  Dock - There is a response
+2023-12-10 22:00:58.775 [Thread-0] INFO  Dock - Dock ready for ship unloading
+2023-12-10 22:00:58.775 [Thread-0] INFO  Dock - Ship PCU entered the dock
+2023-12-10 22:00:58.775 [Thread-0] INFO  Dock - Ship PCU with FOOD is unloading...
+2023-12-10 22:00:58.775 [Thread-10215] INFO  Ship - Ship PCU exit the tunnel
+2023-12-10 22:00:58.775 [Thread-0] INFO  Dock - FOOD storage is full
+2023-12-10 22:00:58.776 [Thread-0] INFO  Dock - Ship PCU leaves the dock
+2023-12-10 22:00:58.776 [Thread-0] INFO  Dock - Dock calls
+2023-12-10 22:00:58.776 [Thread-0] INFO  Dock - There is no response, wait a little...
+2023-12-10 22:00:59.635 [Thread-4] INFO  Hobo - Dobrojir stole bread
+2023-12-10 22:00:59.635 [Thread-10] INFO  Hobo - Dobrinya stole bread
+2023-12-10 22:00:59.635 [Thread-10] INFO  Hobo - 
+---------------
+| 2 | 0 | 1 |
+---------------

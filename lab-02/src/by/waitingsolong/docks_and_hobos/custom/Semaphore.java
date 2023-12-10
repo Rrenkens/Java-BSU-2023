@@ -1,26 +1,23 @@
 package by.waitingsolong.docks_and_hobos.custom;
 
-import java.io.Serializable;
-
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Semaphore implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Semaphore {
     private int permits;
     private boolean fair;
     private ReentrantLock lock;
     private Condition condition;
-
-    public Semaphore(int permits) {
-        this.permits = permits;
-    }
 
     public Semaphore(int permits, boolean fair) {
         this.permits = permits;
         this.fair = fair;
         this.lock = new ReentrantLock(fair);
         this.condition = lock.newCondition();
+    }
+
+    public Semaphore(int permits) {
+        this(permits, false);
     }
 
     public void acquire() throws InterruptedException {
@@ -30,9 +27,6 @@ public class Semaphore implements Serializable {
                 condition.await();
             }
             permits--;
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw e;
         } finally {
             lock.unlock();
         }
@@ -51,6 +45,7 @@ public class Semaphore implements Serializable {
     }
 
     public boolean tryAcquire() {
+        
         lock.lock();
         try {
             if (permits > 0) {

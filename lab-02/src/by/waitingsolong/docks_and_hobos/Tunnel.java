@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Tunnel {
     private static final Logger logger = LogManager.getLogger(Tunnel.class);
-    private BlockingQueue<Ship> tunnel;
+    private final BlockingQueue<Ship> tunnel;
 
     public Tunnel(int maxShips) {
         this.tunnel = new LinkedBlockingQueue<>(maxShips);
@@ -24,7 +24,7 @@ public class Tunnel {
         }
     }
 
-    public Optional<Ship> call(Dock dock) {
+    public Optional<Ship> call() {
         Ship ship = tunnel.poll();
         if (ship != null) {
             synchronized (ship) {

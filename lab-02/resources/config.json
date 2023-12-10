@@ -12,8 +12,9 @@
   "max_ships" : 3,
   "unloading_speed" : 10,
   "dock_capacity" : 50,
-  "hobos" : 5,
-  "ingredients_count" : [1, 2, 4, 8, 16],
-  "stealing_time" : 10,
-  "eating_time" : 10
+  "hobos" : 4,
+  "ingredients_count" : [2, 2, 3],
+  "stealing_time" : 2,
+  "crimes_per_day" : 3,
+  "cooking_time": 10
 }
