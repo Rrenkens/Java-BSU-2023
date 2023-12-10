@@ -7,13 +7,12 @@ import java.util.Random;
 
 public class ShipGenerator implements Runnable{
 
-
     private final int generating_time;
+
     private final int ship_capacity_min;
 
     private final int ship_capacity_max;
 
-    //private final static String[] cargo_types = {"first", "second", "third"};
     private final ArrayList<String> cargo_types;
 
     private final int size;
@@ -29,11 +28,6 @@ public class ShipGenerator implements Runnable{
         this.size = cargo_types.size();
 
         ships = Collections.synchronizedList(new ArrayList<>());
-        //ships = new ArrayList<>();
-    }
-
-    public int getGeneratingTime() {
-        return generating_time;
     }
 
     public List<Ship> getShips() {
@@ -52,23 +46,12 @@ public class ShipGenerator implements Runnable{
                 throw new RuntimeException(e);
             }
 
-            //System.out.println(new StringBuffer("Cur size: ").append(ships.size()));
-//            if (!ships.isEmpty()) {
-//                System.out.println(ships.get(ships.size() - 1).getCargoType() +
-//                        "; capacity: " + ships.get(ships.size() - 1).getCapacity());
-//            }
             int cargoIndex = random.nextInt(size);
             String cargoName = cargo_types.get(cargoIndex);
             int capacity = ship_capacity_min +
                     random.nextInt(ship_capacity_max - ship_capacity_min + 1);
             Ship ship = new Ship(capacity, cargoName);
-            //System.out.println("Old amount of ships: " + ships.size());
             this.ships.add(ship);
-           // System.out.println("New amount of ships: " + ships.size() + "\n");
         }
     }
-
-
-
-
 }

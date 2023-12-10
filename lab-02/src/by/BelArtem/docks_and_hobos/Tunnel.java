@@ -21,13 +21,6 @@ public class Tunnel {
         return shipsInTunnel == maxShips;
     }
 
-    public int getShipsInTunnel() {
-        return shipsInTunnel;
-    }
-
-    void addShips(int number) {
-        shipsInTunnel += number;
-    }
 
     void removeShips(int number) {
         shipsInTunnel -= number;

@@ -6,9 +6,10 @@ import java.util.concurrent.atomic.AtomicIntegerArray;
 public class Dock implements Runnable{
 
     private final int unloadingSpeed;
+
     private final int dockCapacity;
 
-    private AtomicIntegerArray stock;
+    private final AtomicIntegerArray stock;
 
     private final TunnelManager tunnelManager;
 
@@ -16,6 +17,7 @@ public class Dock implements Runnable{
 
     public Dock(int unloadingSpeed, int dockCapacity,
                 TunnelManager tunnelManager, ArrayList<String> cargo_types) {
+
         this.unloadingSpeed = unloadingSpeed;
         this.dockCapacity = dockCapacity;
         stock = new AtomicIntegerArray(cargo_types.size());
@@ -61,13 +63,5 @@ public class Dock implements Runnable{
 
         }
 
-    }
-
-    public int getUnloadingSpeed() {
-        return unloadingSpeed;
-    }
-
-    public int getDockCapacity() {
-        return dockCapacity;
     }
 }

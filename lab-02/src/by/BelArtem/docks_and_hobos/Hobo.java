@@ -18,7 +18,6 @@ public class Hobo implements Runnable{
     private boolean isCooking;
 
 
-
     public Hobo(List<Dock> docks, AtomicIntegerArray necessaryIngredients, int stealingTime) {
         this.dockList = docks;
         this.necessaryIngredients = necessaryIngredients;
@@ -52,7 +51,6 @@ public class Hobo implements Runnable{
             return;
         }
         while (!this.areAllIngredientsCollected()) {
-            System.out.println("Waiting for ingredients");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -97,6 +95,4 @@ public class Hobo implements Runnable{
             }
         return result;
     }
-
-
 }

@@ -2,7 +2,6 @@ package by.BelArtem.docks_and_hobos;
 
 public class Ship {
     private final int capacity;
-
     private int cargoLeft;
     private final String cargoType;
 
