@@ -1,0 +1,20 @@
+{
+  "generating_time" : 3,
+  "ship_capacity_min" : 10,
+  "ship_capacity_max" : 100,
+  "cargo_types" : [
+    "CHEMICAL",
+    "FOOD",
+    "WEAPON",
+    "RAW_MATERIALS",
+    "SLAVES"
+  ],
+  "max_ships" : 3,
+  "unloading_speed" : 10,
+  "dock_capacity" : 50,
+  "hobos" : 4,
+  "ingredients_count" : [2, 2, 3],
+  "stealing_time" : 2,
+  "crimes_per_day" : 3,
+  "cooking_time": 10
+}
