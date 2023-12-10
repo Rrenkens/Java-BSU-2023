@@ -1,0 +1,1 @@
+{"cargo_types":["Ham","Bread","Butter"],"dock_capacity":{"Ham":100,"Butter":150,"Bread":200},"unloading_speed":10,"ingridients_count":{"Ham":3,"Butter":2,"Bread":5},"generating_time":10,"ship_capacity_min":10,"stealing_time":5,"ship_capacity_max":30,"max_ships":20,"hobos":10,"eating_time":30}
