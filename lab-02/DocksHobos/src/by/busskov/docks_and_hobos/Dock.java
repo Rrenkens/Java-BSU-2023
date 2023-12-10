@@ -1,9 +1,7 @@
 package by.busskov.docks_and_hobos;
 
-import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Dock implements Runnable {
     public Dock(
@@ -11,7 +9,11 @@ public class Dock implements Runnable {
             int capacity,
             ArrayList<String> cargoTypes,
             Tunnel tunnel,
-            BayLogger logger
+            BayLogger logger,
+            int numberOfHobos,
+            int eatingTime,
+            int stealingTime,
+            HashMap<String, Integer> necessaryIngredients
     ) {
         if (unloadingSpeed <= 0) {
             throw new IllegalArgumentException("Unloading speed must be positive");
@@ -30,13 +32,14 @@ public class Dock implements Runnable {
         this.tunnel = tunnel;
         this.logger = logger;
 
-        warehouse = new HashMap<>(cargoTypes.size());
-        for (String type : cargoTypes) {
-            warehouse.put(type, 0);
-        }
+        warehouse = new Warehouse(cargoTypes);
+        hobosGroup = new HobosGroup(numberOfHobos, eatingTime, stealingTime, necessaryIngredients, warehouse, logger);
     }
     @Override
     public void run() {
+        Thread hobosThread = new Thread(hobosGroup, "Hobos Group");
+        hobosThread.start();
+
         while(true) {
             if (!tunnel.isEmpty()) {
                 Ship ship = tunnel.getShip();
@@ -70,18 +73,38 @@ public class Dock implements Runnable {
 
     private final int unloadingSpeed;
     private final int capacity;
-    private final HashMap<String, Integer> warehouse;
+    private final Warehouse warehouse;
     private final BayLogger logger;
+    private final HobosGroup hobosGroup;
 
     private final Tunnel tunnel;
 
-
-    private class HobosGroup implements Runnable {
-
-        @Override
-        public void run() {
-
+    public static class Warehouse {
+        public Warehouse(ArrayList<String> types) {
+            warehouse = new HashMap<>(types.size());
+            for (String type : types) {
+                warehouse.put(type, 0);
+            }
         }
+
+        public synchronized void put(String value, Integer number) {
+            warehouse.put(value, number);
+        }
+
+        public synchronized boolean steal(String value) {
+            if (warehouse.get(value) == 0) {
+                return false;
+            }
+            int currentAmount = warehouse.get(value);
+            --currentAmount;
+            warehouse.put(value, currentAmount);
+            return true;
+        }
+
+        public synchronized Integer get(String value) {
+            return warehouse.get(value);
+        }
+
+        private final HashMap<String, Integer> warehouse;
     }
-    
 }

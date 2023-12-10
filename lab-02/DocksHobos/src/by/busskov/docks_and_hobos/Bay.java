@@ -2,6 +2,7 @@ package by.busskov.docks_and_hobos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 
@@ -20,7 +21,20 @@ public class Bay {
                 tunnel,
                 logger);
 
-        Dock dock = new Dock(10, 100, cargoTypes, tunnel, logger);
+        HashMap<String, Integer> necessaryIngredients = new HashMap<>();
+        necessaryIngredients.put("Bananas", 40);
+        necessaryIngredients.put("Iphones", 10);
+
+        Dock dock = new Dock(
+                10,
+                100,
+                cargoTypes,
+                tunnel,
+                logger,
+                10,
+                20000,
+                1000,
+                necessaryIngredients);
 
         Thread loggerThread = new Thread(logger, "Logger");
         Thread dockThread = new Thread(dock, "Dock");
