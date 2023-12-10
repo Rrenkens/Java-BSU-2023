@@ -8,34 +8,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Tunnel {
-    private static final Logger logger = Logger.getLogger("logger");
     private Queue<Ship> ships = new ArrayDeque<>();
+    private static Logger logger = Logger.getLogger("TunnelLogger");
     int maxShips;
 
     public Tunnel(int maxShips) {
         this.maxShips = maxShips;
     }
     synchronized public void add(Ship ship) {
-        if (ships.size() == ProgramArguments.MAX_SHIPS) {
-            logger.log(Level.WARNING, "ship sank");
+        if (ships.size() == maxShips) {
+            logger.log(Level.WARNING, "SHIP SANK");
             return;
         }
         ships.add(ship);
         notifyAll();
-        logger.log(Level.INFO, "ship added to tunnel: " + ships.size());
+        logger.log(Level.INFO, "SHIP ADDED TO TUNNEL: " + ships.size());
     }
 
     synchronized public Ship get() throws InterruptedException {
         while (ships.isEmpty()) {
             Thread.sleep(10);
-            logger.log(Level.INFO, "no ships in the tunnel:"  + ships.size());
+            logger.log(Level.INFO, "NO SHIPS IN THE TUNNEL: "  + ships.size());
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("ship removed" + ships.size());
+        logger.log(Level.INFO, "SHIP REMOVED: " + ships.size());
         return ships.remove();
     }
 }

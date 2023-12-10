@@ -1,12 +1,32 @@
 {
-  "generating_time" : 2,
-  "ship_capacity_min": 200,
-  "ship_capacity_max": 500,
-  "cargo_types": ["rock", "bread", "butter", "scissors"],
-  "max_ships" : 50,
-  "unloading_speed" : "20",
-  "dock_capacity" : ["5", "3", "8", "1"],
-  "ingredients_count" : [],
-  "stealing_time" : 3,
-  "eating_time" : 10
+  "generating_time": 2,
+  "ship_capacity_min": 30,
+  "ship_capacity_max": 50,
+  "cargo_types": [
+    "rock",
+    "bath_water",
+    "apple",
+    "bread",
+    "butter"
+  ],
+  "max_ships": 5,
+  "unloading_speed": 1,
+  "dock_count" : 5,
+  "dock_capacity": {
+    "rock" : 20,
+    "bath_water":  10,
+    "apple" :  50,
+    "bread" :  50,
+    "butter" : 50
+  },
+  "hobos": 4,
+  "ingredients_count": {
+    "rock" : 20,
+    "bath_water":  10,
+    "apple" :  50,
+    "bread" :  1,
+    "butter" : 1
+  },
+  "stealing_time": 1,
+  "eating_time": 5
 }
