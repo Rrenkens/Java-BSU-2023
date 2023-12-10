@@ -1,10 +1,18 @@
 package by.Dzenia.docks_and_hobos.Controller;
+
 import by.Dzenia.docks_and_hobos.Persons.Cargo;
 import by.Dzenia.docks_and_hobos.Persons.Tunnel;
 import by.Dzenia.docks_and_hobos.RunnableObjects.Dock;
 import by.Dzenia.docks_and_hobos.RunnableObjects.Hobos;
 import by.Dzenia.docks_and_hobos.RunnableObjects.ShipGenerator;
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+
 
 public class Model {
     private final Tunnel tunnel;
@@ -19,6 +27,44 @@ public class Model {
         this.shipGenerator = shipGenerator;
         this.cargos = cargos;
         this.docks = docks;
+    }
+
+    public Model(String pathToJson) throws IOException {
+        String jsonContent = new String(Files.readAllBytes(Paths.get(pathToJson)));
+        JSONObject jsonObject = new JSONObject(jsonContent);
+        JSONObject generatorJson = (JSONObject) jsonObject.get("generator");
+        int generatingTime = Integer.parseInt(generatorJson.get("generating_time").toString());
+        JSONObject ship = (JSONObject) jsonObject.get("ship");
+        int shipCapacityMin = Integer.parseInt(ship.get("ship_capacity_min").toString());
+        int shipCapacityMax = Integer.parseInt(ship.get("ship_capacity_max").toString());
+        this.shipGenerator = new ShipGenerator(generatingTime, shipCapacityMin, shipCapacityMax, this);
+        JSONArray cargoTypes = (JSONArray) ship.get("cargo_types");
+//        ArrayList<String> cargoList = new ArrayList<>(cargoTypes.length());
+        cargos = new ArrayList<>();
+        for (Object cargoType : cargoTypes) {
+            cargos.add(new Cargo(cargoType.toString()));
+        }
+        JSONObject tunnel = (JSONObject) jsonObject.get("tunnel");
+        int maxShips = Integer.parseInt(tunnel.get("max_ships").toString());
+        this.tunnel = new Tunnel(maxShips);
+
+        this.docks = new ArrayList<>();
+//        ArrayList<Dock> docks = new ArrayList<>();
+        JSONArray docksArray = (JSONArray) jsonObject.get("docks");
+        for (Object dockObject : docksArray) {
+            JSONObject dock = (JSONObject) dockObject;
+            int speed = Integer.parseInt(dock.get("unloading_speed").toString());
+            JSONObject dockCapacity = (JSONObject) dock.get("dock_capacity");
+            HashMap<String, Integer> capacities = new HashMap<>();
+            Map<String, Object> mp = dockCapacity.toMap();
+            Set<String> keys = dockCapacity.toMap().keySet();
+            for (String cargoType: keys) {
+                capacities.put(cargoType, (Integer)mp.get(cargoType));
+            }
+//            Dock dockToAdd = new Dock(unloadingSpeed, dockCapacityInt);
+            docks.add(new Dock(speed, capacities, this));
+        }
+        this.hobos = new Hobos();
     }
 
     public Tunnel getTunnel() {
