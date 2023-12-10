@@ -1,6 +1,10 @@
 package by.busskov.docks_and_hobos;
 
+import com.sun.tools.jconsole.JConsoleContext;
+
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Ship {
 
@@ -10,7 +14,8 @@ public class Ship {
                 int maxCapacity,
                 int generatingTime,
                 ArrayList<String> cargoTypes,
-                Tunnel tunnel
+                Tunnel tunnel,
+                BayLogger logger
         ) {
             if (minCapacity > maxCapacity) {
                 throw new IllegalArgumentException("Min capacity is greater than max capacity");
@@ -34,6 +39,7 @@ public class Ship {
             this.maxCapacity = maxCapacity;
             this.generatingTime = generatingTime;
             this.tunnel = tunnel;
+            this.logger = logger;
             random = new Random();
         }
 
@@ -45,7 +51,9 @@ public class Ship {
                 public void run() {
                     int index = random.nextInt(cargoTypes.size());
                     int capacity = random.nextInt(maxCapacity - minCapacity + 1) + minCapacity;
-                    tunnel.addShip(new Ship(capacity, cargoTypes.get(index)));
+                    Ship ship = new Ship(capacity, cargoTypes.get(index), logger);
+                    tunnel.addShip(ship);
+                    logger.log(Level.INFO, "Generator made new Ship: {0}", ship);
                 }
             }, 0, generatingTime);
         }
@@ -55,16 +63,19 @@ public class Ship {
         private final int minCapacity;
         private final int maxCapacity;
         private final ArrayList<String> cargoTypes;
+        private final BayLogger logger;
 
         private final Tunnel tunnel;
     }
 
     public Ship (
             int quantity,
-            String cargoType
+            String cargoType,
+            BayLogger logger
     ) {
         this.quantity = quantity;
         this.cargoType = cargoType;
+        this.logger = logger;
     }
 
     public String getCargoType() {
@@ -72,6 +83,7 @@ public class Ship {
     }
 
     public synchronized int takeGoods(int number) {
+        logger.log(Level.ALL, "From {0} try to get {1} goods", new Object[] {this, number});
         if (number < quantity) {
             quantity -= number;
             return number;
@@ -92,4 +104,5 @@ public class Ship {
 
     private int quantity;
     private final String cargoType;
+    private final BayLogger logger;
 }
