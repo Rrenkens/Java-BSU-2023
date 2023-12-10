@@ -112,11 +112,10 @@ public class EquationMathTask extends AbstractMathTask {
                 if (xId == 2 && num1 % num2 != 0) {
                     num1 *= num2;
                 }
-
                  */
             }
             if (num1 > getMaxNumber()  || num2 > getMaxNumber()) {
-                throw new TaskGeneratingException("TaskGeneratingException")
+                throw new TaskGeneratingException("TaskGeneratingException : Cannot creaate task with such num1 and num2");
             }
 
             return new EquationMathTask(num1, num2, operation, xId);
