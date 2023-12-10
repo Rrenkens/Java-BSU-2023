@@ -1,0 +1,72 @@
+{
+  "generator" : {
+    "generating_time": 500
+  },
+  "cargo_types" : ["1", "2", "3", "4"],
+  "ingredients_count" : [6, 4, 2, 5],
+  "eating_time": 500,
+  "ships" : [
+    {
+      "capacity" : 160,
+      "cargo_type" : "2"
+    },
+    {
+      "capacity" : 200,
+      "cargo_type" : "1"
+    },
+    {
+      "capacity" : 130,
+      "cargo_type" : 2
+    },
+    {
+      "capacity" : 180,
+      "cargo_type" : 3
+    },
+    {
+      "capacity" : 93,
+      "cargo_type" : "1"
+    },
+    {
+      "capacity" : 111,
+      "cargo_type" : "4"
+    },
+    {
+      "capacity" : 211,
+      "cargo_type" : 2
+    }
+  ],
+  "tunnel": {
+    "max_size" : 4
+  },
+  "docs": [
+    {
+      "unloading_speed" : 40,
+      "dock_capacity": [160, 200, 180, 100]
+    },
+    {
+      "unloading_speed" : 28,
+      "dock_capacity": [260, 100, 280, 300]
+    },
+    {
+      "unloading_speed" : 33,
+      "dock_capacity": [230, 150, 220, 176]
+    }
+  ],
+  "hobos": [
+    {
+      "stealing_time": 100
+    },
+    {
+      "stealing_time": 200
+    },
+    {
+      "stealing_time": 300
+    },
+    {
+      "stealing_time": 200
+    },
+    {
+      "stealing_time": 400
+    }
+  ]
+}
