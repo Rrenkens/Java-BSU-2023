@@ -1,0 +1,100 @@
+дек. 10, 2023 11:25:40 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobos start stealing
+дек. 10, 2023 11:25:40 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 0 with 8 units of cargo1
+дек. 10, 2023 11:25:40 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobos 4 and 3 are cooking
+дек. 10, 2023 11:25:40 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 0 added to the tunnel.
+дек. 10, 2023 11:25:41 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo1 from ship 0
+дек. 10, 2023 11:25:41 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo1 were added to stockpile
+дек. 10, 2023 11:25:41 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobo 0 stole 1 unit of cargo1
+дек. 10, 2023 11:25:41 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 1 with 6 units of cargo4
+дек. 10, 2023 11:25:41 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 1 added to the tunnel.
+дек. 10, 2023 11:25:42 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo1 from ship 0
+дек. 10, 2023 11:25:42 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo1 were added to stockpile
+дек. 10, 2023 11:25:42 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 2 with 8 units of cargo2
+дек. 10, 2023 11:25:42 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 2 added to the tunnel.
+дек. 10, 2023 11:25:43 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo1 from ship 0
+дек. 10, 2023 11:25:43 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo1 were added to stockpile
+дек. 10, 2023 11:25:43 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 3 with 10 units of cargo4
+дек. 10, 2023 11:25:43 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 3 added to the tunnel.
+дек. 10, 2023 11:25:44 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo1 from ship 0
+дек. 10, 2023 11:25:44 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo1 were added to stockpile
+дек. 10, 2023 11:25:44 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 0 fully unloaded.
+дек. 10, 2023 11:25:44 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 0 removed from the tunnel.
+дек. 10, 2023 11:25:44 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 4 with 5 units of cargo3
+дек. 10, 2023 11:25:44 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 4 added to the tunnel.
+дек. 10, 2023 11:25:45 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo4 from ship 1
+дек. 10, 2023 11:25:45 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo4 were added to stockpile
+дек. 10, 2023 11:25:45 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobo 2 stole 1 unit of cargo4
+дек. 10, 2023 11:25:45 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobo 0 stole 1 unit of cargo4
+дек. 10, 2023 11:25:45 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 5 with 5 units of cargo3
+дек. 10, 2023 11:25:45 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 5 added to the tunnel.
+дек. 10, 2023 11:25:46 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo4 from ship 1
+дек. 10, 2023 11:25:46 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo4 were added to stockpile
+дек. 10, 2023 11:25:46 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobo 2 stole 1 unit of cargo4
+дек. 10, 2023 11:25:46 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 6 with 10 units of cargo3
+дек. 10, 2023 11:25:46 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobo 1 stole 1 unit of cargo4
+дек. 10, 2023 11:25:46 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 6 sunk. Tunnel is full.
+дек. 10, 2023 11:25:47 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo4 from ship 1
+дек. 10, 2023 11:25:47 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo4 were added to stockpile
+дек. 10, 2023 11:25:47 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 1 fully unloaded.
+дек. 10, 2023 11:25:47 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 1 removed from the tunnel.
+дек. 10, 2023 11:25:47 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 7 with 9 units of cargo3
+дек. 10, 2023 11:25:47 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 7 added to the tunnel.
+дек. 10, 2023 11:25:48 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo2 from ship 2
+дек. 10, 2023 11:25:48 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo2 were added to stockpile
+дек. 10, 2023 11:25:48 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobo 2 stole 1 unit of cargo2
+дек. 10, 2023 11:25:48 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Hobo 1 stole 1 unit of cargo2
+дек. 10, 2023 11:25:48 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 8 with 5 units of cargo2
+дек. 10, 2023 11:25:48 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Ship 8 sunk. Tunnel is full.
+дек. 10, 2023 11:25:49 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Unloaded 2 units of cargo2 from ship 2
+дек. 10, 2023 11:25:49 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: 2 units of cargo2 were added to stockpile
+дек. 10, 2023 11:25:49 PM by.kirilbaskakov.dock_and_hobos.MyLogger info
+INFO: Generated ship 9 with 6 units of cargo4
