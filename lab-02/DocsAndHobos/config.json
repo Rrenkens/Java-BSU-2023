@@ -1,0 +1,26 @@
+{
+  "generating_time": 1000,
+  "ship_capacity_min": 5,
+  "ship_capacity_max": 10,
+  "cargo_types": [
+    "cargo1",
+    "cargo2",
+    "cargo3",
+    "cargo4"
+  ],
+
+  "max_ships": 5,
+
+  "unloading_speed": 2,
+  "dock_capacity": 100,
+
+  "hobos": 5,
+  "ingredients_count": {
+    "cargo1": 1,
+    "cargo2": 2,
+    "cargo3": 3,
+    "cargo4": 4
+  },
+  "stealing_time": 1000,
+  "eating_time": 3000
+}
