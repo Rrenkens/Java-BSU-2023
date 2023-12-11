@@ -32,7 +32,13 @@
                 <Button fx:id="clearCanvasButton" mnemonicParsing="false" styleClass="oneButton" text="Clear Canvas"/>
                 <Button fx:id="saveImageButton" mnemonicParsing="false" styleClass="secondButton" text="Save As Image"/>
             </VBox>
-            <Canvas fx:id="canvas"/>
+            <Pane GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Canvas fx:id="canvas" height="420" width="570"
+                        onMouseDragged="#drawing" onMouseClicked="#drawPoint"
+                        onMousePressed="#startDrawing" onMouseReleased="#endDrawing"/>
+                <Canvas fx:id="secondCanvas" height="420" width="570"
+                        onMouseDragged="#drawing"/>
+            </Pane>
         </HBox>
     </VBox>
 </AnchorPane>

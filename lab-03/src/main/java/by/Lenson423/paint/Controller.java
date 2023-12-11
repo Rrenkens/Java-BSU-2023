@@ -6,13 +6,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class Controller {
     @FXML
     private Canvas canvas;
+    @FXML
+    private Canvas secondCanvas;
 
     @FXML
     public RadioButton brushButton;
@@ -44,29 +45,15 @@ public class Controller {
     @FXML
     private Button saveImageButton;
 
-    private GraphicsContext gc;
     private double prevMouseX, prevMouseY;
-    private boolean isDrawing = false;
+
+    private double lastX, lastY;
     private double brushWidth = 5;
     private Color selectedColor = Color.BLACK;
-    private WritableImage snapshot;
-
-    private Canvas secondCanvas = new Canvas();
-
-    private boolean isLastIteration = false;
 
     public void initialize() {
-        gc = canvas.getGraphicsContext2D();
-        canvas.setHeight(420);
-        canvas.setWidth(570);
-        canvas.setOnMousePressed(this::startDraw);
-        canvas.setOnMouseDragged(this::drawing);
-        canvas.setOnMouseReleased(e -> {
-            isDrawing = false;
-            isLastIteration = true;
-            drawing(e);
-        });
-        setCanvasBackground(canvas);
+        canvas.toFront();
+        clearCanvas();
 
         ToggleGroup group = new ToggleGroup();
         rectangleTool.setToggleGroup(group);
@@ -101,36 +88,21 @@ public class Controller {
         colorPicker.valueProperty().set(Color.BLACK);
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> selectedColor = newValue);
 
-        clearCanvasButton.setOnAction(event -> {
-            gc = canvas.getGraphicsContext2D();
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            setCanvasBackground(canvas);
-        });
+        clearCanvasButton.setOnAction(event -> clearCanvas());
 
         saveImageButton.setOnAction(event -> {
             // You can implement the image saving logic here
         });
     }
 
-    private void snapshot() {
-        snapshot = canvas.snapshot(null, null);
-    }
+    private void clearCanvas(){
+        GraphicsContext gcCanvas = canvas.getGraphicsContext2D();
+        gcCanvas.setFill(Color.WHITE);
+        gcCanvas.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-    private void restoreSnapshot() {
-        gc.drawImage(snapshot, 0, 0);
-    }
-
-    private void swapCanvases() {
-        Canvas tmp = canvas;
-        canvas = secondCanvas;
-        secondCanvas = tmp;
-    }
-
-    private void setCanvasBackground(Canvas canvas) {
-        GraphicsContext gc2 = canvas.getGraphicsContext2D();
-        gc2.setFill(Color.WHITE);
-        gc2.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc2.setFill(selectedColor);
+        GraphicsContext gcSecondLayer = secondCanvas.getGraphicsContext2D();
+        gcSecondLayer.setFill(Color.TRANSPARENT);
+        gcSecondLayer.fillRect(0, 0, secondCanvas.getWidth(), secondCanvas.getHeight());
     }
 
     private void drawRect(MouseEvent e, GraphicsContext gc) {
@@ -170,38 +142,76 @@ public class Controller {
         }
     }
 
-    private void startDraw(MouseEvent e) {
-        snapshot();
-        swapCanvases();
-        isDrawing = true;
-        prevMouseX = e.getX();
-        prevMouseY = e.getY();
-        gc.beginPath();
-        gc.setLineWidth(brushWidth);
-        gc.setStroke(selectedColor);
-        gc.setFill(selectedColor);
+
+    @FXML
+    private void startDrawing(MouseEvent event) {
+        prevMouseX = event.getX();
+        prevMouseY = event.getY();
+        lastX = event.getX();
+        lastY = event.getY();
     }
 
-    private void drawing(MouseEvent e) {
-        if (!isDrawing && !isLastIteration) {
-            return;
-        } else if (isLastIteration) {
-            swapCanvases();
-            isLastIteration = false;
-        } else {
-            restoreSnapshot();
-        }
-
+    @FXML
+    private void drawing(MouseEvent event) {
+        double newX = event.getX();
+        double newY = event.getY();
         if (brushButton.isSelected() || eraserButton.isSelected()) {
-            gc.setStroke(eraserButton.isSelected() ? Color.WHITE : selectedColor);
-            gc.lineTo(e.getX(), e.getY());
-            gc.stroke();
-        } else if (rectangleTool.isSelected()) {
-            drawRect(e, gc);
-        } else if (circleTool.isSelected()) {
-            drawCircle(e, gc);
-        } else if (triangleTool.isSelected()) {
-            drawTriangle(e, gc);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(selectedColor);
+            gc.setLineWidth(brushWidth);
+            gc.strokeLine(lastX, lastY, newX, newY);
+        } else {
+            GraphicsContext gc = secondCanvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, secondCanvas.getWidth(), secondCanvas.getHeight());
+            gc.setStroke(selectedColor);
+            gc.setLineWidth(brushWidth);
+            if (rectangleTool.isSelected()) {
+                drawRect(event, gc);
+            } else if (circleTool.isSelected()) {
+                drawCircle(event, gc);
+            } else if (triangleTool.isSelected()) {
+                drawTriangle(event, gc);
+            }
+            secondCanvas.toFront();
         }
+        lastX = event.getX();
+        lastY = event.getY();
+    }
+
+    @FXML
+    private void endDrawing(MouseEvent event) {
+        double newX = event.getX();
+        double newY = event.getY();
+        if (brushButton.isSelected() || eraserButton.isSelected()) {
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(selectedColor);
+            gc.setLineWidth(brushWidth);
+            gc.strokeLine(lastX, lastY, newX, newY);
+        } else {
+            GraphicsContext gcSecondLayer = secondCanvas.getGraphicsContext2D();
+            gcSecondLayer.clearRect(0, 0, secondCanvas.getWidth(), secondCanvas.getHeight());
+
+            GraphicsContext gcCanvas = canvas.getGraphicsContext2D();
+            gcCanvas.setStroke(selectedColor);
+            gcCanvas.setLineWidth(brushWidth);
+            if (rectangleTool.isSelected()) {
+                drawRect(event, gcCanvas);
+            } else if (circleTool.isSelected()) {
+                drawCircle(event, gcCanvas);
+            } else if (triangleTool.isSelected()) {
+                drawTriangle(event, gcCanvas);
+            }
+            canvas.toFront();
+        }
+    }
+
+    @FXML
+    private void drawPoint(MouseEvent event) {
+        double newX = event.getX();
+        double newY = event.getY();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(selectedColor);
+        gc.setLineWidth(brushWidth);
+        gc.strokeLine(newX, newY, newX, newY);
     }
 }
