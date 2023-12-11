@@ -1,0 +1,63 @@
+.root {
+    -fx-background-color: #4A98F7;
+}
+
+.button {
+    -fx-background-color: white; /* Белый цвет фона */
+    -fx-background-radius: 5; /* Закругленные углы */
+    -fx-border-radius: 5; /* Закругленные углы */
+    -fx-min-width: 110px;
+    -fx-min-height: 10px;
+    -fx-font-size: 16px;
+}
+
+.toggle-button {
+    -fx-background-radius: 5; /* Закругленные углы */
+    -fx-border-radius: 5; /* Закругленные углы */
+    -fx-min-width: 110px;
+    -fx-min-height: 27px;
+    -fx-font-size: 16px;
+    -fx-mark-color: transparent; /* Сделать цвет маркера (кружка и галочки) прозрачным */
+    -fx-background-color: transparent; /* Сделать фон кнопки прозрачным */
+}
+
+.toggle-button:selected {
+    -fx-text-fill: #4A98F7;
+}
+
+.color-picker{
+    -fx-background-color: #EEEEEE;
+}
+
+.slider{
+    -fx-font-size: 16px;
+    -fx-mark-color: white;
+}
+
+.check-box{
+    -fx-font-size: 16px;
+    -fx-mark-color: black;
+    -fx-background-color: white; /* Белый цвет фона */
+    -fx-background-radius: 5; /* Закругленные углы */
+    -fx-border-radius: 5; /* Закругленные углы */
+    -fx-min-width: 110px;
+    -fx-min-height: 27px;
+    -fx-alignment: CENTER;
+}
+
+.oneButton{
+    -fx-mark-color: transparent;
+    -fx-background-color: transparent;
+    -fx-text-fill: grey; /* Задайте ваш цвет для текста кнопки */
+    -fx-border-color: #808080; /* Задайте серый цвет границы кнопки */
+    -fx-border-width: 1; /* Задайте ширину границы кнопки */
+}
+
+.oneButton:pressed {
+    -fx-background-color: #DCDCDC; /* Задайте ваш цвет для текста кнопки при выборе */
+}
+
+.secondButton{
+    -fx-background-color: #4A98F7;
+    -fx-text-fill: white;
+}

@@ -8,7 +8,7 @@
     <VBox alignment="CENTER" prefHeight="600.0"
           prefWidth="800.0" spacing="10.0">
         <HBox spacing="10.0" alignment="CENTER">
-            <VBox spacing="10.0" alignment="CENTER">
+            <VBox spacing="10.0" alignment="CENTER" style="-fx-background-color: white">
                 <HBox spacing="5.0" alignment="CENTER">
                     <VBox spacing="5.0" alignment="CENTER">
                         <RadioButton fx:id="rectangleTool" mnemonicParsing="false" text="Rectangle"/>
@@ -29,10 +29,8 @@
                         <ColorPicker fx:id="colorPicker" prefHeight="30.0" prefWidth="30.0"/>
                     </HBox>
                 </HBox>
-                <HBox spacing="5.0">
-                    <Button fx:id="clearCanvasButton" mnemonicParsing="false" text="Clear Canvas"/>
-                    <Button fx:id="saveImageButton" mnemonicParsing="false" text="Save As Image"/>
-                </HBox>
+                <Button fx:id="clearCanvasButton" mnemonicParsing="false" styleClass="oneButton" text="Clear Canvas"/>
+                <Button fx:id="saveImageButton" mnemonicParsing="false" styleClass="secondButton" text="Save As Image"/>
             </VBox>
             <Canvas fx:id="canvas"/>
         </HBox>

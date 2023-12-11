@@ -49,7 +49,11 @@ public class Controller {
     private boolean isDrawing = false;
     private double brushWidth = 5;
     private Color selectedColor = Color.BLACK;
-    WritableImage snapshot;
+    private WritableImage snapshot;
+
+    private Canvas secondCanvas = new Canvas();
+
+    private boolean isLastIteration = false;
 
     public void initialize() {
         gc = canvas.getGraphicsContext2D();
@@ -57,8 +61,12 @@ public class Controller {
         canvas.setWidth(570);
         canvas.setOnMousePressed(this::startDraw);
         canvas.setOnMouseDragged(this::drawing);
-        canvas.setOnMouseReleased(e -> isDrawing = false);
-        setCanvasBackground();
+        canvas.setOnMouseReleased(e -> {
+            isDrawing = false;
+            isLastIteration = true;
+            drawing(e);
+        });
+        setCanvasBackground(canvas);
 
         ToggleGroup group = new ToggleGroup();
         rectangleTool.setToggleGroup(group);
@@ -94,8 +102,9 @@ public class Controller {
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> selectedColor = newValue);
 
         clearCanvasButton.setOnAction(event -> {
+            gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            setCanvasBackground();
+            setCanvasBackground(canvas);
         });
 
         saveImageButton.setOnAction(event -> {
@@ -111,13 +120,20 @@ public class Controller {
         gc.drawImage(snapshot, 0, 0);
     }
 
-    private void setCanvasBackground() {
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc.setFill(selectedColor);
+    private void swapCanvases() {
+        Canvas tmp = canvas;
+        canvas = secondCanvas;
+        secondCanvas = tmp;
     }
 
-    private void drawRect(MouseEvent e) {
+    private void setCanvasBackground(Canvas canvas) {
+        GraphicsContext gc2 = canvas.getGraphicsContext2D();
+        gc2.setFill(Color.WHITE);
+        gc2.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc2.setFill(selectedColor);
+    }
+
+    private void drawRect(MouseEvent e, GraphicsContext gc) {
         double width = Math.abs(prevMouseX - e.getX());
         double height = Math.abs(prevMouseY - e.getY());
 
@@ -128,7 +144,7 @@ public class Controller {
         }
     }
 
-    private void drawCircle(MouseEvent e) {
+    private void drawCircle(MouseEvent e, GraphicsContext gc) {
         double radius = Math.sqrt(Math.pow((prevMouseX - e.getX()), 2) + Math.pow((prevMouseY - e.getY()), 2));
         double centerX = (prevMouseX + e.getX()) / 2.0;
         double centerY = (prevMouseY + e.getY()) / 2.0;
@@ -141,7 +157,7 @@ public class Controller {
     }
 
 
-    private void drawTriangle(MouseEvent e) {
+    private void drawTriangle(MouseEvent e, GraphicsContext gc) {
         gc.beginPath();
         gc.moveTo(prevMouseX, prevMouseY);
         gc.lineTo(e.getX(), e.getY());
@@ -156,6 +172,7 @@ public class Controller {
 
     private void startDraw(MouseEvent e) {
         snapshot();
+        swapCanvases();
         isDrawing = true;
         prevMouseX = e.getX();
         prevMouseY = e.getY();
@@ -166,20 +183,25 @@ public class Controller {
     }
 
     private void drawing(MouseEvent e) {
-        if (!isDrawing) return;
-
-        restoreSnapshot();
+        if (!isDrawing && !isLastIteration) {
+            return;
+        } else if (isLastIteration) {
+            swapCanvases();
+            isLastIteration = false;
+        } else {
+            restoreSnapshot();
+        }
 
         if (brushButton.isSelected() || eraserButton.isSelected()) {
             gc.setStroke(eraserButton.isSelected() ? Color.WHITE : selectedColor);
             gc.lineTo(e.getX(), e.getY());
             gc.stroke();
         } else if (rectangleTool.isSelected()) {
-            drawRect(e);
+            drawRect(e, gc);
         } else if (circleTool.isSelected()) {
-            drawCircle(e);
+            drawCircle(e, gc);
         } else if (triangleTool.isSelected()) {
-            drawTriangle(e);
+            drawTriangle(e, gc);
         }
     }
 }
