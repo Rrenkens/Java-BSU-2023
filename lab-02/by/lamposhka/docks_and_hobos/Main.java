@@ -39,7 +39,7 @@ public class Main {
         for (var i : tempCapacity.keySet()) {
             dock_capacity.put(i.toString(), Integer.parseInt(tempCapacity.get(i).toString()));
         }
-        int hobos =  Integer.parseInt(jo.get("hobos").toString());
+        int hobos_count =  Integer.parseInt(jo.get("hobos").toString());
 
         HashMap<String, Integer> ingredients_count = new HashMap<>();
         JSONObject tempIngredients = (JSONObject) jo.get("ingredients_count");
@@ -54,9 +54,10 @@ public class Main {
         for (int i = 0; i < dock_count; ++i) {
             docks.add(new Dock(unloading_speed, dock_capacity));
         }
+        Hobos hobos = new Hobos(hobos_count, ingredients_count, stealing_time, eating_time);
         controller = new Controller(new Tunnel(5),
                 new ShipGenerator(ship_capacity_min, ship_capacity_max, cargo_types, generating_time),
-                docks
+                docks, hobos
         );
     }
 

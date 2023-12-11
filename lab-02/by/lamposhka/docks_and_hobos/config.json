@@ -11,7 +11,7 @@
   ],
   "max_ships": 5,
   "unloading_speed": 1,
-  "dock_count" : 5,
+  "dock_count" : 1,
   "dock_capacity": {
     "rock" : 20,
     "bath_water":  10,
@@ -19,14 +19,14 @@
     "bread" :  50,
     "butter" : 50
   },
-  "hobos": 4,
+  "hobos": 1,
   "ingredients_count": {
-    "rock" : 20,
-    "bath_water":  10,
-    "apple" :  50,
+    "rock" : 0,
+    "bath_water":  1,
+    "apple" :  3,
     "bread" :  1,
     "butter" : 1
   },
   "stealing_time": 1,
-  "eating_time": 5
+  "eating_time": 10
 }

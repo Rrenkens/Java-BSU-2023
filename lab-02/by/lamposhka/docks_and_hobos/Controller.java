@@ -9,10 +9,11 @@ public class Controller {
     private final ShipGenerator shipGenerator;
     private final Tunnel tunnel;
     private final ArrayList<Dock> docks;
+    private final Hobos hobos;
     private final ArrayList<Thread> threads;
     private final Logger logger = Logger.getLogger("controllerLogger");
 
-    public Controller(Tunnel tunnel, ShipGenerator shipGenerator, ArrayList<Dock> docks) throws Exception {
+    public Controller(Tunnel tunnel, ShipGenerator shipGenerator, ArrayList<Dock> docks, Hobos hobos) throws Exception {
         if (instance != null) {
             throw new Exception("oh no");
         }
@@ -20,6 +21,7 @@ public class Controller {
         this.shipGenerator = shipGenerator;
         this.tunnel = tunnel;
         this.docks = docks;
+        this.hobos = hobos;
         threads = new ArrayList<>();
     }
 
@@ -29,12 +31,20 @@ public class Controller {
     public Tunnel getTunnel() {
         return tunnel;
     }
+    public Hobos getHobos() {
+        return hobos;
+    }
+
+    public ArrayList<Dock> getDocks() {
+        return docks;
+    }
 
     public void start() {
         threads.add(new Thread(shipGenerator));
         for (Dock dock : docks) {
             threads.add(new Thread(dock));
         }
+        threads.add(new Thread(hobos));
         for (Thread thread : threads) {
             thread.start();
         }
