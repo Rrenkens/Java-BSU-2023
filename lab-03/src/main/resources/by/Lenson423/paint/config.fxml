@@ -4,13 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="by.Lenson423.paint.Controller">
+            fx:controller="by.lenson423.paint.Controller">
     <VBox alignment="CENTER" prefHeight="600.0"
           prefWidth="800.0" spacing="10.0">
         <HBox spacing="10.0" alignment="CENTER">
             <VBox spacing="10.0" alignment="CENTER" style="-fx-background-color: white">
                 <HBox spacing="5.0" alignment="CENTER">
-                    <VBox spacing="5.0" alignment="CENTER">
+                    <VBox spacing="5.0" alignment="CENTER_LEFT">
                         <RadioButton fx:id="rectangleTool" mnemonicParsing="false" text="Rectangle"/>
                         <RadioButton fx:id="circleTool" mnemonicParsing="false" text="Circle"/>
                         <RadioButton fx:id="triangleTool" mnemonicParsing="false" text="Triangle"/>
@@ -31,13 +31,13 @@
                 </HBox>
                 <Button fx:id="clearCanvasButton" mnemonicParsing="false" styleClass="oneButton" text="Clear Canvas"/>
                 <Button fx:id="saveImageButton" mnemonicParsing="false" styleClass="secondButton" text="Save As Image"/>
+                <Button fx:id="openImageButton" mnemonicParsing="false" styleClass="secondButton" text="Open Image"/>
             </VBox>
             <Pane GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Canvas fx:id="canvas" height="420" width="570"
-                        onMouseDragged="#drawing" onMouseClicked="#drawPoint"
-                        onMousePressed="#startDrawing" onMouseReleased="#endDrawing"/>
-                <Canvas fx:id="secondCanvas" height="420" width="570"
-                        onMouseDragged="#drawing"/>
+                <Canvas fx:id="canvas" height="470" width="570"
+                        onMouseDragged="#drawing" onMousePressed="#startDrawing" onMouseReleased="#endDrawing"/>
+                <Canvas fx:id="secondCanvas" height="470" width="570"
+                                 onMouseDragged="#drawing"/>
             </Pane>
         </HBox>
     </VBox>

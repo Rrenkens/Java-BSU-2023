@@ -60,4 +60,5 @@
 .secondButton{
     -fx-background-color: #4A98F7;
     -fx-text-fill: white;
+    -fx-min-width: 130px;
 }

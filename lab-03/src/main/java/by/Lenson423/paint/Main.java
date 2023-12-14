@@ -1,4 +1,4 @@
-package by.Lenson423.paint;
+package by.lenson423.paint;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +14,17 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("config.fxml")));
-        primaryStage.setTitle("Drawing App JavaFX");
-        Scene scene = new Scene(root, 800, 600);
+        primaryStage.setTitle("Paint");
+
+        double initialWidth = 800;
+        double initialHeight = 600;
+
+        primaryStage.setMinWidth(initialWidth);
+        primaryStage.setMinHeight(initialHeight);
+        primaryStage.setMaxHeight(initialHeight);
+        primaryStage.setMaxWidth(initialWidth);
+
+        Scene scene = new Scene(root, initialWidth, initialHeight);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.DECORATED);
