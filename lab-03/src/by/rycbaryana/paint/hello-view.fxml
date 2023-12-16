@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.rycbaryana.paint.PaintContoller">
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem onAction="#onOpen" text="Open file" />
+                    <MenuItem onAction="#onSave" text="Save" />
+                </Menu>
+            </MenuBar>
+
+            <ToolBar>
+                <Slider fx:id="penSize" max="30.0" min="3.0" showTickLabels="true" showTickMarks="true" />
+                <ColorPicker fx:id="lineColor" />
+            <CheckBox fx:id="doFill" mnemonicParsing="false" prefHeight="18.0" prefWidth="55.0" text="Fill" />
+                <ColorPicker fx:id="fillColor" />
+                <ToggleButton fx:id="eraserButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="68.0" text="Eraser">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="tools" />
+                    </toggleGroup>
+                </ToggleButton>
+                <ToggleButton fx:id="penButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" text="Pen" toggleGroup="$tools" />
+                <ToggleButton fx:id="rectButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" text="Rectangle" toggleGroup="$tools" />
+                <ToggleButton fx:id="circleButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" text="Circle" toggleGroup="$tools" />
+                <Button fx:id="clearButton" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" text="Clear" />
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <center>
+        <Pane>
+            <Canvas fx:id="canvas" height="950" onMouseDragged="#onDrag" onMousePressed="#onPress" onMouseReleased="#onRelease" width="1850" />
+            <Canvas fx:id="infoCanvas" height="950" onMouseDragged="#onDrag" width="1850" />
+
+        </Pane>
+    </center>
+
+</BorderPane>
