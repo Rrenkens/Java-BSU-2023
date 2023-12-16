@@ -1,0 +1,41 @@
+{
+  "generating_time" : 3,
+  "ship_capacity_min": 1,
+  "ship_capacity_max": 10,
+  "cargo_types" : [
+    "bread",
+    "meat",
+    "cheese"
+  ],
+  "max_ships": 5,
+  "unloading_speed": 2,
+  "dock_capacity": [
+    {
+      "key" : "bread",
+      "value" : 30
+    }, {
+      "key" : "meat",
+      "value" : 30
+    },
+    {
+      "key": "cheese",
+      "value": 40
+    }
+  ],
+  "hobos": 3,
+  "ingridients_count" : [
+    {
+      "key" : "bread",
+      "value" : 5
+    }, {
+      "key" : "meat",
+      "value" : 2
+    },
+    {
+      "key": "cheese",
+      "value": 5
+    }
+  ],
+  "stealing_time": 2,
+  "eating_time": 2
+}
