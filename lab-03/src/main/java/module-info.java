@@ -8,6 +8,4 @@ module com.example.lab {
     requires javafx.swing;
     requires kotlin.stdlib;
 
-    opens by.lenson423.paint to javafx.fxml;
-    exports by.lenson423.paint;
 }
