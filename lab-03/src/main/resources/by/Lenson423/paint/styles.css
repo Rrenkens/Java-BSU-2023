@@ -3,22 +3,38 @@
 }
 
 .button {
-    -fx-background-color: white; /* Белый цвет фона */
-    -fx-background-radius: 5; /* Закругленные углы */
-    -fx-border-radius: 5; /* Закругленные углы */
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
     -fx-min-width: 110px;
     -fx-min-height: 10px;
     -fx-font-size: 16px;
 }
 
 .toggle-button {
-    -fx-background-radius: 5; /* Закругленные углы */
-    -fx-border-radius: 5; /* Закругленные углы */
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
     -fx-min-width: 110px;
     -fx-min-height: 27px;
     -fx-font-size: 16px;
-    -fx-mark-color: transparent; /* Сделать цвет маркера (кружка и галочки) прозрачным */
-    -fx-background-color: transparent; /* Сделать фон кнопки прозрачным */
+    -fx-mark-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.combo-box{
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-max-width: 130px;
+    -fx-mac-height: 27px;
+    -fx-font-size: 16px;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-background: transparent;
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: transparent;
 }
 
 .toggle-button:selected {
@@ -37,9 +53,9 @@
 .check-box{
     -fx-font-size: 16px;
     -fx-mark-color: black;
-    -fx-background-color: white; /* Белый цвет фона */
-    -fx-background-radius: 5; /* Закругленные углы */
-    -fx-border-radius: 5; /* Закругленные углы */
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
     -fx-min-width: 110px;
     -fx-min-height: 27px;
     -fx-alignment: CENTER;
@@ -48,13 +64,13 @@
 .oneButton{
     -fx-mark-color: transparent;
     -fx-background-color: transparent;
-    -fx-text-fill: grey; /* Задайте ваш цвет для текста кнопки */
-    -fx-border-color: #808080; /* Задайте серый цвет границы кнопки */
-    -fx-border-width: 1; /* Задайте ширину границы кнопки */
+    -fx-text-fill: grey;
+    -fx-border-color: #808080;
+    -fx-border-width: 1;
 }
 
 .oneButton:pressed {
-    -fx-background-color: #DCDCDC; /* Задайте ваш цвет для текста кнопки при выборе */
+    -fx-background-color: #DCDCDC;
 }
 
 .secondButton{

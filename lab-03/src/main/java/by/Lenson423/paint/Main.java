@@ -16,15 +16,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("config.fxml")));
         primaryStage.setTitle("Paint");
 
-        double initialWidth = 800;
-        double initialHeight = 600;
+        primaryStage.setResizable(false);
 
-        primaryStage.setMinWidth(initialWidth);
-        primaryStage.setMinHeight(initialHeight);
-        primaryStage.setMaxHeight(initialHeight);
-        primaryStage.setMaxWidth(initialWidth);
-
-        Scene scene = new Scene(root, initialWidth, initialHeight);
+        Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.DECORATED);

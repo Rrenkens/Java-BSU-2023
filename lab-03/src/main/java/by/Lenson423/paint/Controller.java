@@ -1,6 +1,7 @@
 package by.lenson423.paint;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,28 +17,37 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.function.BiFunction;
 
 public class Controller {
     @FXML
+    private ComboBox<RadioButtonWithBiFunction<?, ?>> comboBox;
+
+    @FXML
     private Canvas canvas;
+
     @FXML
     private Canvas secondCanvas;
 
     @FXML
-    public RadioButton brushButton;
-    @FXML
-
-    public RadioButton eraserButton;
+    private RadioButtonWithBiFunction<Double, Double> brushButton;
 
     @FXML
-    private RadioButton rectangleTool;
+    private RadioButtonWithBiFunction<Double, Double> eraserButton;
 
     @FXML
-    private RadioButton circleTool;
+    private RadioButtonWithBiFunction<MouseEvent, GraphicsContext> rectangleTool;
 
     @FXML
-    private RadioButton triangleTool;
+    private RadioButtonWithBiFunction<MouseEvent, GraphicsContext> circleTool;
+
+    @FXML
+    private RadioButtonWithBiFunction<MouseEvent, GraphicsContext> triangleTool;
+
+    @FXML
+    private RadioButtonWithBiFunction<MouseEvent, GraphicsContext> heartTool;
 
     @FXML
     private CheckBox fillColorCheckBox;
@@ -53,12 +63,13 @@ public class Controller {
 
     @FXML
     private Button saveImageButton;
+
     @FXML
-    public Button openImageButton;
-    FileChooser fileChooser = new FileChooser();
+    private Button openImageButton;
 
+    private final ArrayList<RadioButtonWithBiFunction> radioButtons = new ArrayList<>();
+    private final FileChooser fileChooser = new FileChooser();
     private double prevMouseX, prevMouseY;
-
     private double lastX, lastY;
     private double brushWidth = 5;
     private Color selectedColor = Color.BLACK;
@@ -67,36 +78,9 @@ public class Controller {
         canvas.toFront();
         clearCanvas();
 
-        ToggleGroup group = new ToggleGroup();
-        rectangleTool.setToggleGroup(group);
-        rectangleTool.getStyleClass().remove("radio-button");
-        rectangleTool.getStyleClass().add("toggle-button");
-        rectangleTool.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("rectangle.png")))));
-
-        circleTool.setToggleGroup(group);
-        circleTool.getStyleClass().remove("radio-button");
-        circleTool.getStyleClass().add("toggle-button");
-        circleTool.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("circle.png")))));
-
-        triangleTool.setToggleGroup(group);
-        triangleTool.getStyleClass().remove("radio-button");
-        triangleTool.getStyleClass().add("toggle-button");
-        triangleTool.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("triangle.png")))));
-
-        brushButton.setToggleGroup(group);
-        brushButton.getStyleClass().remove("radio-button");
-        brushButton.getStyleClass().add("toggle-button");
-        brushButton.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("brush.png")))));
-        brushButton.setSelected(true);
-
-        eraserButton.setToggleGroup(group);
-        eraserButton.getStyleClass().remove("radio-button");
-        eraserButton.getStyleClass().add("toggle-button");
-        eraserButton.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("eraser.png")))));
-
+        processRadioButtons();
 
         sizeSlider.valueProperty().addListener((observable, oldValue, newValue) -> brushWidth = newValue.doubleValue());
-
         colorPicker.valueProperty().set(Color.BLACK);
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> selectedColor = newValue);
 
@@ -118,6 +102,30 @@ public class Controller {
             }
         });
     }
+
+    private void processRadioButtons() {
+        ToggleGroup group = new ToggleGroup();
+
+        addRadioButtonToGroup(group, eraserButton, "eraser.png", this::drawLineOrErase);
+        addRadioButtonToGroup(group, brushButton, "brush.png", this::drawLineOrErase);
+        addRadioButtonToGroup(group, triangleTool, "triangle.png", this::drawTriangle);
+        addRadioButtonToGroup(group, circleTool, "circle.png", this::drawCircle);
+        addRadioButtonToGroup(group, rectangleTool, "rectangle.png", this::drawRect);
+        addRadioButtonToGroup(group, heartTool, "heart.png", this::drawHeart);
+
+        heartTool.setSelected(true);
+    }
+
+    private <U, V> void addRadioButtonToGroup(ToggleGroup group, RadioButtonWithBiFunction<U, V> button, String path,
+                                              BiFunction<U, V, Void> func) {
+        button.setToggleGroup(group);
+        button.getStyleClass().remove("radio-button");
+        button.getStyleClass().add("toggle-button");
+        button.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource(path)))));
+        button.setFunction(func);
+        radioButtons.add(button);
+    }
+
 
     private void openImage() throws IOException {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
@@ -155,7 +163,7 @@ public class Controller {
         gcSecondLayer.fillRect(0, 0, secondCanvas.getWidth(), secondCanvas.getHeight());
     }
 
-    private void drawRect(MouseEvent e, GraphicsContext gc) {
+    private Void drawRect(MouseEvent e, GraphicsContext gc) {
         double width = Math.abs(prevMouseX - e.getX());
         double height = Math.abs(prevMouseY - e.getY());
 
@@ -164,9 +172,10 @@ public class Controller {
         } else {
             gc.fillRect(Math.min(e.getX(), prevMouseX), Math.min(e.getY(), prevMouseY), width, height);
         }
+        return null;
     }
 
-    private void drawCircle(MouseEvent e, GraphicsContext gc) {
+    private Void drawCircle(MouseEvent e, GraphicsContext gc) {
         double radius = Math.sqrt(Math.pow((prevMouseX - e.getX()), 2) + Math.pow((prevMouseY - e.getY()), 2));
         double centerX = (prevMouseX + e.getX()) / 2.0;
         double centerY = (prevMouseY + e.getY()) / 2.0;
@@ -176,10 +185,11 @@ public class Controller {
         } else {
             gc.fillOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
         }
+        return null;
     }
 
 
-    private void drawTriangle(MouseEvent e, GraphicsContext gc) {
+    private Void drawTriangle(MouseEvent e, GraphicsContext gc) {
         gc.beginPath();
         gc.moveTo(prevMouseX, prevMouseY);
         gc.lineTo(e.getX(), e.getY());
@@ -190,8 +200,32 @@ public class Controller {
         } else {
             gc.stroke();
         }
+        return null;
     }
 
+    private Void drawHeart(MouseEvent e, GraphicsContext gc) {
+        double xMax = Math.min(e.getX(), prevMouseX);
+        double xMin = Math.max(e.getX(), prevMouseX);
+        double yMax = Math.min(e.getY(), prevMouseY);
+        double yMin = Math.max(e.getY(), prevMouseY);
+
+        double deltaX = xMax - xMin;
+        double deltaY = yMax - yMin;
+
+        gc.beginPath();
+        gc.moveTo(xMin + 0.5 * deltaX, yMin);
+        gc.bezierCurveTo(xMin, yMin + 0.65 * deltaY, xMin + 0.25 * deltaX, yMax,
+                xMin + 0.5 * deltaX, yMin + 0.75 * deltaY);
+        gc.bezierCurveTo(xMin + 0.75 * deltaX, yMax, xMax, yMin + 0.65 * deltaY, xMin + 0.5 * deltaX, yMin);
+        gc.closePath() ;
+
+        if (fillColorCheckBox.isSelected()) {
+            gc.fill();
+        } else {
+            gc.stroke();
+        }
+        return null;
+    }
 
     @FXML
     private void startDrawing(MouseEvent event) {
@@ -206,7 +240,7 @@ public class Controller {
         double newX = event.getX();
         double newY = event.getY();
         if (brushButton.isSelected() || eraserButton.isSelected()) {
-            drawLine(newX, newY);
+            drawLineOrErase(newX, newY);
         } else {
             GraphicsContext gc = secondCanvas.getGraphicsContext2D();
             gc.clearRect(0, 0, secondCanvas.getWidth(), secondCanvas.getHeight());
@@ -220,21 +254,20 @@ public class Controller {
         gc.setStroke(selectedColor);
         gc.setFill(selectedColor);
         gc.setLineWidth(brushWidth);
-        if (rectangleTool.isSelected()) {
-            drawRect(event, gc);
-        } else if (circleTool.isSelected()) {
-            drawCircle(event, gc);
-        } else if (triangleTool.isSelected()) {
-            drawTriangle(event, gc);
+        for (var button : radioButtons) {
+            if (button.isSelected()) {
+                button.getFunction().apply(event, gc);
+            }
         }
         secondCanvas.toFront();
     }
 
-    private void drawLine(double newX, double newY) {
+    private Void drawLineOrErase(double newX, double newY) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setStroke(eraserButton.isSelected() ? Color.WHITE : selectedColor);
         gc.setLineWidth(brushWidth);
         gc.strokeLine(lastX, lastY, newX, newY);
+        return null;
     }
 
     @FXML
@@ -242,7 +275,7 @@ public class Controller {
         double newX = event.getX();
         double newY = event.getY();
         if (brushButton.isSelected() || eraserButton.isSelected()) {
-            drawLine(newX, newY);
+            drawLineOrErase(newX, newY);
         } else {
             GraphicsContext gcSecondLayer = secondCanvas.getGraphicsContext2D();
             gcSecondLayer.clearRect(0, 0, secondCanvas.getWidth(), secondCanvas.getHeight());
@@ -250,5 +283,11 @@ public class Controller {
             GraphicsContext gcCanvas = canvas.getGraphicsContext2D();
             drawShape(event, gcCanvas, canvas);
         }
+    }
+
+    @FXML
+    private void comboBoxChanged(ActionEvent ignored) {
+        RadioButtonWithBiFunction<?, ?> selectedRadioButton = comboBox.getValue();
+        selectedRadioButton.setSelected(true);
     }
 }
