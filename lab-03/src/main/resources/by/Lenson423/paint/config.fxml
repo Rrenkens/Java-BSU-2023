@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import by.lenson423.paint.*?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -11,17 +13,25 @@
             <VBox spacing="10.0" alignment="CENTER" style="-fx-background-color: white">
                 <HBox spacing="5.0" alignment="CENTER">
                     <VBox spacing="5.0" alignment="CENTER_LEFT">
-                        <RadioButton fx:id="rectangleTool" mnemonicParsing="false" text="Rectangle"/>
-                        <RadioButton fx:id="circleTool" mnemonicParsing="false" text="Circle"/>
-                        <RadioButton fx:id="triangleTool" mnemonicParsing="false" text="Triangle"/>
+                        <RadioButtonWithBiFunction fx:id="rectangleTool" mnemonicParsing="false" text="Rectangle"/>
+                        <RadioButtonWithBiFunction fx:id="circleTool" mnemonicParsing="false" text="Circle"/>
+                        <ComboBox fx:id="comboBox" onAction="#comboBoxChanged">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <RadioButtonWithBiFunction fx:id="triangleTool" mnemonicParsing="false"
+                                                               text="Triangle"/>
+                                    <RadioButtonWithBiFunction fx:id="heartTool" mnemonicParsing="false" text="Heart"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
                         <CheckBox fx:id="fillColorCheckBox" mnemonicParsing="false" text="Fill color"/>
                     </VBox>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <VBox spacing="5.0" alignment="CENTER">
                         <Slider fx:id="sizeSlider" max="30.0" min="1.0" value="5.0"/>
-                        <RadioButton fx:id="brushButton" mnemonicParsing="false" text="Brush"/>
-                        <RadioButton fx:id="eraserButton" mnemonicParsing="false" text="Eraser"/>
+                        <RadioButtonWithBiFunction fx:id="brushButton" mnemonicParsing="false" text="Brush"/>
+                        <RadioButtonWithBiFunction fx:id="eraserButton" mnemonicParsing="false" text="Eraser"/>
                     </VBox>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
@@ -37,7 +47,7 @@
                 <Canvas fx:id="canvas" height="470" width="570"
                         onMouseDragged="#drawing" onMousePressed="#startDrawing" onMouseReleased="#endDrawing"/>
                 <Canvas fx:id="secondCanvas" height="470" width="570"
-                                 onMouseDragged="#drawing"/>
+                        onMouseDragged="#drawing"/>
             </Pane>
         </HBox>
     </VBox>
