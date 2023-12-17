@@ -12,7 +12,7 @@ public class Bay {
 
         Tunnel tunnel = new Tunnel(5, logger);
 
-        ArrayList<String> cargoTypes = new ArrayList<>(Arrays.asList("Guns", "Drugs", "Iphones", "Bananas"));
+        ArrayList<String> cargoTypes = new ArrayList<>(Arrays.asList("Guns", "Drugs", "Iphones", "Bananas", "Slaves"));
         Ship.Generator generator = new Ship.Generator(
                 10,
                 100,
