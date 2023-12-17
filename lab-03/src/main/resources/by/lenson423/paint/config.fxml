@@ -6,13 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="by.lenson423.paint.Controller">
+            >
     <VBox alignment="CENTER" prefHeight="600.0"
           prefWidth="800.0" spacing="10.0">
         <HBox spacing="10.0" alignment="CENTER">
             <VBox spacing="10.0" alignment="CENTER" style="-fx-background-color: white">
                 <HBox spacing="5.0" alignment="CENTER">
-                    <VBox spacing="5.0" alignment="CENTER_LEFT">
+                    <VBox spacing="5.0">
                         <RadioButtonWithBiFunction fx:id="rectangleTool" mnemonicParsing="false" text="Rectangle"/>
                         <RadioButtonWithBiFunction fx:id="circleTool" mnemonicParsing="false" text="Circle"/>
                         <ComboBox fx:id="comboBox" onAction="#comboBoxChanged">
@@ -20,7 +20,8 @@
                                 <FXCollections fx:factory="observableArrayList">
                                     <RadioButtonWithBiFunction fx:id="triangleTool" mnemonicParsing="false"
                                                                text="Triangle"/>
-                                    <RadioButtonWithBiFunction fx:id="heartTool" mnemonicParsing="false" text="Heart"/>
+                                    <RadioButtonWithBiFunction fx:id="heartTool" mnemonicParsing="false"
+                                                               text="Heart"/>
                                 </FXCollections>
                             </items>
                         </ComboBox>

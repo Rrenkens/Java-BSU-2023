@@ -2,6 +2,7 @@ package by.lenson423.paint
 
 import javafx.beans.value.ObservableValue
 import javafx.embed.swing.SwingFXUtils
+import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.canvas.Canvas
@@ -21,6 +22,22 @@ import javax.imageio.ImageIO
 import kotlin.math.*
 
 class Controller {
+
+    companion object {
+        private var instance: Controller? = null
+
+        fun getInstance(): Controller {
+            if (instance == null) {
+                synchronized(Controller::class.java) {
+                    if (instance == null) {
+                        instance = Controller()
+                    }
+                }
+            }
+            return instance!!
+        }
+    }
+
     @FXML
     lateinit var comboBox: ComboBox<RadioButtonWithBiFunction<*, *>>
 
@@ -74,7 +91,11 @@ class Controller {
     private var lastY = 0.0
     private var brushWidth = 5.0
     private var selectedColor = Color.BLACK
+
     fun initialize() {
+        comboBox.setCellFactory { IconTextCell() }
+        comboBox.buttonCell = IconTextCell()
+
         canvas.toFront()
         clearCanvas()
         processRadioButtons()
@@ -112,7 +133,7 @@ class Controller {
         addRadioButtonToGroup(group, circleTool, "circle.png") { e: MouseEvent, gc: GraphicsContext -> drawCircle(e, gc) }
         addRadioButtonToGroup(group, rectangleTool, "rectangle.png") { e: MouseEvent, gc: GraphicsContext -> drawRect(e, gc) }
         addRadioButtonToGroup(group, heartTool, "heart.png") { e: MouseEvent, gc: GraphicsContext -> drawHeart(e, gc) }
-        heartTool.isSelected = true
+        brushButton.isSelected = true
     }
 
     private fun <U, V> addRadioButtonToGroup(group: ToggleGroup, button: RadioButtonWithBiFunction<U, V>, path: String,
@@ -122,10 +143,10 @@ class Controller {
         button.styleClass.add("toggle-button")
         button.graphic = ImageView(Image(javaClass.getResource(path)?.toString()))
         button.function = func
+        button.setOnAction { linkingRadioButtonsWithComboBox(it) }
         radioButtons.add(button)
     }
 
-    @Throws(IOException::class)
     private fun openImage() {
         fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"))
         val file = fileChooser.showOpenDialog(null)
@@ -138,7 +159,6 @@ class Controller {
         }
     }
 
-    @Throws(IOException::class)
     private fun saveAsImage() {
         fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"))
         val file = fileChooser.showSaveDialog(null)
@@ -276,8 +296,19 @@ class Controller {
     }
 
     @FXML
-    private fun comboBoxChanged() {
+    fun comboBoxChanged() {
         val selectedRadioButton = comboBox.value
-        selectedRadioButton.isSelected = true
+        selectedRadioButton?.isSelected = true
     }
+
+    private fun linkingRadioButtonsWithComboBox(event: ActionEvent) {
+        val clickedButton = event.source as RadioButtonWithBiFunction<*, *>
+        if (!comboBox.items.contains(clickedButton)) {
+            comboBox.selectionModel.clearSelection()
+            comboBox.value = null
+        } else{
+            println(1)
+        }
+    }
+
 }

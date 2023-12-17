@@ -9,9 +9,13 @@ import javafx.stage.StageStyle
 import java.util.*
 
 class Main : Application() {
-    @Throws(Exception::class)
     override fun start(primaryStage: Stage) {
-        val root = FXMLLoader.load<Parent>(Objects.requireNonNull(javaClass.getResource("config.fxml")))
+        val loader = FXMLLoader(javaClass.getResource("config.fxml"))
+        loader.setController(Controller.getInstance())
+        val root = loader.load<Parent>()
+
+
+        //val root = FXMLLoader.load<Parent>(Objects.requireNonNull(javaClass.getResource("config.fxml")))
         primaryStage.title = "Paint"
         primaryStage.isResizable = false
         val scene = Scene(root, 800.0, 600.0)

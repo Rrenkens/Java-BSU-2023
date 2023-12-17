@@ -21,11 +21,30 @@
     -fx-background-color: transparent;
 }
 
+.toggle-button-in-combobox {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-width: 110px;
+    -fx-min-height: 27px;
+    -fx-font-size: 16px;
+}
+
+.toggle-button-in-combobox:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A98F7;
+}
+
 .combo-box{
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 2;
+    -fx-background-color: white;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-max-width: 130px;
-    -fx-mac-height: 27px;
+    -fx-max-height: 27px;
+    -fx-min-width: 130px;
+    -fx-min-height: 33px;
     -fx-font-size: 16px;
 }
 
