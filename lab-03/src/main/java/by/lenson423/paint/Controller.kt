@@ -96,9 +96,16 @@ class Controller {
         comboBox.setCellFactory { IconTextCell() }
         comboBox.buttonCell = IconTextCell()
 
+        comboBox.onAction = EventHandler { comboBoxChanged() }
+        canvas.onMouseDragged = EventHandler { drawing(it) }
+        canvas.onMousePressed = EventHandler { startDrawing(it) }
+        canvas.onMouseReleased = EventHandler { endDrawing(it) }
+        secondCanvas.onMouseDragged = EventHandler { drawing(it) }
         canvas.toFront()
         clearCanvas()
+
         processRadioButtons()
+
         sizeSlider.valueProperty().addListener { _: ObservableValue<out Number>?, _: Number?, newValue: Number
             ->
             brushWidth = newValue.toDouble()
@@ -109,6 +116,7 @@ class Controller {
             selectedColor = newValue
         }
         clearCanvasButton.onAction = EventHandler { clearCanvas() }
+
         saveImageButton.onAction = EventHandler {
             try {
                 saveAsImage()
@@ -306,7 +314,7 @@ class Controller {
         if (!comboBox.items.contains(clickedButton)) {
             comboBox.selectionModel.clearSelection()
             comboBox.value = null
-        } else{
+        } else {
             println(1)
         }
     }
