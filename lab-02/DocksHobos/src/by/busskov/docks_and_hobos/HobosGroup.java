@@ -31,7 +31,8 @@ public class HobosGroup implements Runnable {
         if (numberOfHobos <= 2) {
             throw new IllegalArgumentException("Number of hobos must be > 2");
         }
-        this.eatingTime = eatingTime;
+        this.eatingTime = eatingTime * 1000; // to make milliseconds
+        this.stealingTime = stealingTime * 1000;
         this.necessaryIngredients = necessaryIngredients;
         this.random = new Random();
 
@@ -43,7 +44,6 @@ public class HobosGroup implements Runnable {
         this.currentIngredients = new HashMap<>(necessaryIngredients.size());
         this.warehouse = warehouse;
         this.logger = logger;
-        this.stealingTime = stealingTime;
     }
 
     @Override

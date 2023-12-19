@@ -79,7 +79,5 @@ public class BayLogger implements Runnable {
     private final Logger logger;
     private Handler fileHandler;
     private static final DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-
-
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 }

@@ -1,0 +1,17 @@
+{
+  "file_update_time": 30000,
+  "generating_time": 10,
+  "ship_capacity_min": 100,
+  "ship_capacity_max": 1000,
+  "cargo_types": ["Guns", "Bananas", "Chocolate bars", "People"],
+  "max_ships": 5,
+  "unloading_speed": 100,
+  "dock_capacity": 2000,
+  "hobos": 4,
+  "stealing_time": 3,
+  "eating_time": 3,
+  "ingredients_count": {
+    "Bananas": 300,
+    "Chocolate bars": 300
+  }
+}

@@ -55,7 +55,7 @@ public class Ship {
                     tunnel.addShip(ship);
                     logger.log(Level.INFO, "Generator made new Ship: {0}", ship);
                 }
-            }, 0, generatingTime);
+            }, 0, generatingTime * 1000L);
         }
 
         private final Random random;
