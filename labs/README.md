@@ -153,8 +153,8 @@ public static void main() {
 ```
 
 >`public static void main()` - входная точка вашего приложения.
-	
-#### Описание 
+
+#### Описание
 
 Для начала, получите список всех тестов с помощью статической функции `getQuizMap()` и выведите пользователю сообщение _“Введите название теста...”_. Затем получите объект `Quiz` по этому названию, если он есть, иначе попросите повторить попытку.
 
@@ -162,12 +162,12 @@ public static void main() {
 
 ## Реализация Task и TaskGenerator
 >Реализации `Task` следует расположить в пакете `tasks`, а реализации `TaskGenerator` в пакете `task_generators`.
-	
+
 `Task` и `TaskGenerator` - интерфейсы, теперь нужно сделать их реализации.
 Все классы `*Task` реализуют интерфейс `Task`, а `*TaskGenerator` - интерфейс `TaskGenerator`.
 
 
-### ExpressionTaskGenerator 
+### ExpressionTaskGenerator
 Генерирует примеры вида `<num1><operator><num2>=<answer>`. Например, `2*5=?`.
 
 ```java
@@ -200,7 +200,7 @@ class ExpressionTaskGenerator implements TaskGenerator {
 }
 ```
 
-### EquationTaskGenerator 
+### EquationTaskGenerator
 Генерирует уравнения вида `<num1><operator>x=<answer>` и `x<operator><num2>=<answer>`. Например, `x/2=6`.
 
 ```java
@@ -233,7 +233,7 @@ class EquationTaskGenerator implements TaskGenerator {
 }
 ```
 
-### GroupTaskGenerator 
+### GroupTaskGenerator
 `TaskGenerator`, который позволяет объединить несколько других `TaskGenerator`.
 
 ```java
@@ -267,7 +267,7 @@ class GroupTaskGenerator implements TaskGenerator {
 }
 ```
 
-### PoolTaskGenerator 
+### PoolTaskGenerator
 `TaskGenerator`, который отдает задания из заранее заготовленного набора.
 
 ```java
