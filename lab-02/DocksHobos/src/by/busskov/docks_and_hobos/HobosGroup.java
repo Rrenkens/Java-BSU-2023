@@ -14,6 +14,14 @@ public class HobosGroup implements Runnable {
     private final Condition startEating = lock.newCondition();
     private final Condition stopEating = lock.newCondition();
     private final Condition getIngredient = lock.newCondition();
+    private final Random random;
+    private final ArrayList<Hobo> hobos;
+    private final int eatingTime;
+    private final int stealingTime;
+    private final HashMap<String, Integer> necessaryIngredients;
+    private final HashMap<String, Integer> currentIngredients;
+    private final Dock.Warehouse warehouse;
+    private final BayLogger logger;
     public static enum Task {
         STOP,
         COOK,
@@ -33,12 +41,12 @@ public class HobosGroup implements Runnable {
         }
         this.eatingTime = eatingTime * 1000; // to make milliseconds
         this.stealingTime = stealingTime * 1000;
-        this.necessaryIngredients = necessaryIngredients;
+        this.necessaryIngredients = new HashMap<>(necessaryIngredients);
         this.random = new Random();
 
         this.hobos = new ArrayList<>(numberOfHobos);
         for (int i = 0; i < numberOfHobos; ++i) {
-            hobos.add(new Hobo());
+            hobos.add(new Hobo(i + 1));
         }
 
         this.currentIngredients = new HashMap<>(necessaryIngredients.size());
@@ -80,13 +88,20 @@ public class HobosGroup implements Runnable {
             logger.log(Level.INFO, "Hobos start working");
 
             //Wait for enough ingredients
-            while (!currentIngredients.equals(necessaryIngredients)) {
+            boolean enoughIngredients = false;
+            while (!enoughIngredients) {
                 lock.lock();
                 try {
                     getIngredient.await();
                 } catch (InterruptedException ignored) {}
                 finally {
                     lock.unlock();
+                }
+                enoughIngredients = true;
+                for (String key : currentIngredients.keySet()) {
+                    if (currentIngredients.get(key) < necessaryIngredients.get(key)) {
+                        enoughIngredients = false;
+                    }
                 }
             }
             for (Hobo hobo : hobos) {
@@ -98,6 +113,9 @@ public class HobosGroup implements Runnable {
             lock.unlock();
 
             logger.log(Level.INFO, "Hobos start eating");
+            for (String key : necessaryIngredients.keySet()) {
+                currentIngredients.put(key, 0);
+            }
 
             try {
                 Thread.sleep(eatingTime);
@@ -112,16 +130,12 @@ public class HobosGroup implements Runnable {
         }
     }
 
-    private final Random random;
-    private final ArrayList<Hobo> hobos;
-    private final int eatingTime;
-    private final int stealingTime;
-    private final HashMap<String, Integer> necessaryIngredients;
-    private final HashMap<String, Integer> currentIngredients;
-    private final Dock.Warehouse warehouse;
-    private final BayLogger logger;
-
     private class Hobo implements Runnable {
+        private HobosGroup.Task currentTask = HobosGroup.Task.STOP;
+        private final int name;
+        public Hobo(int name) {
+            this.name = name;
+        }
         @Override
         public void run() {
             while (true) {
@@ -144,17 +158,15 @@ public class HobosGroup implements Runnable {
         }
 
         public void work() {
-            synchronized (currentIngredients) {
-                if (currentTask.equals(HobosGroup.Task.COOK)) {
-                    cook();
-                } else if (currentTask.equals(HobosGroup.Task.STEAL)) {
-                    steal();
-                }
+            if (currentTask.equals(HobosGroup.Task.COOK)) {
+                cook();
+            } else if (currentTask.equals(HobosGroup.Task.STEAL)) {
+                steal();
             }
         }
 
         private void cook() {
-            logger.log(Level.ALL, "{0} cooking", this);
+            logger.log(Level.ALL, "Hobo{0} cooking", name);
             while(!currentTask.equals(Task.EAT)) {
                 lock.lock();
                 try {
@@ -167,27 +179,43 @@ public class HobosGroup implements Runnable {
         }
 
         private void steal() {
-            synchronized (currentIngredients) {
-                ArrayList<String> ingredients = new ArrayList<>(necessaryIngredients.keySet());
-                int size = ingredients.size();
-                int i = 0;
-                while(!currentTask.equals(Task.EAT)) {
-                    try {
-                        Thread.sleep(stealingTime);
-                    } catch (InterruptedException ignored) {}
+            logger.log(Level.ALL, "Hobo{0} stealing", name);
+            ArrayList<String> ingredients = new ArrayList<>(necessaryIngredients.keySet());
+            int i = 0;
+            while(!currentTask.equals(Task.EAT)) {
+                try {
+                    Thread.sleep(stealingTime);
+                } catch (InterruptedException ignored) {}
 
-                    String ingredient = ingredients.get(i);
-                    if (warehouse.steal(ingredient)) {
-                        logger.log(Level.ALL, "{0} stole {1}", new Object[]{this, ingredient});
+                if (ingredients.isEmpty()) {
+
+                    continue;
+                }
+
+                String ingredient = ingredients.get(i);
+                logger.log(Level.ALL, "Hobo{0} trying to steal {1}", new Object[]{name, ingredient});
+                if (warehouse.steal(ingredient)) {
+                    synchronized (currentIngredients) {
                         int number = currentIngredients.get(ingredient);
                         ++number;
                         currentIngredients.put(ingredient, number);
-
-                        lock.lock();
-                        getIngredient.signal();
-                        lock.unlock();
+                        logger.log(
+                                Level.ALL,
+                                "Hobo{0} stole {1}, current ingredients: {2}",
+                                new Object[]{name, ingredient, currentIngredients});
                     }
-                    i = (i + 1) % size;
+
+                    lock.lock();
+                    getIngredient.signal();
+                    lock.unlock();
+
+                    if (currentIngredients.get(ingredient) >= necessaryIngredients.get(ingredient)) {
+                        ingredients.remove(i);
+                        i = 0;
+                    }
+                } else {
+                    logger.log(Level.ALL, "Hobo{0} cant steal {1}", new Object[]{name, ingredient});
+                    i = (i + 1) % ingredients.size();
                 }
             }
         }
@@ -207,6 +235,5 @@ public class HobosGroup implements Runnable {
         public void setTask(HobosGroup.Task task) {
             currentTask = task;
         }
-        private HobosGroup.Task currentTask = HobosGroup.Task.STOP;
     }
 }

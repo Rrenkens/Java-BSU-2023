@@ -4,6 +4,14 @@ import java.util.*;
 import java.util.logging.Level;
 
 public class Dock implements Runnable {
+    Timer timer;
+    private final int unloadingSpeed;
+    private final int capacity;
+    private final Warehouse warehouse;
+    private final BayLogger logger;
+    private final HobosGroup hobosGroup;
+
+    private final Tunnel tunnel;
     public Dock(
             int unloadingSpeed,
             int capacity,
@@ -50,7 +58,7 @@ public class Dock implements Runnable {
     }
 
     private void processShip(Ship ship) {
-        Timer timer = new Timer();
+        timer = new Timer();
         String shipCargoType = ship.getCargoType();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -71,15 +79,8 @@ public class Dock implements Runnable {
         timer.cancel();
     }
 
-    private final int unloadingSpeed;
-    private final int capacity;
-    private final Warehouse warehouse;
-    private final BayLogger logger;
-    private final HobosGroup hobosGroup;
-
-    private final Tunnel tunnel;
-
     public static class Warehouse {
+        private final HashMap<String, Integer> warehouse;
         public Warehouse(ArrayList<String> types) {
             warehouse = new HashMap<>(types.size());
             for (String type : types) {
@@ -104,7 +105,5 @@ public class Dock implements Runnable {
         public synchronized Integer get(String value) {
             return warehouse.get(value);
         }
-
-        private final HashMap<String, Integer> warehouse;
     }
 }

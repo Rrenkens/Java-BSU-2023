@@ -10,6 +10,12 @@ import java.util.TimerTask;
 import java.util.logging.*;
 
 public class BayLogger implements Runnable {
+    private final int fileUpdateTime;
+    private final Level fileLevel;
+    private final Logger logger;
+    private Handler fileHandler;
+    private static final DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    // private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     public BayLogger(
             Level consoleLevel,
             Level fileLevel,
@@ -63,23 +69,19 @@ public class BayLogger implements Runnable {
     }
 
     public synchronized void log(Level level, String msg) {
-        logger.log(level, "{0}: {1}", new Object[]{LocalTime.now().format(timeFormatter), msg});
+        // logger.log(level, "{0}: {1}", new Object[]{LocalTime.now().format(timeFormatter), msg});
+        logger.log(level, msg);
     }
 
     public synchronized void log(Level level, String msg, Object param1) {
-        String result = LocalTime.now().format(timeFormatter) + ": " + msg;
-        logger.log(level, result, param1);
+        // String result = LocalTime.now().format(timeFormatter) + ": " + msg;
+        // logger.log(level, result, param1);
+        logger.log(level, msg, param1);
     }
 
     public synchronized void log(Level level, String msg, Object params[]) {
-        String result = LocalTime.now().format(timeFormatter) + ": " + msg;
-        logger.log(level, result, params);
+        // String result = LocalTime.now().format(timeFormatter) + ": " + msg;
+        // logger.log(level, result, params);
+        logger.log(level, msg, params);
     }
-
-    private final int fileUpdateTime;
-    private final Level fileLevel;
-    private final Logger logger;
-    private Handler fileHandler;
-    private static final DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 }

@@ -7,72 +7,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Ship {
-
-    public static class Generator implements Runnable {
-        Generator(
-                int minCapacity,
-                int maxCapacity,
-                int generatingTime,
-                ArrayList<String> cargoTypes,
-                Tunnel tunnel,
-                BayLogger logger
-        ) {
-            if (minCapacity > maxCapacity) {
-                throw new IllegalArgumentException("Min capacity is greater than max capacity");
-            }
-            if (generatingTime <= 0) {
-                throw new IllegalArgumentException("Generating time must be positive");
-            }
-            if (cargoTypes == null) {
-                throw new NullPointerException("Cargo types mustn't be null");
-            }
-            if (cargoTypes.isEmpty()) {
-                throw new IllegalArgumentException("Cargo types must have values");
-            }
-            if (tunnel == null) {
-                throw new NullPointerException("Queue for generator mustn't be null");
-            }
-            //TODO
-            this.cargoTypes = cargoTypes;
-            //TODO
-            this.minCapacity = minCapacity;
-            this.maxCapacity = maxCapacity;
-            this.generatingTime = generatingTime;
-            this.tunnel = tunnel;
-            this.logger = logger;
-            random = new Random();
-        }
-
-        @Override
-        public void run() {
-            Timer timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    int index = random.nextInt(cargoTypes.size());
-                    int capacity = random.nextInt(maxCapacity - minCapacity + 1) + minCapacity;
-                    Ship ship = new Ship(capacity, cargoTypes.get(index), logger);
-                    tunnel.addShip(ship);
-                    logger.log(Level.INFO, "Generator made new Ship: {0}", ship);
-                }
-            }, 0, generatingTime * 1000L);
-        }
-
-        private final Random random;
-        private final int generatingTime;
-        private final int minCapacity;
-        private final int maxCapacity;
-        private final ArrayList<String> cargoTypes;
-        private final BayLogger logger;
-
-        private final Tunnel tunnel;
-    }
+    private int quantity;
+    private final String cargoType;
+    private final BayLogger logger;
 
     public Ship (
             int quantity,
             String cargoType,
             BayLogger logger
     ) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Negative goods quantity");
+        }
         this.quantity = quantity;
         this.cargoType = cargoType;
         this.logger = logger;
@@ -99,10 +45,63 @@ public class Ship {
 
     @Override
     public String toString() {
-        return "Ship:" + quantity + ";" + cargoType;
+        return "{Ship:" + cargoType + ";" + quantity + "}";
     }
 
-    private int quantity;
-    private final String cargoType;
-    private final BayLogger logger;
+    public static class Generator implements Runnable {
+        private final Random random;
+        private final int generatingTime;
+        private final int minCapacity;
+        private final int maxCapacity;
+        private final ArrayList<String> cargoTypes;
+        private final BayLogger logger;
+
+        private final Tunnel tunnel;
+        Generator(
+                int minCapacity,
+                int maxCapacity,
+                int generatingTime,
+                ArrayList<String> cargoTypes,
+                Tunnel tunnel,
+                BayLogger logger
+        ) {
+            if (minCapacity > maxCapacity) {
+                throw new IllegalArgumentException("Min capacity is greater than max capacity");
+            }
+            if (generatingTime <= 0) {
+                throw new IllegalArgumentException("Generating time must be positive");
+            }
+            if (cargoTypes == null) {
+                throw new NullPointerException("Cargo types mustn't be null");
+            }
+            if (cargoTypes.isEmpty()) {
+                throw new IllegalArgumentException("Cargo types must have values");
+            }
+            if (tunnel == null) {
+                throw new NullPointerException("Queue for generator mustn't be null");
+            }
+            this.cargoTypes = new ArrayList<>(cargoTypes);
+            this.minCapacity = minCapacity;
+            this.maxCapacity = maxCapacity;
+            this.generatingTime = generatingTime;
+            this.tunnel = tunnel;
+            this.logger = logger;
+            random = new Random();
+        }
+
+        @Override
+        public void run() {
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    int index = random.nextInt(cargoTypes.size());
+                    int capacity = random.nextInt(maxCapacity - minCapacity + 1) + minCapacity;
+                    Ship ship = new Ship(capacity, cargoTypes.get(index), logger);
+                    tunnel.addShip(ship);
+                    logger.log(Level.INFO, "Generator made new Ship: {0}", ship);
+                }
+            }, 0, generatingTime * 1000L);
+        }
+    }
 }

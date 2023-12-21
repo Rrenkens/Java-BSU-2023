@@ -6,6 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Tunnel {
+    private final int maxShips;
+    private final ConcurrentLinkedQueue<Ship> queue;
+    private final BayLogger logger;
     public Tunnel(
             int maxShips,
             BayLogger logger
@@ -29,9 +32,9 @@ public class Tunnel {
     public synchronized void addShip(Ship ship) {
         if (!this.isFull()) {
             queue.add(ship);
-            logger.log(Level.ALL, "Tunnel got new ship: {0}", queue);
+            logger.log(Level.ALL, "Tunnel got new ship: {0}; current state: {1}", new Object[]{ship, queue});
         } else {
-            logger.log(Level.ALL, "Tunnel is full, can't take new ship");
+            logger.log(Level.INFO, "Tunnel is full, can't take new ship");
         }
     }
 
@@ -39,11 +42,7 @@ public class Tunnel {
         if (queue.isEmpty()) {
             throw new NoSuchElementException("Tunnel is empty");
         }
-        logger.log(Level.ALL, "One ship left tunnel: {0}", queue);
+        logger.log(Level.ALL, "One ship left tunnel, current state: {0}", queue);
         return queue.poll();
     }
-
-    private final int maxShips;
-    private final ConcurrentLinkedQueue<Ship> queue;
-    private final BayLogger logger;
 }

@@ -1,0 +1,140 @@
+дек. 22, 2023 1:05:26 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;33} try to get 4 goods
+дек. 22, 2023 1:05:26 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:27 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;29} try to get 4 goods
+дек. 22, 2023 1:05:27 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:28 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;25} try to get 4 goods
+дек. 22, 2023 1:05:28 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:29 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;21} try to get 4 goods
+дек. 22, 2023 1:05:29 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:30 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;17} try to get 4 goods
+дек. 22, 2023 1:05:30 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:31 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;13} try to get 4 goods
+дек. 22, 2023 1:05:31 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:32 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Tunnel got new ship: {Ship:Chocolate bars;78}; current state: [{Ship:People;96}, {Ship:People;69}, {Ship:Guns;25}, {Ship:Guns;34}, {Ship:Chocolate bars;78}]
+дек. 22, 2023 1:05:32 AM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:Chocolate bars;78}
+дек. 22, 2023 1:05:32 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;9} try to get 4 goods
+дек. 22, 2023 1:05:32 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:33 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;5} try to get 4 goods
+дек. 22, 2023 1:05:33 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 Guns from ship
+дек. 22, 2023 1:05:34 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;1} try to get 4 goods
+дек. 22, 2023 1:05:34 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 1 Guns from ship
+дек. 22, 2023 1:05:34 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: One ship left tunnel, current state: [{Ship:People;96}, {Ship:People;69}, {Ship:Guns;25}, {Ship:Guns;34}, {Ship:Chocolate bars;78}]
+дек. 22, 2023 1:05:34 AM by.busskov.docks_and_hobos.BayLogger log
+INFO: Dock took new ship: {Ship:People;96}
+дек. 22, 2023 1:05:35 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;96} try to get 4 goods
+дек. 22, 2023 1:05:35 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:36 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;92} try to get 4 goods
+дек. 22, 2023 1:05:36 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:37 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;88} try to get 4 goods
+дек. 22, 2023 1:05:37 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:38 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;84} try to get 4 goods
+дек. 22, 2023 1:05:38 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:39 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;80} try to get 4 goods
+дек. 22, 2023 1:05:39 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:40 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Tunnel got new ship: {Ship:Bananas;100}; current state: [{Ship:People;69}, {Ship:Guns;25}, {Ship:Guns;34}, {Ship:Chocolate bars;78}, {Ship:Bananas;100}]
+дек. 22, 2023 1:05:40 AM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:Bananas;100}
+дек. 22, 2023 1:05:40 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;76} try to get 4 goods
+дек. 22, 2023 1:05:40 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:41 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;72} try to get 4 goods
+дек. 22, 2023 1:05:41 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:42 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;68} try to get 4 goods
+дек. 22, 2023 1:05:42 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:43 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;64} try to get 4 goods
+дек. 22, 2023 1:05:43 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:44 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;60} try to get 4 goods
+дек. 22, 2023 1:05:44 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:45 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;56} try to get 4 goods
+дек. 22, 2023 1:05:45 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:46 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;52} try to get 4 goods
+дек. 22, 2023 1:05:46 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:47 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;48} try to get 4 goods
+дек. 22, 2023 1:05:47 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:48 AM by.busskov.docks_and_hobos.BayLogger log
+INFO: Tunnel is full, can't take new ship
+дек. 22, 2023 1:05:48 AM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:Chocolate bars;40}
+дек. 22, 2023 1:05:48 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;44} try to get 4 goods
+дек. 22, 2023 1:05:48 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:49 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;40} try to get 4 goods
+дек. 22, 2023 1:05:49 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:50 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;36} try to get 4 goods
+дек. 22, 2023 1:05:50 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:51 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;32} try to get 4 goods
+дек. 22, 2023 1:05:51 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:52 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;28} try to get 4 goods
+дек. 22, 2023 1:05:52 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:53 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;24} try to get 4 goods
+дек. 22, 2023 1:05:53 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:54 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;20} try to get 4 goods
+дек. 22, 2023 1:05:54 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:55 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;16} try to get 4 goods
+дек. 22, 2023 1:05:55 AM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 1:05:56 AM by.busskov.docks_and_hobos.BayLogger log
+INFO: Tunnel is full, can't take new ship
+дек. 22, 2023 1:05:56 AM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:People;12}
