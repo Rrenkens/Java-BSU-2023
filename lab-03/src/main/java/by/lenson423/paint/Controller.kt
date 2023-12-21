@@ -135,17 +135,31 @@ class Controller {
 
     private fun processRadioButtons() {
         val group = ToggleGroup()
-        addRadioButtonToGroup(group, eraserButton, "eraser.png") { newX: Double, newY: Double -> drawLineOrErase(newX, newY) }
-        addRadioButtonToGroup(group, brushButton, "brush.png") { newX: Double, newY: Double -> drawLineOrErase(newX, newY) }
-        addRadioButtonToGroup(group, triangleTool, "triangle.png") { e: MouseEvent, gc: GraphicsContext -> drawTriangle(e, gc) }
-        addRadioButtonToGroup(group, circleTool, "circle.png") { e: MouseEvent, gc: GraphicsContext -> drawCircle(e, gc) }
-        addRadioButtonToGroup(group, rectangleTool, "rectangle.png") { e: MouseEvent, gc: GraphicsContext -> drawRect(e, gc) }
-        addRadioButtonToGroup(group, heartTool, "heart.png") { e: MouseEvent, gc: GraphicsContext -> drawHeart(e, gc) }
+        addRadioButtonToGroup(group, eraserButton, "eraser.png") { newX: Double, newY: Double ->
+            drawLineOrErase(newX, newY)
+        }
+        addRadioButtonToGroup(group, brushButton, "brush.png") { newX: Double, newY: Double ->
+            drawLineOrErase(newX, newY)
+        }
+        addRadioButtonToGroup(group, triangleTool, "triangle.png") { e: MouseEvent, gc: GraphicsContext ->
+            drawTriangle(e, gc)
+        }
+        addRadioButtonToGroup(group, circleTool, "circle.png") { e: MouseEvent, gc: GraphicsContext ->
+            drawCircle(e, gc)
+        }
+        addRadioButtonToGroup(group, rectangleTool, "rectangle.png") { e: MouseEvent, gc: GraphicsContext ->
+            drawRect(e, gc)
+        }
+        addRadioButtonToGroup(group, heartTool, "heart.png") { e: MouseEvent, gc: GraphicsContext ->
+            drawHeart(e, gc)
+        }
         brushButton.isSelected = true
     }
 
-    private fun <U, V> addRadioButtonToGroup(group: ToggleGroup, button: RadioButtonWithBiFunction<U, V>, path: String,
-                                             func: BiFunction<U, V, Void?>) {
+    private fun <U, V> addRadioButtonToGroup(
+        group: ToggleGroup, button: RadioButtonWithBiFunction<U, V>, path: String,
+        func: BiFunction<U, V, Void?>
+    ) {
         button.toggleGroup = group
         button.styleClass.remove("radio-button")
         button.styleClass.add("toggle-button")
@@ -173,8 +187,10 @@ class Controller {
         if (file != null) {
             val fileOutputStream = FileOutputStream(file)
             val image: Image = canvas.snapshot(null, null)
-            ImageIO.write(Objects.requireNonNull(SwingFXUtils.fromFXImage(image, null)), "png",
-                    fileOutputStream)
+            ImageIO.write(
+                Objects.requireNonNull(SwingFXUtils.fromFXImage(image, null)), "png",
+                fileOutputStream
+            )
             fileOutputStream.close()
         }
     }
@@ -186,6 +202,14 @@ class Controller {
         val gcSecondLayer = secondCanvas.graphicsContext2D
         gcSecondLayer.fill = Color.TRANSPARENT
         gcSecondLayer.fillRect(0.0, 0.0, secondCanvas.width, secondCanvas.height)
+    }
+
+    private fun drawLineOrErase(newX: Double, newY: Double): Void? {
+        val gc = canvas.graphicsContext2D
+        gc.stroke = if (eraserButton.isSelected) Color.WHITE else selectedColor
+        gc.lineWidth = brushWidth
+        gc.strokeLine(lastX, lastY, newX, newY)
+        return null
     }
 
     private fun drawRect(e: MouseEvent, gc: GraphicsContext): Void? {
@@ -234,8 +258,10 @@ class Controller {
         val deltaY = yMax - yMin
         gc.beginPath()
         gc.moveTo(xMin + 0.5 * deltaX, yMin)
-        gc.bezierCurveTo(xMin, yMin + 0.65 * deltaY, xMin + 0.25 * deltaX, yMax,
-                xMin + 0.5 * deltaX, yMin + 0.75 * deltaY)
+        gc.bezierCurveTo(
+            xMin, yMin + 0.65 * deltaY, xMin + 0.25 * deltaX, yMax,
+            xMin + 0.5 * deltaX, yMin + 0.75 * deltaY
+        )
         gc.bezierCurveTo(xMin + 0.75 * deltaX, yMax, xMax, yMin + 0.65 * deltaY, xMin + 0.5 * deltaX, yMin)
         gc.closePath()
         if (fillColorCheckBox.isSelected) {
@@ -278,15 +304,7 @@ class Controller {
                 button.function?.apply(event, gc)
             }
         }
-        secondCanvas!!.toFront()
-    }
-
-    private fun drawLineOrErase(newX: Double, newY: Double): Void? {
-        val gc = canvas.graphicsContext2D
-        gc.stroke = if (eraserButton.isSelected) Color.WHITE else selectedColor
-        gc.lineWidth = brushWidth
-        gc.strokeLine(lastX, lastY, newX, newY)
-        return null
+        secondCanvas?.toFront()
     }
 
     @FXML
@@ -314,8 +332,6 @@ class Controller {
         if (!comboBox.items.contains(clickedButton)) {
             comboBox.selectionModel.clearSelection()
             comboBox.value = null
-        } else {
-            println(1)
         }
     }
 
