@@ -1,0 +1,104 @@
+.root {
+    -fx-background-color: #4A98F7;
+}
+
+.button {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    /*-fx-min-width: 110px;*/
+    -fx-min-height: 10px;
+    -fx-font-size: 16px;
+}
+
+.toggle-button {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-width: 70px;
+    -fx-min-height: 27px;
+    -fx-font-size: 16px;
+    -fx-mark-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.toggle-button-in-combobox {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-width: 110px;
+    -fx-min-height: 27px;
+    -fx-font-size: 16px;
+}
+
+.toggle-button-in-combobox:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A98F7;
+}
+
+.combo-box{
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 2;
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-max-width: 130px;
+    -fx-max-height: 27px;
+    -fx-min-width: 130px;
+    -fx-min-height: 33px;
+    -fx-font-size: 16px;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-background: transparent;
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: transparent;
+}
+
+.toggle-button:selected {
+    -fx-text-fill: #4A98F7;
+}
+
+.color-picker{
+    -fx-background-color: #EEEEEE;
+}
+
+.slider{
+    -fx-font-size: 16px;
+    -fx-mark-color: white;
+}
+
+.check-box{
+    -fx-font-size: 16px;
+    -fx-mark-color: black;
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-width: 110px;
+    -fx-min-height: 27px;
+    -fx-alignment: CENTER;
+}
+
+.oneButton{
+    -fx-mark-color: transparent;
+    -fx-background-color: transparent;
+    -fx-text-fill: grey;
+    -fx-border-color: #808080;
+    -fx-border-width: 1;
+}
+
+.oneButton:pressed {
+    -fx-background-color: #DCDCDC;
+}
+
+.secondButton{
+    -fx-background-color: #4A98F7;
+    -fx-text-fill: white;
+    -fx-min-width: 130px;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
