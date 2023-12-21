@@ -11,7 +11,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class Model {
@@ -32,39 +36,50 @@ public class Model {
     public Model(String pathToJson) throws IOException {
         String jsonContent = new String(Files.readAllBytes(Paths.get(pathToJson)));
         JSONObject jsonObject = new JSONObject(jsonContent);
-        JSONObject generatorJson = (JSONObject) jsonObject.get("generator");
+        JSONObject generatorJson = jsonObject.getJSONObject("generator");
         int generatingTime = Integer.parseInt(generatorJson.get("generating_time").toString());
-        JSONObject ship = (JSONObject) jsonObject.get("ship");
+        JSONObject ship = jsonObject.getJSONObject("ship");
         int shipCapacityMin = Integer.parseInt(ship.get("ship_capacity_min").toString());
         int shipCapacityMax = Integer.parseInt(ship.get("ship_capacity_max").toString());
         this.shipGenerator = new ShipGenerator(generatingTime, shipCapacityMin, shipCapacityMax, this);
         JSONArray cargoTypes = (JSONArray) ship.get("cargo_types");
-//        ArrayList<String> cargoList = new ArrayList<>(cargoTypes.length());
         cargos = new ArrayList<>();
         for (Object cargoType : cargoTypes) {
             cargos.add(new Cargo(cargoType.toString()));
         }
-        JSONObject tunnel = (JSONObject) jsonObject.get("tunnel");
+        JSONObject tunnel = jsonObject.getJSONObject("tunnel");
         int maxShips = Integer.parseInt(tunnel.get("max_ships").toString());
         this.tunnel = new Tunnel(maxShips);
-
         this.docks = new ArrayList<>();
-//        ArrayList<Dock> docks = new ArrayList<>();
-        JSONArray docksArray = (JSONArray) jsonObject.get("docks");
+        JSONArray docksArray = jsonObject.getJSONArray("docks");
         for (Object dockObject : docksArray) {
             JSONObject dock = (JSONObject) dockObject;
             int speed = Integer.parseInt(dock.get("unloading_speed").toString());
-            JSONObject dockCapacity = (JSONObject) dock.get("dock_capacity");
+            JSONObject dockCapacity = dock.getJSONObject("dock_capacity");
             HashMap<String, Integer> capacities = new HashMap<>();
             Map<String, Object> mp = dockCapacity.toMap();
             Set<String> keys = dockCapacity.toMap().keySet();
             for (String cargoType: keys) {
                 capacities.put(cargoType, (Integer)mp.get(cargoType));
             }
-//            Dock dockToAdd = new Dock(unloadingSpeed, dockCapacityInt);
             docks.add(new Dock(speed, capacities, this));
         }
-        this.hobos = new Hobos();
+        JSONObject hobosJson = jsonObject.getJSONObject("hobos");
+        this.hobos = new Hobos(hobosJson.getJSONObject("ingredients_count")
+                .toMap()
+                .entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> (Integer)entry.getValue()
+                )),
+                hobosJson.getJSONObject("hobos_stealing_time")
+                        .toMap()
+                        .entrySet().stream()
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                entry -> (Integer)entry.getValue()
+                        )),
+                (int)hobosJson.get("eating_time"));
     }
 
     public Tunnel getTunnel() {
