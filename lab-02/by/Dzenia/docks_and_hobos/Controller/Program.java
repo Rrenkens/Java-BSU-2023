@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Program implements Runnable{
-    private Model model;
+    private final Model model;
     public Program(String pathToFile) throws IOException {
         this.model = new Model(pathToFile);
     }

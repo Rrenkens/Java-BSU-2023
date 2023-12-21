@@ -1,0 +1,86 @@
+2023-12-21 23:59:19 CONFIG Path=lab-02/by/Dzenia/docks_and_hobos/config_long_stealing.json
+2023-12-21 23:59:19 INFO Smurf start stealing milk
+2023-12-21 23:59:19 INFO Ramzes start stealing bear
+2023-12-21 23:59:19 INFO Larson start stealing pork
+2023-12-21 23:59:19 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:19 INFO Ship come to dock cargo=pork, weight=100
+2023-12-21 23:59:22 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:22 INFO Ship come to dock cargo=pork, weight=100
+2023-12-21 23:59:25 INFO New ship with cargo=milk, weight=100
+2023-12-21 23:59:28 INFO New ship with cargo=bear, weight=100
+2023-12-21 23:59:29 INFO Ship come to dock cargo=milk, weight=100
+2023-12-21 23:59:31 INFO New ship with cargo=milk, weight=100
+2023-12-21 23:59:32 INFO Ship come to dock cargo=bear, weight=100
+2023-12-21 23:59:34 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:37 INFO New ship with cargo=milk, weight=100
+2023-12-21 23:59:39 INFO Ship come to dock cargo=milk, weight=100
+2023-12-21 23:59:40 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:42 INFO Ship come to dock cargo=pork, weight=100
+2023-12-21 23:59:43 INFO New ship with cargo=milk, weight=100
+2023-12-21 23:59:45 INFO Larson end stealing pork time=26s
+2023-12-21 23:59:46 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:47 INFO Smurf end stealing milk time=28s
+2023-12-21 23:59:49 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:49 INFO Ship go down with cargo=pork, weight=100
+2023-12-21 23:59:49 INFO Ship come to dock cargo=milk, weight=100
+2023-12-21 23:59:52 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:52 INFO Ship come to dock cargo=pork, weight=100
+2023-12-21 23:59:55 INFO New ship with cargo=bear, weight=100
+2023-12-21 23:59:58 INFO New ship with cargo=pork, weight=100
+2023-12-21 23:59:58 INFO Ship go down with cargo=pork, weight=100
+2023-12-21 23:59:58 INFO Ramzes end stealing bear time=39s
+2023-12-21 23:59:58 INFO Hobos start eating
+2023-12-21 23:59:59 INFO Ship come to dock cargo=milk, weight=100
+2023-12-22 00:00:01 INFO New ship with cargo=pork, weight=100
+2023-12-22 00:00:02 INFO Ship come to dock cargo=pork, weight=100
+2023-12-22 00:00:03 INFO Steve start stealing bear
+2023-12-22 00:00:03 INFO Larson start stealing milk
+2023-12-22 00:00:03 INFO BB start stealing pork
+2023-12-22 00:00:04 INFO New ship with cargo=milk, weight=100
+2023-12-22 00:00:07 INFO New ship with cargo=pork, weight=100
+2023-12-22 00:00:07 INFO Ship go down with cargo=pork, weight=100
+2023-12-22 00:00:09 INFO Ship come to dock cargo=pork, weight=100
+2023-12-22 00:00:10 INFO New ship with cargo=pork, weight=100
+2023-12-22 00:00:12 INFO Ship come to dock cargo=bear, weight=100
+2023-12-22 00:00:13 INFO New ship with cargo=bear, weight=100
+2023-12-22 00:00:16 INFO New ship with cargo=milk, weight=100
+2023-12-22 00:00:16 INFO Ship go down with cargo=milk, weight=100
+2023-12-22 00:00:19 INFO New ship with cargo=bear, weight=100
+2023-12-22 00:00:19 INFO Ship go down with cargo=bear, weight=100
+2023-12-22 00:00:19 INFO Ship come to dock cargo=pork, weight=100
+2023-12-22 00:00:19 INFO Larson end stealing milk time=16s
+2023-12-22 00:00:19 INFO Steve end stealing bear time=16s
+2023-12-22 00:00:19 INFO BB end stealing pork time=16s
+2023-12-22 00:00:19 INFO Hobos start eating
+2023-12-22 00:00:22 INFO New ship with cargo=milk, weight=100
+2023-12-22 00:00:22 INFO Ship come to dock cargo=milk, weight=100
+2023-12-22 00:00:24 INFO Smurf start stealing milk
+2023-12-22 00:00:24 INFO Steve start stealing bear
+2023-12-22 00:00:24 INFO Larson start stealing pork
+2023-12-22 00:00:25 INFO New ship with cargo=milk, weight=100
+2023-12-22 00:00:28 INFO New ship with cargo=bear, weight=100
+2023-12-22 00:00:28 INFO Ship go down with cargo=bear, weight=100
+2023-12-22 00:00:29 INFO Ship come to dock cargo=pork, weight=100
+2023-12-22 00:00:31 INFO New ship with cargo=pork, weight=100
+2023-12-22 00:00:32 INFO Ship come to dock cargo=bear, weight=100
+2023-12-22 00:00:32 INFO Smurf end stealing milk time=8s
+2023-12-22 00:00:34 INFO New ship with cargo=pork, weight=100
+2023-12-22 00:00:37 INFO New ship with cargo=milk, weight=100
+2023-12-22 00:00:37 INFO Ship go down with cargo=milk, weight=100
+2023-12-22 00:00:39 INFO Ship come to dock cargo=milk, weight=100
+2023-12-22 00:00:40 INFO New ship with cargo=pork, weight=100
+2023-12-22 00:00:40 INFO Larson end stealing pork time=16s
+2023-12-22 00:00:40 INFO Steve end stealing bear time=16s
+2023-12-22 00:00:40 INFO Hobos start eating
+2023-12-22 00:00:42 INFO Ship come to dock cargo=milk, weight=100
+2023-12-22 00:00:43 INFO New ship with cargo=milk, weight=100
+2023-12-22 00:00:45 INFO Steve start stealing milk
+2023-12-22 00:00:45 INFO Smurf start stealing bear
+2023-12-22 00:00:45 INFO BB start stealing pork
+2023-12-22 00:00:46 INFO New ship with cargo=milk, weight=100
+2023-12-22 00:00:46 INFO Ship go down with cargo=milk, weight=100
+2023-12-22 00:00:49 INFO New ship with cargo=bear, weight=100
+2023-12-22 00:00:49 INFO Ship go down with cargo=bear, weight=100
+2023-12-22 00:00:49 INFO Ship come to dock cargo=pork, weight=100
+2023-12-22 00:00:52 INFO New ship with cargo=bear, weight=100
+2023-12-22 00:00:52 INFO Ship come to dock cargo=pork, weight=100

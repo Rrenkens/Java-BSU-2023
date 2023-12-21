@@ -22,6 +22,14 @@
         "milk": 100,
         "pork": 100
       }
+    },
+    {
+      "unloading_speed": 10,
+      "dock_capacity": {
+        "bear": 100,
+        "milk": 100,
+        "pork": 100
+      }
     }
   ],
   "hobos": {
