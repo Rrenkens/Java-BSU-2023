@@ -1,0 +1,64 @@
+дек. 21, 2023 10:27:36 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: 22:27:36: Hobos start working
+дек. 21, 2023 10:27:36 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:36: Tunnel got new ship: [Ship:777;Bananas]
+дек. 21, 2023 10:27:36 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:36: by.busskov.docks_and_hobos.HobosGroup$Hobo@6c955257 cooking
+дек. 21, 2023 10:27:36 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:36: One ship left tunnel: [Ship:777;Bananas]
+дек. 21, 2023 10:27:36 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: 22:27:36: Generator made new Ship: Ship:777;Bananas
+дек. 21, 2023 10:27:36 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: 22:27:36: Dock took new ship: Ship:777;Bananas
+дек. 21, 2023 10:27:37 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:37: From Ship:777;Bananas try to get 100 goods
+дек. 21, 2023 10:27:37 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:37: Dock took 100 Bananas from ship
+дек. 21, 2023 10:27:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:38: From Ship:677;Bananas try to get 100 goods
+дек. 21, 2023 10:27:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:38: Dock took 100 Bananas from ship
+дек. 21, 2023 10:27:39 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:39: From Ship:577;Bananas try to get 100 goods
+дек. 21, 2023 10:27:39 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:39: Dock took 100 Bananas from ship
+дек. 21, 2023 10:27:40 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:40: From Ship:477;Bananas try to get 100 goods
+дек. 21, 2023 10:27:40 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:40: Dock took 100 Bananas from ship
+дек. 21, 2023 10:27:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:41: From Ship:377;Bananas try to get 100 goods
+дек. 21, 2023 10:27:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:41: Dock took 100 Bananas from ship
+дек. 21, 2023 10:27:42 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:42: From Ship:277;Bananas try to get 100 goods
+дек. 21, 2023 10:27:42 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:42: Dock took 100 Bananas from ship
+дек. 21, 2023 10:27:43 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:43: From Ship:177;Bananas try to get 100 goods
+дек. 21, 2023 10:27:43 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:43: Dock took 100 Bananas from ship
+дек. 21, 2023 10:27:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:44: From Ship:77;Bananas try to get 100 goods
+дек. 21, 2023 10:27:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:44: Dock took 77 Bananas from ship
+дек. 21, 2023 10:27:46 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:46: Tunnel got new ship: [Ship:943;Chocolate bars]
+дек. 21, 2023 10:27:46 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: 22:27:46: Generator made new Ship: Ship:943;Chocolate bars
+дек. 21, 2023 10:27:46 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:46: One ship left tunnel: [Ship:943;Chocolate bars]
+дек. 21, 2023 10:27:46 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: 22:27:46: Dock took new ship: Ship:943;Chocolate bars
+дек. 21, 2023 10:27:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:47: From Ship:943;Chocolate bars try to get 100 goods
+дек. 21, 2023 10:27:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:47: Dock took 100 Chocolate bars from ship
+дек. 21, 2023 10:27:48 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:48: From Ship:843;Chocolate bars try to get 100 goods
+дек. 21, 2023 10:27:48 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:48: Dock took 100 Chocolate bars from ship
+дек. 21, 2023 10:27:49 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:49: From Ship:743;Chocolate bars try to get 100 goods
+дек. 21, 2023 10:27:49 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: 22:27:49: Dock took 100 Chocolate bars from ship

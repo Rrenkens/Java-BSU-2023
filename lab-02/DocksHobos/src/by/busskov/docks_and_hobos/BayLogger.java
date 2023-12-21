@@ -18,8 +18,10 @@ public class BayLogger implements Runnable {
         this.logger = Logger.getLogger(BayLogger.class.getName());
         logger.setLevel(Level.ALL);
         Handler consoleHandler = new ConsoleHandler();
+        consoleHandler.setFormatter(new SimpleFormatter());
         consoleHandler.setLevel(consoleLevel);
         logger.addHandler(consoleHandler);
+        logger.setUseParentHandlers(false);
 
         File logsDir = new File("logs");
         logsDir.mkdirs();
