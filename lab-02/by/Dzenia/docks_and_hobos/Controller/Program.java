@@ -3,6 +3,7 @@ package by.Dzenia.docks_and_hobos.Controller;
 import by.Dzenia.docks_and_hobos.RunnableObjects.Dock;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Program implements Runnable{
 
@@ -17,9 +18,22 @@ public class Program implements Runnable{
     }
     @Override
     public void run() {
-        model.getShipGenerator().run();
+        ArrayList<Thread> threads = new ArrayList<>();
+        threads.add(new Thread(model.getShipGenerator()));
         for (Dock dock: model.getDocks()) {
-            dock.run();
+            threads.add(new Thread(dock));
+        }
+        System.out.println("here");
+        threads.add(new Thread(model.getHobos()));
+        for (Thread thread: threads) {
+            thread.start();
+        }
+        for (Thread thread: threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

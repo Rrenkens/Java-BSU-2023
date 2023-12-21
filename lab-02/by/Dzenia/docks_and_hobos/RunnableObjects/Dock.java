@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Dock implements Runnable {
@@ -34,8 +35,18 @@ public class Dock implements Runnable {
         }
     }
 
-    void shipRazgruzka(Ship ship) throws InterruptedException {
-        logger.log(Level.INFO, "Ship come to dock, with=" + ship.getCargo().getType() + ", weight=" + ship.getWeight());
+    public synchronized Integer stealCargo(String cargo, Integer count) {
+        if (!currentWeight.containsKey(cargo)) {
+            return 0;
+        }
+        Integer was = currentWeight.get(cargo);
+        currentWeight.put(cargo, max(was - count, 0));
+        return was - currentWeight.get(cargo);
+    }
+
+
+    private void shipUnloading(Ship ship) throws InterruptedException {
+        logger.log(Level.INFO, "Ship come to dock cargo=" + ship.getCargo().getType() + ", weight=" + ship.getWeight());
         Thread.sleep((int)(ship.getWeight() / speed) * 1000);
         synchronized (currentWeight) {
             Integer weight = currentWeight.get(ship.getCargo().getType());
@@ -50,7 +61,7 @@ public class Dock implements Runnable {
     public void run() {
         while (true) {
             try {
-                shipRazgruzka(model.getTunnel().getShip());
+                shipUnloading(model.getTunnel().getShip());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
