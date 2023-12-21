@@ -5,7 +5,6 @@ import by.Dzenia.docks_and_hobos.RunnableObjects.Hobos;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class StealingStrategyHobByCargo implements StealingStrategy {
 
@@ -31,8 +30,8 @@ public class StealingStrategyHobByCargo implements StealingStrategy {
             for (Thread thread: hoboThreads) {
                 try {
                     thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException ignored) {
+
                 }
             }
         }

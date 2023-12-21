@@ -88,6 +88,7 @@ public class Hobos implements Runnable {
             }
             int pos = 0;
             logger.log(Level.INFO, name + " start stealing " + cargoToSteal);
+            long startTime = System.currentTimeMillis();
             while (true) {
                 Dock dock = model.getDocks().get(pos);
                 pos = (pos + 1) % model.getDocks().size();
@@ -101,6 +102,9 @@ public class Hobos implements Runnable {
                     synchronized (current) {
                         current.put(cargoToSteal, current.get(cargoToSteal) + stole);
                         if (current.get(cargoToSteal) > ingredientsCount.get(cargoToSteal)) {
+                            long endTime = System.currentTimeMillis();
+                            logger.log(Level.INFO, name + " end stealing " + cargoToSteal + " time=" +
+                                    (endTime - startTime) / 1000 + "s");
                             return;
                         }
                     }

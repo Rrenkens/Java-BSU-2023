@@ -1,14 +1,10 @@
 package by.Dzenia.docks_and_hobos.Controller;
-
 import by.Dzenia.docks_and_hobos.RunnableObjects.Dock;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Program implements Runnable{
-
     private Model model;
-
     public Program(String pathToFile) throws IOException {
         this.model = new Model(pathToFile);
     }
@@ -23,7 +19,6 @@ public class Program implements Runnable{
         for (Dock dock: model.getDocks()) {
             threads.add(new Thread(dock));
         }
-        System.out.println("here");
         threads.add(new Thread(model.getHobos()));
         for (Thread thread: threads) {
             thread.start();
@@ -31,8 +26,8 @@ public class Program implements Runnable{
         for (Thread thread: threads) {
             try {
                 thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+
             }
         }
     }

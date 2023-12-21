@@ -1,11 +1,11 @@
 package by.Dzenia.docks_and_hobos.RunnableObjects;
-
 import by.Dzenia.docks_and_hobos.Controller.Model;
+import by.Dzenia.docks_and_hobos.CustomLogger;
 import by.Dzenia.docks_and_hobos.Persons.Ship;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
 
 public class ShipGenerator implements Runnable {
     private final int generationTime;
@@ -13,6 +13,7 @@ public class ShipGenerator implements Runnable {
     private final int shipCapacityMin;
     private final int shipCapacityMax;
     private final Model model;
+    private final CustomLogger logger = CustomLogger.getLogger("all");
 
     public ShipGenerator(int generationTime, int shipCapacityMin, int shipCapacityMax, Model model) {
         if (generationTime <= 0) {
@@ -36,9 +37,9 @@ public class ShipGenerator implements Runnable {
             public void run() {
                 Ship ship = new Ship(
                         model.getCargos().get(ThreadLocalRandom.current().nextInt(0, model.getCargos().size())).getType(),
-                        ThreadLocalRandom.current().nextInt(shipCapacityMin, shipCapacityMax)
+                        ThreadLocalRandom.current().nextInt(shipCapacityMin, shipCapacityMax + 1)
                 );
-                System.out.println("New ship with cargo=" + ship.getCargo().getType() + ", weight=" + ship.getWeight());
+                logger.log(Level.INFO, "New ship with cargo=" + ship.getCargo().getType() + ", weight=" + ship.getWeight());
                 model.getTunnel().addShip(ship);
             }
         };
