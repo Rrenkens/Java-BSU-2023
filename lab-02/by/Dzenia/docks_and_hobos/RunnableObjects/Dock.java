@@ -1,17 +1,20 @@
 package by.Dzenia.docks_and_hobos.RunnableObjects;
 
 import by.Dzenia.docks_and_hobos.Controller.Model;
+import by.Dzenia.docks_and_hobos.CustomLogger;
 import by.Dzenia.docks_and_hobos.Persons.Ship;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.lang.Math.min;
 
 public class Dock implements Runnable {
     private final HashMap<String, Integer> dockCapacity;
     private final HashMap<String, Integer> currentWeight = new HashMap<>();
+    private final Logger logger = CustomLogger.getLogger("all");
     private final int speed;
-
     private final Model model;
 
     public Dock(int speed, HashMap<String, Integer> dockCapacity, Model model) {
@@ -32,7 +35,7 @@ public class Dock implements Runnable {
     }
 
     void shipRazgruzka(Ship ship) throws InterruptedException {
-        System.out.println("Ship come to dock, with=" + ship.getCargo().getType() + ", weight=" + ship.getWeight());
+        logger.log(Level.INFO, "Ship come to dock, with=" + ship.getCargo().getType() + ", weight=" + ship.getWeight());
         Thread.sleep((int)(ship.getWeight() / speed) * 1000);
         synchronized (currentWeight) {
             Integer weight = currentWeight.get(ship.getCargo().getType());

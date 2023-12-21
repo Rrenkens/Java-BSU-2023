@@ -1,0 +1,51 @@
+{
+  "generator": {
+    "generating_time": 2
+  },
+  "ship": {
+    "ship_capacity_min": 10,
+    "ship_capacity_max": 20,
+    "cargo_types": [
+      "bear",
+      "milk",
+      "pork"
+    ]
+  },
+  "tunnel": {
+    "max_ships": 4
+  },
+  "docks": [
+    {
+      "unloading_speed": 3,
+      "dock_capacity": {
+        "bear": 50,
+        "milk": 30,
+        "pork": 70
+      }
+    },
+    {
+      "unloading_speed": 4,
+      "dock_capacity": {
+        "bear": 40,
+        "milk": 25,
+        "pork": 60
+      }
+    }
+  ],
+  "hobos": {
+    "ingredients_count":
+    {
+        "bear": 2,
+        "milk": 1,
+        "pork": 3
+    },
+    "eating_time": 5,
+    "hobos_stealing_time":
+    {
+      "BB": 1,
+      "Larson": 2,
+      "Steve": 1,
+      "Ramzes": 3
+    }
+  }
+}

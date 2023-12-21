@@ -31,12 +31,9 @@ public class ShipGenerator implements Runnable {
 
     @Override
     public void run() {
-//        Random random = new Random();
-//        random.nextInt(0, 2);
         TimerTask generateShip = new TimerTask() {
             @Override
             public void run() {
-//                random.nextInt(0, 1);
                 Ship ship = new Ship(
                         model.getCargos().get(ThreadLocalRandom.current().nextInt(0, model.getCargos().size())).getType(),
                         ThreadLocalRandom.current().nextInt(shipCapacityMin, shipCapacityMax)
