@@ -31,5 +31,4 @@ public class TextTask implements Task {
         return Result.WRONG;
     }
 
-    // ...
 }

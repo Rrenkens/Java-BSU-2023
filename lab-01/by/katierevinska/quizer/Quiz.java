@@ -11,7 +11,7 @@ public class Quiz {
     private int correctAnswerNumber = 0;
     private int wrongAnswerNumber = 0;
     private int incorrectInputNumber = 0;
-    private double mark;
+    private Task.Generator generator;
     private ArrayList<Task> test = new ArrayList<>();
 
     Quiz(Task.Generator generator, int taskCount) {
@@ -20,15 +20,14 @@ public class Quiz {
         }
         this.taskCount = taskCount;
         this.currentIndex = 0;
-        for (int i = 0; i < taskCount; i++) {
-            test.add(generator.generate());
-        }
+        this.generator = generator;
     }
 
     Task nextTask() {
         if (isFinished()) {
             throw new QuizFinishedException("Test already finished , you can't get nextTask");
         }
+        test.add(generator.generate());
         return test.get(currentIndex);
     }
 
@@ -66,7 +65,6 @@ public class Quiz {
         if (!isFinished()) {
             throw new QuizNotFinishedException("Test doesn't finished yet, you can't get mark");
         }
-        mark = ((double) correctAnswerNumber) / taskCount;
-        return mark;
+        return ((double) correctAnswerNumber) / taskCount;
     }
 }

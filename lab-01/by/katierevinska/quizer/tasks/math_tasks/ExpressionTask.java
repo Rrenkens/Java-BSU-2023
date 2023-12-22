@@ -9,8 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ExpressionTask extends AbstractMathTask {
 
     public static class Generator extends AbstractMathTask.Generator {
-        private final double minNumber;
-        private final double maxNumber;
         private final int precision;
 
         private MathTask.Operation[] allowedOperations;
@@ -25,34 +23,11 @@ public class ExpressionTask extends AbstractMathTask {
             this.precision = precision;
             this.minNumber = minNumber;
             this.maxNumber = maxNumber;
-            int numberOfAllowedOperations = 0;
-            if (operations.contains(MathTask.Operation.Sum)) {
-                numberOfAllowedOperations++;
-            }
-            if (operations.contains(MathTask.Operation.Difference)) {
-                numberOfAllowedOperations++;
-            }
-            if (operations.contains(MathTask.Operation.Multiplication)) {
-                numberOfAllowedOperations++;
-            }
-            if (operations.contains(MathTask.Operation.Division)) {
-                numberOfAllowedOperations++;
-            }
-            allowedOperations = new MathTask.Operation[numberOfAllowedOperations];
+            allowedOperations = new MathTask.Operation[operations.size()];
             int pos = 0;
-            if (operations.contains(MathTask.Operation.Sum)) {
-                allowedOperations[pos++] = MathTask.Operation.Sum;
+            for (var operation : operations) {
+                allowedOperations[pos++] = operation;
             }
-            if (operations.contains(MathTask.Operation.Difference)) {
-                allowedOperations[pos++] = MathTask.Operation.Difference;
-            }
-            if (operations.contains(MathTask.Operation.Multiplication)) {
-                allowedOperations[pos++] = MathTask.Operation.Multiplication;
-            }
-            if (operations.contains(MathTask.Operation.Division)) {
-                allowedOperations[pos] = MathTask.Operation.Division;
-            }
-
         }
 
         public Generator(
@@ -63,17 +38,6 @@ public class ExpressionTask extends AbstractMathTask {
             this(minNumber, maxNumber, 0, operations);
         }
 
-        @Override
-        public double getMinNumber() {
-            return minNumber;
-        }
-
-        @Override
-        public double getMaxNumber() {
-            return maxNumber;
-        }
-
-
         public ExpressionTask generate() {
             if (minNumber > maxNumber) {
                 throw new NoOperationsAllowedException("minNumber shouldn't be more than maxNumber");
@@ -81,53 +45,35 @@ public class ExpressionTask extends AbstractMathTask {
             if (allowedOperations.length == 0) {
                 throw new NoOperationsAllowedException("should be allowed operations ");
             }
-            int randomNum = ThreadLocalRandom.current().nextInt(0, allowedOperations.length);
-            StringBuilder expression = new StringBuilder();
+            int randomIndex = ThreadLocalRandom.current().nextInt(0, allowedOperations.length);
+            Double num1 = generatingDoubleWithPrecision(minNumber, maxNumber, precision);
+            Double num2 = generatingDoubleWithPrecision(minNumber, maxNumber, precision);
             double answer = 0;
-            double num1 = generatingDoubleWithPrecision(minNumber, maxNumber, precision);
-            double num2 = generatingDoubleWithPrecision(minNumber, maxNumber, precision);
-
-
-            if (allowedOperations[randomNum] == Operation.Sum) {
-                expression.append(num1)
-                        .append('+')
-                        .append(formationWithBracket(num2))
-                        .append("=?");
+            if (allowedOperations[randomIndex] == Operation.SUM) {
                 answer = num1 + num2;
-            } else if (allowedOperations[randomNum] == MathTask.Operation.Difference) {
-                expression.append(num1)
-                        .append('-')
-                        .append(formationWithBracket(num2))
-                        .append("=?");
+            } else if (allowedOperations[randomIndex] == Operation.DIFFERENCE) {
                 answer = num1 - num2;
-            } else if (allowedOperations[randomNum] == MathTask.Operation.Multiplication) {
-                expression.append(num1)
-                        .append('*')
-                        .append(formationWithBracket(num2))
-                        .append("=?");
+            } else if (allowedOperations[randomIndex] == Operation.MULTIPLICATION) {
                 answer = num1 * num2;
-            } else if (allowedOperations[randomNum] == MathTask.Operation.Division) {
+            } else if (allowedOperations[randomIndex] == Operation.DIVISION) {
                 if (Objects.equals(num2, 0.0)) {
                     num2 = generationWithout0(minNumber, maxNumber, precision);
                 }
-                expression.append(num1)
-                        .append('/')
-                        .append(formationWithBracket(num2))
-                        .append("=?");
                 answer = num1 / num2;
             }
-            return new ExpressionTask(expression.toString(), String.valueOf(answer), precision);
+            String expression = buildExpression(allowedOperations[randomIndex], String.valueOf(num1), formationWithBracket(num2), "?");
+            return new ExpressionTask(expression, String.valueOf(answer), precision);
+        }
+    }
+        public ExpressionTask(
+                String text,
+                String answer,
+                int precision
+        ) {
+            this.text = text;
+            this.answer = answer;
+            this.precision = precision;
         }
     }
 
-    public ExpressionTask(
-            String text,
-            String answer,
-            int precision
-    ) {
-        this.text = text;
-        this.answer = answer;
-        this.precision = precision;
-    }
-}
 

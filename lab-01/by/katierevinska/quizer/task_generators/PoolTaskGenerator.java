@@ -4,15 +4,15 @@ package by.katierevinska.quizer.task_generators;
 import by.katierevinska.quizer.Task;
 import by.katierevinska.quizer.exceptions.QuizFinishedException;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PoolTaskGenerator implements Task.Generator {
 
     private final boolean allowDuplicate;
-    private LinkedList<Object> tasks = new LinkedList<>();
+    private ArrayList<Object> tasks = new ArrayList<>();
 
     public PoolTaskGenerator(
             boolean allowDuplicate,
@@ -32,7 +32,7 @@ public class PoolTaskGenerator implements Task.Generator {
 
     public Task generate() {
         if (tasks.size() == 0) {
-            throw new QuizFinishedException("all tasks pool and duplicates aren't allowed");
+            throw new QuizFinishedException("all tasks have been generated, can't generate more");
         }
         int randomNum = ThreadLocalRandom.current().nextInt(0, tasks.size());
         if (!allowDuplicate) {

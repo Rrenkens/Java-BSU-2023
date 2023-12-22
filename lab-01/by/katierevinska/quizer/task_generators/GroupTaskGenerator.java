@@ -5,6 +5,9 @@ import by.katierevinska.quizer.Task;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.lang.Math.pow;
 
 public class GroupTaskGenerator implements Task.Generator {
     private ArrayList<Task.Generator> generators = new ArrayList<>();
@@ -19,10 +22,12 @@ public class GroupTaskGenerator implements Task.Generator {
     }
 
     public Task generate() {
-        for (Task.Generator generator : generators) {
+        while(generators.size() != 0){
+            int index = ThreadLocalRandom.current().nextInt(0, generators.size());
             try {
-                return generator.generate();
-            } catch (Exception ignored) {
+                return generators.get(index).generate();
+            } catch (Exception exp) {
+                generators.remove(index);
             }
         }
         throw new IllegalArgumentException("can't generate any task");

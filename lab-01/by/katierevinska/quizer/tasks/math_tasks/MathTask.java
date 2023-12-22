@@ -19,10 +19,20 @@ public interface MathTask extends Task {
     }
 
     enum Operation {
-        Sum,
-        Difference,
-        Multiplication,
-        Division
+        SUM,
+        DIFFERENCE,
+        MULTIPLICATION,
+        DIVISION;
+
+        @Override
+        public String toString() {
+            return switch (this) {
+                case SUM -> "+";
+                case DIFFERENCE -> "-";
+                case MULTIPLICATION -> "*";
+                case DIVISION -> "/";
+            };
+        }
     }
 
     @Override
