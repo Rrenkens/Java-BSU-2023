@@ -22,7 +22,7 @@ public class HobosGroup implements Runnable {
     private final HashMap<String, Integer> currentIngredients;
     private final Dock.Warehouse warehouse;
     private final BayLogger logger;
-    public static enum Task {
+    public enum Task {
         STOP,
         COOK,
         STEAL,
@@ -80,12 +80,10 @@ public class HobosGroup implements Runnable {
                     hobos.get(i).setTask(Task.STEAL);
                 }
             }
-
-            lock.lock();
-            startWork.signal();
-            lock.unlock();
-
             logger.log(Level.INFO, "Hobos start working");
+            lock.lock();
+            startWork.signalAll();
+            lock.unlock();
 
             //Wait for enough ingredients
             boolean enoughIngredients = false;
@@ -104,28 +102,26 @@ public class HobosGroup implements Runnable {
                     }
                 }
             }
+
             for (Hobo hobo : hobos) {
                 hobo.setTask(Task.EAT);
             }
-
-            lock.lock();
-            startEating.signal();
-            lock.unlock();
-
             logger.log(Level.INFO, "Hobos start eating");
-            for (String key : necessaryIngredients.keySet()) {
-                currentIngredients.put(key, 0);
-            }
+            lock.lock();
+            startEating.signalAll();
+            lock.unlock();
 
             try {
                 Thread.sleep(eatingTime);
             } catch (InterruptedException ignored) {}
+
+
             for (Hobo hobo : hobos) {
                 hobo.setTask(Task.STOP);
             }
-
+            logger.log(Level.INFO, "Hobos stopped for organizational moments");
             lock.lock();
-            stopEating.signal();
+            stopEating.signalAll();
             lock.unlock();
         }
     }
@@ -221,6 +217,7 @@ public class HobosGroup implements Runnable {
         }
 
         public void eat() {
+            logger.log(Level.ALL, "Hobo{0} eating", name);
             while(!currentTask.equals(Task.STOP)) {
                 lock.lock();
                 try {
@@ -234,6 +231,9 @@ public class HobosGroup implements Runnable {
 
         public void setTask(HobosGroup.Task task) {
             currentTask = task;
+        }
+        public HobosGroup.Task getTask() {
+            return currentTask;
         }
     }
 }

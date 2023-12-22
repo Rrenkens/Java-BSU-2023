@@ -1,0 +1,272 @@
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Chocolate bars
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Chocolate bars, current ingredients: {Chocolate bars=16, Bananas=0}
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Chocolate bars
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Chocolate bars, current ingredients: {Chocolate bars=17, Bananas=0}
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;24} try to get 10 goods
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 People from ship
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Chocolate bars
+дек. 22, 2023 9:48:23 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 stole Chocolate bars, current ingredients: {Chocolate bars=18, Bananas=0}
+дек. 22, 2023 9:48:24 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;14} try to get 10 goods
+дек. 22, 2023 9:48:24 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 People from ship
+дек. 22, 2023 9:48:25 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Tunnel got new ship: {Ship:Guns;141}; current state: [{Ship:Chocolate bars;59}, {Ship:Guns;141}]
+дек. 22, 2023 9:48:25 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:Guns;141}
+дек. 22, 2023 9:48:25 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;4} try to get 10 goods
+дек. 22, 2023 9:48:25 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 4 People from ship
+дек. 22, 2023 9:48:25 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: One ship left tunnel, current state: [{Ship:Chocolate bars;59}, {Ship:Guns;141}]
+дек. 22, 2023 9:48:25 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Dock took new ship: {Ship:Chocolate bars;59}
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Chocolate bars
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Chocolate bars, current ingredients: {Chocolate bars=19, Bananas=0}
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Chocolate bars
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Chocolate bars, current ingredients: {Chocolate bars=20, Bananas=0}
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Chocolate bars;59} try to get 10 goods
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Chocolate bars from ship
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Chocolate bars
+дек. 22, 2023 9:48:26 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 stole Chocolate bars, current ingredients: {Chocolate bars=21, Bananas=0}
+дек. 22, 2023 9:48:27 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Chocolate bars;49} try to get 10 goods
+дек. 22, 2023 9:48:27 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Chocolate bars from ship
+дек. 22, 2023 9:48:28 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Chocolate bars;39} try to get 10 goods
+дек. 22, 2023 9:48:28 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Chocolate bars from ship
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Chocolate bars
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Chocolate bars, current ingredients: {Chocolate bars=22, Bananas=0}
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Chocolate bars;29} try to get 10 goods
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Chocolate bars from ship
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Chocolate bars
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Chocolate bars, current ingredients: {Chocolate bars=23, Bananas=0}
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Chocolate bars
+дек. 22, 2023 9:48:29 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 stole Chocolate bars, current ingredients: {Chocolate bars=24, Bananas=0}
+дек. 22, 2023 9:48:30 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Chocolate bars;19} try to get 10 goods
+дек. 22, 2023 9:48:30 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Chocolate bars from ship
+дек. 22, 2023 9:48:31 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Chocolate bars;9} try to get 10 goods
+дек. 22, 2023 9:48:31 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 9 Chocolate bars from ship
+дек. 22, 2023 9:48:31 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: One ship left tunnel, current state: [{Ship:Guns;141}]
+дек. 22, 2023 9:48:31 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Dock took new ship: {Ship:Guns;141}
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;141} try to get 10 goods
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Chocolate bars
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Chocolate bars, current ingredients: {Chocolate bars=25, Bananas=0}
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Chocolate bars
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Chocolate bars, current ingredients: {Chocolate bars=26, Bananas=0}
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Chocolate bars
+дек. 22, 2023 9:48:32 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 stole Chocolate bars, current ingredients: {Chocolate bars=27, Bananas=0}
+дек. 22, 2023 9:48:33 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Tunnel got new ship: {Ship:Bananas;39}; current state: [{Ship:Bananas;39}]
+дек. 22, 2023 9:48:33 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:Bananas;39}
+дек. 22, 2023 9:48:33 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;131} try to get 10 goods
+дек. 22, 2023 9:48:33 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:34 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;121} try to get 10 goods
+дек. 22, 2023 9:48:34 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;111} try to get 10 goods
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Chocolate bars
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Chocolate bars, current ingredients: {Chocolate bars=28, Bananas=0}
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Chocolate bars
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Chocolate bars, current ingredients: {Chocolate bars=29, Bananas=0}
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Chocolate bars
+дек. 22, 2023 9:48:35 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 stole Chocolate bars, current ingredients: {Chocolate bars=30, Bananas=0}
+дек. 22, 2023 9:48:36 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;101} try to get 10 goods
+дек. 22, 2023 9:48:36 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:37 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;91} try to get 10 goods
+дек. 22, 2023 9:48:37 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;81} try to get 10 goods
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Chocolate bars
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Chocolate bars, current ingredients: {Chocolate bars=31, Bananas=0}
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Chocolate bars
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Chocolate bars, current ingredients: {Chocolate bars=32, Bananas=0}
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Bananas
+дек. 22, 2023 9:48:38 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 cant steal Bananas
+дек. 22, 2023 9:48:39 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;71} try to get 10 goods
+дек. 22, 2023 9:48:39 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:40 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;61} try to get 10 goods
+дек. 22, 2023 9:48:40 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Tunnel got new ship: {Ship:People;123}; current state: [{Ship:Bananas;39}, {Ship:People;123}]
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:People;123}
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;51} try to get 10 goods
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Bananas
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 cant steal Bananas
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Bananas
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 cant steal Bananas
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Bananas
+дек. 22, 2023 9:48:41 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 cant steal Bananas
+дек. 22, 2023 9:48:42 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;41} try to get 10 goods
+дек. 22, 2023 9:48:42 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:43 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;31} try to get 10 goods
+дек. 22, 2023 9:48:43 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;21} try to get 10 goods
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Bananas
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 cant steal Bananas
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Bananas
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 cant steal Bananas
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Bananas
+дек. 22, 2023 9:48:44 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 cant steal Bananas
+дек. 22, 2023 9:48:45 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;11} try to get 10 goods
+дек. 22, 2023 9:48:45 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Guns from ship
+дек. 22, 2023 9:48:46 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Guns;1} try to get 10 goods
+дек. 22, 2023 9:48:46 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 1 Guns from ship
+дек. 22, 2023 9:48:46 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: One ship left tunnel, current state: [{Ship:Bananas;39}, {Ship:People;123}]
+дек. 22, 2023 9:48:46 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Dock took new ship: {Ship:Bananas;39}
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Bananas;39} try to get 10 goods
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Bananas from ship
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Bananas
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Bananas, current ingredients: {Chocolate bars=32, Bananas=1}
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Bananas
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Bananas, current ingredients: {Chocolate bars=32, Bananas=2}
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Bananas
+дек. 22, 2023 9:48:47 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 stole Bananas, current ingredients: {Chocolate bars=32, Bananas=3}
+дек. 22, 2023 9:48:48 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Bananas;29} try to get 10 goods
+дек. 22, 2023 9:48:48 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Bananas from ship
+дек. 22, 2023 9:48:49 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Tunnel got new ship: {Ship:Bananas;115}; current state: [{Ship:People;123}, {Ship:Bananas;115}]
+дек. 22, 2023 9:48:49 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Generator made new Ship: {Ship:Bananas;115}
+дек. 22, 2023 9:48:49 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Bananas;19} try to get 10 goods
+дек. 22, 2023 9:48:49 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 Bananas from ship
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:Bananas;9} try to get 10 goods
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 9 Bananas from ship
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: One ship left tunnel, current state: [{Ship:People;123}, {Ship:Bananas;115}]
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+INFO: Dock took new ship: {Ship:People;123}
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 trying to steal Bananas
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo5 stole Bananas, current ingredients: {Chocolate bars=32, Bananas=4}
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 trying to steal Bananas
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo4 stole Bananas, current ingredients: {Chocolate bars=32, Bananas=5}
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 trying to steal Bananas
+дек. 22, 2023 9:48:50 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Hobo3 stole Bananas, current ingredients: {Chocolate bars=32, Bananas=6}
+дек. 22, 2023 9:48:51 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;123} try to get 10 goods
+дек. 22, 2023 9:48:51 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 People from ship
+дек. 22, 2023 9:48:52 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: From {Ship:People;113} try to get 10 goods
+дек. 22, 2023 9:48:52 PM by.busskov.docks_and_hobos.BayLogger log
+ALL: Dock took 10 People from ship
