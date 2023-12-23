@@ -128,10 +128,10 @@ class Quiz {
 }
 ```
 
-## Функция main()
+## Функция by.AlexHanimar.quizer.main()
 
 ### getQuizMap
-Этот метод будет использоваться из `main()`, чтобы получить список доступных тестов. Создание всех тестов (`Quiz`) будет захардкожено в этом методе. После реализации разных TaskGenerator’ов (см. ниже), добавьте в этот метод несколько различных тестов.
+Этот метод будет использоваться из `by.AlexHanimar.quizer.main()`, чтобы получить список доступных тестов. Создание всех тестов (`Quiz`) будет захардкожено в этом методе. После реализации разных TaskGenerator’ов (см. ниже), добавьте в этот метод несколько различных тестов.
 
 ```java
 /**
@@ -144,15 +144,15 @@ static Map<String, Quiz> getQuizMap() {
 }
 ```
 
-### public static void main()
+### public static void by.AlexHanimar.quizer.main()
 
 ```java
-public static void main() {
+public static void by.AlexHanimar.quizer.main() {
     // ...
 }
 ```
 
->`public static void main()` - входная точка вашего приложения.
+>`public static void by.AlexHanimar.quizer.main()` - входная точка вашего приложения.
 	
 #### Описание 
 
