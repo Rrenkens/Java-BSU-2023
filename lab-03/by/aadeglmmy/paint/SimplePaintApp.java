@@ -21,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class SimplePaintApp extends Application {
@@ -134,6 +135,10 @@ public class SimplePaintApp extends Application {
     saveButton.setOnAction(e -> {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Save the drawing");
+
+      ExtensionFilter filter = new ExtensionFilter("Paint Files (*.paint)", "*.paint");
+      fileChooser.getExtensionFilters().add(filter);
+
       File file = fileChooser.showSaveDialog(primaryStage);
       if (file != null) {
         saveDrawing(file.getAbsolutePath());
@@ -143,6 +148,10 @@ public class SimplePaintApp extends Application {
     openButton.setOnAction(e -> {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open the drawing");
+
+      ExtensionFilter filter = new ExtensionFilter("Paint Files (*.paint)", "*.paint");
+      fileChooser.getExtensionFilters().add(filter);
+
       File file = fileChooser.showOpenDialog(primaryStage);
       if (file != null) {
         openDrawing(file.getAbsolutePath());
