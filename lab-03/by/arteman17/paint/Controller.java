@@ -110,16 +110,16 @@ public class Controller {
             double lengthX = Math.abs(startX - currX);
             double lengthY = Math.abs(startY - currY);
             graphicsContext.strokeRect(Math.min(startX, currX), Math.min(startY, currY), lengthX, lengthY);
-        } else if (Objects.equals(shapeComboBox.getValue(), "Line")) {
-            double currX = mouseEvent.getX();
-            double currY = mouseEvent.getY();
-            graphicsContext.strokeLine(startX, startY, currX, currY);
         } else if (Objects.equals(shapeComboBox.getValue(), "Ellipse")) {
             double currX = mouseEvent.getX();
             double currY = mouseEvent.getY();
             double lengthX = Math.abs(startX - currX);
             double lengthY = Math.abs(startY - currY);
             graphicsContext.strokeOval(Math.min(startX, currX), Math.min(startY, currY), lengthX, lengthY);
+        } else if (Objects.equals(shapeComboBox.getValue(), "Line")) {
+            double currX = mouseEvent.getX();
+            double currY = mouseEvent.getY();
+            graphicsContext.strokeLine(startX, startY, currX, currY);
         } else if (Objects.equals(shapeComboBox.getValue(), "Circle")) {
             double currX = mouseEvent.getX();
             double currY = mouseEvent.getY();
