@@ -13,8 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
@@ -26,123 +24,117 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Controller {
-    private ColorPicker penColorPicker_, fillColorPicker_;
-    private Button clearButton_, saveButton_, openButton_, transparentButton_;
-    private ComboBox<String> shapeComboBox_;
-    private ComboBox<Double> sizeComboBox_;
-    private Canvas mainFrame_, backFrame_;
-    private GraphicsContext main_, back_;
-    private VBox frame_;
-    private double startX_;
-    private double startY_;
+    private final ColorPicker penColorPicker;
+    private final Button clearButton, saveButton, openButton;
+    private final ComboBox<String> shapeComboBox;
+    private final ComboBox<Double> sizeComboBox;
+    private final Canvas mainFrame, backFrame;
+    private final GraphicsContext main;
+    private final GraphicsContext back;
+    private final VBox frame;
+    private double startX;
+    private double startY;
 
-    public void Initialization() {
-        mainFrame_ = new Canvas(1920, 900);
-        backFrame_ = new Canvas(1920, 900);
+    public Controller() {
+        mainFrame = new Canvas(1920, 900);
+        backFrame = new Canvas(1920, 900);
 
-        main_ = mainFrame_.getGraphicsContext2D();
-        back_ = backFrame_.getGraphicsContext2D();
+        main = mainFrame.getGraphicsContext2D();
+        back = backFrame.getGraphicsContext2D();
 
-        penColorPicker_ = new ColorPicker(Color.BLACK);
-        penColorPicker_.setPrefSize(150, 50);
-        fillColorPicker_ = new ColorPicker(Color.TRANSPARENT);
-        fillColorPicker_.setPrefSize(150, 50);
+        penColorPicker = new ColorPicker(Color.BLACK);
+        penColorPicker.setPrefSize(150, 50);
 
-        clearButton_ = new Button("Clear");
-        clearButton_.setPrefSize(150, 50);
-        clearButton_.setOnAction(event -> {
-            main_.clearRect(0, 0, 1920, 900);
-            back_.clearRect(0, 0, 1920, 900);
+        clearButton = new Button("Clear");
+        clearButton.setPrefSize(150, 50);
+        clearButton.setOnAction(event -> {
+            main.clearRect(0, 0, 1920, 900);
+            back.clearRect(0, 0, 1920, 900);
         });
 
-        transparentButton_ = new Button("Set transparent");
-        transparentButton_.setPrefSize(150, 50);
-        transparentButton_.setOnAction(actionEvent -> fillColorPicker_.setValue(Color.TRANSPARENT));
-
-        sizeComboBox_ = new ComboBox<>();
-        sizeComboBox_.setPrefSize(150, 50);
-        sizeComboBox_.getItems().addAll(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,
+        sizeComboBox = new ComboBox<>();
+        sizeComboBox.setPrefSize(150, 50);
+        sizeComboBox.getItems().addAll(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,
                 10.0, 12.0, 14.0, 16.0, 18.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0);
-        sizeComboBox_.setValue(2.0);
+        sizeComboBox.setValue(2.0);
 
-        shapeComboBox_ = new ComboBox<>();
-        shapeComboBox_.setPrefSize(150, 50);
-        shapeComboBox_.getItems().addAll("Freehand", "Rectangle", "Ellipse", "Circle", "Erase");
-        shapeComboBox_.setValue("Freehand");
+        shapeComboBox = new ComboBox<>();
+        shapeComboBox.setPrefSize(150, 50);
+        shapeComboBox.getItems().addAll("Freehand", "Line", "Rectangle", "Ellipse", "Circle", "Erase");
+        shapeComboBox.setValue("Freehand");
 
-        saveButton_ = new Button("Save");
-        saveButton_.setPrefSize(150, 50);
-        saveButton_.setOnAction(event -> saveEvent());
+        saveButton = new Button("Save");
+        saveButton.setPrefSize(150, 50);
+        saveButton.setOnAction(event -> saveEvent());
 
-        openButton_ = new Button("Open");
-        openButton_.setPrefSize(150, 50);
-        openButton_.setOnAction(event -> openEvent());
+        openButton = new Button("Open");
+        openButton.setPrefSize(150, 50);
+        openButton.setOnAction(event -> openEvent());
 
-        HBox toolBar_ = new HBox(saveButton_, openButton_, penColorPicker_, fillColorPicker_, transparentButton_, sizeComboBox_, shapeComboBox_, clearButton_);
-        StackPane stackPane = new StackPane(backFrame_, mainFrame_);
-        frame_ = new VBox(toolBar_, stackPane);
+        HBox toolBar_ = new HBox(saveButton, openButton, penColorPicker, sizeComboBox, shapeComboBox, clearButton);
+        StackPane stackPane = new StackPane(backFrame, mainFrame);
+        frame = new VBox(toolBar_, stackPane);
 
-        mainFrame_.setOnMousePressed(mouseEvent -> {
-            startX_ = mouseEvent.getX();
-            startY_ = mouseEvent.getY();
+        mainFrame.setOnMousePressed(mouseEvent -> {
+            startX = mouseEvent.getX();
+            startY = mouseEvent.getY();
 
-            main_.beginPath();
-            main_.setStroke(penColorPicker_.getValue());
-            main_.setLineWidth(sizeComboBox_.getValue());
-            main_.setFill(fillColorPicker_.getValue());
+            main.beginPath();
+            main.setStroke(penColorPicker.getValue());
+            main.setLineWidth(sizeComboBox.getValue());
 
-            back_.beginPath();
-            back_.setStroke(penColorPicker_.getValue());
-            back_.setLineWidth(sizeComboBox_.getValue());
-            back_.setFill(fillColorPicker_.getValue());
+            back.beginPath();
+            back.setStroke(penColorPicker.getValue());
+            back.setLineWidth(sizeComboBox.getValue());
         });
 
-        mainFrame_.setOnMouseDragged(mouseEvent -> {
-            back_.clearRect(0, 0, 1920, 900);
-            mainFrame_.toBack();
-            paintEvent(mouseEvent, back_);
+        mainFrame.setOnMouseDragged(mouseEvent -> {
+            back.clearRect(0, 0, 1920, 900);
+            mainFrame.toBack();
+            paintEvent(mouseEvent, back);
         });
 
-        mainFrame_.setOnMouseReleased(mouseEvent -> {
-            mainFrame_.toFront();
-            paintEvent(mouseEvent, main_);
+        mainFrame.setOnMouseReleased(mouseEvent -> {
+            mainFrame.toFront();
+            paintEvent(mouseEvent, main);
         });
     }
 
     void paintEvent(MouseEvent mouseEvent, GraphicsContext graphicsContext) {
-        if (Objects.equals(shapeComboBox_.getValue(), "Freehand")) {
-            main_.lineTo(mouseEvent.getX(), mouseEvent.getY());
-            main_.stroke();
-        } else if (Objects.equals(shapeComboBox_.getValue(), "Rectangle")) {
+        if (Objects.equals(shapeComboBox.getValue(), "Freehand")) {
+            main.lineTo(mouseEvent.getX(), mouseEvent.getY());
+            main.stroke();
+        } else if (Objects.equals(shapeComboBox.getValue(), "Rectangle")) {
             double currX = mouseEvent.getX();
             double currY = mouseEvent.getY();
-            double lengthX = Math.abs(startX_ - currX);
-            double lengthY = Math.abs(startY_ - currY);
-            graphicsContext.strokeRect(Math.min(startX_, currX), Math.min(startY_, currY), lengthX, lengthY);
-            graphicsContext.fillRect(Math.min(startX_, currX), Math.min(startY_, currY), lengthX, lengthY);
-        } else if (Objects.equals(shapeComboBox_.getValue(), "Ellipse")) {
+            double lengthX = Math.abs(startX - currX);
+            double lengthY = Math.abs(startY - currY);
+            graphicsContext.strokeRect(Math.min(startX, currX), Math.min(startY, currY), lengthX, lengthY);
+        } else if (Objects.equals(shapeComboBox.getValue(), "Line")) {
             double currX = mouseEvent.getX();
             double currY = mouseEvent.getY();
-            double lengthX = Math.abs(startX_ - currX);
-            double lengthY = Math.abs(startY_ - currY);
-            graphicsContext.strokeOval(Math.min(startX_, currX), Math.min(startY_, currY), lengthX, lengthY);
-            graphicsContext.fillOval(Math.min(startX_, currX), Math.min(startY_, currY), lengthX, lengthY);
-        } else if (Objects.equals(shapeComboBox_.getValue(), "Circle")) {
+            graphicsContext.strokeLine(startX, startY, currX, currY);
+        } else if (Objects.equals(shapeComboBox.getValue(), "Ellipse")) {
             double currX = mouseEvent.getX();
             double currY = mouseEvent.getY();
-            double lengthX = Math.abs(startX_ - currX);
-            double lengthY = Math.abs(startY_ - currY);
+            double lengthX = Math.abs(startX - currX);
+            double lengthY = Math.abs(startY - currY);
+            graphicsContext.strokeOval(Math.min(startX, currX), Math.min(startY, currY), lengthX, lengthY);
+        } else if (Objects.equals(shapeComboBox.getValue(), "Circle")) {
+            double currX = mouseEvent.getX();
+            double currY = mouseEvent.getY();
+            double lengthX = Math.abs(startX - currX);
+            double lengthY = Math.abs(startY - currY);
             double radius = Math.sqrt(lengthX * lengthX + lengthY * lengthY);
-            graphicsContext.strokeOval(startX_ - radius, startY_ - radius, 2 * radius, 2 * radius);
-            graphicsContext.fillOval(startX_ - radius, startY_ - radius, 2 * radius, 2 * radius);
-        } else if (Objects.equals(shapeComboBox_.getValue(), "Erase")) {
-            double size = sizeComboBox_.getValue();
-            main_.clearRect(mouseEvent.getX() - size / 2, mouseEvent.getY() - size / 2, size, size);
+            graphicsContext.strokeOval(startX - radius, startY - radius, 2 * radius, 2 * radius);
+        } else if (Objects.equals(shapeComboBox.getValue(), "Erase")) {
+            double size = sizeComboBox.getValue();
+            main.clearRect(mouseEvent.getX() - size / 2, mouseEvent.getY() - size / 2, size, size);
         }
     }
 
-    VBox getFrame_() {
-        return frame_;
+    VBox getFrame() {
+        return frame;
     }
 
     void saveEvent() {
@@ -152,10 +144,10 @@ public class Controller {
         File file = fileChooser.showSaveDialog(null);
         if (file != null) {
             try {
-                WritableImage writableImage = new WritableImage((int) mainFrame_.getWidth(), (int) mainFrame_.getHeight());
+                WritableImage writableImage = new WritableImage((int) mainFrame.getWidth(), (int) mainFrame.getHeight());
                 SnapshotParameters params = new SnapshotParameters();
                 params.setFill(Color.TRANSPARENT);
-                main_.getCanvas().snapshot(params, writableImage);
+                main.getCanvas().snapshot(params, writableImage);
 
                 ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
             } catch (IOException e) {
@@ -172,9 +164,9 @@ public class Controller {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             Image image = new Image(file.toURI().toString());
-            main_.clearRect(0, 0, 1920, 900);
-            back_.clearRect(0, 0, 1920, 900);
-            main_.drawImage(image, 0, 0, 1920, 900);
+            main.clearRect(0, 0, 1920, 900);
+            back.clearRect(0, 0, 1920, 900);
+            main.drawImage(image, 0, 0, 1920, 900);
         }
     }
 }
