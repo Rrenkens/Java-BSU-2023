@@ -1,11 +1,14 @@
 package by.Roman197619.paint;
 
+import com.sun.javafx.binding.DoubleConstant;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -23,12 +26,14 @@ public class DrawingApp extends Application {
     private final GraphicsContext gc = canvas.getGraphicsContext2D();
     private final GraphicsContext gc_second = canvas_second.getGraphicsContext2D();
 
-
+    private final ColorPicker colorPicker = new ColorPicker(Color.BLACK);;
+    private final Slider lineWidthSlider = new Slider(1, 20, 10);;
     private enum DrawMode {
         FREE, RECTANGLE, CIRCLE
     }
 
     private DrawMode drawMode = DrawMode.FREE;
+    private javafx.scene.image.Image loadedImage = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -39,59 +44,43 @@ public class DrawingApp extends Application {
         primaryStage.setTitle("JavaFX Paint");
 
         GridPane buttons_and_controls = new GridPane();
-
-        ColorPicker colorPicker = new ColorPicker(Color.BLACK);
-
-        Slider lineWidthSlider = new Slider(1, 20, 10);
+        
         lineWidthSlider.setShowTickMarks(true);
         lineWidthSlider.setShowTickLabels(true);
 
         ToggleButton freeButton = new ToggleButton("Free");
         ToggleButton rectangleButton = new ToggleButton("Rectangle");
         ToggleButton circleButton = new ToggleButton("Circle");
+        freeButton.setSelected(true);
 
-        freeButton.setOnAction(e -> drawMode = DrawMode.FREE);
-        rectangleButton.setOnAction(e -> drawMode = DrawMode.RECTANGLE);
-        circleButton.setOnAction(e -> drawMode = DrawMode.CIRCLE);
-
-        canvas.setOnMousePressed(e -> {
-            startX = e.getX();
-            startY = e.getY();
-
-            gc.beginPath();
-            gc.setStroke(colorPicker.getValue());
-            gc.setFill(colorPicker.getValue());
-            gc.setLineWidth(lineWidthSlider.getValue());
-
-            gc_second.beginPath();
-            gc_second.setStroke(colorPicker.getValue());
-            gc_second.setFill(colorPicker.getValue());
-            gc_second.setLineWidth(lineWidthSlider.getValue());
-
+        freeButton.setOnAction(e -> {
+            drawMode = DrawMode.FREE;
+            rectangleButton.setSelected(false);
+            circleButton.setSelected(false);
         });
 
-        canvas.setOnMouseDragged(e -> {
-            if (drawMode == DrawMode.FREE) {
-                drawLine(e.getX(), e.getY());
-            } else if (drawMode == DrawMode.RECTANGLE) {
-                gc_second.clearRect(0, 0, 1920, 1080);
-                drawRectangle(startX, startY, e.getX(), e.getY(), gc_second);
-            } else if (drawMode == DrawMode.CIRCLE) {
-                gc_second.clearRect(0, 0, 1920, 1080);
-                drawCircle(startX, startY, e.getX(), e.getY(), gc_second);
-            }
+        rectangleButton.setOnAction(e -> {
+            drawMode = DrawMode.RECTANGLE;
+            freeButton.setSelected(false);
+            circleButton.setSelected(false);
         });
 
-       canvas.setOnDragDetected(event -> canvas.startFullDrag());
-
-        canvas.setOnMouseDragReleased(e -> {
-            if (drawMode == DrawMode.RECTANGLE) {
-                drawRectangle(startX, startY, e.getX(), e.getY(), gc);
-            } else if (drawMode == DrawMode.CIRCLE) {
-                drawCircle(startX, startY, e.getX(), e.getY(), gc);
-            }
+        circleButton.setOnAction(e -> {
+            drawMode = DrawMode.CIRCLE;
+            freeButton.setSelected(false);
+            rectangleButton.setSelected(false);
         });
 
+
+        canvas.setOnMousePressed(mousePressedHandler);
+        canvas.setOnMouseDragged(mouseDraggedHandler);
+        canvas.setOnDragDetected(event -> canvas.startFullDrag());
+        canvas.setOnMouseDragReleased(mouseReleasedHandler);
+
+        canvas_second.setOnMousePressed(mousePressedHandler);
+        canvas_second.setOnMouseDragged(mouseDraggedHandler);
+        canvas_second.setOnDragDetected(event -> canvas.startFullDrag());
+        canvas_second.setOnMouseDragReleased(mouseReleasedHandler);
 
         HBox controlsBox = new HBox(10, freeButton, rectangleButton, circleButton, colorPicker, lineWidthSlider);
 
@@ -159,7 +148,46 @@ public class DrawingApp extends Application {
     }
 
     private void loadImage(String path) {
-        javafx.scene.image.Image image = new javafx.scene.image.Image("file:" + path);
-        gc.drawImage(image, 0, 0);
+        loadedImage = new javafx.scene.image.Image("file:" + path);
+        gc.drawImage(loadedImage, 0, 0);
     }
+
+    EventHandler<MouseEvent> mousePressedHandler = e -> {
+        startX = e.getX();
+        startY = e.getY();
+
+        gc.beginPath();
+        gc.setStroke(colorPicker.getValue());
+        gc.setFill(colorPicker.getValue());
+        gc.setLineWidth(lineWidthSlider.getValue());
+
+        gc_second.beginPath();
+        gc_second.setStroke(colorPicker.getValue());
+        gc_second.setFill(colorPicker.getValue());
+        gc_second.setLineWidth(lineWidthSlider.getValue());
+    };
+
+    EventHandler<MouseEvent> mouseDraggedHandler = e -> {
+        gc_second.clearRect(0, 0, 1920, 1080);
+        if (drawMode == DrawMode.FREE) {
+            drawLine(e.getX(), e.getY());
+        } else if (drawMode == DrawMode.RECTANGLE) {
+            canvas.toBack();
+            gc_second.clearRect(0, 0, 1920, 1080);
+            drawRectangle(startX, startY, e.getX(), e.getY(), gc_second);
+        } else if (drawMode == DrawMode.CIRCLE) {
+            canvas.toBack();
+            gc_second.clearRect(0, 0, 1920, 1080);
+            drawCircle(startX, startY, e.getX(), e.getY(), gc_second);
+        }
+    };
+
+    EventHandler<MouseEvent> mouseReleasedHandler = e -> {
+        canvas.toFront();
+        if (drawMode == DrawMode.RECTANGLE) {
+            drawRectangle(startX, startY, e.getX(), e.getY(), gc);
+        } else if (drawMode == DrawMode.CIRCLE) {
+            drawCircle(startX, startY, e.getX(), e.getY(), gc);
+        }
+    };
 }
