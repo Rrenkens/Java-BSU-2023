@@ -9,6 +9,7 @@ import java.util.*;
 public class GroupTaskGenerator implements TaskGenerator {
 
     private final ArrayList<TaskGenerator> generators;
+    private final Random rand;
 
     /**
      * Конструктор с переменным числом аргументов
@@ -20,6 +21,7 @@ public class GroupTaskGenerator implements TaskGenerator {
             throw new IllegalArgumentException();
         this.generators = new ArrayList<>();
         this.generators.addAll(Arrays.asList(generators));
+        this.rand = new Random();
     }
 
     /**
@@ -32,31 +34,24 @@ public class GroupTaskGenerator implements TaskGenerator {
             throw new IllegalArgumentException();
         this.generators = new ArrayList<>();
         this.generators.addAll(generators);
+        this.rand = new Random();
     }
 
     /**
      * @return результат метода generate() случайного генератора из списка.
-     *         Если этот генератор выбросил исключение в методе generate(), выбирается другой.
-     *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
+     * Если этот генератор выбросил исключение в методе generate(), выбирается другой.
+     * Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
     @Override
     public Task generate() throws TaskGenerationException {
-        if (generators.isEmpty())
-            throw new TaskGenerationException();
-        var rand = new Random();
-        var mask = new ArrayList<Boolean>(generators.size());
-        for (int i = 0;i < generators.size();i++)
-            mask.add(true);
-        int free = generators.size();
-        while (free > 0) {
-            int id = rand.nextInt(generators.size());
-            if (!mask.get(id))
-                continue;
+        var available = new ArrayList<>(generators);
+        while (!available.isEmpty()) {
+            int id = rand.nextInt(available.size());
+            var gen = available.get(id);
             try {
-                return generators.get(id).generate();
+                return gen.generate();
             } catch (TaskGenerationException ex) {
-                mask.set(id, false);
-                --free;
+                available.remove(id);
             }
         }
         throw new TaskGenerationException();

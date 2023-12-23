@@ -20,59 +20,47 @@ public class EquationTask extends AbstractMathTask {
         private EquationTask GenerateEquation(double x, double y, double z, String op) {
             var rand = new Random();
             if (rand.nextBoolean()) {
-                return new EquationTask(String.format("x%s%f = %f", op, y, z), x);
+                return new EquationTask(String.format("x%s%f = %f (ответ округлите до %d знака после запятой вниз)", op, y, z, precision), x);
             } else {
-                return new EquationTask(String.format("%f%sx = %f", x, op, z), y);
+                return new EquationTask(String.format("%f%sx = %f (ответ округлите до %d знака после запятой вниз)", x, op, z, precision), y);
             }
         }
 
         @Override
-        public EquationTask generate() throws TaskGenerationException {
+        public EquationTask generate() {
             var rand = new Random();
-            for (int i = 0;i < 100;i++) {
+            while (true) { // if generator is already created, then it can always generate a task
                 try {
-                    double x = Round(rand.nextDouble(minNumber, maxNumber));
-                    double y = Round(rand.nextDouble(minNumber, maxNumber));
+                    double x = Round(rand.nextDouble(minNumber, maxNumber), precision);
+                    double y = Round(rand.nextDouble(minNumber, maxNumber), precision);
                     var op = ops.stream().skip(rand.nextInt(ops.size())).findFirst();
                     if (op.isEmpty())
                         continue;
                     switch (op.get()) {
                         case SUM -> {
-                            double t = Round(x + y);
-                            if (minNumber <= t && t <= maxNumber)
-                                return GenerateEquation(x, y, t, " + ");
-                            throw new Exception();
+                            double t = Round(x + y, precision + 1);
+                            return GenerateEquation(x, y, t, " + ");
                         }
                         case DIFF -> {
-                            double t = Round(x - y);
-                            if (minNumber <= t && t <= maxNumber)
-                                return GenerateEquation(x, y, t, " - ");
-                            throw new Exception();
+                            double t = Round(x - y, precision + 1);
+                            return GenerateEquation(x, y, t, " - ");
                         }
                         case MUL -> {
-                            double t = Round(x * y);
+                            double t = Round(x * y, Math.max(1, precision * 2));
                             if (x == 0 || y == 0 || t == 0)
                                 throw new Exception();
-                            if (minNumber <= t && t <= maxNumber)
-                                return GenerateEquation(x, y, t, " * ");
-                            throw new Exception();
+                            return GenerateEquation(x, y, t, " * ");
                         }
                         case DIV -> {
-                            if (x == 0 || y == 0 || x / y == 0)
+                            if (x == 0 || y == 0)
                                 throw new Exception();
-                            double t = Round(x / y);
-                            if (Math.abs(t * y - x) > 1e-9)
-                                throw new Exception();
-                            if (minNumber <= t && t <= maxNumber)
-                                return GenerateEquation(x, y, t, " / ");
-                            throw new Exception();
+                            double t = Round(x / y, Math.max(1, precision * 2));
+                            return GenerateEquation(x, y, t, " / ");
                         }
-                    };
-                } catch (Exception ex) {
-                    continue;
+                    }
+                } catch (Exception ignored) {
                 }
             }
-            throw new TaskGenerationException();
         }
     }
 

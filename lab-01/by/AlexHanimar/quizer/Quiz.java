@@ -71,7 +71,7 @@ public class Quiz {
                 incorrect++;
                 genNew = false;
             }
-        };
+        }
         return res;
     }
 

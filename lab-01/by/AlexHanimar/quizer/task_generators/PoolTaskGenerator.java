@@ -11,6 +11,7 @@ public class PoolTaskGenerator implements TaskGenerator {
     private final ArrayList<Task> tasks;
     private ArrayList<Boolean> mask;
     private int cnt;
+    private final Random rand;
 
     /**
      * Конструктор с переменным числом аргументов
@@ -28,9 +29,10 @@ public class PoolTaskGenerator implements TaskGenerator {
         this.tasks.addAll(Arrays.asList(tasks));
         this.allowDuplicate = allowDuplicate;
         this.mask = new ArrayList<>();
-        for (int i = 0;i < tasks.length;i++)
+        for (int i = 0; i < tasks.length; i++)
             this.mask.add(true);
         cnt = tasks.length;
+        this.rand = new Random();
     }
 
     /**
@@ -49,9 +51,10 @@ public class PoolTaskGenerator implements TaskGenerator {
         this.tasks.addAll(tasks);
         this.allowDuplicate = allowDuplicate;
         this.mask = new ArrayList<>();
-        for (int i = 0;i < tasks.size();i++)
+        for (int i = 0; i < tasks.size(); i++)
             this.mask.add(true);
         cnt = tasks.size();
+        this.rand = new Random();
     }
 
     /**
@@ -60,7 +63,6 @@ public class PoolTaskGenerator implements TaskGenerator {
     public Task generate() throws TaskGenerationException {
         if (cnt <= 0)
             throw new TaskGenerationException();
-        var rand = new Random();
         while (true) {
             int id = rand.nextInt(tasks.size());
             if (!mask.get(id))

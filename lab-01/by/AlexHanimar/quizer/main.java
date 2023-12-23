@@ -73,6 +73,10 @@ public class main {
         res.put("long_group_but_short_gen", new Quiz(new GroupTaskGenerator(
                 new PoolTaskGenerator(false, new TextTask("enter 5", "5"))
         ), 100));
+        res.put("expression_quiz_precision", new Quiz(new ExpressionTask.Generator(0, 10, 2, EnumSet.of(MathTask.Operation.SUM,
+                MathTask.Operation.DIFF, MathTask.Operation.DIV, MathTask.Operation.MUL)), 5));
+        res.put("equation_quiz_precision", new Quiz(new EquationTask.Generator(0, 10, 2, EnumSet.of(MathTask.Operation.SUM,
+                MathTask.Operation.DIFF, MathTask.Operation.DIV, MathTask.Operation.MUL)), 5));
         return res;
     }
 }

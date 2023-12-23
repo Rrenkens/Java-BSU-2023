@@ -15,7 +15,7 @@ public abstract class AbstractMathTask implements MathTask {
         protected EnumSet<Operation> ops;
         protected int precision;
 
-        protected double Round(double val) {
+        protected double Round(double val, int precision) {
             return new BigDecimal(val).setScale(precision, RoundingMode.DOWN).doubleValue();
         }
 
