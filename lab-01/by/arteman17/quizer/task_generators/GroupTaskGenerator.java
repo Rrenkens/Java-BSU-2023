@@ -1,7 +1,7 @@
 package by.arteman17.quizer.task_generators;
 
-import by.arteman17.quizer.TaskGenerator;
 import by.arteman17.quizer.Task;
+import by.arteman17.quizer.TaskGenerator;
 
 import java.util.*;
 import java.util.stream.Collectors;

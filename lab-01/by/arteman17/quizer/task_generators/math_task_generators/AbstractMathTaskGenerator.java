@@ -1,6 +1,5 @@
 package by.arteman17.quizer.task_generators.math_task_generators;
 
-import by.arteman17.quizer.Task;
 import by.arteman17.quizer.tasks.math_tasks.AbstractMathTask;
 
 public class AbstractMathTaskGenerator implements MathTaskGenerator {
