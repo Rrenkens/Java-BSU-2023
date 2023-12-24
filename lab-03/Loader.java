@@ -9,16 +9,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 
 public class Loader {
-
+    DataModel dataModel;
     private Canvas canvas;
 
-    Loader(Canvas canvas) { this.canvas = canvas; }
+    Loader(Canvas canvas, DataModel dataModel) {
+        this.canvas = canvas;
+        this.dataModel = dataModel;
+    }
 
-    public void load() {
+    public File load() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.jpg"));
@@ -31,14 +35,16 @@ public class Loader {
 
         if (file != null) {
             try {
-                loadIntoFile(file);
+                dataModel.toFile = file;
+                loadFromFile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return file;
     }
 
-    private void loadIntoFile(File file) throws IOException {
+    private void loadFromFile(File file) throws IOException {
         Image image = new Image(file.toURI().toString());
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

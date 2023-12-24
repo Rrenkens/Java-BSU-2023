@@ -11,14 +11,21 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 
 public class Saver {
+    private DataModel dataModel;
     private Canvas canvas;
-    Saver(Canvas canvas) { this.canvas = canvas; }
+    Saver(Canvas canvas, DataModel dataModel) {
+        this.canvas = canvas;
+        this.dataModel = dataModel;
+    }
     public File save() {
         FileChooser fileChooser = new FileChooser();
+        String title = dataModel.stage.getTitle();
+        fileChooser.setInitialFileName(title.substring(0, title.lastIndexOf(' ') - 2));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.jpg"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.jpeg"));
