@@ -1,5 +1,6 @@
 package by.busskov.paint
 
+import by.busskov.paint.userActions.*
 import javafx.application.Application
 import javafx.beans.value.ObservableValue
 import javafx.embed.swing.SwingFXUtils
@@ -23,7 +24,9 @@ import javafx.scene.layout.GridPane
 import javafx.scene.shape.StrokeLineCap
 import javafx.stage.FileChooser
 import java.awt.image.RenderedImage
+import java.io.FileOutputStream
 import java.io.IOException
+import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.util.LinkedList
 import javax.imageio.ImageIO
@@ -31,14 +34,15 @@ import kotlin.math.min
 import kotlin.math.abs
 
 class PaintApp : Application(), Serializable {
-    private val canvas1: Canvas = Canvas(800.0, 600.0)
+    @Transient private val canvas1: Canvas = Canvas(800.0, 600.0)
     @Transient private val graphicsContext1: GraphicsContext = canvas1.graphicsContext2D
-    private val canvas2: Canvas = Canvas(800.0, 600.0)
+    @Transient private val canvas2: Canvas = Canvas(800.0, 600.0)
     @Transient private val graphicsContext2: GraphicsContext = canvas2.graphicsContext2D
-    private val toolBar: ToolBar = ToolBar()
-    private val menuBar: MenuBar = MenuBar()
-    private var paintType: PaintType = PaintType.CURVED_LINE
-    private var fillColor: Color = Color.BLACK
+    @Transient private val toolBar: ToolBar = ToolBar()
+    @Transient private val menuBar: MenuBar = MenuBar()
+    @Transient private var paintType: PaintType = PaintType.CURVED_LINE
+    @Transient private var fillColor: Color = Color.BLACK
+    private var userActions: LinkedList<UserAction> = LinkedList()
 
     override fun start(primaryStage: Stage) {
         configureMenuBar()
@@ -71,6 +75,7 @@ class PaintApp : Application(), Serializable {
         canvas2.setOnMouseClicked { event ->
             if (paintType == PaintType.FILLING) {
                 floodFill(event.x.toInt(), event.y.toInt())
+                userActions.add(FloodFill(event.x.toInt(), event.y.toInt()))
             }
         }
 
@@ -78,13 +83,17 @@ class PaintApp : Application(), Serializable {
             when(paintType) {
                 PaintType.CURVED_LINE -> {
                     graphicsContext1.strokeLine(baseX, baseY, round(event.x), round(event.y))
+                    userActions.add(RoundLine(baseX, baseY, round(event.x), round(event.y)))
                     baseX = round(event.x)
                     baseY = round(event.y)
                 }
                 PaintType.ERASE -> {
                     graphicsContext1.stroke = Color.WHITE
+                    userActions.add(ColorChange(Color.WHITE.red, Color.WHITE.green, Color.WHITE.blue))
                     graphicsContext1.strokeLine(baseX, baseY, round(event.x), round(event.y))
+                    userActions.add(RoundLine(baseX, baseY, round(event.x), round(event.y)))
                     graphicsContext1.stroke = fillColor
+                    userActions.add(ColorChange(fillColor.red, fillColor.green, fillColor.blue))
                     baseX = round(event.x)
                     baseY = round(event.y)
                 }
@@ -125,6 +134,12 @@ class PaintApp : Application(), Serializable {
                         round(min(baseY, event.y)),
                         round(abs(event.x - baseX)),
                         round(abs(event.y - baseY)))
+                    userActions.add(Oval(
+                        round(min(baseX, event.x)),
+                        round(min(baseY, event.y)),
+                        round(abs(event.x - baseX)),
+                        round(abs(event.y - baseY))
+                    ))
                 }
                 PaintType.RECTANGLE -> {
                     graphicsContext2.clearRect(0.0, 0.0, canvas2.width, canvas2.height)
@@ -133,6 +148,12 @@ class PaintApp : Application(), Serializable {
                         round(min(baseY, event.y)),
                         round(abs(event.x - baseX)),
                         round(abs(event.y - baseY)))
+                    userActions.add(Rectangle(
+                        round(min(baseX, event.x)),
+                        round(min(baseY, event.y)),
+                        round(abs(event.x - baseX)),
+                        round(abs(event.y - baseY))
+                    ))
                 }
                 PaintType.STRAIGHT_LINE -> {
                     graphicsContext2.clearRect(0.0, 0.0, canvas2.width, canvas2.height)
@@ -142,6 +163,12 @@ class PaintApp : Application(), Serializable {
                         round(baseY),
                         round(event.x),
                         round(event.y))
+                    userActions.add(StraightLine(
+                        round(baseX),
+                        round(baseY),
+                        round(event.x),
+                        round(event.y)
+                    ))
                     graphicsContext1.lineCap = StrokeLineCap.ROUND
                 }
                 else -> {}
@@ -159,10 +186,10 @@ class PaintApp : Application(), Serializable {
             export()
         }
         saveItem.setOnAction {
-
+            save();
         }
         openItem.setOnAction {
-
+            open();
         }
         menuBar.menus.add(fileMenu)
     }
@@ -211,6 +238,7 @@ class PaintApp : Application(), Serializable {
             graphicsContext2.stroke = colorPicker.value
             graphicsContext2.fill = colorPicker.value
             fillColor = colorPicker.value
+            userActions.add(ColorChange(fillColor.red, fillColor.green, fillColor.blue))
         }
 
         val sizeSlider = Slider(1.0, 100.0, 2.0)
@@ -289,6 +317,25 @@ class PaintApp : Application(), Serializable {
                 println("Error in writing to file!")
             }
         }
+    }
+
+    private fun save() {
+        var chooser = FileChooser()
+        chooser.extensionFilters.addAll(
+            FileChooser.ExtensionFilter("Vova Files", "*.vova")
+        )
+        chooser.title = "Save Project"
+
+        val file = chooser.showSaveDialog(Stage())
+        if (file != null) {
+            ObjectOutputStream(FileOutputStream(file)).use {stream ->
+                stream.writeObject(this)
+            }
+        }
+    }
+
+    private fun open() {
+
     }
 }
 
