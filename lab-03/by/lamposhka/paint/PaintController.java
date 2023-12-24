@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
+import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -47,6 +48,8 @@ public class PaintController {
     private double prevX, prevY;
     WritableImage snapshot;
 
+    private final int pixelScaleFactor = 2;
+
     public void initialize() {
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.WHITE);
@@ -64,9 +67,7 @@ public class PaintController {
 
     public void onOpen(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
         Stage stage = new Stage();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
@@ -86,9 +87,11 @@ public class PaintController {
         prevX = e.getX();
         prevY = e.getY();
         graphicsContext.beginPath();
+        WritableImage writableImage = new WritableImage((int) Math.rint(pixelScaleFactor * canvas.getWidth()), (int) Math.rint(pixelScaleFactor * canvas.getHeight()));
         SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setTransform(Transform.scale(pixelScaleFactor, pixelScaleFactor));
         parameters.setFill(Color.WHITE);
-        snapshot = canvas.snapshot(parameters, null);
+        snapshot = canvas.snapshot(parameters, writableImage);
     }
 
     public void canvasMouseDragged(MouseEvent mouseEvent) {
@@ -120,16 +123,18 @@ public class PaintController {
                 graphicsContext.drawImage(snapshot, 0, 0, canvas.getHeight(), canvas.getWidth());
                 graphicsContext.setStroke(colorPicker.getValue());
                 double radius = Math.sqrt((x - prevX) * (x - prevX) + (y - prevY) * (y - prevY));
-                graphicsContext.strokeOval(prevX - radius, prevY - radius, 2*radius, 2*radius);
+                graphicsContext.strokeOval(prevX - radius, prevY - radius, 2 * radius, 2 * radius);
                 break;
         }
 
     }
 
     public void canvasMouseReleased(MouseDragEvent mouseEvent) {
+        WritableImage writableImage = new WritableImage((int) Math.rint(pixelScaleFactor * canvas.getWidth()), (int) Math.rint(pixelScaleFactor * canvas.getHeight()));
         SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setTransform(Transform.scale(pixelScaleFactor, pixelScaleFactor));
         parameters.setFill(Color.WHITE);
-        snapshot = canvas.snapshot(parameters, null);
+        snapshot = canvas.snapshot(parameters, writableImage);
     }
 
     public void onExit() {
