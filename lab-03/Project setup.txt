@@ -1,0 +1,2 @@
+https://gluonhq.com/products/javafx/ Скачал здесь архив и распаковал
+в IDEA File->Project Structure->Libraries добавить папку lib из скачанного архива
