@@ -2,7 +2,6 @@ package by.busskov.paint
 
 import by.busskov.paint.userActions.*
 import javafx.application.Application
-import javafx.beans.value.ObservableValue
 import javafx.embed.swing.SwingFXUtils
 import javafx.scene.Scene
 import javafx.scene.canvas.Canvas
@@ -29,7 +28,6 @@ import java.util.LinkedList
 import javax.imageio.ImageIO
 import kotlin.math.min
 import kotlin.math.abs
-import kotlin.math.max
 
 class PaintApp : Application(), Serializable {
     @Transient private val canvas1: Canvas = Canvas(800.0, 600.0)
@@ -247,6 +245,12 @@ class PaintApp : Application(), Serializable {
             userActions.add(LineWidthChange(graphicsContext1.lineWidth))
             sizeLabel.text = graphicsContext1.lineWidth.toInt().toString();
         }
+        sizeSlider.setOnMouseClicked {
+            graphicsContext1.lineWidth = round(sizeSlider.value)
+            graphicsContext2.lineWidth = graphicsContext1.lineWidth
+            userActions.add(LineWidthChange(graphicsContext1.lineWidth))
+            sizeLabel.text = graphicsContext1.lineWidth.toInt().toString();
+        }
 
         toolBar.items.addAll(
             curvedLine,
@@ -357,7 +361,7 @@ class PaintApp : Application(), Serializable {
                     graphicsContext2.lineWidth = 2.0
                     graphicsContext1.lineWidth = 2.0
 
-                    this.userActions = deserialized.userActions
+                    this.userActions = LinkedList(deserialized.userActions)
                     projectOpen()
                 }
             }
@@ -365,8 +369,8 @@ class PaintApp : Application(), Serializable {
     }
 
     private fun projectOpen() {
-        while(!userActions.isEmpty()) {
-            when(val action = userActions.pollFirst()) {
+        for (action in userActions) {
+            when(action) {
                 is ColorChange -> {
                     fillColor = Color(action.r, action.g, action.b, 1.0)
                     colorPicker.value = fillColor
