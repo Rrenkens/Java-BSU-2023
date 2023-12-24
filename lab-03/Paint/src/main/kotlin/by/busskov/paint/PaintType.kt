@@ -5,5 +5,6 @@ enum class PaintType {
     OVAL,
     RECTANGLE,
     FILLING,
-    STRAIGHT_LINE
+    STRAIGHT_LINE,
+    ERASE
 }

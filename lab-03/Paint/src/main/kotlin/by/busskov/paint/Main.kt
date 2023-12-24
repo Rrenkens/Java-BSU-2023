@@ -1,6 +1,8 @@
-import by.busskov.paint.PaintType
+package by.busskov.paint
+
 import javafx.application.Application
 import javafx.beans.value.ObservableValue
+import javafx.embed.swing.SwingFXUtils
 import javafx.scene.Scene
 import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
@@ -16,19 +18,23 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.image.WritableImage
 import javafx.scene.layout.GridPane
 import javafx.scene.shape.StrokeLineCap
-import java.awt.Stroke
+import javafx.stage.FileChooser
+import java.awt.image.RenderedImage
+import java.io.IOException
+import java.io.Serializable
 import java.util.LinkedList
+import javax.imageio.ImageIO
 import kotlin.math.min
-import kotlin.math.max
 import kotlin.math.abs
 
-class PaintApp : Application() {
+class PaintApp : Application(), Serializable {
     private val canvas1: Canvas = Canvas(800.0, 600.0)
-    private val graphicsContext1: GraphicsContext = canvas1.graphicsContext2D
+    @Transient private val graphicsContext1: GraphicsContext = canvas1.graphicsContext2D
     private val canvas2: Canvas = Canvas(800.0, 600.0)
-    private val graphicsContext2: GraphicsContext = canvas2.graphicsContext2D
+    @Transient private val graphicsContext2: GraphicsContext = canvas2.graphicsContext2D
     private val toolBar: ToolBar = ToolBar()
     private val menuBar: MenuBar = MenuBar()
     private var paintType: PaintType = PaintType.CURVED_LINE
@@ -72,6 +78,13 @@ class PaintApp : Application() {
             when(paintType) {
                 PaintType.CURVED_LINE -> {
                     graphicsContext1.strokeLine(baseX, baseY, round(event.x), round(event.y))
+                    baseX = round(event.x)
+                    baseY = round(event.y)
+                }
+                PaintType.ERASE -> {
+                    graphicsContext1.stroke = Color.WHITE
+                    graphicsContext1.strokeLine(baseX, baseY, round(event.x), round(event.y))
+                    graphicsContext1.stroke = fillColor
                     baseX = round(event.x)
                     baseY = round(event.y)
                 }
@@ -138,9 +151,19 @@ class PaintApp : Application() {
 
     private fun configureMenuBar() {
         val fileMenu = Menu("File")
+        val exportItem = MenuItem("Export PNG")
         val saveItem = MenuItem("Save")
         val openItem = MenuItem("Open")
-        fileMenu.items.addAll(saveItem, openItem)
+        fileMenu.items.addAll(exportItem, saveItem, openItem)
+        exportItem.setOnAction {
+            export()
+        }
+        saveItem.setOnAction {
+
+        }
+        openItem.setOnAction {
+
+        }
         menuBar.menus.add(fileMenu)
     }
 
@@ -175,6 +198,12 @@ class PaintApp : Application() {
             paintType = PaintType.FILLING
         }
 
+        val eraser = Button()
+        eraser.graphic = ImageView(Image("file:src/main/resources/eraser.png"))
+        eraser.setOnAction {
+            paintType = PaintType.ERASE
+        }
+
         val colorPicker = ColorPicker(Color.BLACK)
         colorPicker.setOnAction {
             graphicsContext1.stroke = colorPicker.value
@@ -198,9 +227,10 @@ class PaintApp : Application() {
             oval,
             rectangle,
             filling,
+            eraser,
             colorPicker,
             sizeSlider,
-            sizeLabel)
+            sizeLabel,)
     }
 
     private fun floodFill(x: Int, y: Int) {
@@ -238,6 +268,27 @@ class PaintApp : Application() {
 
     private fun round(x: Double) : Double {
         return x.toInt().toDouble()
+    }
+
+    private fun export() {
+        var chooser = FileChooser()
+        chooser.extensionFilters.addAll(
+            FileChooser.ExtensionFilter("PNG Files", "*.png")
+        )
+        chooser.title = "Save File"
+
+        val file = chooser.showSaveDialog(Stage())
+        if (file != null) {
+            try {
+                val writableImage = WritableImage(canvas1.width.toInt(), canvas1.height.toInt())
+                canvas1.snapshot(null, writableImage)
+                val renderedImage: RenderedImage = SwingFXUtils.fromFXImage(writableImage, null)
+                ImageIO.write(renderedImage, file.extension, file)
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+                println("Error in writing to file!")
+            }
+        }
     }
 }
 
