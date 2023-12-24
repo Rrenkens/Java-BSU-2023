@@ -30,7 +30,7 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
         boolean flag = false;
         do {
             second = gener.nextInt(getDiffNumber() + 1) + minNumber;
-            action = operations.get(gener.nextInt(4));
+            action = operations.get(gener.nextInt(operations.size()));
             switch (action) {
                 case SUM:
                     builder.append('+');
