@@ -24,6 +24,7 @@ public class PaintApplication extends Application {
     private ColorPicker colorPicker;
     private Slider brushSize;
     private ToggleGroup shapeGroup;
+    private FileChooser fileChooser;
 
     @Override
     public void start(Stage primaryStage) {
@@ -48,11 +49,17 @@ public class PaintApplication extends Application {
 
         buttons[0].setSelected(true);
 
+        fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg")
+        );
+
         Button saveButton = new Button("Save");
-        saveButton.setOnAction(e -> saveToFile(canvas));
+        saveButton.setOnAction(e -> saveToFile(canvas, fileChooser.showSaveDialog(primaryStage)));
 
         Button openButton = new Button("Open");
-        openButton.setOnAction(e -> openFromFile());
+        openButton.setOnAction(e -> openFromFile(fileChooser.showOpenDialog(primaryStage)));
 
         VBox leftLayout = new VBox();
         leftLayout.getChildren().addAll(colorPicker, brushSize);
@@ -116,10 +123,7 @@ public class PaintApplication extends Application {
     }
 
 
-    private void saveToFile(Canvas canvas) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Image");
-        File file = fileChooser.showSaveDialog(null);
+    private void saveToFile(Canvas canvas, File file) {
         if (file != null) {
             try {
                 WritableImage writableImage = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
@@ -132,10 +136,7 @@ public class PaintApplication extends Application {
         }
     }
 
-    private void openFromFile() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Image");
-        File file = fileChooser.showOpenDialog(null);
+    private void openFromFile(File file) {
         if (file != null) {
             try {
                 BufferedImage bufferedImage = ImageIO.read(file);
