@@ -16,15 +16,13 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
-import javafx.scene.image.PixelReader
-import javafx.scene.image.PixelWriter
 import javafx.scene.layout.GridPane
-import javafx.scene.shape.Line
 import javafx.scene.shape.StrokeLineCap
-import java.util.*
+import java.awt.Stroke
+import java.util.LinkedList
 import kotlin.math.min
+import kotlin.math.max
 import kotlin.math.abs
-import kotlin.math.roundToInt
 
 class PaintApp : Application() {
     private val canvas1: Canvas = Canvas(800.0, 600.0)
@@ -93,6 +91,14 @@ class PaintApp : Application() {
                         round(abs(event.x - baseX)),
                         round(abs(event.y - baseY)))
                 }
+                PaintType.STRAIGHT_LINE -> {
+                    graphicsContext2.clearRect(0.0, 0.0, canvas2.width, canvas2.height)
+                    graphicsContext2.strokeLine(
+                        round(baseX),
+                        round(baseY),
+                        round(event.x),
+                        round(event.y))
+                }
                 else -> {}
             }
         }
@@ -115,6 +121,16 @@ class PaintApp : Application() {
                         round(abs(event.x - baseX)),
                         round(abs(event.y - baseY)))
                 }
+                PaintType.STRAIGHT_LINE -> {
+                    graphicsContext2.clearRect(0.0, 0.0, canvas2.width, canvas2.height)
+                    graphicsContext1.lineCap = StrokeLineCap.SQUARE
+                    graphicsContext1.strokeLine(
+                        round(baseX),
+                        round(baseY),
+                        round(event.x),
+                        round(event.y))
+                    graphicsContext1.lineCap = StrokeLineCap.ROUND
+                }
                 else -> {}
             }
         }
@@ -135,7 +151,11 @@ class PaintApp : Application() {
             paintType = PaintType.CURVED_LINE
         }
 
-        val straightLine = Button("Straight line")
+        val straightLine = Button()
+        straightLine.graphic = ImageView(Image("file:src/main/resources/straight_line.png"))
+        straightLine.setOnAction {
+            paintType = PaintType.STRAIGHT_LINE
+        }
 
         val oval = Button()
         oval.graphic = ImageView(Image("file:src/main/resources/circle.png"))
