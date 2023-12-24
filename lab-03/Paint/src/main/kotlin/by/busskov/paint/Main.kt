@@ -24,14 +24,12 @@ import javafx.scene.layout.GridPane
 import javafx.scene.shape.StrokeLineCap
 import javafx.stage.FileChooser
 import java.awt.image.RenderedImage
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.ObjectOutputStream
-import java.io.Serializable
+import java.io.*
 import java.util.LinkedList
 import javax.imageio.ImageIO
 import kotlin.math.min
 import kotlin.math.abs
+import kotlin.math.max
 
 class PaintApp : Application(), Serializable {
     @Transient private val canvas1: Canvas = Canvas(800.0, 600.0)
@@ -42,6 +40,9 @@ class PaintApp : Application(), Serializable {
     @Transient private val menuBar: MenuBar = MenuBar()
     @Transient private var paintType: PaintType = PaintType.CURVED_LINE
     @Transient private var fillColor: Color = Color.BLACK
+    @Transient val colorPicker = ColorPicker(Color.BLACK)
+    @Transient val sizeSlider = Slider(1.0, 100.0, 2.0)
+    @Transient val sizeLabel = Label("2")
     private var userActions: LinkedList<UserAction> = LinkedList()
 
     override fun start(primaryStage: Stage) {
@@ -231,7 +232,6 @@ class PaintApp : Application(), Serializable {
             paintType = PaintType.ERASE
         }
 
-        val colorPicker = ColorPicker(Color.BLACK)
         colorPicker.setOnAction {
             graphicsContext1.stroke = colorPicker.value
             graphicsContext1.fill = colorPicker.value
@@ -241,11 +241,10 @@ class PaintApp : Application(), Serializable {
             userActions.add(ColorChange(fillColor.red, fillColor.green, fillColor.blue))
         }
 
-        val sizeSlider = Slider(1.0, 100.0, 2.0)
-        val sizeLabel = Label("2")
-        sizeSlider.valueProperty().addListener { _: ObservableValue<out Number>, _: Number, _: Number ->
+        sizeSlider.setOnMouseDragged {
             graphicsContext1.lineWidth = round(sizeSlider.value)
-            graphicsContext2.lineWidth = round(graphicsContext1.lineWidth)
+            graphicsContext2.lineWidth = graphicsContext1.lineWidth
+            userActions.add(LineWidthChange(graphicsContext1.lineWidth))
             sizeLabel.text = graphicsContext1.lineWidth.toInt().toString();
         }
 
@@ -320,7 +319,7 @@ class PaintApp : Application(), Serializable {
     }
 
     private fun save() {
-        var chooser = FileChooser()
+        val chooser = FileChooser()
         chooser.extensionFilters.addAll(
             FileChooser.ExtensionFilter("Vova Files", "*.vova")
         )
@@ -335,7 +334,93 @@ class PaintApp : Application(), Serializable {
     }
 
     private fun open() {
+        val chooser = FileChooser()
+        chooser.extensionFilters.addAll(
+            FileChooser.ExtensionFilter("Vova Files", "*.vova")
+        )
+        chooser.title = "Open Project"
 
+        val file = chooser.showOpenDialog(Stage())
+        if (file != null) {
+            ObjectInputStream(FileInputStream(file)).use { stream ->
+                val deserialized = stream.readObject() as? PaintApp
+                deserialized?.let {
+                    graphicsContext1.fill = Color.WHITE
+                    graphicsContext1.fillRect(0.0, 0.0, canvas1.width, canvas1.height)
+                    graphicsContext1.fill = Color.BLACK
+
+                    fillColor = Color.BLACK
+                    graphicsContext1.stroke = fillColor
+                    graphicsContext2.stroke = fillColor
+                    graphicsContext2.fill = fillColor
+
+                    graphicsContext2.lineWidth = 2.0
+                    graphicsContext1.lineWidth = 2.0
+
+                    this.userActions = deserialized.userActions
+                    projectOpen()
+                }
+            }
+        }
+    }
+
+    private fun projectOpen() {
+        while(!userActions.isEmpty()) {
+            when(val action = userActions.pollFirst()) {
+                is ColorChange -> {
+                    fillColor = Color(action.r, action.g, action.b, 1.0)
+                    colorPicker.value = fillColor
+                    graphicsContext1.stroke = fillColor
+                    graphicsContext1.fill = fillColor
+                    graphicsContext2.stroke = fillColor
+                    graphicsContext2.fill = fillColor
+                }
+                is FloodFill -> {
+                    floodFill(action.x, action.y)
+                }
+                is Oval -> {
+                    graphicsContext1.strokeOval(
+                        action.x,
+                        action.y,
+                        action.width,
+                        action.height
+                    )
+                }
+                is Rectangle -> {
+                    graphicsContext1.strokeRect(
+                        action.x,
+                        action.y,
+                        action.width,
+                        action.height
+                    )
+                }
+                is RoundLine -> {
+                    graphicsContext1.lineCap = StrokeLineCap.ROUND
+                    graphicsContext1.strokeLine(
+                        action.startX,
+                        action.startY,
+                        action.endX,
+                        action.endY
+                    )
+                }
+                is StraightLine -> {
+                    graphicsContext1.lineCap = StrokeLineCap.SQUARE
+                    graphicsContext1.strokeLine(
+                        action.startX,
+                        action.startY,
+                        action.endX,
+                        action.endY
+                    )
+                }
+                is LineWidthChange -> {
+                    sizeSlider.value = action.width
+                    sizeLabel.text = action.width.toInt().toString()
+                    graphicsContext1.lineWidth = action.width
+                    graphicsContext2.lineWidth = action.width
+                }
+            }
+            graphicsContext1.lineCap = StrokeLineCap.ROUND
+        }
     }
 }
 
