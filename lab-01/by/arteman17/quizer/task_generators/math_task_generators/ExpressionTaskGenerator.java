@@ -1,22 +1,20 @@
 package by.arteman17.quizer.task_generators.math_task_generators;
 
 import by.arteman17.quizer.tasks.math_tasks.ExpressionTask;
+import by.arteman17.quizer.tasks.math_tasks.MathTask;
 
+import java.util.EnumSet;
 import java.util.Random;
 
 
 public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
     /**
-     * @param minNumber              минимальное число
-     * @param maxNumber              максимальное число
-     * @param generateSum            разрешить генерацию с оператором +
-     * @param generateDifference     разрешить генерацию с оператором -
-     * @param generateMultiplication разрешить генерацию с оператором *
-     * @param generateDivision       разрешить генерацию с оператором /
+     * @param minNumber минимальное число
+     * @param maxNumber максимальное число
      */
 
-    public ExpressionTaskGenerator(int minNumber, int maxNumber, boolean generateSum, boolean generateDifference, boolean generateMultiplication, boolean generateDivision) {
-        super(minNumber, maxNumber, generateSum, generateDifference, generateMultiplication, generateDivision);
+    public ExpressionTaskGenerator(int minNumber, int maxNumber, EnumSet<MathTask.Operation> op) {
+        super(minNumber, maxNumber, op);
     }
 
     /**
@@ -25,50 +23,37 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
     public ExpressionTask generate() {
         StringBuilder builder = new StringBuilder();
         Random gener = new Random();
-        int first = gener.nextInt(maxNumber_ - minNumber_ + 1) + minNumber_;
+        int first = gener.nextInt(getDiffNumber() + 1) + minNumber;
         builder.append(first);
         int second;
-        int action;
+        MathTask.Operation action;
         boolean flag = false;
-        while (true) {
-            second = gener.nextInt(maxNumber_ - minNumber_ + 1) + minNumber_;
-            action = gener.nextInt(4);
+        do {
+            second = gener.nextInt(getDiffNumber() + 1) + minNumber;
+            action = operations.get(gener.nextInt(4));
             switch (action) {
-                case 0:
-                    if (generateSum_) {
-                        builder.append('+');
-                        flag = true;
-                    }
+                case SUM:
+                    builder.append('+');
+                    flag = true;
                     break;
-                case 1:
-                    if (generateDifference_) {
-                        builder.append('-');
-                        flag = true;
-                    }
+                case DIFF:
+                    builder.append('-');
+                    flag = true;
                     break;
-                case 2:
-                    if (generateMultiplication_) {
-                        builder.append('*');
-                        flag = true;
-                    }
+                case MUL:
+                    builder.append('*');
+                    flag = true;
                     break;
-                case 3:
-                    if (generateDivision_) {
-                        builder.append('/');
-                        flag = true;
-                    }
+                case DIV:
+                    builder.append('/');
+                    flag = true;
                     break;
                 default:
                     break;
             }
-            if (flag) {
-                break;
-            }
-        }
-        if (action == 3 && second == 0) {
-            while (second == 0) {
-                second = gener.nextInt(maxNumber_ - minNumber_ + 1) + minNumber_;
-            }
+        } while (!flag);
+        while (action == MathTask.Operation.DIV && second == 0) {
+            second = gener.nextInt(getDiffNumber() + 1) + minNumber;
         }
 
         builder.append(second);
@@ -76,16 +61,16 @@ public class ExpressionTaskGenerator extends AbstractMathTaskGenerator {
 
         double ans = 0;
         switch (action) {
-            case 0:
+            case SUM:
                 ans = first + second;
                 break;
-            case 1:
+            case DIFF:
                 ans = first - second;
                 break;
-            case 2:
+            case MUL:
                 ans = first * second;
                 break;
-            case 3:
+            case DIV:
                 ans = (double) first / second;
                 break;
             default:

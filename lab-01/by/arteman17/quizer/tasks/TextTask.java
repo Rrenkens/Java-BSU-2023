@@ -14,6 +14,7 @@ import java.util.Objects;
 public class TextTask implements Task {
     private final String text_;
     private final String correctAns_;
+
     /**
      * @param text   текст задания
      * @param answer ответ на задание
@@ -47,5 +48,6 @@ public class TextTask implements Task {
             return Result.OK;
         } else {
             return Result.WRONG;
-        }    }
+        }
+    }
 }

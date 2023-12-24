@@ -16,18 +16,18 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param tasks          задания, которые в конструктор передаются через запятую
      */
 
-    private final boolean allowDup_;
-    private int[] used_;
-    private final List<Task> tasks_;
+    private final boolean allowDup;
+    private final ArrayList<Integer> used;
+    private final List<Task> tasks;
     int count = 0;
 
     public PoolTaskGenerator(
             boolean allowDuplicate,
             Task... tasks
     ) {
-        allowDup_ = allowDuplicate;
-        tasks_ = Arrays.stream(tasks).collect(Collectors.toList());
-        used_ = new int[tasks_.size()];
+        allowDup = allowDuplicate;
+        this.tasks = Arrays.stream(tasks).collect(Collectors.toList());
+        used = new ArrayList<>(this.tasks.size());
     }
 
     /**
@@ -50,9 +50,9 @@ public class PoolTaskGenerator implements TaskGenerator {
             throw new IllegalArgumentException("One of task is null");
         }
 
-        allowDup_ = allowDuplicate;
-        tasks_ = new ArrayList<>(tasks);
-        used_ = new int[tasks_.size()];
+        allowDup = allowDuplicate;
+        this.tasks = new ArrayList<>(tasks);
+        used = new ArrayList<>(this.tasks.size());
     }
 
     /**
@@ -60,24 +60,26 @@ public class PoolTaskGenerator implements TaskGenerator {
      */
     public Task generate() {
         Random random = new Random();
-        int pos = random.nextInt(tasks_.size());
-        if (allowDup_) {
-            return tasks_.get(pos);
+        int pos = random.nextInt(tasks.size());
+        if (allowDup) {
+            return tasks.get(pos);
         } else {
-            if (used_[pos] == 0) {
-                used_[pos] = 1;
+            if (used.get(pos) == 0) {
+                used.set(pos, 1);
                 ++count;
-                return tasks_.get(pos);
+                return tasks.get(pos);
             } else {
-                if (count == tasks_.size()) {
+                if (count == tasks.size()) {
                     throw new CantGenerateTask("No more task in quiz");
                 }
-                while (used_[pos] != 0) {
-                    pos = random.nextInt(tasks_.size());
+                var tmp = tasks.stream().filter(task -> used.get(tasks.indexOf(task)) == 0).findAny();
+                if (tmp.isPresent()) {
+                    ++count;
+                    used.set(tasks.indexOf(tmp.get()), 1);
+                    return tmp.get();
+                } else {
+                    throw new CantGenerateTask("No more task in quiz");
                 }
-                ++count;
-                used_[pos] = 1;
-                return tasks_.get(pos);
             }
         }
     }

@@ -3,8 +3,8 @@ package by.arteman17.quizer.tasks.math_tasks;
 import by.arteman17.quizer.Result;
 
 public class AbstractMathTask implements MathTask {
-    private final String text_;
-    private final double correctAns_;
+    private final String text;
+    private final double correctAns;
 
     public AbstractMathTask(String text, double ans) {
         if (text == null) {
@@ -15,12 +15,12 @@ public class AbstractMathTask implements MathTask {
             throw new IllegalArgumentException("Argument is empty");
         }
 
-        text_ = text;
-        correctAns_ = ans;
+        this.text = text;
+        correctAns = ans;
     }
     @Override
     public String getText() {
-        return text_;
+        return text;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class AbstractMathTask implements MathTask {
         } catch (Exception ex) {
             return Result.INCORRECT_INPUT;
         }
-        if (Math.abs(correctAns_ - Double.parseDouble(answer)) < 0.000001) {
+        if (Math.abs(correctAns - Double.parseDouble(answer)) < 0.000001) {
             return Result.OK;
         } else {
             return Result.WRONG;

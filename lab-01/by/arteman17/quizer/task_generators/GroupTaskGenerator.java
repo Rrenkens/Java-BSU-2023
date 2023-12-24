@@ -12,10 +12,21 @@ public class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    private final List<TaskGenerator> generators_;
+    private final List<TaskGenerator> generators;
 
     public GroupTaskGenerator(TaskGenerator... generators) {
-        generators_ = Arrays.stream(generators).collect(Collectors.toList());
+        if (generators == null) {
+            throw new IllegalArgumentException("Generators is null");
+        }
+        if (Arrays.stream(generators).findAny().isEmpty()) {
+            throw new IllegalArgumentException("Generators is empty");
+        }
+        for (var gener : generators) {
+            if (gener == null) {
+                throw new IllegalArgumentException("Generators consist null");
+            }
+        }
+        this.generators = Arrays.stream(generators).collect(Collectors.toList());
     }
 
     /**
@@ -34,7 +45,7 @@ public class GroupTaskGenerator implements TaskGenerator {
             throw new IllegalArgumentException("One of generator is null");
         }
 
-        generators_ = new ArrayList<>(generators);
+        this.generators = new ArrayList<>(generators);
     }
 
     /**
@@ -43,11 +54,12 @@ public class GroupTaskGenerator implements TaskGenerator {
      * Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
     public Task generate() {
-        Collections.shuffle(generators_);
-        for (var generator : generators_){
+        Collections.reverse(generators);
+        for (var generator : generators){
             try {
                 return generator.generate();
             } catch (Exception ignored) {
+                generators.remove(generator);
             }
         }
         throw new IllegalArgumentException("Every generator generate exception");

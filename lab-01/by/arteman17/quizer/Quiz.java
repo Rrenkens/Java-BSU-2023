@@ -6,12 +6,12 @@ import by.arteman17.quizer.exceptions.QuizNotFinished;
  * Class, который описывает один тест
  */
 public class Quiz {
-    private final TaskGenerator generator_;
-    final int taskCount_;
-    private Task curr_;
-    private int total_ = 0;
-    private int correct_ = 0;
-    private int incorrect_ = 0;
+    private final TaskGenerator generator;
+    final int taskCount;
+    private Task curr;
+    private int total = 0;
+    private int correct = 0;
+    private int incorrect = 0;
     boolean isTaskNeeded = true;
     /**
      * @param generator генератор заданий
@@ -21,11 +21,11 @@ public class Quiz {
         if (generator == null) {
             throw new IllegalArgumentException("Generator is null");
         }
-        generator_ = generator;
         if (taskCount <= 0) {
             throw new IllegalArgumentException("TaskCount must be positive");
         }
-        taskCount_ = taskCount;
+        this.generator = generator;
+        this.taskCount = taskCount;
     }
 
     /**
@@ -37,9 +37,9 @@ public class Quiz {
             throw new QuizFinished("Quiz is finished!");
         }
         if (isTaskNeeded) {
-            curr_ = generator_.generate();
+            curr = generator.generate();
         }
-        return curr_;
+        return curr;
     }
 
     /**
@@ -47,21 +47,21 @@ public class Quiz {
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.
      */
     Result provideAnswer(String answer) {
-        if (curr_ == null) {
+        if (curr == null) {
             throw new RuntimeException("No task was generated");
         }
         if (isFinished()) {
             throw new QuizFinished("Quiz is finished!");
         }
-        Result ans = curr_.validate(answer);
+        Result ans = curr.validate(answer);
         if (ans != Result.INCORRECT_INPUT) {
             if (ans == Result.OK) {
-                ++correct_;
+                ++correct;
             }
-            ++total_;
+            ++total;
             isTaskNeeded = true;
         } else {
-            ++incorrect_;
+            ++incorrect;
             isTaskNeeded = false;
         }
         return ans;
@@ -71,28 +71,28 @@ public class Quiz {
      * @return завершен ли тест
      */
     boolean isFinished() {
-        return taskCount_ == total_;
+        return taskCount == total;
     }
 
     /**
      * @return количество правильных ответов
      */
     int getCorrectAnswerNumber() {
-        return correct_;
+        return correct;
     }
 
     /**
      * @return количество неправильных ответов
      */
     int getWrongAnswerNumber() {
-        return total_ - correct_;
+        return total - correct;
     }
 
     /**
      * @return количество раз, когда был предоставлен неправильный ввод
      */
     int getIncorrectInputNumber() {
-        return incorrect_;
+        return incorrect;
     }
 
     /**
@@ -103,6 +103,6 @@ public class Quiz {
         if (!isFinished()) {
             throw new QuizNotFinished("Quiz is not finished!");
         }
-        return ((double) correct_ / total_) * 10;
+        return ((double) correct / total) * 10;
     }
 }

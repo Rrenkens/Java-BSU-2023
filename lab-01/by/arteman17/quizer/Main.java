@@ -5,7 +5,9 @@ import by.arteman17.quizer.task_generators.math_task_generators.ExpressionTaskGe
 import by.arteman17.quizer.task_generators.GroupTaskGenerator;
 import by.arteman17.quizer.task_generators.PoolTaskGenerator;
 import by.arteman17.quizer.tasks.TextTask;
+import by.arteman17.quizer.tasks.math_tasks.MathTask;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -17,8 +19,11 @@ public class Main {
      * значение - сам тест       {@link Quiz}
      */
     static Map<String, Quiz> getQuizMap() {
-        ExpressionTaskGenerator generator1 = new ExpressionTaskGenerator(5, 20, true, true, true, true);
-        EquationTaskGenerator generator2 = new EquationTaskGenerator(2, 6, true, true, true, true);
+
+        ExpressionTaskGenerator generator1 = new ExpressionTaskGenerator(5, 20,
+                EnumSet.of(MathTask.Operation.SUM, MathTask.Operation.DIFF, MathTask.Operation.MUL, MathTask.Operation.DIV));
+        EquationTaskGenerator generator2 = new EquationTaskGenerator(2, 6,
+                EnumSet.of(MathTask.Operation.SUM, MathTask.Operation.DIFF, MathTask.Operation.MUL, MathTask.Operation.DIV));
         GroupTaskGenerator generator3 = new GroupTaskGenerator(generator1, generator2);
         PoolTaskGenerator generator4 = new PoolTaskGenerator(true, generator1.generate(), generator1.generate(), generator2.generate(), generator2.generate());
         PoolTaskGenerator generator5 = new PoolTaskGenerator(false, generator1.generate(), generator1.generate(), generator2.generate(), generator2.generate());
@@ -47,27 +52,22 @@ public class Main {
 
     public static void main(String[] args) {
         Map<String, Quiz> map = getQuizMap();
-        System.out.println("Введите название теста: ");
         Scanner in = new Scanner(System.in);
-        StringBuilder name = new StringBuilder(in.nextLine());
-        while (!map.containsKey(name.toString())) {
+        String name = "";
+        while (!map.containsKey(name)) {
             System.out.println("Введите название теста: ");
-            name.delete(0, name.length());
-            name.append(in.nextLine());
+            name = in.nextLine();
         }
 
-        if (!name.toString().equals("Text")) {
+        if (!name.equals("Text")) {
             System.out.println("Дробные числа вводите с 6 знаками после запятой");
         }
-        Quiz quiz = map.get(name.toString());
+        Quiz quiz = map.get(name);
 
-        for (int i = 0; i < quiz.taskCount_; ++i) {
+        while (!quiz.isFinished()) {
             System.out.println(quiz.nextTask().getText());
             Result answer = quiz.provideAnswer(in.nextLine());
             System.out.println(answer.toString());
-            if (answer == Result.INCORRECT_INPUT) {
-                --i;
-            }
         }
 
         System.out.println(quiz.getMark());

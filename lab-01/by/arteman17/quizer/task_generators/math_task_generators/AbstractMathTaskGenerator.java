@@ -1,45 +1,48 @@
 package by.arteman17.quizer.task_generators.math_task_generators;
 
+import by.arteman17.quizer.exceptions.CantGenerateTask;
 import by.arteman17.quizer.tasks.math_tasks.AbstractMathTask;
+import by.arteman17.quizer.tasks.math_tasks.MathTask;
 
-public class AbstractMathTaskGenerator implements MathTaskGenerator {
-    protected final int minNumber_;
-    protected final int maxNumber_;
-    protected final boolean generateSum_;
-    protected final boolean generateDifference_;
-    protected final boolean generateMultiplication_;
-    protected final boolean generateDivision_;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+
+public abstract class AbstractMathTaskGenerator implements MathTaskGenerator {
+    protected final int minNumber;
+    protected final int maxNumber;
+    protected List<MathTask.Operation> operations = new LinkedList<>();
+
     public AbstractMathTaskGenerator(
             int minNumber,
             int maxNumber,
-            boolean generateSum,
-            boolean generateDifference,
-            boolean generateMultiplication,
-            boolean generateDivision
+            EnumSet<MathTask.Operation> op
     ) {
         if (maxNumber < minNumber) {
             throw new IllegalArgumentException("Min is greater than max");
         }
-        minNumber_ = minNumber;
-        maxNumber_ = maxNumber;
-        generateSum_ = generateSum;
-        generateDifference_ = generateDifference;
-        generateMultiplication_ = generateMultiplication;
-        generateDivision_ = generateDivision;
+        if (op == null) {
+            throw new IllegalArgumentException("Operations set is null");
+        }
+        if (op.isEmpty()) {
+            throw new CantGenerateTask("Operations set is empty");
+        }
+        this.minNumber = minNumber;
+        this.maxNumber = maxNumber;
+        operations.addAll(op);
     }
 
     @Override
-    public AbstractMathTask generate() {
-        return null;
-    }
+    public abstract AbstractMathTask generate();
 
     @Override
     public int getMinNumber() {
-        return minNumber_;
+        return minNumber;
     }
 
     @Override
     public int getMaxNumber() {
-        return maxNumber_;
+        return maxNumber;
     }
 }
