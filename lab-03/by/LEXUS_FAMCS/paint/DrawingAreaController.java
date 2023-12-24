@@ -1,4 +1,5 @@
-import javafx.scene.canvas.GraphicsContext;
+package by.LEXUS_FAMCS.paint;
+
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
@@ -21,26 +22,29 @@ public class DrawingAreaController {
 
     private void createSizeEvents() {
         dataModel.stage.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            dataModel.gcDraw.clearRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
+            dataModel.gcBorder.clearRect(0, 0, dataModel.borderCanvas.getWidth(), dataModel.borderCanvas.getHeight());
             Image image = dataModel.drawCanvas.snapshot(null, null);
+            dataModel.gcDraw.clearRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
             dataModel.drawCanvas.setWidth(newWidth.doubleValue() - 100);
             dataModel.tempCanvas.setWidth(dataModel.drawCanvas.getWidth());
-            dataModel.gcDraw.setStroke(Color.BLACK);
-            dataModel.gcDraw.setLineWidth(2);
+            dataModel.borderCanvas.setWidth(dataModel.drawCanvas.getWidth());
+            dataModel.gcBorder.setStroke(Color.BLACK);
+            dataModel.gcBorder.setLineWidth(2);
             dataModel.gcDraw.drawImage(image, 0, 0);
-            dataModel.gcDraw.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
+            dataModel.gcBorder.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
         });
 
         dataModel.stage.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-            dataModel.gcDraw.clearRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
+            dataModel.gcBorder.clearRect(0, 0, dataModel.borderCanvas.getWidth(), dataModel.borderCanvas.getHeight());
             Image image = dataModel.drawCanvas.snapshot(null, null);
+            dataModel.gcDraw.clearRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
             dataModel.drawCanvas.setHeight(newHeight.doubleValue() - 260);
             dataModel.tempCanvas.setHeight(dataModel.drawCanvas.getHeight());
-            dataModel.gcDraw.setStroke(Color.BLACK);
-            dataModel.gcDraw.setLineWidth(2);
+            dataModel.borderCanvas.setHeight(dataModel.drawCanvas.getHeight());
+            dataModel.gcBorder.setStroke(Color.BLACK);
+            dataModel.gcBorder.setLineWidth(2);
             dataModel.gcDraw.drawImage(image, 0, 0);
-            dataModel.gcDraw.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
-
+            dataModel.gcBorder.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
         });
     }
 

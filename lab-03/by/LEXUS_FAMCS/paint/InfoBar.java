@@ -1,3 +1,5 @@
+package by.LEXUS_FAMCS.paint;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;

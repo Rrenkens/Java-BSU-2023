@@ -1,4 +1,5 @@
-import javafx.geometry.Insets;
+package by.LEXUS_FAMCS.paint;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
@@ -11,6 +12,8 @@ public class DrawingArea extends StackPane {
     private final GraphicsContext gcDraw;
     private final Canvas tempCanvas;
     private final GraphicsContext gcTemp;
+    private final Canvas borderCanvas;
+    private final GraphicsContext gcBorder;
     DrawingArea(DataModel dataModel) {
             drawCanvas = new Canvas();
             gcDraw = drawCanvas.getGraphicsContext2D();
@@ -24,11 +27,13 @@ public class DrawingArea extends StackPane {
             tempCanvas.setWidth(drawCanvas.getWidth());
             tempCanvas.setHeight(drawCanvas.getHeight());
 
-            gcDraw.setStroke(Color.BLACK);
-            gcDraw.setLineWidth(2);
-            gcDraw.strokeRect(0, 0, drawCanvas.getWidth(), drawCanvas.getHeight());
+            borderCanvas = new Canvas(drawCanvas.getWidth(), drawCanvas.getHeight());
+            gcBorder = borderCanvas.getGraphicsContext2D();
+            gcBorder.setStroke(Color.BLACK);
+            gcBorder.setLineWidth(2);
+            gcBorder.strokeRect(0, 0, drawCanvas.getWidth(), drawCanvas.getHeight());
 
-            getChildren().addAll(drawCanvas, tempCanvas);
+            getChildren().addAll(drawCanvas, borderCanvas, tempCanvas);
             //TODO
             Loader loader = new Loader(drawCanvas, dataModel);
             Saver saver = new Saver(drawCanvas, dataModel);
@@ -37,7 +42,9 @@ public class DrawingArea extends StackPane {
             dataModel.saver = saver;
             dataModel.drawCanvas = drawCanvas;
             dataModel.tempCanvas = tempCanvas;
+            dataModel.borderCanvas = borderCanvas;
             dataModel.gcDraw = gcDraw;
             dataModel.gcTemp = gcTemp;
+            dataModel.gcBorder = gcBorder;
     }
 }

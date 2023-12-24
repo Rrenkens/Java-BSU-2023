@@ -1,10 +1,9 @@
+package by.LEXUS_FAMCS.paint;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -20,6 +19,8 @@ public class DataModel {
     GraphicsContext gcDraw;
     Canvas tempCanvas;
     GraphicsContext gcTemp;
+    Canvas borderCanvas;
+    GraphicsContext gcBorder;
     CustomColorPicker customColorPicker;
 
     CheckBox fillCheckBox;

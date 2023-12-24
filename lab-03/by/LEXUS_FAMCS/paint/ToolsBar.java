@@ -1,4 +1,5 @@
-import javafx.scene.control.Toggle;
+package by.LEXUS_FAMCS.paint;
+
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;

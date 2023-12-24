@@ -1,3 +1,5 @@
+package by.LEXUS_FAMCS.paint;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;

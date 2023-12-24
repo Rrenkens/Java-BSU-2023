@@ -1,8 +1,8 @@
+package by.LEXUS_FAMCS.paint;
+
 import javafx.application.Platform;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 
 public class CustomMenuBar extends MenuBar {

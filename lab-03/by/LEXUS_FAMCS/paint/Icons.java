@@ -1,3 +1,5 @@
+package by.LEXUS_FAMCS.paint;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -5,9 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -108,9 +108,11 @@ public class Icons extends HBox {
                         }
                     }
                     dataModel.gcDraw.clearRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
-                    dataModel.gcDraw.setStroke(Color.BLACK);
-                    dataModel.gcDraw.setLineWidth(2);
-                    dataModel.gcDraw.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
+                    dataModel.toFile = null;
+                    dataModel.stage.setTitle("Unsaved image.png - Pinta");
+//                    dataModel.gcDraw.setStroke(Color.BLACK);
+//                    dataModel.gcDraw.setLineWidth(2);
+//                    dataModel.gcDraw.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
 
                 }
             });
@@ -139,9 +141,9 @@ public class Icons extends HBox {
 
         clear.setOnAction(e -> {
             dataModel.gcDraw.clearRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
-            dataModel.gcDraw.setLineWidth(1);
-            dataModel.gcDraw.setStroke(Color.BLACK);
-            dataModel.gcDraw.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
+//            dataModel.gcDraw.setLineWidth(1);
+//            dataModel.gcDraw.setStroke(Color.BLACK);
+//            dataModel.gcDraw.strokeRect(0, 0, dataModel.drawCanvas.getWidth(), dataModel.drawCanvas.getHeight());
         });
     }
 

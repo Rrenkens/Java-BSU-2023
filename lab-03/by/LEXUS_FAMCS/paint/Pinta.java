@@ -1,3 +1,5 @@
+package by.LEXUS_FAMCS.paint;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -58,7 +60,7 @@ public class Pinta extends Application {
         Scene scene = new Scene(root, 800, 620);
 
         stage.setScene(scene);
-        stage.setTitle("Unsaved image - Pinta");
+        stage.setTitle("Unsaved image.png - Pinta");
         stage.centerOnScreen();
         stage.show();
     }

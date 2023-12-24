@@ -1,17 +1,11 @@
-import javafx.application.Application;
+package by.LEXUS_FAMCS.paint;
+
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 
