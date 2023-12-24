@@ -1,13 +1,12 @@
 package by.Roman191976.Quizer.task_generators.math_task_generators;
 
-import java.util.EnumSet;
 
 import by.Roman191976.Quizer.tasks.math_tasks.*;
 import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;;
 
 public class EquationMathTaskGenerator extends AbstractMathGenerator {
     public EquationMathTaskGenerator(int minNumber, int maxNumber,
-            EnumSet<by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation> operations) {
+            Operation[] operations) {
         super(minNumber, maxNumber, operations);
     }
 
@@ -33,8 +32,13 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
         } else {
             operator = generateRandomOperator();    
             if (operator.equals(Operation.MULTIPLICATION) | operator.equals(Operation.DIVISION)) { 
-                num1 = generateRandomNumber();
+                num1 = generateRandomNumberExceptZero();
                 num2 = generateRandomNumberExceptZero();
+                if (num1 < num2) {
+                    int a = num1;
+                    num1 = num2;
+                    num2 = a;
+                }
             } else {
                 num1 = generateRandomNumber();
                 num2 = generateRandomNumber();
@@ -55,12 +59,12 @@ public class EquationMathTaskGenerator extends AbstractMathGenerator {
     private int calculateAnswer(int num1, int num2, Operation operator) {
         switch (operator) {
             case SUM:
-                return num1 + num2;
+                return num2 - num1;
             case DIFFERENCE:
-                if (xOnFirstPosition) return num2 - num1;
+                if (xOnFirstPosition) return num2 + num1;
                 return num1 - num2;
             case MULTIPLICATION:
-                return num1 * num2;
+                return num2 / num1;
             case DIVISION:
                 if (xOnFirstPosition) return num2 * num1;
                 return num1 / num2;

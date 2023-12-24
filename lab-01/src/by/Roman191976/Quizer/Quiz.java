@@ -1,7 +1,5 @@
 package by.Roman191976.Quizer;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import by.Roman191976.Quizer.Exceptions.QuizCannotBeGenerated;
 import by.Roman191976.Quizer.Exceptions.QuizNotFinishedException;
@@ -10,13 +8,13 @@ import by.Roman191976.Quizer.Exceptions.QuizNotFinishedException;
  * Class, который описывает один тест
  */
 public class Quiz {
-    private int taskCount;
-    private List<Task> tasks;
-    private int currentIndex;
     private int correctAnswerCount;
     private int wrongAnswerCount;
     private int incorrectInputCount;
+    private int taskCount;
+    private int currentIndex;
     private Task currentTask;
+    private TaskGenerator generator;
     Result currentResult = Result.INCORRECT_INPUT;
 
 
@@ -25,22 +23,13 @@ public class Quiz {
      * @param taskCount количество заданий в тесте
      */
     Quiz(TaskGenerator generator, int taskCount) {
+        this.generator = generator;
         this.taskCount = taskCount;
-        tasks = new ArrayList<>();
-        currentIndex = 0;
         correctAnswerCount = 0;
         wrongAnswerCount = 0;
         incorrectInputCount = 0;
+        currentIndex = 0;
         currentTask = null;
-
-        try {
-                    for (int i = 0; i < taskCount; i++) {
-            tasks.add(generator.generate());
-        } 
-    } catch (Exception e) {
-        throw new QuizCannotBeGenerated("ошибка при создании теста");
-    }
-
     }
 
 
@@ -56,8 +45,11 @@ public class Quiz {
         if (currentTask != null && currentResult == Result.INCORRECT_INPUT) {
             return currentTask;
         }
-
-        currentTask = tasks.get(currentIndex);
+        try {
+            currentTask = generator.generate();
+        } catch (Exception e) {
+            throw new QuizCannotBeGenerated("ошибка при создании теста");
+        }
         currentIndex++;
         return currentTask;
     }
@@ -121,7 +113,7 @@ public class Quiz {
      *         Оценка выставляется только в конце!
      */
     double getMark() {
-        if (!isFinished()) throw new QuizNotFinishedException("тест не оконче!!!");
+        if (!isFinished()) throw new QuizNotFinishedException("тест не окончен!!!");
         if (taskCount == 0) {
             return 0.0;
         }

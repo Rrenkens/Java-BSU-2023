@@ -1,6 +1,5 @@
 package by.Roman191976.Quizer.task_generators.real_math_task_generators;
 
-import java.util.EnumSet;
 
 import by.Roman191976.Quizer.tasks.real_math_tasks.RealExpressionMathTask;
 import by.Roman191976.Quizer.tasks.real_math_tasks.RealMathTask;
@@ -10,16 +9,22 @@ public class RealExpressionMathTaskGenerator extends AbstractRealMathTaskGenerat
     private Operation operation;
     private int precision;
 
-    public RealExpressionMathTaskGenerator(double minNumber, double maxNumber, EnumSet<Operation> operations, int precision) {
+    public RealExpressionMathTaskGenerator(double minNumber, double maxNumber,  Operation[] operations, int precision) {
         super(minNumber, maxNumber, operations, precision);
-        this.operation = generateRandomOperator();
         this.precision = precision;
     }
 
     @Override
     public RealExpressionMathTask generate() {
+        this.operation = generateRandomOperator();
         double num1 = generateRandomNumber();
-        double num2 = generateRandomNumber();
+        double num2;
+        if (operation == Operation.DIVISION) {
+            num2 = generateRandomNumberExceptZero();
+        } else {
+            num2 = generateRandomNumber();
+        }
+
         double answer = calculateAnswer(num1, num2, operation);
         answer = round(answer, precision);
         String taskText = generateTaskText(num1, num2, operation);

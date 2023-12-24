@@ -1,12 +1,10 @@
 package by.Roman191976.Quizer.task_generators.math_task_generators;
 
-import java.util.EnumSet;
-
 import by.Roman191976.Quizer.tasks.math_tasks.*;
 import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;
 
 public class ExpressionMathTaskGenerator extends AbstractMathGenerator {
-    public ExpressionMathTaskGenerator(int minNumber, int maxNumber, EnumSet<Operation> operations) {
+    public ExpressionMathTaskGenerator(int minNumber, int maxNumber, Operation[] operations) {
         super(minNumber, maxNumber, operations);
     }
 

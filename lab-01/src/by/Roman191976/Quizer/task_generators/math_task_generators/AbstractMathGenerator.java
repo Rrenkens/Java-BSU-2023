@@ -2,29 +2,27 @@ package by.Roman191976.Quizer.task_generators.math_task_generators;
 import by.Roman191976.Quizer.tasks.math_tasks.MathTask.Operation;
 
 import java.util.Random;
-import java.util.EnumSet;
 
 public abstract class AbstractMathGenerator implements MathTaskGenerator {
     private int minNumber;
     private int maxNumber;
-    private EnumSet<Operation> operations;
+    private Operation[] availableOperations;
     public Random random;
 
     public AbstractMathGenerator(
             int minNumber,
             int maxNumber,
-            EnumSet<Operation> operations) {
+            Operation[] operations) {
         this.minNumber = minNumber;
         this.maxNumber = maxNumber;
         if (minNumber > maxNumber) {
             throw new IllegalArgumentException("нижняя граница больше верхней");
         }
-        this.operations = operations;
+        this.availableOperations = operations;
         this.random = new Random();
     }
 
-    public Operation generateRandomOperator() {
-        Operation[] availableOperations = operations.toArray(new Operation[0]);
+    public Operation generateRandomOperator() {;
         int index = random.nextInt(availableOperations.length);
         return availableOperations[index];
     }
@@ -35,7 +33,7 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
 
     public int generateRandomNumberExceptZero() {
         int number = random.nextInt(maxNumber - minNumber + 1) + minNumber;
-        return number == 0 ? number + 1 : number;
+        return number == 0 ? 1 : number;
     }
 
     @Override
