@@ -1,30 +1,29 @@
-package by.Kra567.docks_and_hobos;
+package by.Kra567.docks_and_hobos.tunnels;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
-public  class  Tunnel <S,T extends ShipStorage<S>> implements ShipStorage<S> {
+public  class  Tunnel <S> {
     private int maxCount;
-    private T storage;
-    private AtomicInteger currentCount;
-
-    Tunnel(T storage,int maxCount){
+    private AtomicReferenceArray<S> storage;
+    // [start;end)
+    private AtomicInteger start;
+    private AtomicInteger end;
+    public Tunnel(int maxCount){
         this.maxCount = maxCount;
         this.storage = storage;
-        this.currentCount = new AtomicInteger(storage.count());
+        this.start = new AtomicInteger(0);
+        this.end = new AtomicInteger(0);
     }
 
-    @Override
+    public int
+
+
     public void add(S ship) {
-        if (currentCount.get() < maxCount){
-            synchronized (this){
-                storage.add(ship);
-                currentCount.incrementAndGet();
-            }
-        }
+        if ()
     }
 
-    @Override
+
     public synchronized S delete() {
         while (true){
             if (currentCount.get() > 0){
@@ -34,8 +33,5 @@ public  class  Tunnel <S,T extends ShipStorage<S>> implements ShipStorage<S> {
         return storage.delete();
     }
 
-    @Override
-    public int count() {
-        return 0;
-    }
+
 }
