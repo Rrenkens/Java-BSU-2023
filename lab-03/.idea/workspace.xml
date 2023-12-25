@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ce8bfa64-e449-4359-8ca5-121992b45270" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Java-BSU-2023.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/.idea/lab-01.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/basics/Quiz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/basics/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/basics/Task.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/basics/TaskGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/task_generators/EquationTaskGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/task_generators/ExpressionTaskGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/task_generators/GroupTaskGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/task_generators/PoolTaskGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/tasks/EquationTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/tasks/ExpressionTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/tasks/OperationSign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/tasks/OperationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/by/Kra567/quizer/tasks/TextTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/.idea/lab-01.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/Main$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/basics/Quiz.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/basics/Result.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/basics/Task.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/basics/TaskGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/task_generators/EquationTaskGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/task_generators/ExpressionTaskGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/task_generators/GroupTaskGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/task_generators/PoolTaskGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/EquationTask$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/EquationTask.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/ExpressionTask$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/ExpressionTask.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/OperationSign$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/OperationSign.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/OperationType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-01/out/production/lab-01/by/Kra567/quizer/tasks/TextTask.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/.idea/lab-02.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/.idea/lab-02.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/by/Kra567/docks_and_hobos/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/by/Kra567/docks_and_hobos/tunnels/RandomStorage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/by/Kra567/docks_and_hobos/tunnels/ShipStorage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab-02/out/production/lab-02/by/Kra567/docks_and_hobos/tunnels/Tunnel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/lab-03.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/lab-03.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/META-INF/lab-03.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/Main$Companion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/Main$canvas$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/Main$canvas$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/Main$canvas$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/Main$start$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/ActedCanvas.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/ButtonChooser$onChange$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/ButtonChooser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/CanvasActor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/CanvasActorKt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/ColorChanger$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/ColorChanger.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/LineActor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/Loader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/PenEnvironment.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/Saver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/ShapeActor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/TextedSlider$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lab-03/by/Kra567/paint/TextedSlider.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../md/md.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../md/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-02/by/Kra567/docks_and_hobos/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab-02/by/Kra567/docks_and_hobos/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-02/by/Kra567/docks_and_hobos/tunnels/Tunnel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab-02/by/Kra567/docks_and_hobos/tunnels/Tunnel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/ActedCanvas.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/ActedCanvas.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/ButtonChooser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/ButtonChooser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/CanvasActor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/CanvasActor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/ColorChanger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/ColorChanger.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/Loader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/Loader.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/Saver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/Saver.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/by/Kra567/paint/TextedSlider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/by/Kra567/paint/TextedSlider.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+        <option value="Kotlin Interface" />
+        <option value="Class" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2ZflSyquJ298XywxhW2IyWSVb3Z" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lab-03&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/DELL/Desktop/JFX/javafx-sdk-21.0.1/lib&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DELL\Desktop\FINTRY\Java-BSU-2023\lab-03\by\Kra567\paint" />
+      <recent name="C:\Users\DELL\Desktop\FINTRY\Java-BSU-2023\lab-03\src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Conf" type="JetRunConfigurationType">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="lab-03" />
+      <shortenClasspath name="NONE" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\DELL\Desktop\JFX\javafx-sdk-21.0.1\lib --add-modules=javafx.controls" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ce8bfa64-e449-4359-8ca5-121992b45270" name="Changes" comment="" />
+      <created>1702821017281</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702821017281</updated>
+    </task>
+    <servers />
+  </component>
+</project>
