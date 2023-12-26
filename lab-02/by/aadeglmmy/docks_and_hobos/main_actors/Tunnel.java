@@ -21,16 +21,16 @@ public class Tunnel {
     lock.lock();
     try {
       if (shipsInTunnel.size() >= maxShips) {
-//        System.out.println(
-//            "Ship " + ship.getCargoTypeIndex() + " with capacity " + ship.getCapacity()
-//                + " sank in the tunnel");
+        System.out.println(
+            "Ship " + ship.getCargoTypeIndex() + " with capacity " + ship.getCapacity()
+                + " sank in the tunnel");
         return;
       }
 
       shipsInTunnel.add(ship);
       shipAvailable.signal();
-//      System.out.println("Ship " + ship.getCargoTypeIndex() + " with capacity " + ship.getCapacity()
-//          + " entered the tunnel");
+      System.out.println("Ship " + ship.getCargoTypeIndex() + " with capacity " + ship.getCapacity()
+          + " entered the tunnel");
     } finally {
       lock.unlock();
     }
@@ -46,10 +46,11 @@ public class Tunnel {
           throw new RuntimeException(e);
         }
       }
-      //      System.out.println(
-//          ship + " with capacity " + ship.getCapacity() + " and cargo " + ship.getCargoTypeIndex()
-//              + "was removed from the tunnel by dock.");
-      return shipsInTunnel.poll();
+      Ship ship = shipsInTunnel.poll();
+      System.out.println(
+          ship + " with capacity " + ship.getCapacity() + " and cargo " + ship.getCargoTypeIndex()
+              + "was removed from the tunnel by dock.");
+      return ship;
     } finally {
       lock.unlock();
     }

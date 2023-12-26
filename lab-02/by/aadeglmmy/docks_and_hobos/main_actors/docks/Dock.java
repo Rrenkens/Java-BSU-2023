@@ -27,20 +27,23 @@ public class Dock extends Thread {
   public void run() {
     while (true) {
       Ship ship = tunnel.getNextShip();
-//      System.out.println(
-//          "Dock " + this + " has gotten a ship " + ship + " with capacity " + ship.getCapacity()
-//              + " and cargo " + ship.getCargoTypeIndex());
+      System.out.println(
+          "Dock " + this + " has gotten a ship " + ship + " with capacity " + ship.getCapacity()
+              + " and cargo " + ship.getCargoTypeIndex());
       int cargoTypeIndex = ship.getCargoTypeIndex();
       int capacity = dockCapacities[cargoTypeIndex];
       while (ship.getCapacity() > 0) {
         dockLock.lock();
         try {
-        while (dockFullness[cargoTypeIndex] >= capacity) {
-          try {
-            dockNotFull.await();
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+          while (dockFullness[cargoTypeIndex] >= capacity) {
+            try {
+              dockNotFull.await();
+            } catch (InterruptedException e) {
+              throw new RuntimeException(e);
+            }
           }
+        } finally {
+          dockLock.unlock();
         }
         try {
           Thread.sleep(unloadingSpeed * 1000L);
@@ -49,11 +52,8 @@ public class Dock extends Thread {
         }
         ship.decrementCapacity();
         ++dockFullness[cargoTypeIndex];
-//        System.out.println("Ship: " + ship + " has lost in dock " + this + " cargo type "
-//            + ship.getCargoTypeIndex());
-      } finally {
-          dockLock.unlock();
-        }
+        System.out.println("Ship: " + ship + " has lost in dock " + this + " cargo type "
+            + ship.getCargoTypeIndex());
       }
     }
   }

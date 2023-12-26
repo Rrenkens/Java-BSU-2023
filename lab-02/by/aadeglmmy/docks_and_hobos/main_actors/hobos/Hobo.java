@@ -79,8 +79,8 @@ public class Hobo extends Thread {
             } catch (InterruptedException e) {
               throw new RuntimeException(e);
             }
-//            System.out.println("Hobo " + this + " stole from dock " + docks[dockCounter] + " cargo "
-//                + cargoTypeCounter);
+            System.out.println("Hobo " + this + " stole from dock " + docks[dockCounter] + " cargo "
+                + cargoTypeCounter);
           }
           dockCounter = (dockCounter + 1) % docks.length;
         } while (dockCounter != dockIndex);

@@ -19,6 +19,7 @@ public class Hobos extends Thread {
   Hobo[] hobos;
   private int[] stolenIngredients;
   private int count;
+  Random random = new Random();
 
   public Hobos(int quantity, int stealingTime, int[] ingredientsCount, int numOfCargoTypes,
       Dock[] docks, int eatingTime) {
@@ -31,7 +32,6 @@ public class Hobos extends Thread {
 
   @Override
   public void run() {
-    Random random = new Random();
     int hobosLength = hobos.length;
     for (Hobo hobo : hobos) {
       hobo.start();
@@ -79,7 +79,7 @@ public class Hobos extends Thread {
         stealingLock.unlock();
       }
       try {
-//        System.out.println("Hobos are eating...");
+        System.out.println("Hobos are eating...");
         Thread.sleep(eatingTime * 1000L);
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
@@ -111,7 +111,6 @@ public class Hobos extends Thread {
 
   public Hobo[] createHobos(int quantity, int numOfCargoTypes, Hobos hobos) {
     Hobo[] hoboArray = new Hobo[quantity];
-    Random random = new Random();
     for (int i = 0; i < quantity; ++i) {
       int dockIndex = random.nextInt(docks.length);
       int cargoTypeIndex = i % numOfCargoTypes;
