@@ -7,7 +7,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="by.nrydo.paint.Controller"
-            prefHeight="750.0" prefWidth="750.0">
+            prefWidth="800.0" prefHeight="600.0">
     <top>
         <VBox>
             <ToolBar>
@@ -30,8 +30,11 @@
     </top>
 
     <center>
-        <Canvas fx:id="canvas" width="800" height="800" onMousePressed="#mousePressed"
-                onMouseDragged="#mouseDragged" onMouseDragReleased="#mouseReleased"/>
+        <Pane>
+            <Canvas fx:id="canvas" width="800" height="600"/>
+            <Canvas fx:id="upperCanvas" width="800" height="600" onMousePressed="#mousePressed"
+                    onMouseDragged="#mouseDragged" onMouseReleased="#mouseReleased"/>
+        </Pane>
     </center>
 
 </BorderPane>

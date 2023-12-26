@@ -26,6 +26,8 @@ public class Controller {
     @FXML
     private Canvas canvas;
     @FXML
+    private Canvas upperCanvas;
+    @FXML
     private Slider brushSize;
     @FXML
     private ComboBox<DrawingMode> modeChooser;
@@ -34,14 +36,15 @@ public class Controller {
     @FXML
     private ColorPicker secondColorPicker;
     private GraphicsContext graphicsContext;
-    private WritableImage image;
+    private GraphicsContext mainContext;
     private double fixedX;
     private double fixedY;
 
     public void initialize() {
-        graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.WHITE);
-        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        graphicsContext = upperCanvas.getGraphicsContext2D();
+        mainContext = canvas.getGraphicsContext2D();
+        clearImage();
+        clearUpperCanvas();
         modeChooser.setItems(FXCollections.observableArrayList(DrawingMode.values()));
         modeChooser.setValue(DrawingMode.PEN);
         firstColorPicker.setValue(Color.BLACK);
@@ -56,26 +59,37 @@ public class Controller {
     public void mousePressed(MouseEvent event) {
         fixedX = event.getX();
         fixedY = event.getY();
-        graphicsContext.beginPath();
-        image = canvas.snapshot(null, null);
+        mainContext.beginPath();
+        clearUpperCanvas();
     }
 
     public void mouseReleased(MouseEvent event) {
-        image = canvas.snapshot(null, null);
+        draw(mainContext, event);
     }
 
     public void mouseDragged(MouseEvent event) {
-        double size = brushSize.getValue();
+        switch (modeChooser.getValue()) {
+            case LINE, RECTANGLE, ELLIPSE:
+                draw(graphicsContext, event);
+                break;
+            case PEN, ERASER:
+                draw(mainContext, event);
+                break;
+        }
+    }
+
+    public void draw(GraphicsContext context, MouseEvent event) {
         double curX = event.getX();
         double curY = event.getY();
 
-        graphicsContext.setLineWidth(size);
+        context.setLineWidth(brushSize.getValue());
+
         switch (event.getButton()) {
             case MouseButton.PRIMARY:
-                graphicsContext.setStroke(firstColorPicker.getValue());
+                context.setStroke(firstColorPicker.getValue());
                 break;
             case MouseButton.SECONDARY:
-                graphicsContext.setStroke(secondColorPicker.getValue());
+                context.setStroke(secondColorPicker.getValue());
                 break;
             default:
                 return;
@@ -83,25 +97,25 @@ public class Controller {
 
         switch (modeChooser.getValue()) {
             case PEN:
-                graphicsContext.lineTo(event.getX(), event.getY());
-                graphicsContext.stroke();
+                context.lineTo(curX, curY);
+                context.stroke();
                 break;
             case LINE:
-                graphicsContext.drawImage(image, 0, 0, canvas.getHeight(), canvas.getWidth());
-                graphicsContext.strokeLine(fixedX, fixedY, curX, curY);
+                clearUpperCanvas();
+                context.strokeLine(fixedX, fixedY, curX, curY);
                 break;
             case RECTANGLE:
-                graphicsContext.drawImage(image, 0, 0, canvas.getHeight(), canvas.getWidth());
-                graphicsContext.strokeRect(Math.min(fixedX, curX), Math.min(fixedY, curY), Math.abs(curX - fixedX), Math.abs(curY - fixedY));
+                clearUpperCanvas();
+                context.strokeRect(Math.min(fixedX, curX), Math.min(fixedY, curY), Math.abs(curX - fixedX), Math.abs(curY - fixedY));
                 break;
             case ELLIPSE:
-                graphicsContext.drawImage(image, 0, 0, canvas.getHeight(), canvas.getWidth());
-                graphicsContext.strokeOval(Math.min(fixedX, curX), Math.min(fixedY, curY), Math.abs(curX - fixedX), Math.abs(curY - fixedY));
+                clearUpperCanvas();
+                context.strokeOval(Math.min(fixedX, curX), Math.min(fixedY, curY), Math.abs(curX - fixedX), Math.abs(curY - fixedY));
                 break;
             case ERASER:
-                graphicsContext.setStroke(secondColorPicker.getValue());
-                graphicsContext.lineTo(event.getX(), event.getY());
-                graphicsContext.stroke();
+                context.setStroke(secondColorPicker.getValue());
+                context.lineTo(curX, curY);
+                context.stroke();
                 break;
         }
     }
@@ -113,7 +127,12 @@ public class Controller {
     }
 
     public void clearImage() {
-        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        mainContext.setFill(Color.WHITE);
+        mainContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    public void clearUpperCanvas() {
+        graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     public void saveImage() {
@@ -142,7 +161,7 @@ public class Controller {
         if (file != null) {
             Image image = new Image(file.toURI().toString());
             clearImage();
-            canvas.getGraphicsContext2D().drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight());
+            mainContext.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight());
         }
     }
 }
