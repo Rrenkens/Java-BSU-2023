@@ -9,10 +9,9 @@ import java.util.Random;
 
 public class PoolTaskGenerator implements Task.Generator {
 
-  private final Collection<Task> tasks;
+  private final ArrayList<Task> tasks;
   private final Random random = new Random();
   private final boolean allowDuplicate;
-  private final Collection<Task> availableElements = new ArrayList<>();
 
   public PoolTaskGenerator(boolean allowDuplicate, Task... tasks) {
     this.tasks = new ArrayList<>(Arrays.asList(tasks));
@@ -27,18 +26,9 @@ public class PoolTaskGenerator implements Task.Generator {
     if (tasks.isEmpty()) {
       throw new NoSuchElementException("No tasks available in the pool.");
     }
-    this.tasks = tasks;
+    this.tasks = new ArrayList<>();
+    this.tasks.addAll(tasks);
     this.allowDuplicate = allowDuplicate;
-  }
-
-  public void updateAvailableElements() {
-    if (tasks.isEmpty()) {
-      throw new NoSuchElementException("No tasks available in the pool.");
-    }
-    if (!allowDuplicate) {
-      availableElements.clear();
-      availableElements.addAll(tasks);
-    }
   }
 
   @Override
@@ -46,14 +36,14 @@ public class PoolTaskGenerator implements Task.Generator {
     Task task;
     if (allowDuplicate) {
       int taskIndex = random.nextInt(tasks.size());
-      task = tasks.stream().skip(taskIndex).findFirst().orElse(null);
+      task = tasks.get(taskIndex);
     } else {
-      if (availableElements.isEmpty()) {
+      if (tasks.isEmpty()) {
         throw new IllegalStateException("No tasks available in the pool.");
       }
-      int taskIndex = random.nextInt(availableElements.size());
-      task = availableElements.stream().skip(taskIndex).findFirst().orElse(null);
-      availableElements.remove(task);
+      int taskIndex = random.nextInt(tasks.size());
+      task = tasks.get(taskIndex);
+      tasks.remove(task);
     }
 
     return task;

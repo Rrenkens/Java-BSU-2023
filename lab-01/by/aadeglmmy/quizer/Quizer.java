@@ -43,12 +43,12 @@ public class Quizer {
     tasks.add(new TextTask("Translate 'cat'", "кот"));
     tasks.add(new TextTask("Translate 'paper'", "папера"));
     tasks.add(new ExpressionTask("3+7=", 10));
-    tasks.add(new EquationTask("3.55/x=2.285", 1.553));
+    tasks.add(new EquationTask("3.55/x=2.285", 1.554));
 
     Task.Generator poolTaskGenerator1 = new PoolTaskGenerator(true,
         new TextTask("Translate 'apple'", "яблык"), new TextTask("Translate 'cat'", "кот"),
         new TextTask("Translate 'paper'", "папера"), new ExpressionTask("3+7=", 10),
-        new EquationTask("3.55/x=2.285", 1.553));
+        new EquationTask("3.55/x=2.285", 1.554));
     Quiz poolQuiz1 = new Quiz(poolTaskGenerator1, 10);
     quizMap.put("Pool allowing duplicates", poolQuiz1);
 
@@ -101,16 +101,13 @@ public class Quizer {
 
     Quiz selectedQuiz = quizMap.get(selectedQuizName);
 
-    selectedQuiz.updateAvailableIndexes();
     while (!selectedQuiz.isFinished()) {
       Task task = selectedQuiz.nextTask();
-      if (task != null) {
-        System.out.println("Question: " + task.getText());
-        String answer = scanner.nextLine();
-        Result result = selectedQuiz.provideAnswer(answer);
-        System.out.println("Result: " + result);
-        System.out.println();
-      }
+      System.out.println("Question: " + task.getText());
+      String answer = scanner.nextLine();
+      Result result = selectedQuiz.provideAnswer(answer);
+      System.out.println("Result: " + result);
+      System.out.println();
     }
 
     int incorrectInputNumber = selectedQuiz.getIncorrectInputNumber();

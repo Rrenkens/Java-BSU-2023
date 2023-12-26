@@ -1,6 +1,7 @@
 package by.aadeglmmy.quizer.task_generators;
 
 import by.aadeglmmy.quizer.Task;
+import by.aadeglmmy.quizer.Task.Generator;
 import by.aadeglmmy.quizer.exceptions.GroupsNotUniqueException;
 import by.aadeglmmy.quizer.exceptions.PoolsNotUniqueException;
 import java.util.ArrayList;
@@ -13,9 +14,8 @@ import java.util.Set;
 
 public class GroupTaskGenerator implements Task.Generator {
 
-  private final Collection<Task.Generator> generators;
+  private final ArrayList<Generator> generators;
   private final Random random = new Random();
-  private final Collection<Task.Generator> availableElements = new ArrayList<>();
 
   public GroupTaskGenerator(Task.Generator... generators) {
     this.generators = new ArrayList<>(Arrays.asList(generators));
@@ -30,35 +30,23 @@ public class GroupTaskGenerator implements Task.Generator {
     if (generators.isEmpty()) {
       throw new NoSuchElementException("No generators available in the group");
     }
-    this.generators = generators;
+    this.generators = new ArrayList<>();
+    this.generators.addAll(generators);
 
     arePoolsAndGroupsUnique();
   }
 
-  public void updateAvailableElements() {
-    availableElements.clear();
-    availableElements.addAll(generators);
-    for (Task.Generator generator : generators) {
-      if (generator instanceof PoolTaskGenerator) {
-        ((PoolTaskGenerator) generator).updateAvailableElements();
-      } else if (generator instanceof GroupTaskGenerator) {
-        ((GroupTaskGenerator) generator).updateAvailableElements();
-      }
-    }
-  }
-
   @Override
   public Task generate() {
-    while (!availableElements.isEmpty()) {
-      int randomIndex = random.nextInt(availableElements.size());
-      Task.Generator generator = availableElements.stream().skip(randomIndex).findFirst()
-          .orElse(null);
+    while (!generators.isEmpty()) {
+      int randomIndex = random.nextInt(generators.size());
+      Task.Generator generator = generators.get(randomIndex);
 
       try {
         assert generator != null;
         return generator.generate();
       } catch (Exception e) {
-        availableElements.remove(generator);
+        generators.remove(generator);
       }
     }
 

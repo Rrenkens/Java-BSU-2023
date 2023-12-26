@@ -44,13 +44,9 @@ public class Quiz {
       return task;
     }
 
-    if (currentTaskIndex < taskCount) {
-      task = generator.generate();
-      ++currentTaskIndex;
-      return task;
-    }
-
-    return null;
+    task = generator.generate();
+    ++currentTaskIndex;
+    return task;
   }
 
   Result provideAnswer(String answer) {
@@ -121,13 +117,5 @@ public class Quiz {
     }
 
     return count;
-  }
-
-  public void updateAvailableIndexes() {
-    if (generator instanceof PoolTaskGenerator) {
-      ((PoolTaskGenerator) generator).updateAvailableElements();
-    } else if (generator instanceof GroupTaskGenerator) {
-      ((GroupTaskGenerator) generator).updateAvailableElements();
-    }
   }
 }

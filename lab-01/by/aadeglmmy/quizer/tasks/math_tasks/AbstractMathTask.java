@@ -78,28 +78,22 @@ public abstract class AbstractMathTask implements MathTask {
       return maxNumber;
     }
 
-    @Override
-    public MathTask generate() {
-      return null;
-    }
-
     protected double getRandomNumber() {
       double diff = getDiffNumber();
       double randomNumber = minNumber + diff * random.nextDouble();
       return Math.round(randomNumber * precisionFactor) / precisionFactor;
     }
 
-    protected String getRandomOperator() {
+    protected Operation getRandomOperator() {
       return null;
     }
 
-    protected double calculateAnswer(double num1, double num2, String operator) {
+    protected double calculateAnswer(double num1, double num2, Operation operator) {
       double rawAnswer = switch (operator) {
-        case "+" -> num1 + num2;
-        case "-" -> num1 - num2;
-        case "*" -> num1 * num2;
-        case "/" -> num1 / num2;
-        default -> throw new IllegalArgumentException("Illegal operator: " + operator);
+        case SUM -> num1 + num2;
+        case DIFFERENCE -> num1 - num2;
+        case MULTIPLICATION -> num1 * num2;
+        case DIVISION -> num1 / num2;
       };
       return Math.round(rawAnswer * precisionFactor) / precisionFactor;
     }

@@ -24,7 +24,7 @@ public class TextTask implements Task {
       return Result.INCORRECT_INPUT;
     }
 
-    if (this.answer.equals(answer.toLowerCase())) {
+    if (this.answer.equalsIgnoreCase(answer)) {
       return Result.OK;
     } else {
       return Result.WRONG;

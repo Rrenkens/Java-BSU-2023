@@ -1,7 +1,9 @@
 package by.aadeglmmy.quizer.tasks.math_tasks;
 
 import by.aadeglmmy.quizer.exceptions.InvalidConfigurationException;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 public class ExpressionTask extends AbstractMathTask {
 
@@ -28,11 +30,11 @@ public class ExpressionTask extends AbstractMathTask {
 
     @Override
     public ExpressionTask generate() {
-      String operator = getRandomOperator();
+      Operation operator = getRandomOperator();
       double num1 = getRandomNumber();
       double num2 = getRandomNumber();
 
-      if (operator.equals("/")) {
+      if (operator.equals(Operation.DIVISION)) {
         while (num2 == 0) {
           num2 = getRandomNumber();
         }
@@ -43,31 +45,38 @@ public class ExpressionTask extends AbstractMathTask {
     }
 
     @Override
-    protected String getRandomOperator() {
-      StringBuilder operators = new StringBuilder();
+    protected Operation getRandomOperator() {
+      List<Operation> operators = new ArrayList<>();
       if (operations.contains(Operation.SUM)) {
-        operators.append("+");
+        operators.add(Operation.SUM);
       }
       if (operations.contains(Operation.DIFFERENCE)) {
-        operators.append("-");
+        operators.add(Operation.DIFFERENCE);
       }
       if (operations.contains(Operation.MULTIPLICATION)) {
-        operators.append("*");
+        operators.add(Operation.MULTIPLICATION);
       }
       double compared = 1 / precisionFactor;
       if (operations.contains(Operation.DIVISION) && !(Math.abs(minNumber) < compared
           && Math.abs(maxNumber) < compared)) {
-        operators.append("/");
+        operators.add(Operation.DIVISION);
       }
       if (operators.isEmpty()) {
         throw new UnsupportedOperationException("No operations selected");
       }
-      int randomIndex = random.nextInt(operators.length());
-      return String.valueOf(operators.charAt(randomIndex));
+      int randomIndex = random.nextInt(operators.size());
+      return operators.get(randomIndex);
     }
 
-    String createExpressionTaskText(double num1, double num2, String operator) {
-      return num1 + operator + num2 + "=";
+    String createExpressionTaskText(double num1, double num2, Operation operator) {
+      String strOperator = null;
+      switch (operator) {
+        case SUM -> strOperator = "+";
+        case DIFFERENCE -> strOperator = "-";
+        case MULTIPLICATION -> strOperator = "*";
+        case DIVISION -> strOperator = "/";
+      }
+      return num1 + strOperator + num2 + "=";
     }
   }
 }
