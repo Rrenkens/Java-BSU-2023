@@ -1,0 +1,14 @@
+{
+  "generatingTime": 1,
+  "shipCapacityMin": 1,
+  "shipCapacityMax": 10,
+  "cargoTypes": ["Type1", "Type2", "Type3"],
+  "maxShips": 5,
+  "docks": 3,
+  "unloadingSpeed": 2,
+  "dockCapacity": [10, 10, 10],
+  "hobos": 5,
+  "ingredientsCount": [2, 2, 2],
+  "stealingTime": 1,
+  "eatingTime": 1
+}
