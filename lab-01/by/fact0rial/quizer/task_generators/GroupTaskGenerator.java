@@ -3,6 +3,7 @@ package by.fact0rial.quizer.task_generators;
 import by.fact0rial.quizer.Task;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class GroupTaskGenerator implements Task.Generator{
     Random rand = new Random();
@@ -34,8 +35,28 @@ public class GroupTaskGenerator implements Task.Generator{
      *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
     public Task generate() {
-        int num = rand.nextInt(this.lists.size());
-        Task.Generator thing = this.lists.get(num);
-        return thing.generate();
+        int size = this.lists.size();
+        int[] a = IntStream.range(0, size).toArray();
+        // рандомная перестановка индексов
+        List<Integer> l = Arrays.stream(a).boxed().toList();
+        ArrayList<Integer> al = new ArrayList<>(l);
+        java.util.Collections.shuffle(al);
+        int index = 0;
+        Task.Generator thing = this.lists.get(al.get(index));
+        Task t = null;
+        while (index < size) {
+            try {
+                t = thing.generate();
+            } catch(Exception e) {
+                index++;
+                thing = this.lists.get(al.get(index));
+                continue;
+            }
+            break;
+        }
+        if (t == null) {
+            throw new RuntimeException("GroupTaskGenerator couldn't generate a task");
+        }
+        return t;
     }
 }

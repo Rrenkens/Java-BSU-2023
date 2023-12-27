@@ -18,6 +18,11 @@ public class Main {
         Map<String, Quiz> m = getQuizMap();
         boolean contains = false;
         Scanner read = new Scanner(System.in);
+        int i = 1;
+        for (String name : m.keySet()) {
+            System.out.println(i + ". " + name);
+            i++;
+        }
         String name = "";
         while (!contains) {
             System.out.println("Введите название теста...");
@@ -37,7 +42,7 @@ public class Main {
                 System.exit(1);
             }
             String ans = read.nextLine();
-            quiz.provideAnswer(ans);
+            System.out.println(quiz.provideAnswer(ans));
         }
         try {
             System.out.println("Your mark is " + quiz.getMark());
