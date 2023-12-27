@@ -14,12 +14,6 @@ import java.io.File;
 import java.util.*;
 
 public class Main {
-
-    /**
-     * @return тесты в {@link Map}, где
-     * ключ - название теста {@link String}
-     * значение - сам тест       {@link Quiz}
-//     */
     static Map<String, Quiz> getQuizMap() {
         var allOperations = EnumSet.of(Operation.SUM,
                 Operation.DIFFERENCE,
@@ -91,6 +85,5 @@ public class Main {
             System.out.println(quizResult(quiz));
         }
         System.out.println(quizResult(quiz));
-        System.out.println("BB");
     }
 }

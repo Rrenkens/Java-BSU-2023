@@ -1,10 +1,10 @@
 package by.Dzenia.quizer.task_generators;
-
 import by.Dzenia.quizer.task_generators.generator_exceptions.CannotGenerateTaskException;
 import by.Dzenia.quizer.tasks.Task;
-
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Random;
 public class GroupTaskGenerator implements TaskGenerator {
     private ArrayList<TaskGenerator> generators;
     /**
@@ -31,11 +31,14 @@ public class GroupTaskGenerator implements TaskGenerator {
      *         Если все генераторы выбрасывают исключение, то и тут выбрасывается исключение.
      */
     public Task generate() throws CannotGenerateTaskException {
-        Collections.shuffle(this.generators);
-        for (var generator: generators) {
+        Random random = new Random();
+        while (!generators.isEmpty()){
+            int pos = random.nextInt(0, generators.size());
             try {
-                return generator.generate();
-            } catch (Exception ignored) {}
+                return generators.get(pos).generate();
+            } catch (Exception ex) {
+                generators.remove(pos);
+            }
         }
         throw new CannotGenerateTaskException("Cannot generate task in any generator");
     }

@@ -3,12 +3,10 @@ package by.Dzenia.quizer.tasks.math_tasks;
 import by.Dzenia.quizer.Operation;
 
 public class EquationTask extends AbstractMathTask {
-
     public enum TypeOfEquationTask {
         LEFT_VARIABLE,
         RIGHT_VARIABLE
     }
-
     public EquationTask(double number,
                         double result,
                         Operation operation,
@@ -30,8 +28,8 @@ public class EquationTask extends AbstractMathTask {
                     answer = result + number;
                 }
                 case MULTIPLICATION -> {
-                    if (number == 0) {
-                         throw new ArithmeticException("Have a zero division");
+                    if (number == 0 && result != 0) {
+                         throw new IllegalArgumentException("Impossible task");
                     }
                     taskText = "x * " + number + " = " + result;
                     answer = result / number;
@@ -56,21 +54,19 @@ public class EquationTask extends AbstractMathTask {
                 answer = number - result;
             }
             case MULTIPLICATION -> {
-                if (number == 0) {
-                    throw new ArithmeticException("Have a zero division");
+                if (number == 0 && result != 0) {
+                    throw new IllegalArgumentException("Impossible task");
                 }
                 taskText = number + " * x = " + result;
                 answer = result / number;
             }
             case DIVISION -> {
-                if (result == 0) {
-                    throw new ArithmeticException("Have a zero division");
-                }
-                if (number == 0) {
-                    throw new IllegalArgumentException("Uncertainty in the answer!");
+                if (result == 0 && number != 0) {
+                    throw new IllegalArgumentException("Impossible task");
                 }
                 taskText =  number + " / x = " + result;
                 answer = number / result;
+                answerIsPossibleBeZero = false;
             }
         }
     }
