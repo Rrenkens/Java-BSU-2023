@@ -1,5 +1,4 @@
 package by.Dzenia.quizer;
-
 import by.Dzenia.quizer.quiz_exceptions.QuizAnswerAlreadyBeenProvidedException;
 import by.Dzenia.quizer.quiz_exceptions.QuizNotFinishedException;
 import by.Dzenia.quizer.task_generators.TaskGenerator;
@@ -10,9 +9,6 @@ import by.Dzenia.quizer.tasks.Task;
  * Class, который описывает один тест
  */
 class Quiz {
-
-    public static final int MAX_ATTEMPTS_TO_GENERATE_TASK = 100;
-
     private final TaskGenerator generator;
     private final int taskCount;
     private int countCorrectAnswers = 0;
@@ -35,17 +31,11 @@ class Quiz {
      */
     public Task nextTask() throws CannotGenerateTaskException {
         if (!incorrectAnswer) {
-            for (int i = 0; i < MAX_ATTEMPTS_TO_GENERATE_TASK; ++i) {
-                try {
-                    currentTask = generator.generate();
-                    return currentTask;
-                } catch (CannotGenerateTaskException ignored) {}
-            }
-            throw new CannotGenerateTaskException("Cannot generate a task, you can try again");
+            currentTask = generator.generate();
+            return currentTask;
         }
         return currentTask;
     }
-
     /**
      * Предоставить ответ ученика. Если результат {@link Result#INCORRECT_INPUT}, то счетчик неправильных
      * ответов не увеличивается, а {@link #nextTask()} в следующий раз вернет тот же самый объект {@link Task}.

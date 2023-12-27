@@ -1,6 +1,5 @@
 package by.Dzenia.quizer.task_generators.math_task_generators;
 import by.Dzenia.quizer.Operation;
-
 import java.util.EnumSet;
 import java.util.Random;
 public abstract class AbstractMathGenerator implements MathTaskGenerator {
@@ -43,12 +42,10 @@ public abstract class AbstractMathGenerator implements MathTaskGenerator {
         Random random = new Random();
         return random.nextInt(0, Integer.MAX_VALUE);
     }
-
     @Override
     public double getMinNumber() {
         return minNumber;
     }
-
     @Override
     public double getMaxNumber() {
         return maxNumber;

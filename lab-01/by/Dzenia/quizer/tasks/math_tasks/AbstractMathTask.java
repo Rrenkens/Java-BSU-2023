@@ -13,9 +13,6 @@ public abstract class AbstractMathTask implements MathTask {
     }
 
     public Result validate(String answer) {
-        if (Double.isNaN(this.answer)) {
-            return Result.OK;
-        }
         double answerDouble;
         try {
             answerDouble = Double.parseDouble(answer);
@@ -24,6 +21,9 @@ public abstract class AbstractMathTask implements MathTask {
         }
         if (answerDouble == 0 && !answerIsPossibleBeZero) {
             return Result.WRONG;
+        }
+        if (Double.isNaN(this.answer)) {
+            return Result.OK;
         }
         if (Math.abs(answerDouble - this.answer) <= Math.pow(10, -precision)) {
             return Result.OK;

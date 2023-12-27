@@ -8,10 +8,11 @@ import by.Dzenia.quizer.task_generators.math_task_generators.EquationTaskGenerat
 import by.Dzenia.quizer.task_generators.math_task_generators.ExpressionTaskGenerator;
 import by.Dzenia.quizer.tasks.Task;
 import by.Dzenia.quizer.tasks.TextTask;
-
-
-import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
     static Map<String, Quiz> getQuizMap() {
@@ -39,15 +40,19 @@ public class Main {
         var poolGptTextQuiz = new Quiz(new PoolTaskGenerator(false, gptTextTasks), 5);
         quizMap.put("GPT funny questions quiz", poolGptTextQuiz);
 
-        var hardAllQuiz = new Quiz(new GroupTaskGenerator(new GroupTaskGenerator(new EquationTaskGenerator(-100, 100, 2, allOperations),
-                new ExpressionTaskGenerator(-100, 100, 2, allOperations)), new PoolTaskGenerator(false, gptTextTasks)), 10);
-        quizMap.put("Mixed Quiz", hardAllQuiz);
-
         try {
             var gener = new EquationTaskGenerator(10, -10, 0, allOperations);
         } catch (IllegalArgumentException e) {
             System.out.println(e.toString());
         }
+        var equationDifficultCases = new Quiz(new EquationTaskGenerator(0, 1, 0,
+                EnumSet.of(Operation.MULTIPLICATION, Operation.DIVISION)), 7);
+        quizMap.put("Equation Difficult Cases", equationDifficultCases);
+        var hardAllQuiz = new Quiz(new GroupTaskGenerator(new GroupTaskGenerator(new EquationTaskGenerator(-100, 100, 2, allOperations),
+                new ExpressionTaskGenerator(-100, 100, 2, allOperations)), new PoolTaskGenerator(false, gptTextTasks),
+                new EquationTaskGenerator(0, 1, 0,
+                        EnumSet.of(Operation.MULTIPLICATION, Operation.DIVISION))), 10);
+        quizMap.put("Mixed Quiz", hardAllQuiz);
         return quizMap;
     }
 
@@ -68,13 +73,16 @@ public class Main {
 
     public static void main(String[] args) throws CannotGenerateTaskException, QuizAnswerAlreadyBeenProvidedException, QuizNotFinishedException {
         Map<String, Quiz> quizMap = getQuizMap();
-        System.out.println("Enter the name of the test. Available tests are\n" + quizMap.keySet());
-        Scanner reader = new Scanner(System.in);
         String name;
-        name = reader.nextLine();
-        if (!quizMap.containsKey(name)) {
-            System.out.println("There is no such test here");
-            return;
+        Scanner reader = new Scanner(System.in);
+        while (true) {
+            System.out.println("Enter the name of the test. Available tests are\n" + quizMap.keySet());
+            name = reader.nextLine();
+            if (!quizMap.containsKey(name)) {
+                System.out.println("There is no such test here, try again");
+                continue;
+            }
+            break;
         }
         Quiz quiz = quizMap.get(name);
         while (!quiz.isFinished()) {
@@ -84,6 +92,5 @@ public class Main {
             quiz.provideAnswer(answer);
             System.out.println(quizResult(quiz));
         }
-        System.out.println(quizResult(quiz));
     }
 }
