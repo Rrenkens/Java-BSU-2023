@@ -5,6 +5,10 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Hobo implements Runnable {
     private boolean isCook = false;
@@ -14,11 +18,26 @@ public class Hobo implements Runnable {
     private final CyclicBarrier eatingBarrier;
     private final Dock dock;
     private final HoboGroup group;
+    private final Logger logger;
 
     public Hobo(HoboGroup group, Dock dock, CyclicBarrier eatingBarrier) {
         this.dock = dock;
         this.group = group;
         this.eatingBarrier = eatingBarrier;
+        this.logger = createLogger();
+    }
+
+    private Logger createLogger() {
+        Logger logger = Logger.getLogger(Hobo.class.getName());
+        try {
+            // Создание обработчика файла логов
+            FileHandler fileHandler = new FileHandler("log/hobo.log");
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to create logger", e);
+        }
+        return logger;
     }
 
     public void becomeCook(Semaphore cookSemaphore, Lock ingredientsLock, Semaphore eatingSemaphore) {
@@ -46,15 +65,14 @@ public class Hobo implements Runnable {
                 stealIngredient();
             }
         } catch (InterruptedException | BrokenBarrierException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Thread interrupted", e);
         }
     }
 
     private void stealIngredient() {
         int ingredient = dock.steal();
-        System.out.println("Putting " + this.hashCode());
         group.putIngredient(ingredient);
-        System.out.println("Stealing " + this.hashCode() + "\n" + Arrays.toString(group.getIngredients()));
+        logger.info("Stole ingredient: " + ConfigReader.getInstance().getCargoTypes()[ingredient]);
     }
 
     private void tryCook() {

@@ -17,6 +17,10 @@ public class Ship {
         return cargoType;
     }
 
+    public String getTypeName() {
+        return ConfigReader.getInstance().getCargoTypes()[cargoType];
+    }
+
     public int take(int x) {
         if (store > x) {
             store -= x;

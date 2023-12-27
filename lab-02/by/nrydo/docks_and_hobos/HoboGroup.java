@@ -7,6 +7,10 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class HoboGroup implements Runnable {
     private final Thread[] threads;
@@ -16,6 +20,7 @@ public class HoboGroup implements Runnable {
     private final Lock ingredientsLock;
     private final CyclicBarrier eatingBarrier;
     private final AtomicBoolean eating;
+    private final Logger logger;
 
     HoboGroup(Dock dock) {
         Hobo[] hobos = new Hobo[ConfigReader.getInstance().getHobos()];
@@ -28,6 +33,7 @@ public class HoboGroup implements Runnable {
         eating = new AtomicBoolean(false);
 
         threads = new Thread[hobos.length];
+        logger = createLogger();
 
         for (int i = 0; i < hobos.length; i++) {
             hobos[i] = new Hobo(this, dock, eatingBarrier);
@@ -43,7 +49,24 @@ public class HoboGroup implements Runnable {
         hobos[secondCook].becomeCook(cookSemaphore, ingredientsLock, eatingSemaphore);
     }
 
+    private Logger createLogger() {
+        Logger logger = Logger.getLogger(HoboGroup.class.getName());
+        try {
+            FileHandler fileHandler = new FileHandler("log/hobo_group.log");
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to create logger", e);
+        }
+        return logger;
+    }
+
+    private void logEating() {
+        logger.info("Hobos are eating");
+    }
+
     void eat() {
+        logEating();
         int[] ingredientsCount = ConfigReader.getInstance().getIngredientsCount();
         for (int i = 0; i < ingredients.length; i++) {
             ingredients[i] -= ingredientsCount[i];
@@ -79,7 +102,7 @@ public class HoboGroup implements Runnable {
                 eatingBarrier.await();
             }
         } catch (InterruptedException | BrokenBarrierException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "Thread interrupted", e);
         }
     }
 }
