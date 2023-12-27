@@ -1,14 +1,13 @@
 package by.Dzenia.quizer.task_generators;
 import by.Dzenia.quizer.task_generators.generator_exceptions.CannotGenerateTaskException;
-import by.Dzenia.quizer.task_generators.math_task_generators.AbstractMathGenerator;
 import by.Dzenia.quizer.tasks.Task;
-
+import by.Dzenia.quizer.tasks.math_tasks.AbstractMathTask;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class PoolTaskGenerator implements TaskGenerator {
+public class PoolGenerator implements Task.Generator {
 
     private boolean allowDuplicate;
     private ArrayList<Task> tasks;
@@ -18,7 +17,7 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param allowDuplicate разрешить повторения
      * @param tasks          задания, которые в конструктор передаются через запятую
      */
-    public PoolTaskGenerator(
+    public PoolGenerator(
             boolean allowDuplicate,
             Task... tasks
     ) {
@@ -32,7 +31,7 @@ public class PoolTaskGenerator implements TaskGenerator {
      * @param allowDuplicate разрешить повторения
      * @param tasks          задания, которые передаются в конструктор в Collection (например, {@link LinkedList})
      */
-    public PoolTaskGenerator(
+    public PoolGenerator(
             boolean allowDuplicate,
             Collection<Task> tasks
     ) {
@@ -47,7 +46,7 @@ public class PoolTaskGenerator implements TaskGenerator {
         if (tasks.isEmpty()) {
             throw new CannotGenerateTaskException("No any task in pool tasks");
         }
-        int position = AbstractMathGenerator.generatePositiveInt() % tasks.size();
+        int position = AbstractMathTask.Generator.generatePositiveInt() % tasks.size();
         Task task = tasks.get(position);
         if (!allowDuplicate) {
             tasks.remove(position);

@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
-public class GroupTaskGenerator implements TaskGenerator {
-    private ArrayList<TaskGenerator> generators;
+public class GroupGenerator implements Task.Generator {
+    private ArrayList<Task.Generator> generators;
     /**
      * Конструктор с переменным числом аргументов
      *
      * @param generators генераторы, которые в конструктор передаются через запятую
      */
-    public GroupTaskGenerator(TaskGenerator... generators) {
+    public GroupGenerator(Task.Generator... generators) {
         this.generators = new ArrayList<>(Arrays.asList(generators));
     }
 
@@ -21,7 +21,7 @@ public class GroupTaskGenerator implements TaskGenerator {
      *
      * @param generators генераторы, которые передаются в конструктор в Collection (например, {@link ArrayList})
      */
-    public GroupTaskGenerator(Collection<TaskGenerator> generators) {
+    public GroupGenerator(Collection<Task.Generator> generators) {
         this.generators = new ArrayList<>(generators);
     }
 

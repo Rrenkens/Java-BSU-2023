@@ -1,7 +1,6 @@
 package by.Dzenia.quizer;
 import by.Dzenia.quizer.quiz_exceptions.QuizAnswerAlreadyBeenProvidedException;
 import by.Dzenia.quizer.quiz_exceptions.QuizNotFinishedException;
-import by.Dzenia.quizer.task_generators.TaskGenerator;
 import by.Dzenia.quizer.task_generators.generator_exceptions.CannotGenerateTaskException;
 import by.Dzenia.quizer.tasks.Task;
 
@@ -9,7 +8,7 @@ import by.Dzenia.quizer.tasks.Task;
  * Class, который описывает один тест
  */
 class Quiz {
-    private final TaskGenerator generator;
+    private final Task.Generator generator;
     private final int taskCount;
     private int countCorrectAnswers = 0;
     private int countWrongAnswers = 0;
@@ -20,7 +19,7 @@ class Quiz {
      * @param generator генератор заданий
      * @param taskCount количество заданий в тесте
      */
-    Quiz(TaskGenerator generator, int taskCount) {
+    Quiz(Task.Generator generator, int taskCount) {
         this.generator = generator;
         this.taskCount = taskCount;
     }

@@ -1,6 +1,6 @@
 package by.Dzenia.quizer.tasks.math_tasks;
-
 import by.Dzenia.quizer.Operation;
+import java.util.EnumSet;
 
 public class EquationTask extends AbstractMathTask {
     public enum TypeOfEquationTask {
@@ -67,6 +67,31 @@ public class EquationTask extends AbstractMathTask {
                 taskText =  number + " / x = " + result;
                 answer = number / result;
                 answerIsPossibleBeZero = false;
+            }
+        }
+    }
+
+    public static class Generator extends AbstractMathTask.Generator {
+        public Generator(double minNumber, double maxNumber, int precision, EnumSet<Operation> includedOperations) {
+            super(minNumber, maxNumber, precision, includedOperations);
+        }
+
+        @Override
+        public EquationTask generate() {
+            while (true) {
+                try {
+                    Operation operation = includedOperations.stream().toList().get(
+                            generatePositiveInt() % includedOperations.size());
+                    TypeOfEquationTask type = TypeOfEquationTask.RIGHT_VARIABLE;
+                    if (generatePositiveInt() % 2 == 0) {
+                        type = TypeOfEquationTask.LEFT_VARIABLE;
+                    }
+                    double number = truncateDouble(generateDouble(), precision);
+                    double result = truncateDouble(generateDouble(), precision);
+                    return new EquationTask(number, result, operation, type, precision);
+                } catch (Exception ignored) {
+
+                }
             }
         }
     }

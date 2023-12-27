@@ -1,12 +1,10 @@
 package by.Dzenia.quizer.tasks;
 import by.Dzenia.quizer.Result;
-import by.Dzenia.quizer.task_generators.PoolTaskGenerator;
-
-import java.util.Objects;
+import by.Dzenia.quizer.task_generators.PoolGenerator;
 
 /**
  * Задание с заранее заготовленным текстом.
- * Можно использовать {@link PoolTaskGenerator}, чтобы задавать задания такого типа.
+ * Можно использовать {@link PoolGenerator}, чтобы задавать задания такого типа.
  */
 public class TextTask implements Task {
 
@@ -36,6 +34,4 @@ public class TextTask implements Task {
         }
         return Result.WRONG;
     }
-
-    // ...
 }

@@ -1,13 +1,13 @@
 package by.Dzenia.quizer;
 import by.Dzenia.quizer.quiz_exceptions.QuizAnswerAlreadyBeenProvidedException;
 import by.Dzenia.quizer.quiz_exceptions.QuizNotFinishedException;
-import by.Dzenia.quizer.task_generators.GroupTaskGenerator;
-import by.Dzenia.quizer.task_generators.PoolTaskGenerator;
+import by.Dzenia.quizer.task_generators.GroupGenerator;
+import by.Dzenia.quizer.task_generators.PoolGenerator;
 import by.Dzenia.quizer.task_generators.generator_exceptions.CannotGenerateTaskException;
-import by.Dzenia.quizer.task_generators.math_task_generators.EquationTaskGenerator;
-import by.Dzenia.quizer.task_generators.math_task_generators.ExpressionTaskGenerator;
 import by.Dzenia.quizer.tasks.Task;
 import by.Dzenia.quizer.tasks.TextTask;
+import by.Dzenia.quizer.tasks.math_tasks.EquationTask;
+import by.Dzenia.quizer.tasks.math_tasks.ExpressionTask;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.EnumSet;
@@ -21,14 +21,14 @@ public class Main {
                 Operation.DIVISION,
                 Operation.MULTIPLICATION);
         HashMap<String, Quiz> quizMap = new HashMap<>();
-        var integerExpressionQuiz = new Quiz(new ExpressionTaskGenerator(-100, 100, 0,
+        var integerExpressionQuiz = new Quiz(new ExpressionTask.Generator(-100, 100, 0,
                 allOperations), 5);
         quizMap.put("Integer Expression Quiz", integerExpressionQuiz);
-        var integerEquationQuiz = new Quiz(new EquationTaskGenerator(-10, 20, 0,
+        var integerEquationQuiz = new Quiz(new EquationTask.Generator(-10, 20, 0,
                 allOperations), 5);
         quizMap.put("Integer Equation Quiz", integerEquationQuiz);
-        var groupOfEquationExpressionQuizzes = new Quiz(new GroupTaskGenerator(new EquationTaskGenerator(-10, 20, 1, allOperations),
-                new ExpressionTaskGenerator(-10, 20, 1, allOperations)), 6);
+        var groupOfEquationExpressionQuizzes = new Quiz(new GroupGenerator(new EquationTask.Generator(-10, 20, 1, allOperations),
+                new ExpressionTask.Generator(-10, 20, 1, allOperations)), 6);
         quizMap.put("Expression plus Equation quiz", groupOfEquationExpressionQuizzes);
 
         var gptTextTasks = new ArrayList<Task>();
@@ -37,20 +37,20 @@ public class Main {
         gptTextTasks.add(new TextTask("Что следует за вами, но никогда не догоняет вас?", "будущее"));
         gptTextTasks.add(new TextTask("Что можно сломать, называя его?", "молчание"));
         gptTextTasks.add(new TextTask("Что становится длиннее, когда отрезаешь от него часть?", "волосы"));
-        var poolGptTextQuiz = new Quiz(new PoolTaskGenerator(false, gptTextTasks), 5);
+        var poolGptTextQuiz = new Quiz(new PoolGenerator(false, gptTextTasks), 5);
         quizMap.put("GPT funny questions quiz", poolGptTextQuiz);
 
         try {
-            var gener = new EquationTaskGenerator(10, -10, 0, allOperations);
+            var gener = new EquationTask.Generator(10, -10, 0, allOperations);
         } catch (IllegalArgumentException e) {
             System.out.println(e.toString());
         }
-        var equationDifficultCases = new Quiz(new EquationTaskGenerator(0, 1, 0,
+        var equationDifficultCases = new Quiz(new EquationTask.Generator(0, 1, 0,
                 EnumSet.of(Operation.MULTIPLICATION, Operation.DIVISION)), 7);
         quizMap.put("Equation Difficult Cases", equationDifficultCases);
-        var hardAllQuiz = new Quiz(new GroupTaskGenerator(new GroupTaskGenerator(new EquationTaskGenerator(-100, 100, 2, allOperations),
-                new ExpressionTaskGenerator(-100, 100, 2, allOperations)), new PoolTaskGenerator(false, gptTextTasks),
-                new EquationTaskGenerator(0, 1, 0,
+        var hardAllQuiz = new Quiz(new GroupGenerator(new GroupGenerator(new EquationTask.Generator(-100, 100, 2, allOperations),
+                new ExpressionTask.Generator(-100, 100, 2, allOperations)), new PoolGenerator(false, gptTextTasks),
+                new EquationTask.Generator(0, 1, 0,
                         EnumSet.of(Operation.MULTIPLICATION, Operation.DIVISION))), 10);
         quizMap.put("Mixed Quiz", hardAllQuiz);
         return quizMap;
