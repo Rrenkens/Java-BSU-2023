@@ -120,6 +120,8 @@ public class PaintApp extends Application {
 
     private void clearCanvas() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        img = canvas.snapshot(null, null);
+        gc.drawImage(img, 0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     @Override
@@ -137,6 +139,10 @@ public class PaintApp extends Application {
         canvas.setOnMousePressed(mousePressedHandler);
         canvas.setOnMouseDragged(mouseDraggedHandler);
         canvas.setOnMouseReleased(mouseReleasedHandler);
+
+        img = canvas.snapshot(null, null);
+        gc.drawImage(img, 0, 0, canvas.getWidth(), canvas.getHeight());
+
 
         modeComboBox = new ComboBox<>();
         modeComboBox.getItems().addAll(Mode.Free, Mode.Rectangle, Mode.Circle);
