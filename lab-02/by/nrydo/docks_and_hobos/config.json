@@ -1,0 +1,13 @@
+{
+  "generating_time": 5,
+  "ship_capacity_min": 1,
+  "ship_capacity_max": 5,
+  "cargo_types": ["Bread", "Cheese", "Meat"],
+  "max_ships": 3,
+  "unloading_speed": 5,
+  "dock_capacity": 100,
+  "hobos": 5,
+  "ingredients_count": [1, 1, 1],
+  "stealing_time": 3,
+  "eating_time": 5
+}
